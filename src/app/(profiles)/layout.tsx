@@ -30,10 +30,10 @@ export default function ProfileLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="pl-20">
+        <div className="flex min-h-[100vh]">
           <Providers>
             <Sidebar />
-            <main className="p-7 flex flex-col gap-5">
+            <main className="w-full p-4 flex flex-col gap-5 grow-1 mx-auto">
               <Breadcrumbs />
               {children}
             </main>

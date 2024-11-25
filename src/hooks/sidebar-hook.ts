@@ -10,7 +10,7 @@ const useSidebarControl = () => {
   //side effect to timeout text on opening
   useEffect(() => {
     if (isSidebarOpen) {
-      const timeout = setTimeout(() => setShowText(true), 50);
+      const timeout = setTimeout(() => setShowText(true), 100);
       return () => clearTimeout(timeout);
     } else {
       setShowText(false);

@@ -3,9 +3,9 @@
 import { usePathname } from "next/navigation";
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator } from "./ui/breadcrumb";
 import Link from "next/link";
+import React from "react";
 
 import HomeIcon from '@/assets/icons/home.svg?rc';
-import React from "react";
 
 
 interface IBreadcumbsProps {

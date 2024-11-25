@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 const CompanyProfile = async () => {
   return (
     <div>
-      this is companyProfile
+      Main profile page
     </div>
   );
 }
