@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import "../globals.css";
 import Providers from "../providers";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import Sidebar from "@/components/Sidebar";
+import Sidebar from "@/components/Asides/Sidebar";
 
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
@@ -28,17 +28,20 @@ export default function ProfileLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
       >
-        <div className="flex min-h-[100vh]">
+        <main className="w-full flex min-h-screen">
           <Providers>
             <Sidebar />
-            <main className="w-full p-4 flex flex-col gap-5 grow-1 mx-auto">
+            <div className="p-6 w-full grid auto-rows-max grid-cols-1 gap-6">
               <Breadcrumbs />
               {children}
-            </main>
+
+            </div>
+
           </Providers>
-        </div>
+
+        </main>
       </body>
     </html>
   );

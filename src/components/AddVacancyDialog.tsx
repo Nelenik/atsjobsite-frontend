@@ -8,12 +8,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import { cn } from "@/lib/utils";
 import { CirclePlus } from 'lucide-react';
-const AddVacancyDialog = () => {
+const AddVacancyDialog = ({ className }: { className: string }) => {
   return (
     <Dialog >
       <DialogTrigger asChild>
-        <Button className="bg-blue-700 w-full py-6">
+        <Button className={cn("bg-blue-700 w-max lg:w-full py-6 text-base", className)}>
           <CirclePlus />Добавить вакансию
         </Button>
       </DialogTrigger>

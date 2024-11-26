@@ -6,32 +6,38 @@ import {
 } from "@/components/ui/card"
 import { getWordEndings } from "@/utils/getWordEnding";
 import { Badge } from "../ui/badge";
+import { cn } from "@/lib/utils";
 
 interface IVacancyCard {
   vacancyName: string,
   daysInProcessing: number,
-  vacancyStatus: 'Настройка' | 'В работе' | 'На паузе' | 'Ожидание'
+  vacancyStatus: string,
+  className?: string
 }
 
-const VacancyCard = ({ vacancyName, daysInProcessing, vacancyStatus }: IVacancyCard) => {
+const VacancyCard = ({ vacancyName, daysInProcessing, vacancyStatus, className, }: IVacancyCard) => {
 
   const daysString = `${daysInProcessing} ${getWordEndings(daysInProcessing, ['день', 'дня', 'дней'])}`
 
-  const badgeColors = {
-    'Настройка': 'bg-indigo-300 hover:bg-indigo-300/80',
-    'В работе': 'bg-blue-300 hover:bg-blue-300/80',
-    'На паузе': 'bg-gray-500 hover:bg-gray-300/80',
-    'Ожидание': 'bg-emerald-400 hover:bg-emerald-300/80',
+  //styles for diferent statuses
+  const badgeColors: Record<string, string> = {
+    'настройка': 'bg-indigo-300 hover:bg-indigo-300/80',
+    'в работе': 'bg-blue-300 hover:bg-blue-300/80',
+    'на паузе': 'bg-gray-500 hover:bg-gray-500/80',
+    'ожидание': 'bg-emerald-400 hover:bg-emerald-400/80',
   }
 
+  //convert vacansy status to lower case
+  const lowerCasedStatus = vacancyStatus.toLowerCase()
+
   return (
-    <Card className="w-full p-4">
+    <Card className={cn("w-full py-4 px-6 hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-200", className)}>
       <CardHeader className="p-0 mb-2">
         <CardTitle className="text-base">{vacancyName}</CardTitle>
       </CardHeader>
-      <CardFooter className="flex justify-between p-0">
+      <CardFooter className="flex justify-between p-0 text-sm text-muted-foreground">
         {daysString}
-        <Badge className={badgeColors[vacancyStatus]}>{vacancyStatus}</Badge>
+        <Badge className={badgeColors[lowerCasedStatus] ?? 'bg-zinc-900 hover:bg-zinc-900/80'}>{lowerCasedStatus}</Badge>
       </CardFooter>
     </Card>
   );
