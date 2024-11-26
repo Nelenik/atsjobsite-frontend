@@ -21,13 +21,19 @@ const tempMockData = [
 
 const VacanciesAside = ({ className }: IVacanciesAside) => {
   const path = usePathname()
-  console.log(path)
+  const params = useParams()
+
+  //clean current route from prev vacancy segment
+  const cleanedPath = params?.vacancy
+    ? path.replace(new RegExp(`\/${params.vacancy}$`), '')
+    : path;
+
   return (
     <aside className={cn("w-full lg:w-60 shrink-0 flex flex-col gap-6 ", className)}>
       <AddVacancyDialog className="self-start " />
       <div className="gap-1.5 grid grid-cols-[repeat(auto-fit,_minmax(240px,_1fr))] lg:grid-cols-1">
         {tempMockData.map(el => (
-          <Link key={el.id} href={`${path}/${el.id}`}>
+          <Link key={el.id} href={`${cleanedPath}/${el.name}`}>
             <VacancyCard vacancyName={el.name} daysInProcessing={el.days} vacancyStatus={el.status} />
           </Link>
         ))}

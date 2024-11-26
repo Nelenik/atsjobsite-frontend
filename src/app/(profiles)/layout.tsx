@@ -30,10 +30,10 @@ export default function ProfileLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
       >
-        <main className="w-full flex min-h-screen">
+        <main className="w-full flex h-screen overflow-hidden">
           <Providers>
             <Sidebar />
-            <div className="p-6 w-full grid auto-rows-max grid-cols-1 gap-6">
+            <div className="p-6 w-full grid auto-rows-max grid-cols-1 gap-6 h-full overflow-y-auto">
               <Breadcrumbs />
               {children}
 

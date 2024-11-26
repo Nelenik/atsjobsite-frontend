@@ -9,7 +9,7 @@ const VacancyDetails = () => {
         { daysInProcessing: 15, salaryOffer: 75000, salaryMiddle: 68370, salaryQueries: 80000, candidatesCount: 18, jobReactions: 90 }
       } />
 
-      <div className="flex gap-6 w-full overflow-auto pb-2">
+      <div className="flex gap-6 w-full overflow-auto pb-2 shadow-inner">
         <div className="flex gap-6 flex-col">
           <FunnelCard name="Контакты" count={125} />
           <ul className="[&>li:not(:last-child)]:mb-2">

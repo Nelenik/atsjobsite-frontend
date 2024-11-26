@@ -25,7 +25,7 @@ const Sidebar = () => {
   const userEmail = 'test@gmail.com'
 
   return (
-    <div ref={sidebarRef} className={cn("flex flex-col items-center px-4 py-6  bg-sidebar text-sidebar-foreground ")}>
+    <div ref={sidebarRef} className={cn("flex flex-col items-center px-4 py-6  bg-sidebar text-sidebar-foreground")}>
       <Link href={'/'} className={cn("mb-3 self-start", isSidebarOpen && 'translate-x-3 transition-transform duration-75')}>
         <LogoSvg width={50} height={50} />
       </Link>

@@ -11,7 +11,7 @@ interface IFunnelCard {
 const FunnelCard = ({ name, count }: IFunnelCard) => {
   return (
     <Card className="w-full py-4 px-6 flex flex-col items-center">
-      <CardTitle className="mb">{name}</CardTitle>
+      <CardTitle className="mb text-lg lg:text-2xl">{name}</CardTitle>
       <CardDescription>{count}</CardDescription>
     </Card>
   );
