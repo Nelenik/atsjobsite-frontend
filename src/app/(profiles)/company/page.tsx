@@ -1,14 +1,15 @@
+
 import { Metadata } from "next";
+import React from "react";
 
 export const metadata: Metadata = {
   title: "REkrutAI|Company Profile",
 };
-const CompanyProfile = async () => {
+const CompanyPage = async () => {
   return (
-    <div>
-      Main profile page
-    </div>
+    <div> this is company page</div>
   );
+
 }
 
-export default CompanyProfile;
+export default CompanyPage;

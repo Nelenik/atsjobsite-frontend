@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "../globals.css";
 import Providers from "../providers";
-import Breadcrumbs from "@/components/Breadcrumbs";
-import Sidebar from "@/components/Asides/Sidebar";
 
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
@@ -32,12 +30,12 @@ export default function ProfileLayout({
       >
         <main className="w-full flex h-screen overflow-hidden">
           <Providers>
-            <Sidebar />
+            {/* <Sidebar />
             <div className="p-6 w-full grid auto-rows-max grid-cols-1 gap-6 h-full overflow-y-auto">
               <Breadcrumbs />
-              {children}
 
-            </div>
+            </div> */}
+            {children}
 
           </Providers>
 

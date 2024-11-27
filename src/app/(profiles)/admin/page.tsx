@@ -1,12 +1,18 @@
 import { Metadata } from "next";
+import Link from "next/link";
+import React from "react";
 
 export const metadata: Metadata = {
   title: "REkrutAI|Admin Panel",
 };
-const AdminPanel = () => {
-  return (<div>
-    this is Admin panel
-  </div>);
+const AdminPage = () => {
+  return (
+    <div>
+      this is the admin main page
+      <br />
+      <Link href={'/company'}>link to company</Link>
+    </div>
+  );
 }
 
-export default AdminPanel;
+export default AdminPage;

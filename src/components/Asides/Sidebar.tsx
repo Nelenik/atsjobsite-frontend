@@ -4,10 +4,6 @@ import Link from "next/link";
 import LogoSvg from '@/assets/icons/logo.svg?rc';
 import { Menu } from 'lucide-react'
 import SideBarBtn from "@/components/Buttons/SideBarBtn";
-import HomeIcon from '@/assets/icons/home.svg?rc'
-import VacansyIcon from '@/assets/icons/user-money.svg?rc'
-import ReportIcon from '@/assets/icons/file.svg?rc'
-import SettingIcon from '@/assets/icons/time-settings.svg?rc'
 import { cn } from "@/lib/utils";
 import useSidebarControl from "@/hooks/sidebar-hook";
 import {
@@ -15,9 +11,19 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@/components/ui/avatar"
+import { ReactNode } from "react";
 
+export interface SidebarRoutes {
+  routeName: string,
+  href: string,
+  icon: ReactNode
+}
 
-const Sidebar = () => {
+interface ISidebarProps {
+  routes: SidebarRoutes[]
+}
+
+const Sidebar = ({ routes = [] }: ISidebarProps) => {
   const { sidebarRef, handleOpen, isSidebarOpen, showText } = useSidebarControl()
 
   //temporar
@@ -37,7 +43,21 @@ const Sidebar = () => {
         isSidebarOpen ? "w-56" : "w-12"
       )}>
         <ul className="space-y-0">
-          <li>
+          {routes.map((el) => {
+            return (
+              <li key={el.routeName}>
+                <SideBarBtn asChild className="gap-3">
+                  <Link className="w-full" href={el.href}>
+                    {el.icon}
+                    {/* <HomeIcon className="[&>*]:fill-sidebar-foreground" />  */}
+
+                    {showText && <span className="ml-2">{el.routeName}</span>}
+                  </Link>
+                </SideBarBtn>
+              </li>
+            )
+          })}
+          {/* <li>
             <SideBarBtn asChild className="gap-3">
               <Link className="w-full" href={'/companies/1'}>
                 <HomeIcon className="[&>*]:fill-sidebar-foreground" /> {showText && <span className="ml-2">Главная</span>}
@@ -64,7 +84,7 @@ const Sidebar = () => {
                 <SettingIcon className="[&>*]:fill-sidebar-foreground" /> {showText && <span className="ml-2">Настройки</span>}
               </Link>
             </SideBarBtn>
-          </li>
+          </li> */}
         </ul>
       </nav>
       <div className={cn("mt-auto flex gap-3 items-center min-h-[46px] self-start translate-x-1", isSidebarOpen && 'translate-x-3 transition-transform duration-75')}>
