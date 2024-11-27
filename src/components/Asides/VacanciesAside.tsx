@@ -4,7 +4,7 @@ import ArchiveIcon from '@/assets/icons/archive.svg?rc';
 import AddVacancyDialog from "../AddVacancyDialog";
 import VacancyCard from "../Cards/VacancyCard";
 import { cn } from "@/lib/utils";
-import { useParams, usePathname } from 'next/navigation';
+import { useParams, usePathname, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
 interface IVacanciesAside {
@@ -22,6 +22,7 @@ const tempMockData = [
 const VacanciesAside = ({ className }: IVacanciesAside) => {
   const path = usePathname()
   const params = useParams()
+  const searchParams = useSearchParams()
 
   //clean current route from prev vacancy segment
   const cleanedPath = params?.vacancy
@@ -33,7 +34,7 @@ const VacanciesAside = ({ className }: IVacanciesAside) => {
       <AddVacancyDialog className="self-start " />
       <div className="gap-1.5 grid grid-cols-[repeat(auto-fit,_minmax(240px,_1fr))] lg:grid-cols-1">
         {tempMockData.map(el => (
-          <Link key={el.id} href={`${cleanedPath}/${el.name}`}>
+          <Link key={el.id} href={`${cleanedPath}/${el.name}?${searchParams.toString()}`}>
             <VacancyCard vacancyName={el.name} daysInProcessing={el.days} vacancyStatus={el.status} />
           </Link>
         ))}

@@ -12,6 +12,7 @@ import {
   AvatarImage,
 } from "@/components/ui/avatar"
 import { ReactNode } from "react";
+import { useSearchParams } from "next/navigation";
 
 export interface SidebarRoutes {
   routeName: string,
@@ -25,6 +26,7 @@ interface ISidebarProps {
 
 const Sidebar = ({ routes = [] }: ISidebarProps) => {
   const { sidebarRef, handleOpen, isSidebarOpen, showText } = useSidebarControl()
+  const searchParams = useSearchParams()
 
   //temporar
   const userName = 'Петров Дмитрий'
@@ -47,7 +49,7 @@ const Sidebar = ({ routes = [] }: ISidebarProps) => {
             return (
               <li key={el.routeName}>
                 <SideBarBtn asChild className="gap-3">
-                  <Link className="w-full" href={el.href}>
+                  <Link className="w-full" href={`${el.href}?${searchParams.toString()}`}>
                     {el.icon}
                     {/* <HomeIcon className="[&>*]:fill-sidebar-foreground" />  */}
 
@@ -57,34 +59,6 @@ const Sidebar = ({ routes = [] }: ISidebarProps) => {
               </li>
             )
           })}
-          {/* <li>
-            <SideBarBtn asChild className="gap-3">
-              <Link className="w-full" href={'/companies/1'}>
-                <HomeIcon className="[&>*]:fill-sidebar-foreground" /> {showText && <span className="ml-2">Главная</span>}
-              </Link>
-            </SideBarBtn>
-          </li>
-          <li>
-            <SideBarBtn asChild className="gap-3">
-              <Link className="w-full" href={'/companies/1/vacancies'}>
-                <VacansyIcon className="[&>*]:fill-sidebar-foreground" /> {showText && <span className="ml-2">Вакансии</span>}
-              </Link>
-            </SideBarBtn>
-          </li>
-          <li>
-            <SideBarBtn asChild className="gap-3">
-              <Link className="w-full" href={'/companies/1/reports'}>
-                <ReportIcon className="[&>*]:fill-sidebar-foreground" /> {showText && <span className="ml-2">Отчеты</span>}
-              </Link>
-            </SideBarBtn>
-          </li>
-          <li>
-            <SideBarBtn asChild className="gap-3">
-              <Link className="w-full" href={'/companies/1/settings'}>
-                <SettingIcon className="[&>*]:fill-sidebar-foreground" /> {showText && <span className="ml-2">Настройки</span>}
-              </Link>
-            </SideBarBtn>
-          </li> */}
         </ul>
       </nav>
       <div className={cn("mt-auto flex gap-3 items-center min-h-[46px] self-start translate-x-1", isSidebarOpen && 'translate-x-3 transition-transform duration-75')}>
