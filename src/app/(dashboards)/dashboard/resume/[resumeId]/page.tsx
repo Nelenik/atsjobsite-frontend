@@ -1,7 +1,9 @@
+import Resume from "@/components/Pages/Resume";
+
 const ResumePage = () => {
   return (
     <div>
-      This is resume page
+      <Resume />
     </div>
   );
 }
