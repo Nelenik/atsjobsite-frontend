@@ -9,8 +9,9 @@ const VacanciesLayout = async ({
 }>) => {
   const vacancies = await getBasicVacancies()
   return (
-    <div className="flex gap-5 flex-col w-full lg:flex-row">
+    <div className="flex gap-10 flex-col w-full lg:gap-5 lg:flex-row">
       <VacanciesAside basicVacancies={vacancies} />
+      <div className=" h-px bg-gray-400 w-2/3 self-center lg:hidden"></div>
       <div className="w-full lg:w-[calc(100%-240px-20px)]">
         {children}
       </div>

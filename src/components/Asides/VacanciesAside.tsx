@@ -24,15 +24,14 @@ const VacanciesAside = ({ basicVacancies = [], className }: IVacanciesAside) => 
     : path;
 
   return (
-    <aside className={cn("w-full lg:w-60 shrink-0 flex flex-col gap-6 ", className)}>
+    <aside className={cn("w-full shrink-0 flex flex-col gap-6 lg:w-60", className)}>
       <AddVacancyDialog className="self-start " />
       <div className="gap-1.5 grid grid-cols-[repeat(auto-fit,_minmax(240px,_1fr))] lg:grid-cols-1">
         {basicVacancies.map(vacancy => {
           const { VacName, VacStatus, id, VacCrD } = vacancy
 
           //get vacancy timestamp in seconds to transform in days for rendering
-          const vacancyTimestamp = Math.floor(new Date(VacCrD).getTime() / 1000)
-
+          const vacancyTimestamp = Math.floor((new Date().getTime() - new Date(VacCrD).getTime()) / 1000)
           const { days } = getTimePartsFromSec(vacancyTimestamp)
 
           return (
