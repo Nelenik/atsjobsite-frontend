@@ -1,5 +1,10 @@
 import { getBasicVacancies } from "@/actions/getData";
 import VacanciesAside from "@/components/Asides/VacanciesAside";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "REkrutAI|Вакансии",
+};
 
 
 const VacanciesLayout = async ({

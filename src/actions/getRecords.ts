@@ -62,6 +62,6 @@ export const getRecordById = async (
     },
   });
 
-  const res = await response.json();
-  return res;
+  const record = await response.json();
+  return { id: record.id, createdTime: record.createdTime, ...record.fields };
 };
