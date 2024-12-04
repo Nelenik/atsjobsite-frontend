@@ -4,26 +4,34 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import CaseIcon from '@/assets/icons/case.svg?rc'
-import { getWordEndings } from "@/utils/getWordEnding"
-import { formatPrice } from "@/utils/formatersIntl"
-
-interface ISummaryData {
-  daysInProcessing: number,
-  salaryOffer: number,
-  salaryMiddle: number,
-  salaryQueries: number,
-  candidatesCount: number,
-  jobReactions: number
-}
+import { getWordEndings } from "@/lib/utils/getWordEnding"
+import { formatPrice } from "@/lib/utils/formatersIntl"
+import { ISummaryData } from "@/types/vacancyTypes"
+import { getSalaryRange } from "@/lib/utils/getSalaryRange"
 
 interface ISummaryCard {
   vacancyName: string
   summaryData: ISummaryData
 }
 
+
+
 const SummaryCard = ({ vacancyName, summaryData }: ISummaryCard) => {
-  const { daysInProcessing, salaryOffer, salaryMiddle, salaryQueries,
-    candidatesCount, jobReactions } = summaryData
+  const {
+    daysInProcessing,
+    salaryOfferFrom,
+    salaryOfferTo,
+    salaryMiddle,
+    salaryCandidate,
+    candidatesCount,
+    jobReactions
+  } = summaryData
+
+  const daysString = `${daysInProcessing} ${getWordEndings(daysInProcessing, ['день', 'дня', 'дней'])}`
+
+  const salaryOfferString = getSalaryRange(salaryOfferFrom, salaryOfferTo)
+  const salaryMiddleString = formatPrice(salaryMiddle, 'ru-Ru', 'RUB');
+  const salaryCandidateString = formatPrice(salaryCandidate, 'ru-Ru', 'RUB');
 
   return (
     <Card className="w-full py-4 px-6 flex gap-6">
@@ -51,19 +59,19 @@ const SummaryCard = ({ vacancyName, summaryData }: ISummaryCard) => {
         >
           <li >
             <CardDescription>в работе</CardDescription>
-            <p>{`${daysInProcessing} ${getWordEndings(daysInProcessing, ['день', 'дня', 'дней'])}`}</p>
+            <p>{daysString}</p>
           </li>
           <li>
             <CardDescription>оплата</CardDescription>
-            <p>{formatPrice(salaryOffer, 'ru-Ru', 'RUB')}</p>
+            <p>{salaryOfferString}</p>
           </li>
           <li>
             <CardDescription>средняя по рынку</CardDescription>
-            <p>{formatPrice(salaryMiddle, 'ru-Ru', 'RUB')}</p>
+            <p>{salaryMiddleString}</p>
           </li>
           <li>
             <CardDescription>запросы кандидатов</CardDescription>
-            <p>{formatPrice(salaryQueries, 'ru-Ru', 'RUB')}</p>
+            <p>{salaryCandidateString}</p>
           </li>
           <li>
             <CardDescription>кандидатов в воронке</CardDescription>
