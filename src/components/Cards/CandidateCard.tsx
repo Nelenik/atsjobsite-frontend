@@ -1,11 +1,10 @@
 import {
   Card,
 } from "@/components/ui/card"
-import { formatNumber, formatPrice } from "@/utils/formatersIntl";
+import { formatNumber, formatPrice } from "@/lib/utils/formatersIntl";
 
-// import Star from '@/components/Star'
-import { Star } from "lucide-react";
-import { cn } from "@/lib/utils";
+import Star from '@/components/Star'
+import { splitRatingToArr } from "@/lib/utils/splitRatingToArr";
 
 interface ICandidateCard {
   name: string,
@@ -27,17 +26,17 @@ const CandidateCard = ({ name, city, salary, rating }: ICandidateCard) => {
           {formatNumber(rating, 'en-Us', 2)}
         </p>
         <div className="flex gap-px">
-          {Array.from({ length: Math.max(Math.ceil(rating), 5) }, (_, i) => {
-            const isFractional = i + 1 > Math.floor(rating);
-
+          {/* Split rating into array to implemet partiall filled star */}
+          {splitRatingToArr(rating).map((num: number, i) => {
             return (
               <Star
-                className={cn('text-yellow-600', !isFractional && 'fill-yellow-600')}
+                className='text-yellow-500'
+                fillLeft={num}
                 key={i}
                 width={12}
                 height={12}
               />
-            );
+            )
           })}
         </div>
       </div>
