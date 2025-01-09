@@ -1,7 +1,7 @@
 'use client'
 
 import ArchiveIcon from '@/assets/icons/archive.svg?rc';
-import AddVacancyDialog from "../AddVacancyDialog";
+import AddVacancyDialog from "../Modals/AddVacancyDialog";
 import VacancyCard from "../Cards/VacancyCard";
 import { cn } from "@/lib/utils";
 import { useParams, usePathname } from 'next/navigation';
