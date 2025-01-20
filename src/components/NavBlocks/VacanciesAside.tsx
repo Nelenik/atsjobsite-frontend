@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 import { getTimePartsFromSec } from '@/lib/utils/getTimePartsFromSec';
 import { TVacancyShort } from '@/shared/types';
 
-import { AddVacancyDialog } from '../Modals/AddVacancyModal';
+import { AddVacancyModal } from '../Modals/AddVacancyModal';
 import { VacancyCard } from '../Cards/VacancyCard';
 
 type TProps = {
@@ -32,7 +32,7 @@ export const VacanciesAside: FC<TProps> = ({ vacancies, className }) => {
         className
       )}
     >
-      <AddVacancyDialog className="self-start" />
+      <AddVacancyModal className="self-start" />
 
       <div className="gap-1.5 grid grid-cols-[repeat(auto-fit,_minmax(240px,_1fr))] auto-rows-auto lg:grid-cols-1">
         {vacancies.map((vacancy) => {

@@ -9,21 +9,21 @@ import { Button } from "../ui/button";
 const AddCompanyForm = () => {
   return (
     <form action={createCompany} className="flex flex-col justify-between grow">
-      <div className="columns-2 gap-6">
+      <div className="sm:columns-2 sm:gap-6 [&>*:not(:last-child)]:mb-6 mb-6">
         <FormItem labelText="Название">
-          <Input placeholder="Название" name="name" />
+          <Input placeholder="Название" name="CompName" />
         </FormItem>
         <FormItem labelText="Полное наименование">
-          <Textarea placeholder="Полное наименование" name="full-name" className="resize-none" rows={9}></Textarea>
+          <Textarea placeholder="Полное наименование" name="CompFullName" className="resize-none" rows={9}></Textarea>
         </FormItem>
         <FormItem labelText="Описание">
-          <Textarea placeholder="Описание организации" name="description" className="resize-none" rows={17}></Textarea>
+          <Textarea placeholder="Описание организации" name="CompDisc" className="resize-none" rows={17}></Textarea>
         </FormItem>
         <FormItem labelText="ИНН" className="break-before-column">
-          <Input placeholder="ИНН" name="inn" />
+          <Input placeholder="ИНН" name="CompINN" />
         </FormItem>
         <FormItem labelText="Тариф">
-          <Select name="rate">
+          <Select name="Rate">
             <SelectTrigger >
               <SelectValue placeholder="Выбранный тарифный план" />
             </SelectTrigger>
@@ -35,7 +35,7 @@ const AddCompanyForm = () => {
           </Select>
         </FormItem>
         <FormItem labelText="Дата оплаты">
-          <DatePicker nameAttr="pay-date" />
+          <DatePicker nameAttr="RateDate" />
         </FormItem>
       </div>
 
@@ -44,7 +44,7 @@ const AddCompanyForm = () => {
           Отмена
         </Button>
         <Button type="submit">
-          Создать
+          Сохранить
         </Button>
       </div>
     </form>
