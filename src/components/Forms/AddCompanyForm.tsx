@@ -1,4 +1,4 @@
-import { createCompany } from "@/actions/postData";
+import { createData } from "@/actions/postData";
 import FormItem from "./form_elements/FormItem";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
@@ -8,7 +8,7 @@ import { Button } from "../ui/button";
 
 const AddCompanyForm = () => {
   return (
-    <form action={createCompany} className="flex flex-col justify-between grow">
+    <form action={createData} className="flex flex-col justify-between grow">
       <div className="sm:columns-2 sm:gap-6 [&>*:not(:last-child)]:mb-6 mb-6">
         <FormItem labelText="Название">
           <Input placeholder="Название" name="CompName" />

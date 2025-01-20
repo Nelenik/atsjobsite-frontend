@@ -1,4 +1,5 @@
 import AddCompanyModal from "@/components/Modals/AddCompanyModal";
+import AddResumeModal from "@/components/Modals/AddResumeModal";
 import { AddVacancyModal } from "@/components/Modals/AddVacancyModal";
 
 const DashboardMain = () => {
@@ -7,7 +8,12 @@ const DashboardMain = () => {
       <div className="w-[70%]">
 
         <AddCompanyModal />
+        <br />
+        <br />
         <AddVacancyModal />
+        <br />
+        <br />
+        <AddResumeModal />
       </div>
     </div>
   );
