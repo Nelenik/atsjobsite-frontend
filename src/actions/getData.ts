@@ -5,11 +5,12 @@ import {
   TApiListResponse,
   TApiSuccessResponse,
   TCandidateShort,
+  TTariff,
   TVacancy,
   TVacancyShort,
 } from '@/shared/types';
 
-import { apiGet } from './getRecords';
+import { apiGet } from './api';
 
 export const getVacanciesList = async (): Promise<TVacancyShort[]> => {
   try {
@@ -53,6 +54,19 @@ export const getBasicCandidatesByStatus = async (
     console.error(error);
     throw new Error(
       'Не удалось загрузить кандидатов. Пожалуйста, попробуйте позже.'
+    );
+  }
+};
+
+export const getTariffs = async (): Promise<TTariff[]> => {
+  try {
+    const response = await apiGet<TApiListResponse<TTariff>>('/tariffs');
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error(
+      'Не удалось загрузить тарифы. Пожалуйста, попробуйте позже.'
     );
   }
 };

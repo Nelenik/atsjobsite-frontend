@@ -1,13 +1,17 @@
-import AddCompanyModal from "@/components/Modals/AddCompanyModal";
-import AddResumeModal from "@/components/Modals/AddResumeModal";
-import { AddVacancyModal } from "@/components/Modals/AddVacancyModal";
+import { FC } from 'react';
 
-const DashboardMain = () => {
+import { AddCompanyModal } from '@/components/Modals/AddCompanyModal';
+import { AddResumeModal } from '@/components/Modals/AddResumeModal';
+import { AddVacancyModal } from '@/components/Modals/AddVacancyModal';
+import { getTariffs } from '@/actions/getData';
+
+const DashboardMain: FC = async () => {
+  const tariffs = await getTariffs();
+
   return (
     <div>
       <div className="w-[70%]">
-
-        <AddCompanyModal />
+        <AddCompanyModal tariffs={tariffs} />
         <br />
         <br />
         <AddVacancyModal />
@@ -17,6 +21,6 @@ const DashboardMain = () => {
       </div>
     </div>
   );
-}
+};
 
 export default DashboardMain;

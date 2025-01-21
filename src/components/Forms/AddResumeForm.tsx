@@ -1,12 +1,13 @@
-import { createData } from "@/actions/postData";
-import FormItem from "./form_elements/FormItem";
-import { Input } from "../ui/input";
-import { Textarea } from "../ui/textarea";
-import { Button } from "../ui/button";
+import { storeCv } from '@/actions/postData';
 
-const AddResumeForm = () => {
+import FormItem from './form_elements/FormItem';
+import { Input } from '../ui/input';
+import { Textarea } from '../ui/textarea';
+import { Button } from '../ui/button';
+
+export const AddResumeForm = () => {
   return (
-    <form action={createData} className="flex flex-col justify-between grow">
+    <form action={storeCv} className="flex flex-col justify-between grow">
       <div className="sm:columns-2 sm:gap-6 [&>*:not(:last-child)]:mb-6 mb-6">
         <FormItem labelText="ФИО">
           <Input placeholder="ФИО" name="CandyName" />
@@ -39,10 +40,20 @@ const AddResumeForm = () => {
           <Input placeholder="Ссылка на резюме" name="CvLink" />
         </FormItem>
         <FormItem labelText="Био" className="break-before-column">
-          <Textarea placeholder="Био" name="CvBio" className="resize-none" rows={9}></Textarea>
+          <Textarea
+            placeholder="Био"
+            name="CvBio"
+            className="resize-none"
+            rows={9}
+          ></Textarea>
         </FormItem>
         <FormItem labelText="Опыт">
-          <Textarea placeholder="Опыт" name="CVExpTxt" className="resize-none" rows={17}></Textarea>
+          <Textarea
+            placeholder="Опыт"
+            name="CVExpTxt"
+            className="resize-none"
+            rows={17}
+          ></Textarea>
         </FormItem>
       </div>
 
@@ -50,12 +61,8 @@ const AddResumeForm = () => {
         <Button variant={'ghost'} className="mr-2">
           Отмена
         </Button>
-        <Button type="submit">
-          Добавить
-        </Button>
+        <Button type="submit">Добавить</Button>
       </div>
     </form>
   );
-}
-
-export default AddResumeForm;
+};

@@ -1,0 +1,26 @@
+'use server';
+
+import { API_URL } from '@/shared/config';
+
+export const apiGet = async <T = unknown>(url: string): Promise<T> => {
+  const response = await fetch(API_URL + url, {
+    method: 'GET',
+  });
+
+  return response.json();
+};
+
+export const apiPost = async <T = unknown>(
+  url: string,
+  body: FormData
+): Promise<T> => {
+  const response = await fetch(API_URL + url, {
+    method: 'POST',
+    body,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  return response.json();
+};
