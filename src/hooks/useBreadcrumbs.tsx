@@ -6,7 +6,7 @@ import HomeIcon from '@/assets/icons/home.svg?rc';
 
 interface IBreadcrumbPattern {
   pattern: RegExp,
-  handler: (params?: { [key: string]: string | string[] }) => string | React.ReactNode
+  handler: (params?: { [key: string]: string | string[] | undefined }) => string | React.ReactNode
 }
 
 const breadcrumbsMapping: IBreadcrumbPattern[] = [
@@ -74,7 +74,7 @@ const breadcrumbsMapping: IBreadcrumbPattern[] = [
  * 
  */
 
-type DefineBreadcrumbsPaths = (pathname: string, params: { [key: string]: string | string[] }) => { href: string, label: string | React.ReactNode }[]
+type DefineBreadcrumbsPaths = (pathname: string, params: { [key: string]: string | string[] | undefined }) => { href: string, label: string | React.ReactNode }[]
 
 const defineBreadcrumbsPaths: DefineBreadcrumbsPaths = (pathname, params) => {
   // Split the pathname into segments to build hierarchical breadcrumb paths.
