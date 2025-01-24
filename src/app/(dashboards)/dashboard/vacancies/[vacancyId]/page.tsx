@@ -10,12 +10,11 @@ import { EMatchStatus } from '@/shared/types';
 import { mockVacancy } from '@/actions/mockData';
 
 type TProps = {
-  params: Promise<{ vacancyDetails: string }>
+  params: Promise<{ vacancyId: string }>
 };
 
 const VacancyDetails: FC<TProps> = async ({ params }) => {
-  // const { vacancyDetails } = await params;
-  // const vacancyId = vacancyDetails.split('-')[1];
+  const { vacancyId } = await params;
 
   // const vacancy = await getVacancy(vacancyId);
   // console.log(vacancy)
