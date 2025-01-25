@@ -1,6 +1,5 @@
-import { ReadonlyURLSearchParams, useParams, usePathname, useSearchParams } from "next/navigation";
+import { ReadonlyURLSearchParams, usePathname, useSearchParams } from "next/navigation";
 import HomeIcon from '@/assets/icons/home.svg?rc';
-import { Params } from 'next/dist/server/request/params';
 
 // This mapping matches routes to breadcrumbs, displaying either static labels or dynamic names extracted from route parameters.
 //Each new route should be described here for better navigation.
