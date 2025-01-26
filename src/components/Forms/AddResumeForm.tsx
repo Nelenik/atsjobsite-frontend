@@ -1,10 +1,8 @@
 'use client';
 
-import { FC, useActionState } from 'react';
+import { FC, useCallback } from 'react';
 
-import { mutationInitialState } from '@/actions/constants';
 import { storeCv } from '@/actions/postData';
-import { TMutationState } from '@/actions/types';
 
 import FormItem from './form_elements/FormItem';
 import { Input } from '../ui/input';
@@ -12,16 +10,29 @@ import { Textarea } from '../ui/textarea';
 import { Button } from '../ui/button';
 import { useFormMutation } from '@/hooks/useFormMutation';
 import { cn } from '@/lib/utils';
+import { useToast } from '@/hooks/use-toast';
 
-export const AddResumeForm: FC = () => {
+interface IAddResumeFormProps {
+  closeModal: () => void
+}
+
+export const AddResumeForm: FC<IAddResumeFormProps> = ({ closeModal }) => {
+  const { toast } = useToast()
+
+  const handleSuccess = useCallback(() => {
+    closeModal();
+    toast({
+      description: 'Резюме успешно создано',
+    });
+  }, [closeModal, toast]);
+
   const {
     formAction,
     pending,
     defaultValues,
     errors,
-    success,
     onChange
-  } = useFormMutation(storeCv)
+  } = useFormMutation(storeCv, handleSuccess)
 
   return (
     <form action={formAction} className="flex flex-col justify-between grow">

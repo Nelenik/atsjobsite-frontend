@@ -1,6 +1,6 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useCallback } from 'react';
 
 import { storeCompany } from '@/actions/postData';
 import { TTariff } from '@/shared/types';
@@ -19,21 +19,30 @@ import DatePicker from './form_elements/DatePicker';
 import { Button } from '../ui/button';
 import { cn } from '@/lib/utils';
 import { useFormMutation } from '@/hooks/useFormMutation';
+import { useToast } from '@/hooks/use-toast';
 
 type TProps = {
   tariffs: TTariff[];
+  closeModal: () => void
 };
 
-export const AddCompanyForm: FC<TProps> = ({ tariffs }) => {
+export const AddCompanyForm: FC<TProps> = ({ tariffs, closeModal }) => {
+  const { toast } = useToast()
+
+  const handleSuccess = useCallback(() => {
+    closeModal();
+    toast({
+      description: 'Компания успешно добавлена',
+    });
+  }, [closeModal, toast]);
+
   const {
     formAction,
     pending,
     defaultValues,
     errors,
-    success,
     onChange,
-  } = useFormMutation(storeCompany)
-
+  } = useFormMutation(storeCompany, handleSuccess)
   return (
     <form action={formAction} className="flex flex-col justify-between grow">
       <div className="sm:columns-2 sm:gap-6 [&>*:not(:last-child)]:mb-6 mb-6">
@@ -114,7 +123,12 @@ export const AddCompanyForm: FC<TProps> = ({ tariffs }) => {
       </div>
 
       <div className="self-end">
-        <Button type='button' variant="ghost" className="mr-2">
+        <Button
+          type='button'
+          variant="ghost"
+          className="mr-2"
+          onClick={closeModal}
+        >
           Отмена
         </Button>
 

@@ -8,7 +8,7 @@ type TFormMutationAction = (_: TMutationState, body: FormData) => Promise<TMutat
 
 type TOnChangeEvent = ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
 
-export const useFormMutation = (mutationAction: TFormMutationAction) => {
+export const useFormMutation = (mutationAction: TFormMutationAction, onSucces: () => void = () => { }) => {
   const [state, formAction, pending] = useActionState<TMutationState, FormData>(
     mutationAction,
     mutationInitialState
@@ -23,18 +23,29 @@ export const useFormMutation = (mutationAction: TFormMutationAction) => {
         ...state.error?.details,
       }));
     }
-  }, [state])
+
+  }, [state.error])
 
   const defaultValues = state.payload ? convertFormData(state.payload) : undefined;
 
   const success = state.sent && !state.error
 
+  useEffect(() => {
+    if (success) {
+      console.log('Success, calling onSucces');
+      onSucces()
+    }
+  }, [success, onSucces])
+
   console.log(state)
 
 
-
+  //Removes the error from the errors object when the user starts entering data.
   const onChange = (e: TOnChangeEvent) => {
     const nameAtr = e.target.name;
+    if (!errors.hasOwnProperty(nameAtr)) {
+      return
+    }
     setErrors((prevState) => {
       const updatedErrors = { ...prevState }
       delete updatedErrors[nameAtr]
@@ -47,7 +58,7 @@ export const useFormMutation = (mutationAction: TFormMutationAction) => {
     pending,
     defaultValues,
     errors,
-    success,
+    // success,
     onChange
   }
 }

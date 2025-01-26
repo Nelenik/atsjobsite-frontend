@@ -29,14 +29,14 @@ const breadcrumbsMapping: IBreadcrumbPattern[] = [
     handler: () => 'Настройки',
   },
   {
-    pattern: /^\/dashboard\/vacancies\/([^\/]+)$/, //([^\/]+) this part of the regexp for dynamic part of routes - vacancyDetails
+    pattern: /^\/dashboard\/vacancies\/([^\/]+)$/, //([^\/]+) this part of the regexp for dynamic part of routes - vacancyId
     handler: (searchParams) => {
       const vacancyName = searchParams?.get('vacancyName') || 'Название вакансии'
       return decodeURIComponent(vacancyName)
     }
   },
   {
-    pattern: /^\/dashboard\/resume\/([^\/]+)$/,//([^\/]+) this part of the regexp for dynamic part of routes - resumeDetails
+    pattern: /^\/dashboard\/resume\/([^\/]+)$/,//([^\/]+) this part of the regexp for dynamic part of routes - resumeId
     handler: (searchParams) => {
       const resumeName = searchParams?.get('resumeName') || 'Резюме'
       return decodeURIComponent(resumeName)
@@ -87,7 +87,6 @@ const defineBreadcrumbsPaths: DefineBreadcrumbsPaths = (pathname, searchParams) 
 const useBreadcrumbs = () => {
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  console.log(searchParams)
 
   return defineBreadcrumbsPaths(pathname, searchParams)
 }

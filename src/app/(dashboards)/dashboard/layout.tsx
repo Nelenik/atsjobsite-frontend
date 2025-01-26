@@ -14,6 +14,7 @@ import Providers from '../../providers';
 
 import '../../globals.css';
 import { Suspense } from 'react';
+import { Toaster } from '@/components/ui/toaster';
 
 const geistSans = localFont({
   src: '../../fonts/GeistVF.woff',
@@ -81,6 +82,7 @@ export default function ProfileLayout({
               {modals}
             </div>
           </main>
+          <Toaster />
         </Providers>
       </body>
     </html>

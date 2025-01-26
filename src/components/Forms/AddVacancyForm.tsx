@@ -1,6 +1,6 @@
 'use client';
 
-import { FC } from 'react';
+import { FC, useCallback } from 'react';
 
 import { storeVacancy } from '@/actions/postData';
 import { vacancyPositionsDict } from '@/shared/dictionaries';
@@ -23,20 +23,30 @@ import {
 } from '@/shared/types';
 import { useFormMutation } from '@/hooks/useFormMutation';
 import { cn } from '@/lib/utils';
+import { useToast } from '@/hooks/use-toast';
 
 type TProps = {
   vacancyPositions: string[];
+  closeModal: () => void
 };
 
-export const AddVacancyForm: FC<TProps> = ({ vacancyPositions }) => {
+export const AddVacancyForm: FC<TProps> = ({ vacancyPositions, closeModal }) => {
+  const { toast } = useToast()
+
+  const handleSuccess = useCallback(() => {
+    closeModal();
+    toast({
+      description: 'Вакансия успешно создана',
+    });
+  }, [closeModal, toast]);
+
   const {
     formAction,
     pending,
     defaultValues,
     errors,
-    success,
     onChange
-  } = useFormMutation(storeVacancy)
+  } = useFormMutation(storeVacancy, handleSuccess)
 
   return (
     <form action={formAction} className="flex flex-col justify-between grow">
