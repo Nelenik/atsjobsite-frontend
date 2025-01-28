@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, RefObject } from "react";
+import { useState, useRef, useEffect, RefObject } from 'react';
 
 interface IMenuOptions {
   initial: boolean;
@@ -10,7 +10,7 @@ type UseSidebarControl = (options: IMenuOptions) => {
   handleToggle: () => void;
   handleOpen: () => void;
   isSidebarOpen: boolean;
-  sidebarRef: RefObject<HTMLDivElement | null>;
+  sidebarRef: RefObject<HTMLDivElement>;
 };
 
 /**
@@ -54,7 +54,7 @@ const useSidebarControl: UseSidebarControl = ({
   closeOutside = false,
 }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(initial);
-  const sidebarRef = useRef<HTMLDivElement>(null);
+  const sidebarRef = useRef<HTMLDivElement | null>(null);
   const handleToggle = () => {
     setIsSidebarOpen((state) => !state);
   };
@@ -66,21 +66,7 @@ const useSidebarControl: UseSidebarControl = ({
   const handleClose = () => {
     setIsSidebarOpen(false);
   };
-  // // Close sidebar on Escape key press
-  // useEffect(() => {
-  //   const handleKeyDown = (event: KeyboardEvent) => {
-  //     if (event.key === "Escape") {
-  //       setIsSidebarOpen(false);
-  //     }
-  //   };
 
-  //   window.addEventListener("keydown", handleKeyDown);
-  //   return () => {
-  //     window.removeEventListener("keydown", handleKeyDown);
-  //   };
-  // }, []);
-
-  // Close sidebar on outside click
   useEffect(() => {
     if (!closeOutside) return;
     const handleClickOutside = (event: MouseEvent) => {
@@ -92,9 +78,9 @@ const useSidebarControl: UseSidebarControl = ({
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [closeOutside]);
   return {

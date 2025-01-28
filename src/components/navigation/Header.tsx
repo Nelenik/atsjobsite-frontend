@@ -1,5 +1,5 @@
-'use client'
-import Link from "next/link";
+'use client';
+import Link from 'next/link';
 import LogoSvg from '@/assets/icons/logo.svg?rc';
 import { PanelLeftOpen, PanelRightOpen } from 'lucide-react'
 import SideBarBtn from "@/components/buttons/SideBarBtn";
@@ -35,14 +35,15 @@ const Header = ({ userData, className }: IHeaderProps) => {
 
   return (
     <header
-      className={
-        cn("flex justify-between items-center px-6 py-2 bg-sidebar text-sidebar-foreground relative", className)
-      }
+      className={cn(
+        'flex justify-between items-center px-6 py-2 bg-sidebar text-sidebar-foreground relative',
+        className
+      )}
     >
-      <SideBarBtn onClick={handleOpen} size={'icon'} >
+      <SideBarBtn onClick={handleOpen} size={'icon'}>
         <PanelLeftOpen stroke="white" />
       </SideBarBtn>
-      <Link href={'/'} className={cn("")}>
+      <Link href={'/'} className={cn('')}>
         <LogoSvg width={50} height={50} />
       </Link>
       <nav ref={sidebarRef} className={cn(
@@ -60,12 +61,11 @@ const Header = ({ userData, className }: IHeaderProps) => {
                   <SidebarGroup linkConfig={el} />
                   : <SidebarItem linkConfig={el} />}
               </li>
-            )
+            );
           })}
         </ul>
       </nav>
-      <div className={cn("")}>
-
+      <div className={cn('')}>
         <Avatar>
           <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
           <AvatarFallback>C</AvatarFallback>
@@ -74,11 +74,16 @@ const Header = ({ userData, className }: IHeaderProps) => {
           <p className="scroll-m-20 text-sm font-semibold tracking-tight mb-0.5 max-w-44 text-muted-foreground">
             {userName}
           </p>
-          <a href={`mailto:${userEmail}`} className="text-sm text-muted-foreground">{userEmail}</a>
+          <a
+            href={`mailto:${userEmail}`}
+            className="text-sm text-muted-foreground"
+          >
+            {userEmail}
+          </a>
         </div>
       </div>
     </header>
   );
-}
+};
 
 export default Header;
