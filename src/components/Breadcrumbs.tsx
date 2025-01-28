@@ -7,6 +7,7 @@ import React from "react";
 
 // import HomeIcon from '@/assets/icons/home.svg?rc';
 import useBreadcrumbs from "@/hooks/useBreadcrumbs";
+import { cn } from "@/lib/utils";
 
 const Breadcrumbs = () => {
   const breadcrumbPaths = useBreadcrumbs()
@@ -20,9 +21,10 @@ const Breadcrumbs = () => {
 
                 <BreadcrumbItem >
                   <BreadcrumbLink asChild className="inline-flex items-center gap-1">
-                    <Link href={`${href}`}>
+                    <Link href={`${href}`} className={cn((i === breadcrumbPaths.length - 1) && 'pointer-events-none')}>
                       {label}
                     </Link>
+
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 {i !== breadcrumbPaths.length - 1 && <BreadcrumbSeparator />}

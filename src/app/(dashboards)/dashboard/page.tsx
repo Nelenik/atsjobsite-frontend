@@ -10,10 +10,7 @@ const DashboardMain: FC = async () => {
   return (
     <div>
       <div className="w-[70%]">
-        <AddCompanyModal tariffs={tariffs} />
-        <br />
-        <br />
-        <AddResumeModal />
+        Main page
       </div>
     </div>
   );
