@@ -1,9 +1,9 @@
 import Resume from "@/components/pages/Resume";
 
 
-const ResumePage = async ({ params }: { params: Promise<{ resumeId: string }> }) => {
-  const { resumeId } = await params;
-  console.log('resume id', resumeId);
+const CandidatePage = async ({ params }: { params: Promise<{ candidateId: string }> }) => {
+  const { candidateId } = await params;
+  console.log('candidate id', candidateId);
   return (
     <div>
       <Resume />
@@ -11,4 +11,4 @@ const ResumePage = async ({ params }: { params: Promise<{ resumeId: string }> })
   );
 }
 
-export default ResumePage;
+export default CandidatePage;

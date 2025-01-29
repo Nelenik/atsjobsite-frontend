@@ -1,21 +1,48 @@
 'use client'
-import { useQuery } from "@tanstack/react-query";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
-import { getCompaniesList } from "@/actions/getData";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
-import { ChevronDown } from "lucide-react";
+import { useCompanies } from "@/providers/CompaniesProvider";
+import { createSidebarConfig } from "@/shared/config/sidebarConfig";
+
+
+/**
+ * Retrieves all available paths for a given company.
+ *
+ * This function generates an array of paths from the sidebar configuration 
+ * of the specified company. It includes both top-level routes and 
+ * sub-menu routes if they exist.
+ *
+ * @param {string} newCompanyId - The ID of the company for which to get the available paths.
+ * @returns {string[]} An array of available paths for the given company.
+ */
+const getAvailablePaths = (newCompanyId: string): string[] => {
+  return createSidebarConfig(newCompanyId).reduce((acc: string[], route) => {
+    if (route.href) acc.push(route.href);
+    if (route.subMenu) acc.push(...route.subMenu.map(subroute => subroute.href));
+    return acc;
+  }, []);
+};
+
+
 
 const CompanySwitcher = () => {
   const { companyId } = useParams<{ companyId: string }>()
   const pathname = usePathname()
-  console.log(pathname)
 
-  //get user's companies list
-  const { data: companiesList } = useQuery({
-    queryKey: ['companies', 'list'],
-    queryFn: getCompaniesList
-  })
+  const { companiesList } = useCompanies()
+
+  const extractNewPath = (newCompanyId: string): string => {
+    const availablePathes = getAvailablePaths(newCompanyId)
+    const currentPath = pathname.replace(companyId, newCompanyId)
+
+    const match = availablePathes
+      .filter(path => currentPath.startsWith(path))
+      .sort((a, b) => b.length - a.length)[0]
+      || `/dashboard/${newCompanyId}`
+    return match
+
+  }
 
   const currentCompany = companiesList?.find(el => el.id === Number(companyId))
 
@@ -33,7 +60,7 @@ const CompanySwitcher = () => {
         <DropdownMenuSeparator />
         {companiesList?.map((company) => (
           <DropdownMenuItem asChild key={company.id}>
-            <Link href={`/dashboard/${company.id}`}>
+            <Link href={extractNewPath(String(company.id))}>
               {company.name}
             </Link>
           </DropdownMenuItem>
@@ -43,4 +70,4 @@ const CompanySwitcher = () => {
   );
 }
 
-export default CompanySwitcher;
+export default CompanySwitcher

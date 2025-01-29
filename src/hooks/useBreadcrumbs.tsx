@@ -39,7 +39,7 @@ const breadcrumbsMapping: IBreadcrumbPattern[] = [
     }
   },
   {
-    pattern: /^\/dashboard\/([^\/]+)\/candidate\/([^\/]+)$/,//([^\/]+) this part of the regexp for dynamic part of routes - resumeId
+    pattern: /^\/dashboard\/([^\/]+)\/candidate\/([^\/]+)$/,//([^\/]+) this part of the regexp for dynamic part of routes - candidateId
     handler: (searchParams) => {
       const candidateName = searchParams?.get('candidateName') || 'Кандидат'
       return decodeURIComponent(candidateName)

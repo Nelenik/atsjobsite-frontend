@@ -8,6 +8,7 @@ import {
 
 import { apiPost } from "./api";
 import { TMutationState } from "./types";
+import { revalidatePath } from "next/cache";
 
 export const storeCompany = async (_: TMutationState, body: FormData) =>
   storeEntity("/company", body);
@@ -15,8 +16,11 @@ export const storeCompany = async (_: TMutationState, body: FormData) =>
 export const storeCv = async (_: TMutationState, body: FormData) =>
   storeEntity("/cv", body);
 
-export const storeVacancy = async (_: TMutationState, body: FormData) =>
-  storeEntity("/vacancy", body);
+export const storeVacancy = async (_: TMutationState, body: FormData) => {
+  const result = storeEntity("/vacancy", body);
+  revalidatePath("/dashboard/[companyId]/vacancies");
+  return result;
+};
 
 const storeEntity = async (url: string, body: FormData) => {
   console.log({ ...body });

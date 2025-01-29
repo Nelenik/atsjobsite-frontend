@@ -1,4 +1,5 @@
 'use client'
+import { CompaniesProvider } from "@/providers/CompaniesProvider";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactNode, useState } from "react";
 // NEVER DO THIS:
@@ -13,7 +14,10 @@ const Providers = ({ children }: { children: ReactNode }) => {
   const [queryClient] = useState(() => new QueryClient())
   return (
     <QueryClientProvider client={queryClient}>
-      {children}
+      <CompaniesProvider>
+
+        {children}
+      </CompaniesProvider>
     </QueryClientProvider>
   );
 }
