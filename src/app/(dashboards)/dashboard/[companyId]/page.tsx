@@ -1,3 +1,4 @@
+import EditVacancyModal from '@/components/modals/EditVacancyModal';
 import { FC } from 'react';
 
 const DashboardMainPage: FC = async () => {
@@ -5,6 +6,7 @@ const DashboardMainPage: FC = async () => {
     <div>
       <div className="w-[70%]">
         Dashboard Main page
+        <EditVacancyModal />
       </div>
     </div>
   );
