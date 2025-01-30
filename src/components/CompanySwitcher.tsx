@@ -27,14 +27,14 @@ const getAvailablePaths = (newCompanyId: string): string[] => {
 
 
 const CompanySwitcher = () => {
-  const { companyId } = useParams<{ companyId: string }>()
   const pathname = usePathname()
 
-  const { companiesList } = useCompanies()
+  //get companies from companies provider
+  const { companiesList, activeCompany } = useCompanies()
 
   const extractNewPath = (newCompanyId: string): string => {
     const availablePathes = getAvailablePaths(newCompanyId)
-    const currentPath = pathname.replace(companyId, newCompanyId)
+    const currentPath = pathname.replace(String(activeCompany?.id), newCompanyId)
 
     const match = availablePathes
       .filter(path => currentPath.startsWith(path))
@@ -44,13 +44,11 @@ const CompanySwitcher = () => {
 
   }
 
-  const currentCompany = companiesList?.find(el => el.id === Number(companyId))
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild className="[data[state=open] a]:rotate-180">
         <a className="cursor-pointer flex gap-1 items-center">
-          {currentCompany?.name}
+          {activeCompany?.name}
           {/* <ChevronDown size={12} /> */}
           <span className="w-0 h-0 border-solid border-x-[5px] border-t-[5px] border-t-muted-foreground/65 border-b-transparent border-x-transparent rotate-0 "></span>
         </a>

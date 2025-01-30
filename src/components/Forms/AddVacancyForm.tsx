@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, Suspense, useCallback } from 'react';
+import { FC, useCallback } from 'react';
 
 import { storeVacancy } from '@/actions/postData';
 import { vacancyPositionsDict } from '@/shared/dictionaries';
@@ -26,12 +26,15 @@ import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
 import { getVacancyPositions } from '@/actions/getData';
 import { useQuery } from '@tanstack/react-query';
+import { useParams } from 'next/navigation';
 
 type TProps = {
   closeModal: () => void
 };
 
 export const AddVacancyForm: FC<TProps> = ({ closeModal }) => {
+  const { companyId } = useParams<{ companyId: string }>()
+
   const { toast } = useToast()
 
   const { data: vacancyPositions } = useQuery({
@@ -57,6 +60,7 @@ export const AddVacancyForm: FC<TProps> = ({ closeModal }) => {
   return (
     <form action={formAction} className="flex flex-col justify-between grow">
       <div className="sm:columns-2 sm:gap-6 [&>*:not(:last-child)]:mb-6 mb-6">
+        <input type='hidden' name='company_id' defaultValue={companyId} />
         <FormItem labelText="Название вакансии" error={errors.name}>
           <Input
             placeholder="Название вакансии"
