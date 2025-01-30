@@ -27,9 +27,9 @@ export const CompaniesProvider = ({ children }: { children: ReactNode }) => {
   //get active company data
   const activeCompany: ICompany | null = companiesList?.find(el => el.id === Number(companyId)) || null
 
-  return (<CompaniesContext value={{ companiesList, isLoading, activeCompany }}>
+  return (<CompaniesContext.Provider value={{ companiesList, isLoading, activeCompany }}>
     {children}
-  </CompaniesContext>)
+  </CompaniesContext.Provider>)
 }
 
 export const useCompanies = () => {

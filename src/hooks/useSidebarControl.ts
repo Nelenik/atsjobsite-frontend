@@ -10,7 +10,7 @@ type UseSidebarControl = (options: IMenuOptions) => {
   handleToggle: () => void;
   handleOpen: () => void;
   isSidebarOpen: boolean;
-  sidebarRef: RefObject<HTMLDivElement | null>;
+  sidebarRef: RefObject<HTMLDivElement>;
 };
 
 /**
@@ -54,7 +54,7 @@ const useSidebarControl: UseSidebarControl = ({
   closeOutside = false,
 }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(initial);
-  const sidebarRef = useRef<HTMLDivElement | null>(null);
+  const sidebarRef = useRef<HTMLDivElement>(null);
 
   const handleToggle = () => {
     setIsSidebarOpen((state) => !state);
