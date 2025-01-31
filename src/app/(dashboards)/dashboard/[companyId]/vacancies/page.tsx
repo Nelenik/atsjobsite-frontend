@@ -1,15 +1,23 @@
-import DataProcessingVector from '@/assets/data-processing.svg?rc'
+'use client'
+import VacancyBoardCard from '@/components/cards/VacancyBoardCard';
+import { useVacancies, VacanciesProvider } from '@/providers/VacanciesProvider';
 
-// Next.js will invalidate the cache when a
-// request comes in, at most once every 30 seconds.
-export const revalidate = 30
+
 
 const VacanciesPage = () => {
+  const vacancies = useVacancies()
   return (
+
+
     <div className="flex flex-col items-center justify-center h-full">
-      <p className="text-xl text-center font-semibold leading-8 w-[min(100%,400px)]">Чтобы просмотреть подробности о вакансии, пожалуйста выберите вакансию из списка
-      </p>
-      <DataProcessingVector />
+      Vacancies board
+      <ul className='w-full grid grid-cols-3 gap-4'>
+        {vacancies.map(vacancy => (
+          <li key={vacancy.id}>
+            <VacancyBoardCard id={vacancy.id} name={vacancy.name} location={vacancy.location} salary_from={vacancy.salary_from} salary_to={vacancy.salary_to} />
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

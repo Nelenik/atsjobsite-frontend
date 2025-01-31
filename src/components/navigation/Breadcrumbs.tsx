@@ -1,12 +1,12 @@
 'use client'
 
 // import { usePathname } from "next/navigation";
-import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator } from "./ui/breadcrumb";
 import Link from "next/link";
 import React from "react";
 
 import useBreadcrumbs from "@/hooks/useBreadcrumbs";
 import { cn } from "@/lib/utils";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbSeparator } from "../ui/breadcrumb";
 
 const Breadcrumbs = () => {
   const breadcrumbPaths = useBreadcrumbs()

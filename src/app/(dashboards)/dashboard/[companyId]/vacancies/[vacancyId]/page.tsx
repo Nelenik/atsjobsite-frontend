@@ -11,7 +11,7 @@ type TProps = {
   params: Promise<{ vacancyId: string, companyId: string }>
 };
 
-const VacancyDetails: FC<TProps> = async ({ params }) => {
+const VacancyMatchPage: FC<TProps> = async ({ params }) => {
   const { companyId, vacancyId } = await params;
 
   const vacancy = await getVacancy(vacancyId);
@@ -55,4 +55,4 @@ const VacancyDetails: FC<TProps> = async ({ params }) => {
   );
 };
 
-export default VacancyDetails;
+export default VacancyMatchPage;

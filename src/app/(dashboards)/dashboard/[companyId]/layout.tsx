@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 
 import Sidebar from '@/components/navigation/Sidebar';
-import Breadcrumbs from '@/components/Breadcrumbs';
 import Header from '@/components/navigation/Header';
 
 import { Suspense } from 'react';
 import { Toaster } from '@/components/ui/toaster';
 import { getUser } from '@/actions/getData';
 import React from 'react';
+import Breadcrumbs from '@/components/navigation/Breadcrumbs';
 
 export const metadata: Metadata = {
   title: 'REkrutAI|Дашборд',

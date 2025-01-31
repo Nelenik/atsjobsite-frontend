@@ -11,15 +11,17 @@ import { TVacancyShort } from '@/shared/types';
 
 import { AddVacancyModal } from '../modals/AddVacancyModal';
 import { VacancyCard } from '../cards/VacancyCard';
+import { useVacancies } from '@/providers/VacanciesProvider';
 
 type TProps = {
   className?: string;
-  vacancies: TVacancyShort[];
 };
 
-export const VacanciesAside: FC<TProps> = ({ vacancies, className }) => {
+export const VacanciesAside: FC<TProps> = ({ className }) => {
   const path = usePathname();
   const params = useParams();
+  const vacancies = useVacancies()
+  console.log('vacanciesaside', vacancies)
 
   const cleanedPath = params?.vacancyId
     ? path.replace(new RegExp(`\/${params.vacancyId}$`), '')
