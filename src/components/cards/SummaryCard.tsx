@@ -5,6 +5,7 @@ import CaseIcon from '@/assets/icons/case.svg?rc';
 import { getWordEndings } from '@/lib/utils/getWordEnding';
 import { formatPrice } from '@/lib/utils/formatersIntl';
 import { getSalaryRange } from '@/lib/utils/getSalaryRange';
+import EditVacancyModal from '../modals/EditVacancyModal';
 
 type TProps = {
   vacancyName: string;
@@ -38,7 +39,8 @@ export const SummaryCard: FC<TProps> = ({
   const salaryCandidateString = formatPrice(salaryCandidate, 'ru-Ru', 'RUB');
 
   return (
-    <Card className="w-full py-4 px-6 flex gap-6">
+    <Card className="w-full py-4 px-6 flex gap-6 relative">
+      <EditVacancyModal className='absolute top-2 right-2' triggerView='icon' />
       <div className="p-5 rounded-full bg-emerald-500 self-start">
         <CaseIcon width={32} height={32} className="text-white" />
       </div>

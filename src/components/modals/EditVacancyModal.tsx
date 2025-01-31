@@ -4,9 +4,12 @@ import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } 
 import { cn } from "@/lib/utils";
 import EditVacancyForm from "../forms/EditVacancyForm";
 import { Button } from "../ui/button";
+import EditButton from "../buttons/EditButton";
+
 
 interface IEditVacancyModal {
   className?: string
+  triggerView?: 'icon' | 'default'
 }
 
 //temp mock data
@@ -30,6 +33,7 @@ const initialObj = {
 
 const EditVacancyModal = ({
   className,
+  triggerView = 'default'
 }: IEditVacancyModal) => {
   const [open, setOpen] = useState<boolean>(false)
   const handleClose = useCallback(() => setOpen(false), [])
@@ -37,9 +41,11 @@ const EditVacancyModal = ({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className={cn('w-max lg:w-full py-6 text-base', className)}>
-          Редактировать <span className="hidden sm:inline">вакансию</span>
-        </Button>
+        <EditButton isIconView={triggerView === 'icon'} className={className} />
+        {/* <Button className={cn('w-max lg:w-full py-6 text-base', className)}>
+
+          Изменить
+        </Button> */}
       </DialogTrigger>
 
       <DialogContent className="w-[min(100%,800px)] h-full bg-white max-w-none flex flex-col">

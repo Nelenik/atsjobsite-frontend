@@ -6,8 +6,6 @@ import { MatchStatusCol } from '@/components/MatchStatusCol';
 import { getDaysSinceCreated } from '@/lib/utils/getDaysSinceCreated';
 import { EMatchStatus } from '@/shared/types';
 
-//mock data
-// import { mockVacancy } from '@/actions/mockData';
 
 type TProps = {
   params: Promise<{ vacancyId: string, companyId: string }>
@@ -17,9 +15,7 @@ const VacancyDetails: FC<TProps> = async ({ params }) => {
   const { companyId, vacancyId } = await params;
 
   const vacancy = await getVacancy(vacancyId);
-
-  // mock
-  // const vacancy = mockVacancy
+  console.log('vacancydata', vacancy)
 
   return (
     <div className="flex gap-6 flex-col">

@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import { EVacancyStatus } from '@/shared/types';
 
 import { Badge } from '../ui/badge';
+import { vacancyStatusDict } from '@/shared/dictionaries';
 
 const badgeColors: Record<EVacancyStatus, string> = {
   [EVacancyStatus.SETTING]: 'bg-indigo-300 hover:bg-indigo-300/80',
@@ -14,12 +15,6 @@ const badgeColors: Record<EVacancyStatus, string> = {
   [EVacancyStatus.WAIT]: 'bg-emerald-400 hover:bg-emerald-400/80',
 };
 
-const labels: Record<EVacancyStatus, string> = {
-  [EVacancyStatus.SETTING]: 'настройка',
-  [EVacancyStatus.WORK]: 'в работе',
-  [EVacancyStatus.PAUSE]: 'на паузе',
-  [EVacancyStatus.WAIT]: 'ожидание',
-};
 
 type TProps = {
   vacancyName: string;
@@ -59,7 +54,7 @@ export const VacancyCard: FC<TProps> = ({
             badgeColors[vacancyStatus] ?? 'bg-zinc-900 hover:bg-zinc-900/80'
           }
         >
-          {labels[vacancyStatus]}
+          {vacancyStatusDict[vacancyStatus]}
         </Badge>
       </CardFooter>
     </Card>
