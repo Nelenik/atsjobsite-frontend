@@ -1,5 +1,6 @@
 import { ReadonlyURLSearchParams, usePathname, useSearchParams } from "next/navigation";
 import HomeIcon from '@/assets/icons/home.svg?rc';
+import CompanySwitcher from "@/components/CompanySwitcher";
 
 // This mapping matches routes to breadcrumbs, displaying either static labels or dynamic names extracted from route parameters.
 //Each new route should be described here for better navigation.
@@ -17,29 +18,54 @@ const breadcrumbsMapping: IBreadcrumbPattern[] = [
     ),
   },
   {
-    pattern: /^\/dashboard\/vacancies$/,
+    pattern: /^\/dashboard\/([^\/]+)$/,
+    handler: () => (
+      <CompanySwitcher />
+    ),
+  },
+  {
+    pattern: /^\/dashboard\/([^\/]+)\/vacancies$/,
     handler: () => 'Вакансии',
   },
   {
-    pattern: /^\/dashboard\/reports$/,
+    pattern: /^\/dashboard\/([^\/]+)\/reports$/,
     handler: () => 'Отчеты',
   },
   {
-    pattern: /^\/dashboard\/settings$/,
-    handler: () => 'Настройки',
-  },
-  {
-    pattern: /^\/dashboard\/vacancies\/([^\/]+)$/, //([^\/]+) this part of the regexp for dynamic part of routes - vacancyId
+    pattern: /^\/dashboard\/([^\/]+)\/vacancies\/([^\/]+)$/, //([^\/]+) this part of the regexp for dynamic part of routes - vacancyId
     handler: (searchParams) => {
-      const vacancyName = searchParams?.get('vacancyName') || 'Название вакансии'
-      return decodeURIComponent(vacancyName)
+      const name = searchParams?.get('name') || 'Название вакансии'
+      return decodeURIComponent(name)
     }
   },
   {
-    pattern: /^\/dashboard\/resume\/([^\/]+)$/,//([^\/]+) this part of the regexp for dynamic part of routes - resumeId
+    pattern: /^\/dashboard\/([^\/]+)\/companies$/,
+    handler: () => 'Настройки: Компании',
+  },
+  {
+    pattern: /^\/dashboard\/([^\/]+)\/users$/,
+    handler: () => 'Настройки: Пользователи',
+  },
+  {
+    pattern: /^\/dashboard\/([^\/]+)\/reserve$/,
+    handler: () => 'Резюме: Резерв',
+  },
+  {
+    pattern: /^\/dashboard\/([^\/]+)\/search$/,
+    handler: () => 'Резюме: Поиск',
+  },
+  {
+    pattern: /^\/dashboard\/([^\/]+)\/candidate-info\/([^\/]+)$/,//([^\/]+) this part of the regexp for dynamic part of routes - candidateId
     handler: (searchParams) => {
-      const resumeName = searchParams?.get('resumeName') || 'Резюме'
-      return decodeURIComponent(resumeName)
+      const name = searchParams?.get('name') || 'Кандидат'
+      return decodeURIComponent(name)
+    }
+  },
+  {
+    pattern: /^\/dashboard\/([^\/]+)\/vacancy-info\/([^\/]+)$/,//([^\/]+) this part of the regexp for dynamic part of routes - candidateId
+    handler: (searchParams) => {
+      const name = searchParams?.get('name') || 'Название вакансии'
+      return decodeURIComponent(name)
     }
   },
 ]

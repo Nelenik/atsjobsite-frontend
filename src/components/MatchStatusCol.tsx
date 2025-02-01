@@ -4,16 +4,17 @@ import Link from 'next/link';
 import { getBasicCandidatesByStatus } from '@/actions/getData';
 import { EMatchStatus } from '@/shared/types';
 
-import { CandidateCard } from './Cards/CandidateCard';
-import { FunnelCard } from './Cards/FunnelCard';
+import { CandidateCard } from './cards/CandidateCard';
+import { FunnelCard } from './cards/FunnelCard';
 import { mockCandidateShort } from '@/actions/mockData';
 
 type TProps = {
   vacId: number;
   status: EMatchStatus;
+  companyId: string
 };
 
-export const MatchStatusCol: FC<TProps> = async ({ vacId, status }) => {
+export const MatchStatusCol: FC<TProps> = async ({ companyId, vacId, status }) => {
   // const candidates = await getBasicCandidatesByStatus(vacId, status);
 
   const candidates = mockCandidateShort
@@ -28,7 +29,7 @@ export const MatchStatusCol: FC<TProps> = async ({ vacId, status }) => {
             return (
               <li key={candidate.id}>
                 <Link
-                  href={`/dashboard/resume/${candidate.id}?resumeName=${candidate.name}`}
+                  href={`/dashboard/${companyId}/candidate-info/${candidate.id}?name=${candidate.name}`}
                 >
                   <CandidateCard
                     name={candidate.name}

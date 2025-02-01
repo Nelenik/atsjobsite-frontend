@@ -1,0 +1,24 @@
+"use server";
+import { revalidatePath } from "next/cache";
+import { TMutationState } from "./types";
+import { API_URL } from "@/shared/config";
+import { TBadRequest } from "@/shared/helpers";
+
+export const updateVacancy = async (
+  vacancyId: number | string,
+  _: TMutationState,
+  body: FormData
+) => {
+  console.log("udate");
+  const result = updateEntity(`/vacancy/${vacancyId}`, body);
+  // revalidatePath("/dashboard/[companyId]/vacancies/*");
+  return result;
+};
+
+const updateEntity = async (url: string, body: FormData) => {
+  console.log(Object.fromEntries(body));
+  return {
+    sent: true,
+    error: null,
+  };
+};

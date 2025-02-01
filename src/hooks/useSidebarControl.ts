@@ -54,7 +54,8 @@ const useSidebarControl: UseSidebarControl = ({
   closeOutside = false,
 }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(initial);
-  const sidebarRef = useRef<HTMLDivElement | null>(null);
+  const sidebarRef = useRef<HTMLDivElement>(null);
+
   const handleToggle = () => {
     setIsSidebarOpen((state) => !state);
   };

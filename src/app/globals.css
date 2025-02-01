@@ -43,8 +43,8 @@ body {
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --sidebar: 222 40% 11%;
-    --sidebar-foreground: 0 0% 100%;
+    --sidebar-background: 219 40% 11%;
+    --sidebar-foreground: 217 7% 56%;
     --radius: 0.5rem;
   }
 
@@ -73,6 +73,8 @@ body {
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
   }
 }
 
@@ -90,4 +92,36 @@ body {
   position: fixed;
   transform: scale(0);
   top: -100%;
+}
+
+/* SCROLLBAR STYLING */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 8px;
+}
+
+/* Define the thumb style */
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--sidebar-background)/0.2);
+  border-radius: 5px;
+}
+
+/* Define the track style */
+::-webkit-scrollbar-track {
+  background-color: hsl(var(--input));
+  border: 1px solid hsl(var(--input));
+  border-radius: 5px;
+}
+
+/* Define the button style */
+::-webkit-scrollbar-button {
+  background-color: hsl(var(--sidebar-background)/0.2);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Define the button style when being hovered over  */
+::-webkit-scrollbar-button:hover {
+  background-color: hsl(var(--sidebar-background)/0.3);
 }

@@ -1,4 +1,4 @@
-'use server';
+"use server";
 
 import {
   EMatchStatus,
@@ -8,9 +8,28 @@ import {
   TTariff,
   TVacancy,
   TVacancyShort,
-} from '@/shared/types';
+} from "@/shared/types";
 
-import { apiGet } from './api';
+import { apiGet } from "./api";
+import { IUser } from "@/shared/types/user";
+import { mockCompanies } from "./mockData";
+
+/*--------Mock data---------- */
+export const getUser = async (): Promise<IUser> => {
+  return {
+    id: 1,
+    name: "Иванов Иван",
+    email: "test@mail.com",
+  };
+};
+
+export const getCompaniesList = async (): Promise<
+  { id: number; name: string }[]
+> => {
+  return mockCompanies;
+  // return [];
+};
+/*--------------------- */
 
 export const getVacanciesList = async ({
   companyId,
@@ -18,20 +37,33 @@ export const getVacanciesList = async ({
   try {
     const qs = new URLSearchParams();
     if (companyId) {
-      qs.append('company', String(companyId));
+      qs.append("company", String(companyId));
     }
     const response = await apiGet<TApiListResponse<TVacancyShort>>(
-      '/vacancy?' + qs.toString()
+      "/vacancy?" + qs.toString()
     );
 
     return response.data;
   } catch (error) {
     console.error(error);
     throw new Error(
-      'Не удалось загрузить вакансии. Пожалуйста, попробуйте позже.'
+      "Не удалось загрузить вакансии. Пожалуйста, попробуйте позже."
     );
   }
 };
+
+// export const getVacanciesList = async (): Promise<TVacancyShort[]> => {
+//   try {
+//     const response = await apiGet<TApiListResponse<TVacancyShort>>("/vacancy");
+
+//     return response.data;
+//   } catch (error) {
+//     console.error(error);
+//     throw new Error(
+//       "Не удалось загрузить вакансии. Пожалуйста, попробуйте позже."
+//     );
+//   }
+// };
 
 export const getVacancy = async (id: number | string): Promise<TVacancy> => {
   try {
@@ -43,7 +75,7 @@ export const getVacancy = async (id: number | string): Promise<TVacancy> => {
   } catch (error) {
     console.error(error);
     throw new Error(
-      'Не удалось загрузить вакансию. Пожалуйста, попробуйте позже.'
+      "Не удалось загрузить вакансию. Пожалуйста, попробуйте позже."
     );
   }
 };
@@ -51,14 +83,14 @@ export const getVacancy = async (id: number | string): Promise<TVacancy> => {
 export const getVacancyPositions = async (): Promise<string[]> => {
   try {
     const response = await apiGet<TApiListResponse<string>>(
-      '/vacancy/positions'
+      "/vacancy/positions"
     );
 
     return response.data;
   } catch (error) {
     console.error(error);
     throw new Error(
-      'Не удалось загрузить позиции. Пожалуйста, попробуйте позже.'
+      "Не удалось загрузить позиции. Пожалуйста, попробуйте позже."
     );
   }
 };
@@ -76,20 +108,20 @@ export const getBasicCandidatesByStatus = async (
   } catch (error) {
     console.error(error);
     throw new Error(
-      'Не удалось загрузить кандидатов. Пожалуйста, попробуйте позже.'
+      "Не удалось загрузить кандидатов. Пожалуйста, попробуйте позже."
     );
   }
 };
 
 export const getTariffs = async (): Promise<TTariff[]> => {
   try {
-    const response = await apiGet<TApiListResponse<TTariff>>('/tariffs');
+    const response = await apiGet<TApiListResponse<TTariff>>("/tariffs");
 
     return response.data;
   } catch (error) {
     console.error(error);
     throw new Error(
-      'Не удалось загрузить тарифы. Пожалуйста, попробуйте позже.'
+      "Не удалось загрузить тарифы. Пожалуйста, попробуйте позже."
     );
   }
 };
