@@ -1,49 +1,58 @@
-import { storeVacancy } from "@/actions/postData";
-import { useFormMutation } from "@/hooks/useFormMutation";
-import { cn } from "@/lib/utils";
-import { vacancyPositionsDict } from "@/shared/dictionaries";
-import { EVacancyEmployment, EVacancyWorkFormat, EVacancyExperience } from "@/shared/types";
-import { Button } from "../ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
-import { Textarea } from "../ui/textarea";
-import FormItem, { ErrorMessage } from "./form_elmts/FormItem";
-import { TMutationState } from "@/actions/types";
-import { getVacancyPositions } from "@/actions/getData";
-import { useQuery } from "@tanstack/react-query";
-import { Input } from "../ui/input";
-import { useParams } from "next/navigation";
+import { useFormMutation } from '@/hooks/useFormMutation';
+import { cn } from '@/lib/utils';
+import { vacancyPositionsDict } from '@/shared/dictionaries';
+import {
+  EVacancyEmployment,
+  EVacancyWorkFormat,
+  EVacancyExperience,
+} from '@/shared/types';
+import { Button } from '../ui/button';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../ui/select';
+import { Textarea } from '../ui/textarea';
+import FormItem, { ErrorMessage } from './form_elmts/FormItem';
+import { TMutationState } from '@/actions/types';
+import { getVacancyPositions } from '@/actions/getData';
+import { useQuery } from '@tanstack/react-query';
+import { Input } from '../ui/input';
+import { useParams } from 'next/navigation';
 
-type TFormMutationAction =
-  (_: TMutationState, body: FormData) => Promise<TMutationState>;
-
-
+type TFormMutationAction = (
+  _: TMutationState,
+  body: FormData
+) => Promise<TMutationState>;
 
 interface IVacancyFormProps {
-  action: TFormMutationAction,
-  initialState: TMutationState,
-  handleSuccess: () => void
+  action: TFormMutationAction;
+  initialState: TMutationState;
+  handleSuccess: () => void;
 }
 
-const VacancyForm = ({ action, initialState, handleSuccess }: IVacancyFormProps) => {
-  const { companyId } = useParams<{ companyId: string }>()
+const VacancyForm = ({
+  action,
+  initialState,
+  handleSuccess,
+}: IVacancyFormProps) => {
+  const { companyId } = useParams<{ companyId: string }>();
 
   const { data: vacancyPositions } = useQuery({
     queryFn: getVacancyPositions,
-    queryKey: ["vacancy", "positions"]
+    queryKey: ['vacancy', 'positions'],
   });
 
-  const {
-    formAction,
-    pending,
-    defaultValues,
-    errors,
-    onChange
-  } = useFormMutation(action, handleSuccess, initialState)
+  const { formAction, pending, defaultValues, errors, onChange } =
+    useFormMutation(action, handleSuccess, initialState);
 
   return (
     <form action={formAction} className="flex flex-col justify-between grow">
       <div className="sm:columns-2 sm:gap-6 [&>*:not(:last-child)]:mb-6 mb-6">
-        <input type='hidden' name='company_id' defaultValue={companyId} />
+        <input type="hidden" name="company_id" defaultValue={companyId} />
+
         <FormItem labelText="Название вакансии" error={errors.name}>
           <Input
             placeholder="Название вакансии"
@@ -55,60 +64,56 @@ const VacancyForm = ({ action, initialState, handleSuccess }: IVacancyFormProps)
         </FormItem>
 
         <FormItem labelText="Позиция" error={errors.position}>
-          <Select
-            name="position"
-            defaultValue={defaultValues?.position}
-          >
-            <SelectTrigger className={errors.position && 'ring-2 ring-destructive'}>
+          <Select name="position" defaultValue={defaultValues?.position}>
+            <SelectTrigger
+              className={errors.position && 'ring-2 ring-destructive'}
+            >
               <SelectValue placeholder="Выберите позицию" />
             </SelectTrigger>
             <SelectContent>
-              {vacancyPositions && vacancyPositions.map((position) => (
-                <SelectItem key={position} value={position}>
-                  {vacancyPositionsDict[position]}
-                </SelectItem>
-              ))}
+              {vacancyPositions &&
+                vacancyPositions.map((position) => (
+                  <SelectItem key={position} value={position}>
+                    {vacancyPositionsDict[position]}
+                  </SelectItem>
+                ))}
             </SelectContent>
           </Select>
         </FormItem>
 
-        <FormItem
-          labelText="Обязанности"
-          error={errors.responsibilities}
-        >
+        <FormItem labelText="Обязанности" error={errors.responsibilities}>
           <Textarea
             placeholder="Обязанности"
             name="responsibilities"
-            className={cn("resize-none", errors.responsibilities && 'ring-2 ring-destructive')}
+            className={cn(
+              'resize-none',
+              errors.responsibilities && 'ring-2 ring-destructive'
+            )}
             rows={9}
             defaultValue={defaultValues?.responsibilities}
             onChange={onChange}
           />
         </FormItem>
 
-        <FormItem
-          labelText="Условия"
-          error={errors.conditions}
-        >
+        <FormItem labelText="Условия" error={errors.conditions}>
           <Textarea
             placeholder="Условия"
             name="conditions"
-            className={cn("resize-none", errors.conditions && 'ring-2 ring-destructive')}
+            className={cn(
+              'resize-none',
+              errors.conditions && 'ring-2 ring-destructive'
+            )}
             rows={10}
             defaultValue={defaultValues?.conditions}
             onChange={onChange}
           />
         </FormItem>
 
-        <FormItem
-          labelText="Занятость"
-          error={errors.employment}
-        >
-          <Select
-            name="employment"
-            defaultValue={defaultValues?.employment}
-          >
-            <SelectTrigger className={cn(errors.employment && 'ring-2 ring-destructive')}>
+        <FormItem labelText="Занятость" error={errors.employment}>
+          <Select name="employment" defaultValue={defaultValues?.employment}>
+            <SelectTrigger
+              className={cn(errors.employment && 'ring-2 ring-destructive')}
+            >
               <SelectValue placeholder="Занятость" />
             </SelectTrigger>
             <SelectContent>
@@ -147,7 +152,10 @@ const VacancyForm = ({ action, initialState, handleSuccess }: IVacancyFormProps)
           <Textarea
             placeholder="Требования к кандидату"
             name="skills"
-            className={cn('resize-none', errors.skills && 'ring-2 ring-destructive')}
+            className={cn(
+              'resize-none',
+              errors.skills && 'ring-2 ring-destructive'
+            )}
             rows={8}
             defaultValue={defaultValues?.skills}
             onChange={onChange}
@@ -158,7 +166,10 @@ const VacancyForm = ({ action, initialState, handleSuccess }: IVacancyFormProps)
           <Textarea
             placeholder="Требования к кандидату"
             name="description"
-            className={cn('resize-none', errors.description && 'ring-2 ring-destructive')}
+            className={cn(
+              'resize-none',
+              errors.description && 'ring-2 ring-destructive'
+            )}
             rows={8}
             defaultValue={defaultValues?.description}
             onChange={onChange}
@@ -168,7 +179,9 @@ const VacancyForm = ({ action, initialState, handleSuccess }: IVacancyFormProps)
         <div>
           <p className="mb-[10px] font-medium">Формат работы</p>
           <div className="flex gap-3 items-center justify-between relative">
-            {errors.work_format && <ErrorMessage message={errors.work_format} />}
+            {errors.work_format && (
+              <ErrorMessage message={errors.work_format} />
+            )}
             <FormItem
               labelText="Офис"
               className="flex flex-row-reverse items-center [&>span]:font-normal"
@@ -177,7 +190,9 @@ const VacancyForm = ({ action, initialState, handleSuccess }: IVacancyFormProps)
                 type="radio"
                 name="work_format"
                 value={EVacancyWorkFormat.OFFICE}
-                defaultChecked={defaultValues?.work_format === EVacancyWorkFormat.OFFICE}
+                defaultChecked={
+                  defaultValues?.work_format === EVacancyWorkFormat.OFFICE
+                }
                 className="h-[20px]"
               />
             </FormItem>
@@ -189,7 +204,9 @@ const VacancyForm = ({ action, initialState, handleSuccess }: IVacancyFormProps)
                 type="radio"
                 name="work_format"
                 value={EVacancyWorkFormat.REMOTE}
-                defaultChecked={defaultValues?.work_format === EVacancyWorkFormat.REMOTE}
+                defaultChecked={
+                  defaultValues?.work_format === EVacancyWorkFormat.REMOTE
+                }
                 className="h-[20px]"
               />
             </FormItem>
@@ -201,7 +218,9 @@ const VacancyForm = ({ action, initialState, handleSuccess }: IVacancyFormProps)
                 type="radio"
                 name="work_format"
                 value={EVacancyWorkFormat.HYBRID}
-                defaultChecked={defaultValues?.work_format === EVacancyWorkFormat.HYBRID}
+                defaultChecked={
+                  defaultValues?.work_format === EVacancyWorkFormat.HYBRID
+                }
                 className="h-[20px]"
               />
             </FormItem>
@@ -209,11 +228,10 @@ const VacancyForm = ({ action, initialState, handleSuccess }: IVacancyFormProps)
         </div>
 
         <FormItem labelText="Опыт" error={errors.experience}>
-          <Select
-            name="experience"
-            defaultValue={defaultValues?.experience}
-          >
-            <SelectTrigger className={cn(errors.experience && 'ring-2 ring-destructive')}>
+          <Select name="experience" defaultValue={defaultValues?.experience}>
+            <SelectTrigger
+              className={cn(errors.experience && 'ring-2 ring-destructive')}
+            >
               <SelectValue placeholder="Опыт" />
             </SelectTrigger>
             <SelectContent>
@@ -233,14 +251,8 @@ const VacancyForm = ({ action, initialState, handleSuccess }: IVacancyFormProps)
           </Select>
         </FormItem>
 
-        <FormItem
-          labelText="География"
-          error={errors.location}
-        >
-          <Select
-            name="location"
-            defaultValue={defaultValues?.location}
-          >
+        <FormItem labelText="География" error={errors.location}>
+          <Select name="location" defaultValue={defaultValues?.location}>
             <SelectTrigger
               className={cn(errors.location && 'ring-2 ring-destructive')}
             >
@@ -261,15 +273,13 @@ const VacancyForm = ({ action, initialState, handleSuccess }: IVacancyFormProps)
       </div>
 
       <div className="self-end">
-        <Button type='button' variant="ghost" className="mr-2">
+        <Button type="button" variant="ghost" className="mr-2">
           Отмена
         </Button>
-        <Button type="submit">
-          {pending ? 'Сохранение...' : 'Сохранить'}
-        </Button>
+        <Button type="submit">{pending ? 'Сохранение...' : 'Сохранить'}</Button>
       </div>
     </form>
   );
-}
+};
 
 export default VacancyForm;

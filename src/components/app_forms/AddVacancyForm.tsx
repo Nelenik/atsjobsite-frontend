@@ -1,14 +1,17 @@
-import { useToast } from "@/hooks/use-toast";
-import { useCallback } from "react";
-import VacancyForm from "./VacancyForm";
-import { storeVacancy } from "@/actions/postData";
-import { mutationInitialState } from "@/actions/constants";
+import { FC, useCallback } from 'react';
 
-interface IAddVacancyProps {
-  closeModal: () => void
+import { useToast } from '@/hooks/use-toast';
+import { storeVacancy } from '@/actions/postData';
+import { mutationInitialState } from '@/actions/constants';
+
+import VacancyForm from './VacancyForm';
+
+type TProps = {
+  closeModal: () => void;
 };
-const AddVacancyForm = ({ closeModal }: IAddVacancyProps) => {
-  const { toast } = useToast()
+
+const AddVacancyForm: FC<TProps> = ({ closeModal }) => {
+  const { toast } = useToast();
 
   const handleSuccess = useCallback(() => {
     closeModal();
@@ -18,8 +21,12 @@ const AddVacancyForm = ({ closeModal }: IAddVacancyProps) => {
   }, [closeModal, toast]);
 
   return (
-    <VacancyForm action={storeVacancy} initialState={mutationInitialState} handleSuccess={handleSuccess} />
+    <VacancyForm
+      action={storeVacancy}
+      initialState={mutationInitialState}
+      handleSuccess={handleSuccess}
+    />
   );
-}
+};
 
 export default AddVacancyForm;
