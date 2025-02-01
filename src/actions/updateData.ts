@@ -1,6 +1,8 @@
 "use server";
 import { revalidatePath } from "next/cache";
 import { TMutationState } from "./types";
+import { API_URL } from "@/shared/config";
+import { TBadRequest } from "@/shared/helpers";
 
 export const updateVacancy = async (
   vacancyId: number | string,

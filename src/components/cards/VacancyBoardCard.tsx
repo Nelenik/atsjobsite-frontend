@@ -11,9 +11,8 @@ type TProps = Omit<TVacancyShort, 'created_at' | 'status'>
 
 const VacancyBoardCard: FC<TProps> = ({ id, name, location, salary_from, salary_to }) => {
   const pathname = usePathname()
-  console.log(pathname)
   return (
-    <Link href={`${pathname}/${id}?vacancyName=${name}`}>
+    <Link href={`${pathname}/${id}?name=${name}`}>
       <Card
         className={cn(
           'w-full py-4 px-6 hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-200'

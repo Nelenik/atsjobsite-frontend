@@ -46,7 +46,7 @@ export const VacanciesAside: FC<TProps> = ({ className }) => {
           return (
             <Link
               key={vacancy.id}
-              href={`${cleanedPath}/${vacancy.id}?vacancyName=${vacancy.name}`}
+              href={`${cleanedPath}/${vacancy.id}?name=${vacancy.name}`}
             >
               <VacancyCard
                 vacancyName={vacancy.name}

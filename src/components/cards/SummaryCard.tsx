@@ -5,7 +5,6 @@ import CaseIcon from '@/assets/icons/case.svg?rc';
 import { getWordEndings } from '@/lib/utils/getWordEnding';
 import { formatPrice } from '@/lib/utils/formatersIntl';
 import { getSalaryRange } from '@/lib/utils/getSalaryRange';
-import EditVacancyModal from '../modals/EditVacancyModal';
 
 type TProps = {
   vacancyName: string;

@@ -15,23 +15,23 @@ interface IEditVacancyModal {
   vacancyData: TVacancy
 }
 //temp mock data
-const initialObj = {
-  id: 1,
-  name: 'Devops',
-  position: 'teamlead',
-  responsibilities: '',
-  conditions: '',
-  employment: 'full',
-  skills: '',
-  work_format: '',
-  experience: '',
-  description: 'string',
-  location: 'Москва',
-  salary_from: 100000,
-  salary_to: 200000,
-  salary_candy: 80000,
-  salary_market: 100000,
-}
+// const initialObj = {
+//   id: 1,
+//   name: 'Devops',
+//   position: 'teamlead',
+//   responsibilities: '',
+//   conditions: '',
+//   employment: 'full',
+//   skills: '',
+//   work_format: '',
+//   experience: '',
+//   description: 'string',
+//   location: 'Москва',
+//   salary_from: 100000,
+//   salary_to: 200000,
+//   salary_candy: 80000,
+//   salary_market: 100000,
+// }
 
 const EditVacancyModal = ({
   className,

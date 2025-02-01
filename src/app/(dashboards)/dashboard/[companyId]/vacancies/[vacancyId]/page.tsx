@@ -6,6 +6,7 @@ import { MatchStatusCol } from '@/components/MatchStatusCol';
 import { getDaysSinceCreated } from '@/lib/utils/getDaysSinceCreated';
 import { EMatchStatus } from '@/shared/types';
 import EditVacancyModal from '@/components/modals/EditVacancyModal';
+import Link from 'next/link';
 
 
 type TProps = {
@@ -22,16 +23,19 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
   return (
     <div className="flex gap-6 flex-col relative">
       <EditVacancyModal className='absolute top-2 right-2 z-10' triggerView='icon' vacancyData={vacancy} />
-      <SummaryCard
-        vacancyName={vacancy.name}
-        daysInProcessing={getDaysSinceCreated(vacancy.created_at)}
-        salaryOfferFrom={vacancy.salary_from}
-        salaryOfferTo={vacancy.salary_to}
-        salaryMiddle={vacancy.salary_market}
-        salaryCandidate={vacancy.salary_candy}
-        candidatesCount={vacancy.match_count}
-        jobReactions={vacancy.match_hot_count}
-      />
+      <Link href={`/dashboard/${companyId}/vacancy-info/${vacancyId}?name=${vacancy.name}`}>
+
+        <SummaryCard
+          vacancyName={vacancy.name}
+          daysInProcessing={getDaysSinceCreated(vacancy.created_at)}
+          salaryOfferFrom={vacancy.salary_from}
+          salaryOfferTo={vacancy.salary_to}
+          salaryMiddle={vacancy.salary_market}
+          salaryCandidate={vacancy.salary_candy}
+          candidatesCount={vacancy.match_count}
+          jobReactions={vacancy.match_hot_count}
+        />
+      </Link>
 
       <div className="flex gap-6 w-full overflow-auto pb-2 shadow-inner">
         <div className="flex gap-6 flex-col">
