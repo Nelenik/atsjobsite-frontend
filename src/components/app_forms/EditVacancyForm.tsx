@@ -4,31 +4,16 @@ import VacancyForm from "./VacancyForm";
 import { updateVacancy } from "@/actions/updateData";
 import { mutationInitialState } from "@/actions/constants";
 import convertToFormData from "@/lib/utils/convertToFormData";
-import { TVacancy } from "@/shared/types";
+import { TVacancyForm } from "@/shared/types";
 
 interface IEditVacancyForm {
   closeModal: () => void
-  vacancyData: Pick<TVacancy, "id" |
-    "name" |
-    "position" |
-    "responsibilities" |
-    "conditions" |
-    "employment" |
-    "skills" |
-    "work_format" |
-    "experience" |
-    "description" |
-    "location" |
-    "salary_from" |
-    "salary_to" |
-    "salary_candy" |
-    "salary_market">
+  initialData: TVacancyForm
 }
 
-
-const EditVacancyForm = ({ closeModal, vacancyData }: IEditVacancyForm) => {
+const EditVacancyForm = ({ closeModal, initialData }: IEditVacancyForm) => {
   const { toast } = useToast()
-  const actionWithId = updateVacancy.bind(null, vacancyData.id)
+  const actionWithId = updateVacancy.bind(null, initialData.id)
 
   const handleSuccess = useCallback(() => {
     closeModal();
@@ -38,7 +23,14 @@ const EditVacancyForm = ({ closeModal, vacancyData }: IEditVacancyForm) => {
   }, [closeModal, toast]);
 
   return (
-    <VacancyForm action={actionWithId} handleSuccess={handleSuccess} initialState={{ ...mutationInitialState, payload: convertToFormData(vacancyData) }} />
+    <VacancyForm
+      action={actionWithId}
+      handleSuccess={handleSuccess}
+      initialState={{
+        ...mutationInitialState,
+        payload: convertToFormData(initialData)
+      }}
+    />
   );
 }
 

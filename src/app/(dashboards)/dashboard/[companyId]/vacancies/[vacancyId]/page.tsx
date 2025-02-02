@@ -7,6 +7,7 @@ import { getDaysSinceCreated } from '@/lib/utils/getDaysSinceCreated';
 import { EMatchStatus } from '@/shared/types';
 import EditVacancyModal from '@/components/modals/EditVacancyModal';
 import Link from 'next/link';
+import { pickAndFilter } from '@/lib/utils/pickAndFilter';
 
 
 type TProps = {
@@ -18,13 +19,33 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
 
   const vacancy = await getVacancy(vacancyId);
 
+  const pickedVacancy = pickAndFilter(vacancy, ["id",
+    "name",
+    "position",
+    "responsibilities",
+    "conditions",
+    "employment",
+    "skills",
+    "work_format",
+    "experience",
+    "description",
+    "location",
+    "salary_from",
+    "salary_to",
+    "salary_candy",
+    "salary_market"])
+
   console.log('vacancydata', vacancy)
 
   return (
     <div className="flex gap-6 flex-col relative">
-      <EditVacancyModal className='absolute top-2 right-2 z-10' triggerView='icon' vacancyData={vacancy} />
-      <Link href={`/dashboard/${companyId}/vacancy-info/${vacancyId}?name=${vacancy.name}`}>
 
+      <EditVacancyModal
+        className='absolute top-2 right-2 z-10' triggerView='icon'
+        initialData={pickedVacancy}
+      />
+
+      <Link href={`/dashboard/${companyId}/vacancy-info/${vacancyId}?name=${vacancy.name}`}>
         <SummaryCard
           vacancyName={vacancy.name}
           daysInProcessing={getDaysSinceCreated(vacancy.created_at)}

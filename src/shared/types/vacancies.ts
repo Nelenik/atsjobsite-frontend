@@ -38,6 +38,25 @@ export type TVacancyShort = Pick<
   | "salary_to"
 >;
 
+export type TVacancyForm = Pick<
+  TVacancy,
+  | "id"
+  | "name"
+  | "position"
+  | "responsibilities"
+  | "conditions"
+  | "employment"
+  | "skills"
+  | "work_format"
+  | "experience"
+  | "description"
+  | "location"
+  | "salary_from"
+  | "salary_to"
+  | "salary_candy"
+  | "salary_market"
+>;
+
 export enum EVacancyPosition {
   DEVELOPER = "developer",
   TEAM_LEAD = "team-lead",

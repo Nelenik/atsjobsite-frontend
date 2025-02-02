@@ -1,18 +1,16 @@
 'use client'
 import { useCallback, useState } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "../ui/dialog";
-import { cn } from "@/lib/utils";
 import EditVacancyForm from "../app_forms/EditVacancyForm";
-import { Button } from "../ui/button";
 import EditButton from "../buttons/EditButton";
-import { TVacancy } from "@/shared/types";
+import { TVacancyForm } from "@/shared/types";
 import { pickAndFilter } from "@/lib/utils/pickAndFilter";
 
 
 interface IEditVacancyModal {
   className?: string
   triggerView?: 'icon' | 'default'
-  vacancyData: TVacancy
+  initialData: TVacancyForm
 }
 //temp mock data
 // const initialObj = {
@@ -36,26 +34,10 @@ interface IEditVacancyModal {
 const EditVacancyModal = ({
   className,
   triggerView = 'default',
-  vacancyData
+  initialData
 }: IEditVacancyModal) => {
   const [open, setOpen] = useState<boolean>(false)
   const handleClose = useCallback(() => setOpen(false), [])
-
-  const pickedVacancyData = pickAndFilter(vacancyData, ["id",
-    "name",
-    "position",
-    "responsibilities",
-    "conditions",
-    "employment",
-    "skills",
-    "work_format",
-    "experience",
-    "description",
-    "location",
-    "salary_from",
-    "salary_to",
-    "salary_candy",
-    "salary_market"])
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -67,10 +49,10 @@ const EditVacancyModal = ({
         <DialogTitle className="text-3xl">Изменить вакансию</DialogTitle>
 
         <DialogDescription className="visually-hidden">
-          Редактируйте вакансию
+          Форма редактирования
         </DialogDescription>
 
-        <EditVacancyForm closeModal={handleClose} vacancyData={pickedVacancyData} />
+        <EditVacancyForm closeModal={handleClose} initialData={initialData} />
       </DialogContent>
     </Dialog>
   );
