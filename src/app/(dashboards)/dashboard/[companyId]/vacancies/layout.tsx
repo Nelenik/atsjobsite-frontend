@@ -13,7 +13,7 @@ interface IVacancyiesLayoutProp extends PropsWithChildren {
 
 const VacanciesLayout: FC<IVacancyiesLayoutProp> = async ({ children, params }) => {
   const { companyId } = await params
-  const vacancies = await getVacanciesList();
+  const vacancies = await getVacanciesList({ companyId });
   console.log(vacancies)
   return (
     <VacanciesProvider vacancies={vacancies}>

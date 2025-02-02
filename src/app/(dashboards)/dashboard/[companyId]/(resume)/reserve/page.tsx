@@ -1,10 +1,11 @@
-import { AddResumeModal } from "@/components/modals/AddResumeModal";
+import AddEntityModal from "@/components/modals/AddEntityModal";
 
 const ReservePage = () => {
   return (
     <div>
       Reserve page
-      <AddResumeModal />
+      <AddEntityModal entityType="resume" />
+      {/* <AddResumeModal /> */}
     </div>
   );
 }

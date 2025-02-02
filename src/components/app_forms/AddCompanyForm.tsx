@@ -20,14 +20,21 @@ import { useFormMutation } from '@/hooks/useFormMutation';
 import { useToast } from '@/hooks/use-toast';
 import FormItem from './form_elmts/FormItem';
 import DatePicker from './form_elmts/DatePicker';
+import { useQuery } from '@tanstack/react-query';
+import { getTariffs } from '@/actions/getData';
 
 type TProps = {
-  tariffs: TTariff[];
+  // tariffs: TTariff[];
   closeModal: () => void
 };
 
-export const AddCompanyForm: FC<TProps> = ({ tariffs, closeModal }) => {
+export const AddCompanyForm: FC<TProps> = ({ closeModal }) => {
   const { toast } = useToast()
+
+  const { data: tariffs = [] } = useQuery({
+    queryFn: getTariffs,
+    queryKey: ['tariffs']
+  })
 
   const handleSuccess = useCallback(() => {
     closeModal();

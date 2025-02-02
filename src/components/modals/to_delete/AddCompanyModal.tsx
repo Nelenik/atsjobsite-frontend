@@ -15,10 +15,10 @@ import { AddCompanyForm } from '../app_forms/AddCompanyForm';
 import React from 'react';
 
 type TProps = {
-  tariffs: TTariff[];
+  // tariffs: TTariff[];
 };
 
-export const AddCompanyModal: FC<TProps> = ({ tariffs }) => {
+export const AddCompanyModal: FC<TProps> = () => {
   const [open, setOpen] = useState<boolean>(false)
   const handleClose = useCallback(() => setOpen(false), [])
   return (
@@ -35,8 +35,7 @@ export const AddCompanyModal: FC<TProps> = ({ tariffs }) => {
         <DialogDescription className="visually-hidden">
           Заполние данныее по новой компании
         </DialogDescription>
-
-        <AddCompanyForm tariffs={tariffs} closeModal={handleClose} />
+        <AddCompanyForm closeModal={handleClose} />
       </DialogContent>
     </Dialog>
   );

@@ -4,10 +4,11 @@ import { getVacancy } from '@/actions/getData';
 import { SummaryCard } from '@/components/cards/SummaryCard';
 import { MatchStatusCol } from '@/components/MatchStatusCol';
 import { getDaysSinceCreated } from '@/lib/utils/getDaysSinceCreated';
-import { EMatchStatus } from '@/shared/types';
-import EditVacancyModal from '@/components/modals/EditVacancyModal';
+import { EMatchStatus, TVacancy } from '@/shared/types';
+import EditVacancyModal from '@/components/modals/to_delete/EditVacancyModal';
 import Link from 'next/link';
-import { pickAndFilter } from '@/lib/utils/pickAndFilter';
+import { filterFalsyFields } from '@/lib/utils/filterFalsyFields';
+import EditEntityModal from '@/components/modals/EditEntityModal';
 
 
 type TProps = {
@@ -19,30 +20,17 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
 
   const vacancy = await getVacancy(vacancyId);
 
-  const pickedVacancy = pickAndFilter(vacancy, ["id",
-    "name",
-    "position",
-    "responsibilities",
-    "conditions",
-    "employment",
-    "skills",
-    "work_format",
-    "experience",
-    "description",
-    "location",
-    "salary_from",
-    "salary_to",
-    "salary_candy",
-    "salary_market"])
+  //Formats the initial data by removing nullable fields for the editing form.
+  const filtredVacancy = filterFalsyFields(vacancy)
 
-  console.log('vacancydata', vacancy)
+  console.log('filtred vacancydata', filtredVacancy)
 
   return (
     <div className="flex gap-6 flex-col relative">
-
-      <EditVacancyModal
+      <EditEntityModal<TVacancy>
         className='absolute top-2 right-2 z-10' triggerView='icon'
-        initialData={pickedVacancy}
+        initialData={filtredVacancy}
+        entityType='vacancy'
       />
 
       <Link href={`/dashboard/${companyId}/vacancy-info/${vacancyId}?name=${vacancy.name}`}>

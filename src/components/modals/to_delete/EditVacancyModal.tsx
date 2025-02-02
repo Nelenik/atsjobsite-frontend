@@ -1,35 +1,17 @@
 'use client'
 import { useCallback, useState } from "react";
-import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "../ui/dialog";
-import EditVacancyForm from "../app_forms/EditVacancyForm";
-import EditButton from "../buttons/EditButton";
-import { TVacancyForm } from "@/shared/types";
-import { pickAndFilter } from "@/lib/utils/pickAndFilter";
+import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "../../ui/dialog";
+import EditVacancyForm from "../../app_forms/EditVacancyForm";
+import EditButton from "../../buttons/EditButton";
+import { TVacancy } from "@/shared/types";
+import { NonNullableFields } from "@/lib/utils/filterFalsyFields";
 
 
 interface IEditVacancyModal {
   className?: string
   triggerView?: 'icon' | 'default'
-  initialData: TVacancyForm
+  initialData: NonNullableFields<TVacancy>
 }
-//temp mock data
-// const initialObj = {
-//   id: 1,
-//   name: 'Devops',
-//   position: 'teamlead',
-//   responsibilities: '',
-//   conditions: '',
-//   employment: 'full',
-//   skills: '',
-//   work_format: '',
-//   experience: '',
-//   description: 'string',
-//   location: 'Москва',
-//   salary_from: 100000,
-//   salary_to: 200000,
-//   salary_candy: 80000,
-//   salary_market: 100000,
-// }
 
 const EditVacancyModal = ({
   className,

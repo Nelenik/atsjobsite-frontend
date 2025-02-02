@@ -13,10 +13,10 @@ export const updateVacancy = async (
   _: TMutationState,
   body: FormData
 ) => {
-  console.log("update");
-
-  const result = updateEntity(`/vacancy/${vacancyId}`, body);
-  // revalidatePath("/dashboard/[companyId]/vacancies/*");
+  const result = await updateEntity(`/vacancy/${vacancyId}`, body);
+  if (!result.error) {
+    revalidatePath("/dashboard/[companyId]/vacancies/*", "layout");
+  }
   return result;
 };
 
@@ -24,7 +24,6 @@ const updateEntity = async (url: string, body: FormData) => {
   console.log(Object.fromEntries(body));
   try {
     const response = await apiPut<boolean | TBadRequest>(url, body);
-    console.log("update.resp", response);
     if (response && typeof response === "object" && response.errorType) {
       return {
         sent: true,
@@ -45,8 +44,4 @@ const updateEntity = async (url: string, body: FormData) => {
     sent: true,
     error: null,
   };
-  // return {
-  //   sent: true,
-  //   error: null,
-  // };
 };

@@ -1,12 +1,11 @@
-import { getTariffs } from "@/actions/getData";
-import { AddCompanyModal } from "@/components/modals/AddCompanyModal";
+import AddEntityModal from "@/components/modals/AddEntityModal";
 
 const CompaniesPage = async () => {
-  const tariffs = await getTariffs();
+  // const tariffs = await getTariffs();
   return (
     <div>Companies page
-
-      <AddCompanyModal tariffs={tariffs} />
+      <AddEntityModal entityType="company" />
+      {/* <AddCompanyModal /> */}
     </div>
   );
 }
