@@ -1,10 +1,10 @@
 'use client'
 import { useCallback, useState } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "../../ui/dialog";
-import EditVacancyForm from "../../app_forms/EditVacancyForm";
 import EditButton from "../../buttons/EditButton";
 import { TVacancy } from "@/shared/types";
 import { NonNullableFields } from "@/lib/utils/filterFalsyFields";
+import EditVacancyForm from "@/components/app_forms/to_delete/EditVacancyForm";
 
 
 interface IEditVacancyModal {

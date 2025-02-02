@@ -3,18 +3,24 @@ import { TMutationState } from "@/actions/types";
 import { convertFormData } from "@/lib/utils/convertFormData";
 import { TValidationMappedErrors } from "@/shared/helpers";
 import { ChangeEvent, useActionState, useEffect, useState } from "react";
+import { useToast } from "./use-toast";
 
 type TFormMutationAction = (_: TMutationState, body: FormData) => Promise<TMutationState>
 
 type TOnChangeEvent = ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
 
-export const useFormMutation = (mutationAction: TFormMutationAction, onSucces: () => void = () => { }, initialState: TMutationState = mutationInitialState) => {
+export const useFormMutation = (mutationAction: TFormMutationAction, onSucces: () => void = () => { }, initialState: TMutationState = mutationInitialState, toastMessage: string) => {
 
+  const { toast } = useToast();
+
+  // define action state
   const [state, formAction, pending] = useActionState<TMutationState, FormData>(
     mutationAction,
     initialState
   );
+  console.log('formstate', state)
 
+  //handle errors
   const [errors, setErrors] = useState<TValidationMappedErrors>({})
   const [isSuccess, setIsSuccess] = useState(false)
 
@@ -34,12 +40,16 @@ export const useFormMutation = (mutationAction: TFormMutationAction, onSucces: (
     }
   }, [state.sent, state.error])
 
+  //handle success
   useEffect(() => {
     if (isSuccess) {
       onSucces()
+      toast({
+        description: toastMessage,
+      });
       setIsSuccess(false)
     }
-  }, [onSucces, isSuccess])
+  }, [onSucces, isSuccess, toastMessage])
 
   const defaultValues = state.payload ? convertFormData(state.payload) : undefined;
 

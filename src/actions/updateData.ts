@@ -20,6 +20,18 @@ export const updateVacancy = async (
   return result;
 };
 
+export const updateCompany = async (
+  companyId: number | string,
+  _: TMutationState,
+  body: FormData
+) => updateEntity(`/company/${companyId}`, body);
+
+export const updateCV = async (
+  cvId: number | string,
+  _: TMutationState,
+  body: FormData
+) => updateEntity(`cv/${cvId}`, body);
+
 const updateEntity = async (url: string, body: FormData) => {
   console.log(Object.fromEntries(body));
   try {

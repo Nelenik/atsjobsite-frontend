@@ -1,15 +1,19 @@
 'use client'
 import { useState, useCallback, FC } from "react";
-import EditVacancyForm from "../app_forms/EditVacancyForm";
 import EditButton from "../buttons/EditButton";
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "../ui/dialog";
 import { filterFalsyFields, NonNullableFields } from "@/lib/utils/filterFalsyFields";
 import { TVacancy } from "@/shared/types";
+import VacancyForm from "../app_forms/VacancyForm";
+import { CompanyForm } from "../app_forms/CompanyForm";
+import { TCompany } from "@/shared/types/companies";
+import ResumeForm from "../app_forms/ResumeForm";
+import { TResume } from "@/shared/types/resume";
 
 type TProps = {
   className?: string
   triggerView?: 'icon' | 'default'
-  initialData: unknown
+  initialData: Record<string, unknown>
   entityType: 'vacancy' | 'company' | 'resume' | 'match'
 }
 
@@ -36,7 +40,7 @@ const labels = {
  * 
  */
 
-const EditEntityModal = (
+const EditEntityModal = <T extends object>(
   { className,
     triggerView = 'default',
     initialData,
@@ -46,20 +50,13 @@ const EditEntityModal = (
   const [open, setOpen] = useState<boolean>(false)
   const handleClose = useCallback(() => setOpen(false), [])
 
-  let entity;
-  switch (entityType) {
-    case 'vacancy':
-      entity = <EditVacancyForm closeModal={handleClose} initialData={initialData as NonNullableFields<TVacancy>} />
-      break;
-    case 'company':
-      entity = <p>Edift company form</p>
-      break;
-    case 'resume':
-      entity = <p>Edit resume form</p>
-      break;
-    case 'match':
-      entity = <p>edit match form</p>
-      break;
+  const filtredInitial = filterFalsyFields<T>(initialData as T)
+
+  const entityForm = {
+    vacancy: <VacancyForm type="edit" closeModal={handleClose} initialData={filtredInitial as TVacancy} />,
+    company: <CompanyForm type="edit" closeModal={handleClose} initialData={filtredInitial as NonNullableFields<TCompany>} />,
+    resume: <ResumeForm type="edit" closeModal={handleClose} initialData={filtredInitial as NonNullableFields<TResume>} />,
+    match: <p>match form</p>
   }
 
   return (
@@ -77,7 +74,7 @@ const EditEntityModal = (
           {labels[entityType].descr}
         </DialogDescription>
 
-        {entity}
+        {entityForm[entityType]}
 
       </DialogContent>
     </Dialog>

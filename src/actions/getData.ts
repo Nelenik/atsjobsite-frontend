@@ -12,8 +12,7 @@ import {
 
 import { apiGet } from "./api";
 import { IUser } from "@/shared/types/user";
-import { mockCompanies } from "./mockData";
-import { TCompany } from "@/shared/types/companies";
+import { mockCompanies, mockResume } from "./mockData";
 
 /*--------Mock data---------- */
 export const getUser = async (): Promise<IUser> => {
@@ -28,6 +27,11 @@ export const getCompaniesList = async () => {
   return mockCompanies;
   // return [];
 };
+
+export const getResumeList = async () => {
+  return mockResume;
+};
+
 /*--------------------- */
 
 export const getVacanciesList = async ({

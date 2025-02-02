@@ -2,11 +2,11 @@
 import { cn } from "@/lib/utils";
 import { CirclePlus } from "lucide-react";
 import { useState, useCallback, FC } from "react";
-import AddVacancyForm from "../app_forms/AddVacancyForm";
 import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "../ui/dialog";
-import { AddResumeForm } from "../app_forms/AddResumeForm";
-import { AddCompanyForm } from "../app_forms/AddCompanyForm";
+import VacancyForm from "../app_forms/VacancyForm";
+import { CompanyForm } from "../app_forms/CompanyForm";
+import ResumeForm from "../app_forms/ResumeForm";
 
 type TProps = {
   className?: string
@@ -27,17 +27,10 @@ const AddEntityModal: FC<TProps> = ({
   const [open, setOpen] = useState<boolean>(false)
   const handleClose = useCallback(() => setOpen(false), [])
 
-  let entity;
-  switch (entityType) {
-    case 'vacancy':
-      entity = <AddVacancyForm closeModal={handleClose} />
-      break;
-    case 'company':
-      entity = <AddCompanyForm closeModal={handleClose} />
-      break;
-    case 'resume':
-      entity = <AddResumeForm closeModal={handleClose} />
-      break;
+  const entityForm = {
+    vacancy: <VacancyForm type="add" closeModal={handleClose} />,
+    company: <CompanyForm type="add" closeModal={handleClose} />,
+    resume: <ResumeForm type="add" closeModal={handleClose} />,
   }
 
   return (
@@ -58,7 +51,8 @@ const AddEntityModal: FC<TProps> = ({
           {labels[entityType].descr}
         </DialogDescription>
 
-        {entity}
+        {entityForm[entityType]}
+
       </DialogContent>
     </Dialog>
   );
