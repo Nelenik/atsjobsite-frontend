@@ -23,7 +23,6 @@ export default async function DashboardLayout({
 }>) {
 
   const userData = await getUser()
-
   return (
     <React.Fragment>
       <Header userData={userData} className="sm:hidden" />

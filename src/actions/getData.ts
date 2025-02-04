@@ -28,9 +28,9 @@ export const getUser = async (): Promise<IUser> => {
 export const getCompaniesList = async (
   filters: Record<string, string> = {}
 ): Promise<TCompany[]> => {
-  const filterString = filters
-    ? new URLSearchParams(filterFalsyFields(filters)).toString()
-    : "";
+  const filterString = new URLSearchParams(
+    filterFalsyFields(filters)
+  ).toString();
 
   console.log(filterString);
   return mockCompanies.filter(({ name }) =>
@@ -65,19 +65,6 @@ export const getVacanciesList = async ({
     );
   }
 };
-
-// export const getVacanciesList = async (): Promise<TVacancyShort[]> => {
-//   try {
-//     const response = await apiGet<TApiListResponse<TVacancyShort>>("/vacancy");
-
-//     return response.data;
-//   } catch (error) {
-//     console.error(error);
-//     throw new Error(
-//       "Не удалось загрузить вакансии. Пожалуйста, попробуйте позже."
-//     );
-//   }
-// };
 
 export const getVacancy = async (id: number | string): Promise<TVacancy> => {
   try {
@@ -117,7 +104,7 @@ export const getBasicCandidatesByStatus = async (
     const response = await apiGet<TApiListResponse<TCandidateShort>>(
       `/match/candidates?vacancy_id=${vacId}&status=${status}`
     );
-
+    console.log("candidate", response);
     return response.data;
   } catch (error) {
     console.error(error);

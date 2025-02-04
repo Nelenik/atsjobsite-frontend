@@ -9,6 +9,7 @@ import { CompanyForm } from "../app_forms/CompanyForm";
 import { TCompany } from "@/shared/types/companies";
 import ResumeForm from "../app_forms/ResumeForm";
 import { TResume } from "@/shared/types/resume";
+import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "../ui/sheet";
 
 type TProps = {
   className?: string
@@ -60,24 +61,42 @@ const EditEntityModal = <T extends object>(
   }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
+    // <Dialog open={open} onOpenChange={setOpen}>
+    //   <DialogTrigger asChild>
+    //     <EditButton isIconView={triggerView === 'icon'} className={className} />
+    //   </DialogTrigger>
+
+    //   <DialogContent className="w-[min(100%,800px)] h-full bg-white max-w-none flex flex-col">
+    //     <DialogTitle className="text-3xl">
+    //       {labels[entityType].title}
+    //     </DialogTitle>
+
+    //     <DialogDescription className="visually-hidden">
+    //       {labels[entityType].descr}
+    //     </DialogDescription>
+
+    //     {entityForm[entityType]}
+
+    //   </DialogContent>
+    // </Dialog>
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetTrigger asChild>
         <EditButton isIconView={triggerView === 'icon'} className={className} />
-      </DialogTrigger>
+      </SheetTrigger>
 
-      <DialogContent className="w-[min(100%,800px)] h-full bg-white max-w-none flex flex-col">
-        <DialogTitle className="text-3xl">
+      <SheetContent className="w-[min(100%,800px)] h-full bg-white max-w-none flex flex-col sm:max-w-none overflow-y-auto">
+        <SheetTitle className="text-3xl">
           {labels[entityType].title}
-        </DialogTitle>
+        </SheetTitle>
 
-        <DialogDescription className="visually-hidden">
+        <SheetDescription className="visually-hidden">
           {labels[entityType].descr}
-        </DialogDescription>
+        </SheetDescription>
 
         {entityForm[entityType]}
 
-      </DialogContent>
-    </Dialog>
+      </SheetContent>
+    </Sheet>
   );
 }
 

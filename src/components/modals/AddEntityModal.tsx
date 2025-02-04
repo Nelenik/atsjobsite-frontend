@@ -4,6 +4,7 @@ import { CirclePlus } from "lucide-react";
 import { useState, useCallback, FC } from "react";
 import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "../ui/dialog";
+import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "../ui/sheet";
 import VacancyForm from "../app_forms/VacancyForm";
 import { CompanyForm } from "../app_forms/CompanyForm";
 import ResumeForm from "../app_forms/ResumeForm";
@@ -34,27 +35,48 @@ const AddEntityModal: FC<TProps> = ({
   }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
+    // <Dialog open={open} onOpenChange={setOpen}>
+    //   <DialogTrigger asChild>
+    //     <Button className={cn('w-max lg:w-full py-6 text-base flex', className)}>
+    //       <CirclePlus />
+    //       Добавить <span className="hidden sm:inline">{labels[entityType].triggerText}</span>
+    //     </Button>
+    //   </DialogTrigger>
+
+    //   <DialogContent className="w-[min(100%,800px)] h-full bg-white max-w-none flex flex-col">
+    //     <DialogTitle className="text-3xl">
+    //       {labels[entityType].title}
+    //     </DialogTitle>
+
+    //     <DialogDescription className="visually-hidden">
+    //       {labels[entityType].descr}
+    //     </DialogDescription>
+
+    //     {entityForm[entityType]}
+
+    //   </DialogContent>
+    // </Dialog>
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetTrigger asChild>
         <Button className={cn('w-max lg:w-full py-6 text-base flex', className)}>
           <CirclePlus />
           Добавить <span className="hidden sm:inline">{labels[entityType].triggerText}</span>
         </Button>
-      </DialogTrigger>
+      </SheetTrigger>
 
-      <DialogContent className="w-[min(100%,800px)] h-full bg-white max-w-none flex flex-col">
-        <DialogTitle className="text-3xl">
+      <SheetContent className="w-[min(100%,800px)] h-full bg-white max-w-none flex flex-col sm:max-w-none overflow-y-auto">
+        <SheetTitle className="text-3xl">
           {labels[entityType].title}
-        </DialogTitle>
+        </SheetTitle>
 
-        <DialogDescription className="visually-hidden">
+        <SheetDescription className="visually-hidden">
           {labels[entityType].descr}
-        </DialogDescription>
+        </SheetDescription>
 
         {entityForm[entityType]}
 
-      </DialogContent>
-    </Dialog>
+      </SheetContent>
+    </Sheet>
   );
 }
 

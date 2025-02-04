@@ -103,7 +103,7 @@ body {
 
 /* Define the thumb style */
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--sidebar-background)/0.2);
+  background: hsl(var(--sidebar-background)/0.1);
   border-radius: 5px;
 }
 
@@ -116,7 +116,7 @@ body {
 
 /* Define the button style */
 ::-webkit-scrollbar-button {
-  background-color: hsl(var(--sidebar-background)/0.2);
+  background-color: hsl(var(--sidebar-background)/0.1);
   border-radius: 5px;
   cursor: pointer;
 }
