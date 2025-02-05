@@ -7,6 +7,7 @@ import {
   TBadRequest,
 } from "@/shared/helpers";
 import { apiPut } from "./api";
+import { mockMatchInfo } from "./mockData";
 
 export const updateVacancy = async (
   vacancyId: number | string,
@@ -32,6 +33,7 @@ export const updateCV = async (
   body: FormData
 ) => updateEntity(`cv/${cvId}`, body);
 
+//Full entity update (PUT request)
 const updateEntity = async (url: string, body: FormData) => {
   console.log(Object.fromEntries(body));
   try {
@@ -55,5 +57,14 @@ const updateEntity = async (url: string, body: FormData) => {
   return {
     sent: true,
     error: null,
+  };
+};
+
+export const updateMatch = async (_: TMutationState, body: FormData) => {
+  console.log(Object.fromEntries(body));
+  return {
+    sent: true,
+    error: null,
+    payload: body,
   };
 };

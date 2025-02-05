@@ -1,4 +1,6 @@
 import {
+  EMatchStatus,
+  EVacancyPosition,
   EVacancyStatus,
   TCandidateShort,
   TVacancy,
@@ -124,41 +126,6 @@ export const mockResume: TResume[] = [
   },
 ];
 
-/*--------------- */
-// export const mockVacancies: TVacancyShort[] = [
-//   {
-//     id: 1,
-//     name: "Frontend Dev",
-//     status: EVacancyStatus.WORK,
-//     created_at: "2025-01-22T09:00:00+01:00",
-//   },
-//   {
-//     id: 2,
-//     name: "Backend Dev",
-//     status: EVacancyStatus.PAUSE,
-//     created_at: "2025-01-23T13:30:00+01:00",
-//   },
-//   {
-//     id: 3,
-//     name: "Quality Assurance",
-//     status: EVacancyStatus.SETTING,
-//     created_at: "2025-01-24T20:45:00+01:00",
-//   },
-// ];
-
-// export const mockVacancy: TVacancy = {
-//   id: 1,
-//   name: "Frontend Dev",
-//   salary_from: 100000,
-//   salary_to: 110000,
-//   salary_candy: 120000,
-//   salary_market: 100000,
-//   status: EVacancyStatus.WORK,
-//   match_count: 18,
-//   match_hot_count: 90,
-//   created_at: "2025-01-22T09:00:00+01:00",
-// };
-
 export const mockCandidateShort: TCandidateShort[] = [
   {
     id: 1,
@@ -169,3 +136,117 @@ export const mockCandidateShort: TCandidateShort[] = [
     created_at: "2025-01-22T09:00:00+01:00",
   },
 ];
+
+export type TMatchInfo = {
+  id: number;
+  type: "sourcing" | "application";
+  match_status: EMatchStatus;
+  match_point: number;
+  match_summary: string;
+  cv: {
+    id: number;
+    name: string;
+    role: string;
+    status: "open" | "passive" | "closed" | "offered";
+    link: string;
+    email: string;
+    phone: string;
+    location: string;
+    summary: string;
+    skills: string; //'react,node js,css'
+    bio: string;
+    total_experience: string;
+    last_experience: string;
+  };
+  comments: {
+    id: number;
+    author: string;
+    created_at: string; //iso;
+    value: string;
+  }[];
+};
+
+export const mockMatchInfo: TMatchInfo = {
+  id: 1,
+  type: "sourcing",
+  match_status: EMatchStatus.SCORING,
+  match_point: 8.5,
+  match_summary:
+    "Candidate has strong frontend experience with React and Node.js. Candidate has strong frontend experience with React and Node.js. Candidate has strong frontend experience with React and Node.js. Candidate has strong frontend experience with React and Node.js.",
+
+  cv: {
+    id: 101,
+    name: "John Doe",
+    role: "frontend developer",
+    status: "open",
+    link: "https://example.com/cv/johndoe",
+    email: "johndoe@example.com",
+    phone: "+1234567890",
+    location: "New York, USA",
+    summary:
+      "Experienced Frontend Developer with expertise in React, Node.js, and CSS. Experienced Frontend Developer with expertise in React, Node.js, and CSS. Experienced Frontend Developer with expertise in React, Node.js, and CSS.",
+    skills: "react,node js,css",
+    bio: "Passionate about building scalable web applications and enhancing user experience. Passionate about building scalable web applications and enhancing user experience. Passionate about building scalable web applications and enhancing user experience.",
+    total_experience: "январь 2019 - февраль 2025",
+    last_experience: "март 2022 - февраль 2025",
+  },
+
+  comments: [
+    {
+      id: 201,
+      author: "Recruiter Jane",
+      created_at: "2025-02-01T10:15:30.000Z",
+      value:
+        "Candidate looks promising. Schedule an interview. Candidate looks promising. Schedule an interview. Candidate looks promising. Schedule an interview.",
+    },
+    {
+      id: 202,
+      author: "Hiring Manager Mike",
+      created_at: new Date().toISOString(),
+      value:
+        "Good experience, but needs more backend exposure. Good experience, but needs more backend exposure. Good experience, but needs more backend exposure.",
+    },
+    {
+      id: 203,
+      author: "Recruiter Jane",
+      created_at: "2025-02-01T10:15:30.000Z",
+      value:
+        "Candidate looks promising. Schedule an interview. Candidate looks promising. Schedule an interview. Candidate looks promising. Schedule an interview.",
+    },
+    {
+      id: 204,
+      author: "Hiring Manager Mike",
+      created_at: new Date().toISOString(),
+      value:
+        "Good experience, but needs more backend exposure. Good experience, but needs more backend exposure. Good experience, but needs more backend exposure.",
+    },
+    {
+      id: 205,
+      author: "Recruiter Jane",
+      created_at: "2025-02-01T10:15:30.000Z",
+      value:
+        "Candidate looks promising. Schedule an interview. Candidate looks promising. Schedule an interview. Candidate looks promising. Schedule an interview.",
+    },
+    {
+      id: 206,
+      author: "Hiring Manager Mike",
+      created_at: new Date().toISOString(),
+      value:
+        "Good experience, but needs more backend exposure. Good experience, but needs more backend exposure. Good experience, but needs more backend exposure.",
+    },
+    {
+      id: 207,
+      author: "Recruiter Jane",
+      created_at: "2025-02-01T10:15:30.000Z",
+      value:
+        "Candidate looks promising. Schedule an interview. Candidate looks promising. Schedule an interview. Candidate looks promising. Schedule an interview.",
+    },
+    {
+      id: 208,
+      author: "Hiring Manager Mike",
+      created_at: new Date().toISOString(),
+      value:
+        "Good experience, but needs more backend exposure. Good experience, but needs more backend exposure. Good experience, but needs more backend exposure.",
+    },
+  ],
+};

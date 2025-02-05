@@ -1,4 +1,5 @@
 import InterceptingModal from '@/components/modals/InterceptingModal';
+import MatchInfo from '@/components/pages/MatchInfo';
 import Resume from '@/components/pages/Resume';
 
 const ResumeModal = () => {
@@ -7,7 +8,7 @@ const ResumeModal = () => {
       dialogTitle="Резюме"
       dialogDescription="Подробная информация о кандидате"
     >
-      <Resume />
+      <MatchInfo />
     </InterceptingModal>
   );
 };

@@ -115,13 +115,17 @@ body {
 }
 
 /* Define the button style */
-::-webkit-scrollbar-button {
+/* ::-webkit-scrollbar-button {
   background-color: hsl(var(--sidebar-background)/0.1);
   border-radius: 5px;
   cursor: pointer;
-}
+} */
 
 /* Define the button style when being hovered over  */
 ::-webkit-scrollbar-button:hover {
   background-color: hsl(var(--sidebar-background)/0.3);
+}
+
+.thin-scrollbar::-webkit-scrollbar {
+  width: 3px;
 }

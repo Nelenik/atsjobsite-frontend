@@ -12,19 +12,22 @@ import {
 
 import { apiGet } from "./api";
 import { IUser } from "@/shared/types/user";
-import { mockCompanies, mockResume } from "./mockData";
+import { mockCompanies, mockMatchInfo, mockResume } from "./mockData";
 import { filterFalsyFields } from "@/lib/utils/filterFalsyFields";
 import { TCompany } from "@/shared/types/companies";
 
-/*--------Mock data---------- */
+/* USER */
+/*----Needs to be redone with real data.--- */
 export const getUser = async (): Promise<IUser> => {
   return {
     id: 1,
-    name: "Иванов Иван",
+    name: "Демьянов Илья",
     email: "test@mail.com",
   };
 };
 
+/* COMPANY */
+/*----Needs to be redone with real data.--- */
 export const getCompaniesList = async (
   filters: Record<string, string> = {}
 ): Promise<TCompany[]> => {
@@ -39,12 +42,13 @@ export const getCompaniesList = async (
   // return [];
 };
 
+/* RESUME */
+/*--- Needs to be redone with real data.---- */
 export const getResumeList = async () => {
   return mockResume;
 };
 
-/*--------------------- */
-
+/*VACANCY */
 export const getVacanciesList = async ({
   companyId,
 }: { companyId?: number | string } = {}): Promise<TVacancyShort[]> => {
@@ -96,6 +100,7 @@ export const getVacancyPositions = async (): Promise<string[]> => {
   }
 };
 
+/* CANDIDATE MATCH */
 export const getBasicCandidatesByStatus = async (
   vacId: number,
   status: EMatchStatus
@@ -114,6 +119,12 @@ export const getBasicCandidatesByStatus = async (
   }
 };
 
+/* ----Needs to be redone with real data.----*/
+export const getCandidateFull = async () => {
+  return mockMatchInfo;
+};
+
+/* TARIFFS */
 export const getTariffs = async (): Promise<TTariff[]> => {
   try {
     const response = await apiGet<TApiListResponse<TTariff>>("/tariffs");

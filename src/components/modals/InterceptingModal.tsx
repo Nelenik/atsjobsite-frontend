@@ -47,7 +47,7 @@ const InterceptingModal = ({ dialogTitle, dialogDescription, children }: IInterc
     //   </DialogContent>
     // </Dialog>
     <Sheet open={open} onOpenChange={handleClose} >
-      <SheetContent className="w-[min(90%,1300px)] h-full bg-white sm:max-w-none overflow-y-auto">
+      <SheetContent className="w-[min(100%,1300px)] h-full bg-white sm:max-w-none overflow-y-auto">
         <div className="visually-hidden">
           <SheetTitle>
             {dialogTitle}
