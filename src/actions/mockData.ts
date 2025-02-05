@@ -81,7 +81,8 @@ export const mockCompanies: TCompany[] = [
 export const mockResume: TResume[] = [
   {
     id: 1,
-    name: "Иван Петров",
+    name: "Frontend-разработчик",
+    work_status: "open",
     experience_months: 36,
     salary: 150000,
     candy_name: "Иван",
@@ -96,7 +97,8 @@ export const mockResume: TResume[] = [
   },
   {
     id: 2,
-    name: "Анна Смирнова",
+    name: "Fullstack-разработчик",
+    work_status: "open",
     experience_months: 48,
     salary: 180000,
     candy_name: "Анна",
@@ -111,7 +113,8 @@ export const mockResume: TResume[] = [
   },
   {
     id: 3,
-    name: "Дмитрий Кузнецов",
+    name: "Frontend-разработчик",
+    work_status: "open",
     experience_months: 24,
     salary: 120000,
     candy_name: "Дмитрий",
@@ -123,6 +126,54 @@ export const mockResume: TResume[] = [
     bio: "Frontend-разработчик с опытом в Vue и Svelte",
     experience_raw:
       "2 года работы с Vue.js, Svelte, Tailwind CSS. Создание UI-компонентов и анимаций.",
+  },
+  {
+    id: 4,
+    name: "Backend-разработчик",
+    work_status: "open",
+    experience_months: 60,
+    salary: 200000,
+    candy_name: "Егор",
+    candy_phone: "+7 916 543-21-09",
+    candy_tg: "@egor_backend",
+    candy_email: "egor.backend@example.com",
+    candy_location: "Москва",
+    link: "https://github.com/egorbackend",
+    bio: "Опытный backend-разработчик, специализирующийся на Go и PostgreSQL",
+    experience_raw:
+      "5 лет работы с Go, PostgreSQL, Kafka, Redis. Опыт построения высоконагруженных систем.",
+  },
+  {
+    id: 5,
+    name: "Mobile-разработчик",
+    work_status: "open",
+    experience_months: 36,
+    salary: 160000,
+    candy_name: "Ольга",
+    candy_phone: "+7 915 678-90-12",
+    candy_tg: "@olga_mobile",
+    candy_email: "olga.mobile@example.com",
+    candy_location: "Казань",
+    link: "https://olga.dev",
+    bio: "Мобильный разработчик с опытом в React Native и Flutter",
+    experience_raw:
+      "3 года работы с React Native, Flutter, Firebase. Разработка кроссплатформенных мобильных приложений.",
+  },
+  {
+    id: 6,
+    name: "Data Scientist",
+    work_status: "open",
+    experience_months: 48,
+    salary: 220000,
+    candy_name: "Максим",
+    candy_phone: "+7 929 876-54-32",
+    candy_tg: "@max_ds",
+    candy_email: "maxim.ds@example.com",
+    candy_location: "Екатеринбург",
+    link: "https://linkedin.com/in/maxds",
+    bio: "Специалист по анализу данных и машинному обучению",
+    experience_raw:
+      "4 года работы в ML и Data Science. Опыт в Python, TensorFlow, PyTorch, обработке данных и нейросетях.",
   },
 ];
 

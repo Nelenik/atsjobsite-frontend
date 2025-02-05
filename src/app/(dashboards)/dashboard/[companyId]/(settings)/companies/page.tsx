@@ -22,7 +22,6 @@ const CompaniesPage = async ({ searchParams }: TProps) => {
         <CompaniesFilter />
         <AddEntityModal entityType="company" className=" [&_span]:hidden lg:w-max ml-auto py-2 " />
       </div>
-
       <CompaniesTable companiesList={companies} />
     </div>
   );

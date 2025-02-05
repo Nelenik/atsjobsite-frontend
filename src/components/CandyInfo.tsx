@@ -1,13 +1,9 @@
 import { FileUser, Mail, PhoneCall } from "lucide-react";
 import List from "./ui/list";
 import { FC } from "react";
+import { workStatusDict } from "@/shared/dictionaries/resume";
 
-const workStatusDict = {
-  'open': 'в поиске',
-  'passive': 'рассматривает предложения',
-  'closed': 'не в поиске',
-  'offered': 'есть оффер'
-}
+
 
 type TProps = {
   role: string;
