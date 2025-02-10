@@ -1,7 +1,8 @@
 'use client'
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { ReadonlyURLSearchParams, usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Input } from "../../ui/input";
 import { ChangeEvent, FC, HTMLAttributes, InputHTMLAttributes, ReactNode, useRef, useState } from "react";
+import { updateQueryString } from "@/shared/helpers/updateQueryString";
 
 type TFormElems = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
 
@@ -53,21 +54,9 @@ const FilterInput: FC<TProps> = ({
     setValue(e.target.value)
 
     debounceRef.current = setTimeout(() => {
-      updateQs(e.target.value)
+      const newQS = updateQueryString(searchParams, paramName, e.target.value)
+      router.push(`${pathname}?${newQS}`)
     }, 300)
-  }
-
-  const updateQs = (value: string) => {
-    const qs = new URLSearchParams()
-    for (const [key, value] of searchParams.entries()) {
-      qs.append(key, value)
-    }
-    if (value) {
-      qs.set(paramName, decodeURIComponent(String(value)))
-    } else {
-      qs.delete(paramName)
-    }
-    router.push(`${pathname}?${qs.toString()}`)
   }
 
   return <>{render({ value, onChange: handleChange })}</>

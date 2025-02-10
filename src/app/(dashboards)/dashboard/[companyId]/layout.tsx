@@ -24,7 +24,7 @@ export default async function DashboardLayout({
 }>) {
   const userData = await getUser()
 
-  const companies = await getCompaniesList({})
+  const { data: companies } = await getCompaniesList({})
   return (
     <CompaniesProvider companiesList={companies}>
       <Header userData={userData} className="md:hidden" />

@@ -3,6 +3,8 @@ import { getCompaniesList } from "@/actions/getData";
 import CompaniesFilter from "@/components/CompaniesFilter";
 import CompaniesTable from "@/components/CompaniesTable";
 import AddEntityModal from "@/components/modals/AddEntityModal";
+import Paginate from "@/components/navigation/Paginate";
+import { Suspense } from "react";
 
 type TProps = {
 
@@ -12,8 +14,7 @@ type TProps = {
 
 const CompaniesPage = async ({ searchParams }: TProps) => {
   const filters = (await searchParams)
-  const companies = await getCompaniesList(filters)
-  // console.log('companies page', companies)
+  const { data: companies, total = null } = await getCompaniesList(filters)
   return (
     <div>
       <div className="flex mb-6 items-end">
@@ -21,6 +22,7 @@ const CompaniesPage = async ({ searchParams }: TProps) => {
         <AddEntityModal entityType="company" className=" [&_span]:hidden lg:w-max ml-auto py-2 " />
       </div>
       <CompaniesTable companiesList={companies} />
+      <Paginate currentPage={Number(filters.page) || 1} totalItems={total} className='mt-6' />
     </div>
   );
 }
