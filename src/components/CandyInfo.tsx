@@ -2,12 +2,13 @@ import { FileUser, Mail, PhoneCall } from "lucide-react";
 import List from "./ui/list";
 import { FC } from "react";
 import { workStatusDict } from "@/shared/dictionaries/resume";
+import { ECvStatus } from "@/shared/types/resume";
 
 
 
 type TProps = {
   role: string;
-  work_status: "open" | "passive" | "closed" | "offered";
+  work_status: ECvStatus;
   location: string;
   phone: string;
   email: string;

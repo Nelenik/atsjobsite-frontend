@@ -8,9 +8,11 @@ export function updateQueryString(
   const qs = new URLSearchParams(currentSearchParams);
 
   if (paramName) {
-    value
-      ? qs.set(paramName, decodeURIComponent(String(value)))
-      : qs.delete(paramName);
+    if (value) {
+      qs.set(paramName, decodeURIComponent(String(value)));
+    } else {
+      qs.delete(paramName);
+    }
   }
 
   const pageValue = qs.get("page");
