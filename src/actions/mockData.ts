@@ -7,7 +7,7 @@ import {
   TVacancyShort,
 } from "@/shared/types";
 import { TCompany } from "@/shared/types/companies";
-import { TResume } from "@/shared/types/resume";
+import { ECvStatus, TResume } from "@/shared/types/resume";
 import { IUser } from "@/shared/types/user";
 
 export const mockUser: IUser = {
@@ -37,7 +37,7 @@ export type TMatchInfo = {
     id: number;
     name: string;
     role: string;
-    status: "open" | "passive" | "closed" | "offered";
+    status: ECvStatus;
     link: string;
     email: string;
     phone: string;
@@ -68,7 +68,7 @@ export const mockMatchInfo: TMatchInfo = {
     id: 101,
     name: "John Doe",
     role: "frontend developer",
-    status: "open",
+    status: ECvStatus.LOOKING,
     link: "https://example.com/cv/johndoe",
     email: "johndoe@example.com",
     phone: "+1234567890",
