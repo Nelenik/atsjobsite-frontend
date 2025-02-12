@@ -9,7 +9,7 @@ type TProps = {
 
 export const FunnelCard: FC<TProps> = ({ name, count }) => {
   return (
-    <Card className="w-full min-w-[240px] py-4 px-6 flex flex-col items-center">
+    <Card className="w-full  py-4 px-6 flex flex-col items-center">
       <CardTitle className="mb text-lg lg:text-2xl">{name}</CardTitle>
 
       <CardDescription>{count}</CardDescription>
