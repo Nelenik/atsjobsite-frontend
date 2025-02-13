@@ -17,6 +17,7 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
   const { companyId, vacancyId } = await params;
 
   const vacancy = await getVacancy(vacancyId);
+  console.log(vacancy)
 
   return (
     <div className="flex gap-6 flex-col relative">

@@ -1,21 +1,26 @@
 'use client'
 import { FC, HTMLAttributes } from "react";
 import { Slot } from "@radix-ui/react-slot"
-import { useDraggable } from '@dnd-kit/core'
-import { CSS } from '@dnd-kit/utilities';
 import { cn } from "@/lib/utils";
 import { GripVertical } from "lucide-react";
 import { Button } from "../ui/button";
 import { useSortable } from "@dnd-kit/sortable";
+import { useDraggable } from "@dnd-kit/core";
 type TProps = HTMLAttributes<HTMLDivElement> & {
   asChild?: boolean,
-  id: string
+  id: string,
 
 }
 
 const DndItem: FC<TProps> = ({ children, id, asChild = false, className, ...props }) => {
 
-  const { attributes, listeners, setNodeRef, transform } = useSortable({ id: id })
+  const { attributes, listeners, setNodeRef, transform } = useSortable({
+    id: id,
+    data: {
+      type: 'item',
+
+    }
+  })
 
   const style = transform ? {
     transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,

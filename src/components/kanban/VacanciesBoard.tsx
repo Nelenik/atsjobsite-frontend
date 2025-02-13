@@ -7,31 +7,25 @@ import { FC, useCallback, useState } from "react";
 import DndColumn from "./DndColumn";
 import DndItem from "./DndItem";
 import VacancyBoardCard from "../cards/VacancyBoardCard";
-import { Card } from "../ui/card";
 import { FunnelCard } from "../cards/FunnelCard";
-import { createPortal } from "react-dom";
-import { SortableContext } from "@dnd-kit/sortable";
+import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 
-const vacanciesStatuses = [
+const columns = [
   {
-    id: "3d58de36-73d7-418f-82c9-9b674cfe172d",
-    value: EVacancyStatus.SETTING,
-    order: 1,
+    id: EVacancyStatus.SETTING,
+    title: vacancyStatusDict[EVacancyStatus.SETTING]
   },
   {
-    id: "7ce14132-cd8d-40f6-bb5b-77caf3e70abd",
-    value: EVacancyStatus.WORK,
-    order: 2,
+    id: EVacancyStatus.WORK,
+    title: vacancyStatusDict[EVacancyStatus.WORK]
   },
   {
-    id: "f2c900ec-63fd-4e31-945e-a12cfecb8125",
-    value: EVacancyStatus.WAIT,
-    order: 3,
+    id: EVacancyStatus.WAIT,
+    title: vacancyStatusDict[EVacancyStatus.WAIT]
   },
   {
-    id: "148f9446-4339-44b5-b5cb-301c32bc5582",
-    value: EVacancyStatus.PAUSE,
-    order: 4,
+    id: EVacancyStatus.PAUSE,
+    title: vacancyStatusDict[EVacancyStatus.PAUSE]
   },
 ];
 
@@ -41,65 +35,84 @@ type TProps = {
 
 const VacanciesBoard: FC<TProps> = ({ vacancyGroups }) => {
 
-  // const sensors = useSensors(
-  //   useSensor(PointerSensor),
-  //   // useSensor(KeyboardSensor)
-  // );
-
-  const [columns, setColumns] = useState(vacanciesStatuses)
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    // useSensor(KeyboardSensor)
+  );
 
   const [groups, setGroups] = useState(vacancyGroups)
 
   const [activeId, setActiveId] = useState<string | null>(null)
 
-  const handleDragStart = useCallback((event: DragStartEvent) => {
-    const { active } = event
-    setActiveId(String(active.id))
-  }, [])
-
-  const handleDragEnd = useCallback((event: DragEndEvent) => {
-    const { active, over } = event
-    setActiveId(null)
-    console.log(active)
-    console.log(over)
-  }, [])
-
-  const handleDragOver = useCallback((event: DragOverEvent) => {
-    const { active, over } = event;
-    console.log('ondragover', active)
-    console.log('ondragover', over)
-  }, [])
-
+  //find active vacancy for overlay
   const activeVacancy = activeId ? Object.values(groups)
     .flat()
     .find(vacancy => String(vacancy.id) === activeId) : null
 
 
+  const handleDragStart = (event: DragStartEvent) => {
+    const { active } = event
+    setActiveId(String(active.id))
+  }
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event
+    if (!over) return
+
+    const sourceStatus = Object.keys(groups).find(status =>
+      groups[status].some(vac => String(vac.id) === active.id)
+    );
+    const targetStatus = over.id
+    if (!sourceStatus || sourceStatus === targetStatus) return
+
+    setGroups(prev => {
+      const vacancy = prev[sourceStatus].find((vac: TVacancyShort) => String(vac.id) === activeId)
+      if (!vacancy) return prev
+
+      return {
+        ...prev,
+        [sourceStatus]: prev[sourceStatus].filter((vac: TVacancyShort) => vac.id !== vacancy.id),
+        [targetStatus]: [...(prev[targetStatus] || []), vacancy]
+      }
+    })
+
+    setActiveId(null)
+  }
+
+  const handleDragOver = useCallback((event: DragOverEvent) => {
+    const { active, over } = event;
+    console.log('onDragOverEvent', active)
+    console.log('onDragOverEvent', over)
+  }, [])
+
+
+
   return (
     <DndContext
-      // sensors={sensors}
+      sensors={sensors}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       onDragOver={handleDragOver}
+      id="unique-dnd-context-id"
     >
 
       <div className="flex gap-4 w-full overflow-auto p-2 ">
-        {columns.map((el) => (
+        {columns.map((col) => (
           <div
-            key={el.id}
-            className={`flex flex-col gap-6 ring-2 ring-offset-4 rounded-lg ring-border w-[calc(100%/${columns.length})] min-w-[200px]`}
+            key={col.id}
+            className={`flex flex-col gap-6 ring-2 ring-offset-4 rounded-lg ring-border w-1/4 min-w-[200px]`}
           >
             <FunnelCard
-              name={vacancyStatusDict[el.value]}
-              count={groups[el.value]?.length || 0}
+              name={col.title}
+              count={groups[col.id]?.length || 0}
             />
             <DndColumn
-              id={el.id}
+              id={col.id}
               className="flex flex-col gap-2 grow"
             >
-              <SortableContext items={(groups[el.value] || []).map(v => String(v.id))}>
+              <SortableContext items={(groups[col.id] || []).map(v => String(v.id))}>
 
-                {(groups[el.value] || []).map((vacancy: TVacancyShort) => (
+                {(groups[col.id] || []).map((vacancy: TVacancyShort) => (
                   <DndItem
                     id={String(vacancy.id)}
                     key={vacancy.id}
@@ -121,18 +134,17 @@ const VacanciesBoard: FC<TProps> = ({ vacancyGroups }) => {
 
       <DragOverlay>
         {activeVacancy && (
-          <VacancyBoardCard
-            id={activeVacancy.id}
-            name={activeVacancy.name}
-            location={activeVacancy.location}
-            salary_from={activeVacancy.salary_from}
-            salary_to={activeVacancy.salary_to}
-          />
+          <DndItem id={String(activeVacancy.id)}>
+            <VacancyBoardCard
+              id={activeVacancy.id}
+              name={activeVacancy.name}
+              location={activeVacancy.location}
+              salary_from={activeVacancy.salary_from}
+              salary_to={activeVacancy.salary_to}
+            />
+          </DndItem>
         )}
       </DragOverlay>
-      {/* {createPortal(
-
-      )} */}
     </DndContext>
   );
 }
