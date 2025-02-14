@@ -14,7 +14,7 @@ const VacanciesPage = () => {
 
   return (
     <div className="flex flex-col items-center justify-center h-full">
-      <VacanciesBoard vacancyGroups={groupedByStatus} />
+      <VacanciesBoard items={vacancies} />
       {/* <ul className='w-full overflow-x-auto flex gap-6'>
         {vacancies.map(vacancy => (
           <li key={vacancy.id} className='w-[max(calc(100%/4),200px)]'>

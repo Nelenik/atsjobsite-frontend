@@ -11,7 +11,10 @@ type TProps = HTMLAttributes<HTMLDivElement> & {
 
 const DndColumn: FC<TProps> = ({ id, asChild = false, children, className, ...props }) => {
   const { setNodeRef } = useDroppable({
-    id: id
+    id: id,
+    data: {
+      type: 'column'
+    }
   })
 
   const Comp = asChild ? Slot : 'div'

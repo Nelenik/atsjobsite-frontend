@@ -2,13 +2,15 @@
 
 import { vacancyStatusDict } from "@/shared/dictionaries";
 import { EVacancyStatus, TVacancyShort } from "@/shared/types";
-import { DndContext, DragEndEvent, DragOverEvent, DragOverlay, DragStartEvent, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
-import { FC, useCallback, useState } from "react";
+import { Active, DndContext, DragEndEvent, DragOverEvent, DragOverlay, DragStartEvent, Over, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
+import { FC, useCallback, useEffect, useState } from "react";
 import DndColumn from "./DndColumn";
 import DndItem from "./DndItem";
 import VacancyBoardCard from "../cards/VacancyBoardCard";
 import { FunnelCard } from "../cards/FunnelCard";
 import { arrayMove, SortableContext } from "@dnd-kit/sortable";
+import { groupBy } from "@/lib/utils/groupBy";
+import { sources } from "next/dist/compiled/webpack/webpack";
 
 const columns = [
   {
@@ -30,66 +32,105 @@ const columns = [
 ];
 
 type TProps = {
-  vacancyGroups: Record<string, TVacancyShort[]>
+  items: TVacancyShort[]
 }
 
-const VacanciesBoard: FC<TProps> = ({ vacancyGroups }) => {
+const hasDraggableData = (entry: Active | Over) =>
+  entry?.data?.current?.type === 'column' || entry?.data?.current?.type === 'item';
 
-  const sensors = useSensors(
-    useSensor(PointerSensor),
-    // useSensor(KeyboardSensor)
-  );
 
-  const [groups, setGroups] = useState(vacancyGroups)
+const VacanciesBoard: FC<TProps> = ({ items }) => {
 
-  const [activeId, setActiveId] = useState<string | null>(null)
-
-  //find active vacancy for overlay
-  const activeVacancy = activeId ? Object.values(groups)
-    .flat()
-    .find(vacancy => String(vacancy.id) === activeId) : null
-
+  //group received vacancies by status and used as initial state
+  const [groups, setGroups] = useState<Record<string, TVacancyShort[]>>(groupBy(items, (el) => el.status))
+  const [activeItem, setActiveItem] = useState<TVacancyShort | null>(null)
 
   const handleDragStart = (event: DragStartEvent) => {
     const { active } = event
-    setActiveId(String(active.id))
+    const activeVacancy = Object.values(groups)
+      .flat()
+      .find(vacancy => String(vacancy.id) === active.id) || null;
+
+    setActiveItem(activeVacancy)
   }
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event
-    if (!over) return
+    if (!over || !over.data.current) return
+    if (over.id === active.id) return
+    if (!hasDraggableData(active)) return
 
-    const sourceStatus = Object.keys(groups).find(status =>
-      groups[status].some(vac => String(vac.id) === active.id)
-    );
-    const targetStatus = over.id
-    if (!sourceStatus || sourceStatus === targetStatus) return
+    const isActiveItem = active.data.current?.type === 'item'
+    const isOverItem = over?.data?.current?.type === 'item'
+    const isOverColumn = over?.data?.current?.type === 'column'
 
-    setGroups(prev => {
-      const vacancy = prev[sourceStatus].find((vac: TVacancyShort) => String(vac.id) === activeId)
-      if (!vacancy) return prev
+    if (isActiveItem && isOverColumn) {
+      setGroups(prev => {
+        const sourceStatus = activeItem?.status
+        if (!sourceStatus || sourceStatus === over.id) return prev
+        if (!activeItem) return prev
 
-      return {
-        ...prev,
-        [sourceStatus]: prev[sourceStatus].filter((vac: TVacancyShort) => vac.id !== vacancy.id),
-        [targetStatus]: [...(prev[targetStatus] || []), vacancy]
-      }
-    })
+        return {
+          ...prev,
+          [sourceStatus]: prev[sourceStatus].filter((vac: TVacancyShort) => String(vac.id) !== active.id),
+          [over.id]: [...(prev[over.id] || []), { ...activeItem, status: over.id as EVacancyStatus }]
+        }
+      })
+    }
 
-    setActiveId(null)
+    if (isActiveItem && isOverItem) {
+      setGroups(prev => {
+        const sourceStatus = activeItem?.status
+        const overStatus = Object.keys(prev).find(status =>
+          prev[status].some(vac => String(vac.id) === over.id)
+        );
+
+        if (!sourceStatus || !overStatus || !activeItem) return prev;
+
+        const sourceItems = [...prev[sourceStatus]]
+        const targetItems = [...prev[overStatus]]
+
+        const overIndex = over.data.current?.sortable.index
+
+        //if move item between columns ant is is over other item
+        if (sourceStatus !== overStatus) {
+          return {
+            ...prev,
+            [sourceStatus]: sourceItems.filter(item => String(item.id) !== active.id),
+            [overStatus]: [
+              ...targetItems.slice(0, overIndex),
+              { ...activeItem, status: overStatus as EVacancyStatus },
+              ...targetItems.slice(overIndex)
+            ]
+          }
+        }
+
+        //delete active item from its postion
+        const newItems = sourceItems.filter(item => String(item.id) !== active.id)
+        return {
+          ...prev,
+          [sourceStatus]: [
+            ...newItems.slice(0, overIndex),
+            { ...activeItem },
+            ...newItems.slice(overIndex)
+          ]
+        }
+      })
+    }
+    setActiveItem(null)
   }
+
 
   const handleDragOver = useCallback((event: DragOverEvent) => {
     const { active, over } = event;
-    console.log('onDragOverEvent', active)
-    console.log('onDragOverEvent', over)
+    // console.log('onDragOverEvent', active)
+    // console.log('onDragOverEvent', over)
   }, [])
 
 
 
   return (
     <DndContext
-      sensors={sensors}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       onDragOver={handleDragOver}
@@ -131,8 +172,21 @@ const VacanciesBoard: FC<TProps> = ({ vacancyGroups }) => {
           </div>
         ))}
       </div>
-
       <DragOverlay>
+        {activeItem && (
+          <DndItem id={String(activeItem.id)}>
+            <VacancyBoardCard
+              id={activeItem.id}
+              name={activeItem.name}
+              location={activeItem.location}
+              salary_from={activeItem.salary_from}
+              salary_to={activeItem.salary_to}
+            />
+          </DndItem>
+        )}
+      </DragOverlay>
+
+      {/* <DragOverlay>
         {activeVacancy && (
           <DndItem id={String(activeVacancy.id)}>
             <VacancyBoardCard
@@ -144,7 +198,7 @@ const VacanciesBoard: FC<TProps> = ({ vacancyGroups }) => {
             />
           </DndItem>
         )}
-      </DragOverlay>
+      </DragOverlay> */}
     </DndContext>
   );
 }
