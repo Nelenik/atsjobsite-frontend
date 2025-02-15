@@ -2,8 +2,8 @@
 
 import { vacancyStatusDict } from "@/shared/dictionaries";
 import { EVacancyStatus, TVacancyShort } from "@/shared/types";
-import { Active, DndContext, DragEndEvent, DragOverEvent, DragOverlay, DragStartEvent, Over, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
-import { FC, useCallback, useEffect, useState } from "react";
+import { DndContext, DragEndEvent, DragOverEvent, DragOverlay, DragStartEvent } from "@dnd-kit/core";
+import { FC, useCallback, useState } from "react";
 import DndColumn from "./DndColumn";
 import DndItem from "./DndItem";
 import VacancyBoardCard from "../cards/VacancyBoardCard";
@@ -11,6 +11,7 @@ import { FunnelCard } from "../cards/FunnelCard";
 import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 import { groupBy } from "@/lib/utils/groupBy";
 import { sources } from "next/dist/compiled/webpack/webpack";
+import { findItemStatus, hasDraggableData, isValidDragEvent } from "./helpers";
 
 const columns = [
   {
@@ -35,15 +36,17 @@ type TProps = {
   items: TVacancyShort[]
 }
 
-const hasDraggableData = (entry: Active | Over) =>
-  entry?.data?.current?.type === 'column' || entry?.data?.current?.type === 'item';
-
 
 const VacanciesBoard: FC<TProps> = ({ items }) => {
-
+  console.log('board items', items)
   //group received vacancies by status and used as initial state
-  const [groups, setGroups] = useState<Record<string, TVacancyShort[]>>(groupBy(items, (el) => el.status))
+  // const initGroups = groupBy(items, (el) => el.status)
+  const [groups, setGroups] = useState<Record<string, TVacancyShort[]>>(() => groupBy(items, (el) => el.status))
+
+
   const [activeItem, setActiveItem] = useState<TVacancyShort | null>(null)
+
+  console.log('board groups', groups)
 
   const handleDragStart = (event: DragStartEvent) => {
     const { active } = event
@@ -56,67 +59,65 @@ const VacanciesBoard: FC<TProps> = ({ items }) => {
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event
-    if (!over || !over.data.current) return
-    if (over.id === active.id) return
-    if (!hasDraggableData(active)) return
+    if (!isValidDragEvent(active, over)) return
+
 
     const isActiveItem = active.data.current?.type === 'item'
     const isOverItem = over?.data?.current?.type === 'item'
     const isOverColumn = over?.data?.current?.type === 'column'
 
-    if (isActiveItem && isOverColumn) {
-      setGroups(prev => {
-        const sourceStatus = activeItem?.status
-        if (!sourceStatus || sourceStatus === over.id) return prev
-        if (!activeItem) return prev
+    const sourceColStatus = findItemStatus(groups, String(active.id))
+    const targetColStatus = isOverColumn ? String(over.id) : findItemStatus(groups, String(over?.id))
+    if (!sourceColStatus || !targetColStatus) return
 
-        return {
-          ...prev,
-          [sourceStatus]: prev[sourceStatus].filter((vac: TVacancyShort) => String(vac.id) !== active.id),
-          [over.id]: [...(prev[over.id] || []), { ...activeItem, status: over.id as EVacancyStatus }]
-        }
-      })
-    }
+    if (isActiveItem) {
+      const draggableItem = activeItem || Object.values(groups).flat().find(vac => String(vac.id) === active.id);
+      if (!draggableItem) return
 
-    if (isActiveItem && isOverItem) {
-      setGroups(prev => {
-        const sourceStatus = activeItem?.status
-        const overStatus = Object.keys(prev).find(status =>
-          prev[status].some(vac => String(vac.id) === over.id)
-        );
 
-        if (!sourceStatus || !overStatus || !activeItem) return prev;
-
-        const sourceItems = [...prev[sourceStatus]]
-        const targetItems = [...prev[overStatus]]
-
-        const overIndex = over.data.current?.sortable.index
-
-        //if move item between columns ant is is over other item
-        if (sourceStatus !== overStatus) {
+      if (isOverColumn) {
+        setGroups(prev => {
+          if (sourceColStatus === targetColStatus) return prev
+          const sourceItems = [...prev[sourceColStatus]]
+          const targetItems = [...(prev[targetColStatus] || [])]
           return {
             ...prev,
-            [sourceStatus]: sourceItems.filter(item => String(item.id) !== active.id),
-            [overStatus]: [
-              ...targetItems.slice(0, overIndex),
-              { ...activeItem, status: overStatus as EVacancyStatus },
-              ...targetItems.slice(overIndex)
-            ]
+            [sourceColStatus]: sourceItems.filter((vac: TVacancyShort) => String(vac.id) !== active.id),
+            [targetColStatus]: [...targetItems, { ...draggableItem, status: targetColStatus as EVacancyStatus }]
           }
-        }
+        })
+      } else if (isOverItem) {
+        setGroups(prev => {
 
-        //delete active item from its postion
-        const newItems = sourceItems.filter(item => String(item.id) !== active.id)
-        return {
-          ...prev,
-          [sourceStatus]: [
-            ...newItems.slice(0, overIndex),
-            { ...activeItem },
-            ...newItems.slice(overIndex)
-          ]
-        }
-      })
+          const sourceItems = [...prev[sourceColStatus]]
+          const targetItems = [...(prev[targetColStatus] || [])]
+
+          const overIndex = over.data.current?.sortable.index ?? -1;
+
+          //if move item between columns ant is is over other item
+          if (sourceColStatus !== targetColStatus) {
+            return {
+              ...prev,
+              [sourceColStatus]: sourceItems.filter(item => String(item.id) !== active.id),
+              [targetColStatus]: [
+                ...targetItems.slice(0, overIndex),
+                { ...draggableItem, status: targetColStatus as EVacancyStatus },
+                ...targetItems.slice(overIndex)
+              ]
+            }
+          }
+
+          const activeIndex = sourceItems.findIndex(item => String(item.id) === active.id)
+
+          if (activeIndex === overIndex || overIndex === -1) return prev
+          return {
+            ...prev,
+            [sourceColStatus]: arrayMove(sourceItems, activeIndex, overIndex)
+          }
+        })
+      }
     }
+
     setActiveItem(null)
   }
 
@@ -186,19 +187,6 @@ const VacanciesBoard: FC<TProps> = ({ items }) => {
         )}
       </DragOverlay>
 
-      {/* <DragOverlay>
-        {activeVacancy && (
-          <DndItem id={String(activeVacancy.id)}>
-            <VacancyBoardCard
-              id={activeVacancy.id}
-              name={activeVacancy.name}
-              location={activeVacancy.location}
-              salary_from={activeVacancy.salary_from}
-              salary_to={activeVacancy.salary_to}
-            />
-          </DndItem>
-        )}
-      </DragOverlay> */}
     </DndContext>
   );
 }
