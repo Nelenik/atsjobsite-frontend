@@ -51,6 +51,20 @@ export const getCompaniesList = async (
   }
 };
 
+export const getCompany = async (id: number | string) => {
+  try {
+    const response = await apiGet<TApiSuccessResponse<TCompany>>(
+      `/company/${id}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error(
+      "Не удалось загрузить компанию. Пожалуйста, попробуйте позже."
+    );
+  }
+};
+
 /* RESUME */
 export const getResumeList = async (filters: Record<string, string> = {}) => {
   try {

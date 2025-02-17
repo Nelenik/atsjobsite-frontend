@@ -5,7 +5,7 @@ import Header from '@/components/navigation/Header';
 
 import { Suspense } from 'react';
 import { Toaster } from '@/components/ui/toaster';
-import { getCompaniesList, getUser } from '@/actions/getData';
+import { getCompaniesList, getCompany, getUser } from '@/actions/getData';
 import React from 'react';
 import Breadcrumbs from '@/components/navigation/Breadcrumbs';
 import { CompaniesProvider } from '@/providers/CompaniesProvider';
@@ -18,15 +18,26 @@ export const metadata: Metadata = {
 export default async function DashboardLayout({
   children,
   modals,
+  params
 }: Readonly<{
   children: React.ReactNode;
   modals: React.ReactNode;
+  params: Promise<{ companyId: string }>
+
 }>) {
   const userData = await getUser()
+  const { companyId } = await params
 
-  const { data: companies } = await getCompaniesList({})
+  const result = await Promise.allSettled([
+    await getCompany(companyId),
+    await getCompaniesList({})
+  ])
+
+  const activeCompany = result[0].status === 'fulfilled' ? result[0].value : null
+  const companiesPrefetch = result[1].status === 'fulfilled' ? result[1].value : { data: [], total: 0, currentPage: 1 }
+
   return (
-    <CompaniesProvider companiesList={companies}>
+    <CompaniesProvider activeCompany={activeCompany} companiesPrefetch={companiesPrefetch}>
       <Header userData={userData} className="md:hidden" />
 
       <main className="w-full flex h-screen overflow-hidden">

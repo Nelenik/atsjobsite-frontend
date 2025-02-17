@@ -4,6 +4,9 @@ import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import { useCompanies } from "@/providers/CompaniesProvider";
 import { createSidebarConfig } from "@/shared/config/sidebarConfig";
+import { ScrollArea, ScrollBar } from "./ui/scroll-area";
+import { ChangeEvent, SyntheticEvent, useRef } from "react";
+import { Input } from "./ui/input";
 
 
 /**
@@ -30,7 +33,7 @@ const CompanySwitcher = () => {
   const pathname = usePathname()
 
   //get companies from companies provider
-  const { companiesList, activeCompany } = useCompanies()
+  const { companiesList, activeCompany, findCompany } = useCompanies()
 
   const extractNewPath = (newCompanyId: string): string => {
     const availablePathes = getAvailablePaths(newCompanyId)
@@ -44,6 +47,10 @@ const CompanySwitcher = () => {
 
   }
 
+  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
+    findCompany({ name: e.target.value })
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild className="[data[state=open] a]:rotate-180">
@@ -53,10 +60,12 @@ const CompanySwitcher = () => {
           <span className="w-0 h-0 border-solid border-x-[5px] border-t-[5px] border-t-muted-foreground/65 border-b-transparent border-x-transparent rotate-0 "></span>
         </a>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-full ">
-        <DropdownMenuLabel>Компании клиента</DropdownMenuLabel>
+      <DropdownMenuContent className="w-full">
+        <DropdownMenuLabel asChild>
+          <Input placeholder="Компании клиента" onChange={handleInput} />
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <div className="h-[150px] overflow-y-auto [&::-webkit-scrollbar]:w-[4px]">
+        <ScrollArea className="h-[150px]">
 
           {companiesList?.map((company) => (
             <DropdownMenuItem asChild key={company.id}>
@@ -65,7 +74,8 @@ const CompanySwitcher = () => {
               </Link>
             </DropdownMenuItem>
           ))}
-        </div>
+          <ScrollBar orientation="vertical" className="w-1" />
+        </ScrollArea>
       </DropdownMenuContent>
     </DropdownMenu>
   );
