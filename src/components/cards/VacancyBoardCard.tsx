@@ -15,7 +15,7 @@ const VacancyBoardCard: FC<TProps> = ({ id, name, location, salary_from, salary_
     <Link href={`${pathname}/${id}?name=${name}`}>
       <Card
         className={cn(
-          'w-full py-4 px-6 hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-200'
+          'w-full py-4 pr-6 pl-7 hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-200'
         )}
       >
         <CardHeader className="p-0">

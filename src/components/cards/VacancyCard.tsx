@@ -54,7 +54,7 @@ export const VacancyCard: FC<TProps> = ({
             badgeColors[vacancyStatus] ?? 'bg-zinc-900 hover:bg-zinc-900/80'
           }
         >
-          {vacancyStatusDict[vacancyStatus]}
+          {vacancyStatusDict[vacancyStatus].toLowerCase()}
         </Badge>
       </CardFooter>
     </Card>

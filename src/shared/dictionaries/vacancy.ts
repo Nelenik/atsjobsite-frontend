@@ -19,10 +19,10 @@ export const vacancyPositionsDict: Record<string, string> = {
 };
 
 export const vacancyStatusDict: Record<string, string> = {
-  [EVacancyStatus.SETTING]: "настройка",
-  [EVacancyStatus.WORK]: "в работе",
-  [EVacancyStatus.PAUSE]: "на паузе",
-  [EVacancyStatus.WAIT]: "ожидание",
+  [EVacancyStatus.SETTING]: "Настройка",
+  [EVacancyStatus.WORK]: "В работе",
+  [EVacancyStatus.PAUSE]: "На паузе",
+  [EVacancyStatus.WAIT]: "Ожидание",
 };
 
 export const vacancyEpmpoymentDict: Record<string, string> = {

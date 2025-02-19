@@ -3,32 +3,44 @@
 import { getCompaniesList } from "@/actions/getData";
 import { TCompany } from "@/shared/types/companies";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "next/navigation";
-import { createContext, ReactNode, useContext } from "react"
+import { createContext, ReactNode, useContext, useState } from "react"
 
 
 interface CompaniesContextType {
   companiesList: TCompany[];
-  // isLoading: boolean;
   activeCompany: TCompany | null;
+  findCompany: (filters: { name: string }) => void;
+  isFetching: boolean
 }
 
 export const CompaniesContext = createContext<CompaniesContextType | null>(null)
 
-export const CompaniesProvider = ({ children, companiesList }: { children: ReactNode, companiesList: TCompany[] }) => {
-  const { companyId } = useParams<{ companyId: string }>()
+/**
+ * Is used for company switcher
+ */
 
-  //get user's companies list
-  // const { data: companiesList = [], isLoading } = useQuery({
-  //   queryKey: ['companies', 'list'],
-  //   queryFn: () => getCompaniesList()
-  // })
+type TProps = {
+  children: ReactNode,
+  activeCompany: TCompany | null,
+  companiesPrefetch: { data: TCompany[] }
+}
+export const CompaniesProvider = ({ children, companiesPrefetch, activeCompany }: TProps) => {
+  const [filters, setFilters] = useState({})
+
+  const { data, isFetching } = useQuery({
+    queryKey: ['companies', filters],
+    queryFn: () => getCompaniesList(filters),
+    initialData: companiesPrefetch,
+    enabled: Object.values(filters).some(Boolean)
+  })
 
 
-  //get active company data
-  const activeCompany: TCompany | null = companiesList?.find((el: TCompany) => el.id === Number(companyId)) || null
-
-  return (<CompaniesContext.Provider value={{ companiesList, activeCompany }}>
+  return (<CompaniesContext.Provider value={{
+    companiesList: data.data,
+    activeCompany,
+    findCompany: (newFilters) => setFilters(newFilters),
+    isFetching
+  }}>
     {children}
   </CompaniesContext.Provider>)
 }
