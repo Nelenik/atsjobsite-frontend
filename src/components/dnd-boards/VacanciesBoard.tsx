@@ -4,8 +4,8 @@ import { vacancyStatusDict } from "@/shared/dictionaries";
 import { EVacancyStatus, TVacancyShort } from "@/shared/types";
 import { DndContext, DragEndEvent, DragOverlay, DragStartEvent } from "@dnd-kit/core";
 import { FC, useEffect, useState } from "react";
-import DndColumn from "./DndColumn";
-import DndItem from "./DndItem";
+import DndDroppable from "../dnd/DndDroppable";
+import DndSortable from "../dnd/DndSortable";
 import VacancyBoardCard from "../cards/VacancyBoardCard";
 import { FunnelCard } from "../cards/FunnelCard";
 import { arrayMove, SortableContext } from "@dnd-kit/sortable";
@@ -145,17 +145,19 @@ const VacanciesBoard: FC<TProps> = ({ groupedItems }) => {
                 name={col.title}
                 count={groups[col.id]?.length || 0}
               />
-              <DndColumn
+              <DndDroppable
                 id={col.id}
+                type="column"
                 className="flex flex-col gap-2 grow"
               >
                 <ScrollArea className="h-[clamp(500px,65vh,800px)] px-2">
                   <SortableContext items={(groups[col.id] || []).map(v => String(v.id))}>
 
                     {(groups[col.id] || []).map((vacancy: TVacancyShort) => (
-                      <DndItem
+                      <DndSortable
                         id={String(vacancy.id)}
                         key={vacancy.id}
+                        type="item"
                       >
                         <VacancyBoardCard
                           id={vacancy.id}
@@ -164,12 +166,12 @@ const VacanciesBoard: FC<TProps> = ({ groupedItems }) => {
                           salary_from={vacancy.salary_from}
                           salary_to={vacancy.salary_to}
                         />
-                      </DndItem>
+                      </DndSortable>
                     ))}
                   </SortableContext>
                   <ScrollBar className="w-2" />
                 </ScrollArea>
-              </DndColumn>
+              </DndDroppable>
             </div>
           ))}
         </div>
@@ -177,7 +179,7 @@ const VacanciesBoard: FC<TProps> = ({ groupedItems }) => {
       </ScrollArea>
       <DragOverlay>
         {activeItem && (
-          <DndItem id={String(activeItem.id)}>
+          <DndSortable id={String(activeItem.id)} type="item">
             <VacancyBoardCard
               id={activeItem.id}
               name={activeItem.name}
@@ -185,7 +187,7 @@ const VacanciesBoard: FC<TProps> = ({ groupedItems }) => {
               salary_from={activeItem.salary_from}
               salary_to={activeItem.salary_to}
             />
-          </DndItem>
+          </DndSortable>
         )}
       </DragOverlay>
 

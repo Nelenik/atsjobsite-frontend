@@ -1,5 +1,5 @@
 'use client'
-import VacanciesBoard from '@/components/kanban/VacanciesBoard';
+import VacanciesBoard from '@/components/dnd-boards/VacanciesBoard';
 import AddEntityModal from '@/components/modals/AddEntityModal';
 import { groupBy } from '@/lib/utils/groupBy';
 import { useVacancies } from '@/providers/VacanciesProvider';
