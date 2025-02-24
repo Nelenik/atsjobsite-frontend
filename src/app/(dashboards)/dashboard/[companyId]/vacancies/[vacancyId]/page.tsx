@@ -30,7 +30,7 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
       <Link href={`/dashboard/${companyId}/vacancy-info/${vacancyId}?name=${vacancy.name}`}>
         <SummaryCard
           vacancyName={vacancy.name}
-          daysInProcessing={getDaysSinceCreated(vacancy.created_at)}
+          createdAt={vacancy.created_at}
           salaryOfferFrom={vacancy.salary_from}
           salaryOfferTo={vacancy.salary_to}
           salaryMiddle={vacancy.salary_market}

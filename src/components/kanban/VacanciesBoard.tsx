@@ -14,6 +14,10 @@ import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 
 const columns = [
   {
+    id: EVacancyStatus.UNASSIGNED,
+    title: vacancyStatusDict[EVacancyStatus.UNASSIGNED]
+  },
+  {
     id: EVacancyStatus.SETTING,
     title: vacancyStatusDict[EVacancyStatus.SETTING]
   },

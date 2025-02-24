@@ -16,6 +16,12 @@ import { mockMatchInfo } from "./mockData";
 import { filterFalsyFields } from "@/lib/utils/filterFalsyFields";
 import { TCompany } from "@/shared/types/companies";
 import { TResume } from "@/shared/types/resume";
+import { z } from "zod";
+import {
+  SVacancy,
+  SVacancyList,
+  SVacancyShort,
+} from "@/shared/schemas/vacancies";
 
 /* USER */
 /*----Needs to be redone with real data.--- */
@@ -96,7 +102,7 @@ export const getVacanciesList = async ({
       "/vacancy?" + qs.toString()
     );
 
-    return response.data;
+    return SVacancyList.parse(response.data);
   } catch (error) {
     console.error(error);
     throw new Error(
@@ -111,7 +117,7 @@ export const getVacancy = async (id: number | string): Promise<TVacancy> => {
       `/vacancy/${id}`
     );
 
-    return response.data;
+    return SVacancy.parse(response.data);
   } catch (error) {
     console.error(error);
     throw new Error(
