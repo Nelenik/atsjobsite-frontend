@@ -5,6 +5,7 @@ import {
   TApiListResponse,
   TApiSuccessResponse,
   TCandidateShort,
+  TMatchStatus,
   TTariff,
   TVacancy,
   TVacancyShort,
@@ -143,23 +144,38 @@ export const getVacancyPositions = async (): Promise<string[]> => {
 };
 
 /* CANDIDATE MATCH */
+
+export const getMatchStatuses = async () => {
+  try {
+    const response = await apiGet<TApiListResponse<TMatchStatus>>(
+      `/match/statuses`
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw new Error(
+      "Не удалось загрузить статусы мэтчей. Пожалуйста, попробуйте позже."
+    );
+  }
+};
+
 export const getBasicCandidatesByStatus = async (
   vacId: number | string,
-  status: EMatchStatus
+  status: string
 ): Promise<TCandidateShort[]> => {
-  return wait(200).then(() => mockCandidateShort[status] || []);
-  // try {
-  //   const response = await apiGet<TApiListResponse<TCandidateShort>>(
-  //     `/match/candidates?vacancy_id=${vacId}&status=${status}`
-  //   );
-  //   console.log("candidate", response);
-  //   return response.data;
-  // } catch (error) {
-  //   console.error(error);
-  //   throw new Error(
-  //     "Не удалось загрузить кандидатов. Пожалуйста, попробуйте позже."
-  //   );
-  // }
+  // return wait(9000).then(() => mockCandidateShort[status] || []);
+  try {
+    const response = await apiGet<TApiListResponse<TCandidateShort>>(
+      `/match/candidates?vacancy_id=${vacId}&status=${status}`
+    );
+    console.log("candidate", response);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error(
+      "Не удалось загрузить кандидатов. Пожалуйста, попробуйте позже."
+    );
+  }
 };
 
 /* ----Needs to be redone with real data.----*/

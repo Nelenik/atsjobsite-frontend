@@ -1,10 +1,8 @@
 import { FC } from 'react';
 
-import { getVacancy } from '@/actions/getData';
+import { getMatchStatuses, getVacancy } from '@/actions/getData';
 import { SummaryCard } from '@/components/cards/SummaryCard';
-import { MatchStatusCol } from '@/components/MatchStatusCol';
-import { getDaysSinceCreated } from '@/lib/utils/getDaysSinceCreated';
-import { EMatchStatus, TVacancy } from '@/shared/types';
+import { TVacancy } from '@/shared/types';
 import Link from 'next/link';
 import EditEntityModal from '@/components/modals/EditEntityModal';
 import MatchBoard from '@/components/dnd-boards/MatchBoard';
@@ -19,6 +17,8 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
 
   const vacancy = await getVacancy(vacancyId);
   console.log(vacancy)
+
+  const matchStatuses = await getMatchStatuses()
 
   return (
     <div className="flex gap-6 flex-col relative">
@@ -41,7 +41,7 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
         />
       </Link>
 
-      <MatchBoard />
+      <MatchBoard matchStatuses={matchStatuses} />
 
       {/* <div className="flex gap-6 w-full overflow-auto pb-2 shadow-inner">
         <div className="flex gap-6 flex-col">

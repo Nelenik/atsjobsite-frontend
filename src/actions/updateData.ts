@@ -46,7 +46,6 @@ export const updateCV = async (
 
 //Full entity update (PUT request)
 const updateEntity = async (url: string, body: FormData) => {
-  console.log(Object.fromEntries(body));
   try {
     const response = await apiPut<boolean | TBadRequest>(url, body);
     console.log("update resp", response);
@@ -73,7 +72,6 @@ const updateEntity = async (url: string, body: FormData) => {
 };
 
 export const updateMatch = async (_: TMutationState, body: FormData) => {
-  console.log(Object.fromEntries(body));
   return {
     sent: true,
     error: null,

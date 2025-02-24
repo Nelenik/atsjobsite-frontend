@@ -18,3 +18,10 @@ export type TCandidateShort = {
   match_point: number;
   created_at: string;
 };
+
+export type TMatchStatus = {
+  id: number;
+  name: string;
+  key: string;
+  rank: number;
+};

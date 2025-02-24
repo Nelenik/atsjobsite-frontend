@@ -6,13 +6,14 @@ import Star from '@/components/Star';
 import { splitRatingToArr } from '@/lib/utils/splitRatingToArr';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
+import { TCandidateShort } from '@/shared/types';
 
-interface ICandidateCard {
-  id: number | string;
-  name: string;
-  city: string;
-  salary: number;
-  rating: number;
+type TProps = {
+  id: TCandidateShort['id'];
+  name: TCandidateShort["name"];
+  city: TCandidateShort["city"];
+  salary: TCandidateShort["salary"]
+  rating: TCandidateShort["match_point"];
 }
 
 export const CandidateCard = ({
@@ -21,14 +22,16 @@ export const CandidateCard = ({
   city,
   salary,
   rating,
-}: ICandidateCard) => {
+}: TProps) => {
   const { companyId } = useParams()
   return (
     <Link
       href={`/dashboard/${companyId}/candidate-info/${id}?name=${name}`}
     >
       <Card className="w-full min-w-[240px] py-4 px-6 hover:shadow-md transform hover:-translate-y-1 transition-all duration-200">
-        <h3 className="text-base font-regular">{name}</h3>
+        <h3 className="text-base font-regular">
+          {name ?? 'Имя не указано'}
+        </h3>
 
         <p className="text-muted-foreground text-base mb-1">{city}</p>
 

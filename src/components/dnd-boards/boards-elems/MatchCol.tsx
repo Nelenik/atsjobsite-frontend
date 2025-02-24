@@ -3,14 +3,13 @@ import { CandidateCard } from "@/components/cards/CandidateCard";
 import { FunnelCard } from "@/components/cards/FunnelCard";
 import DndDroppable from "@/components/dnd/DndDroppable";
 import DndSortable from "@/components/dnd/DndSortable";
-import { EMatchStatus, TCandidateShort } from "@/shared/types";
+import { TCandidateShort } from "@/shared/types";
 import { SortableContext } from "@dnd-kit/sortable";
-import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { FC } from "react";
-import SpinnerOne from '@/assets/icons/spinner1.svg?rc'
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 type TProps = {
-  status: EMatchStatus
+  status: string
   title: string
   isLoading: boolean
   candidates: TCandidateShort[] | null
@@ -36,7 +35,8 @@ const MatchCol: FC<TProps> = ({ status, title, isLoading, candidates }) => {
           {
             isLoading
               ? <p className="text-muted-foreground text-sm text-center">Loading...</p>
-              : <SortableContext items={(candidates || []).map(candy => String(candy.id))}>
+              :
+              <SortableContext items={(candidates || []).map(candy => String(candy.id))}>
                 {(candidates || [])?.map((candidate) => (
                   <DndSortable
                     id={String(candidate.id)}
