@@ -64,10 +64,13 @@ const VacanciesBoard: FC<TProps> = ({ groupedItems }) => {
     const { active, over } = event
     if (!isValidDragEvent(active, over)) return
 
-    //check active element and over zone
+    //Ccheck active element and over zone
     const isActiveItem = active.data.current?.type === 'vac_item'
     const isOverItem = over?.data?.current?.type === 'vac_item'
     const isOverColumn = over?.data?.current?.type === 'vac_column'
+
+    // If there is no active element, stop dragging
+    if (!isActiveItem) return
 
     const sourceColStatus = findItemStatus(groups, String(active.id))
 
@@ -140,7 +143,7 @@ const VacanciesBoard: FC<TProps> = ({ groupedItems }) => {
           {columns.map((col) => (
             <div
               key={col.id}
-              className={cn(`flex flex-col gap-6 ring-2 ring-offset-4 rounded-lg ring-border w-1/4 min-w-[200px]`, `w-1/${columns.length}`)}
+              className={cn(`flex flex-col gap-6 ring-2 ring-offset-4 rounded-lg ring-border w-1/5 min-w-[200px]`)}
             >
               <FunnelCard
                 name={col.title}

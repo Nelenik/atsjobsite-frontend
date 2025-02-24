@@ -1,27 +1,18 @@
 import { Active, Over } from "@dnd-kit/core";
 
-export const hasDraggableData = (entry: Active | Over) =>
-  entry?.data?.current?.type === "column" ||
-  entry?.data?.current?.type === "item";
-
 /**
- * Checks whether a drag event is valid based on the provided active and over states.
+ * Determines whether a drag event is valid based on the drop target.
  *
- * A drag event is considered valid if:
- * - The `over` state is not null.
- * - The `over` element has associated data.
- * - The `over` element's ID does not match the `active` element's ID.
- *
- * @param active - The current active drag item in the DnD Kit.
- * @param over - The element that the active item is being dragged over, or null if no element is being hovered.
- * @returns `true` if the drag event is valid, otherwise `false`.
+ * @param {Active} active - The currently dragged item.
+ * @param {Over | null} over - The drop target, or `null` if no target is present.
+ * @returns {boolean} `true` if the drag event is valid, otherwise `false`.
  */
+
 export const isValidDragEvent = (
   active: Active,
   over: Over | null
 ): boolean => {
-  if (!over || !over.data.current || over.id === active.id) return false;
-  return hasDraggableData(active);
+  return !!over && !!over.data.current && over.id !== active.id;
 };
 
 export const findItemStatus = <T extends { id: string | number }[]>(
