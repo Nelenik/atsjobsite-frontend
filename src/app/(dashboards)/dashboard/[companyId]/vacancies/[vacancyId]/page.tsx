@@ -41,7 +41,7 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
         />
       </Link>
 
-      <MatchBoard matchStatuses={matchStatuses} />
+      <MatchBoard />
 
       {/* <div className="flex gap-6 w-full overflow-auto pb-2 shadow-inner">
         <div className="flex gap-6 flex-col">

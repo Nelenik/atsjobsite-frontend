@@ -1,3 +1,6 @@
+import { TResume } from "./resume";
+import { TVacancy } from "./vacancies";
+
 export enum EMatchStatus {
   SCORING = "scoring",
   SCREENING = "screening",
@@ -24,4 +27,19 @@ export type TMatchStatus = {
   name: string;
   key: string;
   rank: number;
+};
+
+export type TCandidateFull = {
+  id: number;
+  vacancy_id: number;
+  cv_id: number;
+  status_id: number;
+  status_rank: number;
+  type: string;
+  point: number;
+  summary: string;
+  created_at: string;
+  vacancy: TVacancy;
+  cv: TResume;
+  status: TMatchStatus;
 };

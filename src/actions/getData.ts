@@ -4,6 +4,7 @@ import {
   EMatchStatus,
   TApiListResponse,
   TApiSuccessResponse,
+  TCandidateFull,
   TCandidateShort,
   TMatchStatus,
   TTariff,
@@ -178,19 +179,20 @@ export const getBasicCandidatesByStatus = async (
   }
 };
 
-/* ----Needs to be redone with real data.----*/
 export const getCandidateFull = async (matchId: number) => {
-  return mockMatchInfo;
-  // try {
-  //   const response = await apiGet(`/match/${matchId}`);
-  //   console.log("matchfull", response);
+  // return mockMatchInfo;
+  try {
+    const response = await apiGet<TApiSuccessResponse<TCandidateFull>>(
+      `/match/${matchId}`
+    );
+    console.log("matchfull", response);
 
-  //   return response.data;
-  // } catch (error) {
-  //   throw new Error(
-  //     "Не удалось загрузить кандидата. Пожалуйста, попробуйте позже."
-  //   );
-  // }
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      "Не удалось загрузить информацию о кандидате. Пожалуйста, попробуйте позже."
+    );
+  }
 };
 
 /* TARIFFS */

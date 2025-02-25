@@ -6,7 +6,9 @@ import MatchCol from "./boards-elems/MatchCol";
 import { useQueries } from "@tanstack/react-query";
 import { getBasicCandidatesByStatus } from "@/actions/getData";
 import { useParams } from "next/navigation";
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
+import { SortableContext } from "@dnd-kit/sortable";
+import { useMatchStatuses } from "@/providers/MatchStatusProvider";
 
 // const columns = [
 //   {
@@ -31,20 +33,24 @@ import { FC, useEffect, useState } from "react";
 //   },
 // ];
 
-type TProps = {
-  matchStatuses: TMatchStatus[]
-}
+// type TProps = {
+//   matchStatuses: TMatchStatus[]
+// }
 
 
-const MatchBoard: FC<TProps> = ({ matchStatuses }) => {
+const MatchBoard = () => {
   const { vacancyId } = useParams()
 
-  const [columns, setColumns] = useState(matchStatuses)
+  const columns = useMatchStatuses()
 
-  useEffect(() => {
-    setColumns(matchStatuses)
-  }, [matchStatuses])
+  // const [columns, setColumns] = useState(matchStatuses)
 
+
+  // useEffect(() => {
+  //   setColumns(matchStatuses)
+  // }, [matchStatuses])
+
+  const columnsId = useMemo(() => columns.map(col => col.key), [columns])
   //query all the matches by status
   const queries = useQueries({
     queries: columns.map((col) => ({
@@ -55,6 +61,8 @@ const MatchBoard: FC<TProps> = ({ matchStatuses }) => {
     })),
 
   })
+
+
 
   const handleDragStart = () => { }
 
@@ -68,19 +76,23 @@ const MatchBoard: FC<TProps> = ({ matchStatuses }) => {
       <ScrollArea className="pb-4">
         <div className="flex gap-4 w-full p-2 ">
 
-          {queries.map((query, index) => (
-            <div
-              key={columns[index].id}
-              className={`flex flex-col gap-6 ring-2 ring-offset-4 rounded-lg ring-border w-1/${columns.length} min-w-[256px]`}
-            >
-              <MatchCol
-                status={columns[index].key}
-                title={columns[index].name}
-                isLoading={query.isFetching}
-                candidates={query.data || null}
-              />
-            </div>
-          ))}
+          <SortableContext items={columnsId}>
+
+            {queries.map((query, index) => (
+              <div
+                key={columns[index].id}
+                className={`flex flex-col gap-6 ring-2 ring-offset-4 rounded-lg ring-border w-1/${columns.length} min-w-[256px]`}
+              >
+                <MatchCol
+                  status={columns[index].key}
+                  title={columns[index].name}
+                  isLoading={query.isFetching}
+                  candidates={query.data || null}
+                />
+              </div>
+            ))}
+          </SortableContext>
+
 
         </div>
         <ScrollBar orientation="horizontal" className="bg-input/30 h-4 cursor-pointer" />

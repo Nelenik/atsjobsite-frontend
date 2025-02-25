@@ -3,6 +3,7 @@ import { EVacancyStatus } from "../types";
 
 export const SVacancy = z.object({
   id: z.number(),
+  company_id: z.number().optional(),
   name: z.string().nullable(),
   position: z.string().nullable(),
   responsibilities: z.string().nullable(),

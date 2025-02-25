@@ -35,7 +35,7 @@ const MatchInfo = async ({ matchId }: { matchId: number }) => {
         <TabsContent value="match" className="m-0 @container">
           {/* <Match candidate={candidateMatchInfo} /> */}
           <div className="grid grid-cols-1 auto-rows-auto @3xl:grid-cols-3 gap-x-6 gap-y-10">
-            <CandyInfo
+            {/* <CandyInfo
               role={match.cv.role}
               work_status={match.cv.status}
               location={match.cv.location}
@@ -48,13 +48,15 @@ const MatchInfo = async ({ matchId }: { matchId: number }) => {
               skills={match.cv.skills}
             />
             <CandyMatch
+              matchId={matchId}
               type={match.type}
-              match_status={match.match_status}
+              status_id={2}
+              // match_status={match.match_status}
               match_point={match.match_point}
               match_summary={match.match_summary}
               cv_summary={match.cv.summary}
             />
-            <CandyComments comments={match.comments} />
+            <CandyComments comments={match.comments} /> */}
           </div>
         </TabsContent>
 

@@ -11,48 +11,59 @@ import CancelButton from "./buttons/CancelButotn";
 import { updateMatch } from "@/actions/updateData";
 import { mutationInitialState } from "@/actions/constants";
 import convertToFormData from "@/lib/utils/convertToFormData";
+import { useMatchStatuses } from "@/providers/MatchStatusProvider";
+import { TMutationState } from "@/actions/types";
 
 const matchTypeDict = {
   'sourcing': 'источник',
   'application': 'отклик'
 }
 
-const badgeColors = {
+const badgeColors: { [key: string]: string } = {
   [EMatchStatus.SCREENING]: 'ring-primary text-primary hover:text-white hover:bg-primary/70',
   [EMatchStatus.SCORING]: 'ring-yellow-400 text-yellow-400 hover:text-white hover:bg-yellow-400/70',
   [EMatchStatus.INTERVIEW]: 'ring-orange-500 text-orange-500 hover:text-white hover:bg-orange-500/70',
   [EMatchStatus.REFUSAL]: 'ring-destructive text-destructive hover:text-white hover:bg-destructive/70',
   [EMatchStatus.OFFER]: 'ring-emerald-400 text-emerald-400 hover:text-white hover:bg-emerald-400/70',
+  default: 'ring-gray-400 text-gray-400 hover:text-white hover:bg-gray-400/70'
 }
 
 type TProps = {
-  type: "sourcing" | "application"
-  match_status: EMatchStatus;
+  matchId: string | number,
+  type: "sourcing" | "application",
+  status_id: number | string
   match_point: number;
   match_summary: string;
   cv_summary: string;
 }
 
 const CandyMatch: FC<TProps> = ({
+  matchId,
   type,
-  match_status,
+  status_id,
   match_point,
   match_summary,
   cv_summary,
 }) => {
   const [isEditing, setIsEditing] = useState(false)
 
-  const [status, confirmAction, isPending] = useActionState(
-    updateMatch,
+  const matchStatuses = useMatchStatuses()
+
+  const updateMathchWithId = updateMatch.bind(null, matchId)
+
+  const [state, confirmAction, isPending] = useActionState<TMutationState, FormData>(
+    updateMathchWithId,
     {
       ...mutationInitialState,
-      payload: convertToFormData({ match_status })
+      payload: convertToFormData({ status_id, point: match_point })
     }
   )
 
   const formRef = useRef<HTMLFormElement>(null)
 
-  const defValue = status.payload.get('match_status') as EMatchStatus
+  //Extract default value from state and get defStatus object from matchStatuses
+  const defValue = state.payload?.get('status_id') as string
+  const defStatus = matchStatuses.find(status => String(status.id) === defValue)
 
   const handleConfirm = () => {
     formRef.current?.requestSubmit()
@@ -87,19 +98,26 @@ const CandyMatch: FC<TProps> = ({
               <td className="px-4 py-1">
                 {isEditing
                   ? <form action={confirmAction} ref={formRef}>
-                    <Select defaultValue={defValue} name="match_status">
+                    <Select defaultValue={defValue} name="status_id">
                       <SelectTrigger className="w-[180px] focus:ring-0 focus:ring-offset-0 h-8">
                         <SelectValue placeholder="Статус" />
                       </SelectTrigger>
                       <SelectContent>
-                        {Object.entries(matchStatusesDict).map(([key, value]) => (
-                          <SelectItem value={key} key={key}>{value}</SelectItem>
+                        {matchStatuses.map((status) => (
+                          <SelectItem key={status.id} value={String(status.id)}>
+                            {status.name}
+                          </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
                   </form>
-                  : <Badge className={cn("py-1 bg-transparent ring-1", badgeColors[defValue])}>
-                    {matchStatusesDict[defValue]}
+                  : <Badge
+                    className={cn(
+                      "py-1 bg-transparent ring-1",
+                      defStatus ? badgeColors[defStatus.key] : badgeColors.default
+                    )}
+                  >
+                    {defStatus?.name}
                   </Badge>
                 }
               </td>
