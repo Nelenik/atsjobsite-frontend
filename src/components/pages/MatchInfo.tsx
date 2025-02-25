@@ -15,7 +15,7 @@ const tabsDict = [
 ]
 
 const MatchInfo = async ({ matchId }: { matchId: number }) => {
-  const { cv, status, vacancy } = await getCandidateFull(matchId)
+  const { type, point, status_id, summary, cv, status, vacancy } = await getCandidateFull(matchId)
 
   return (
     <div>
@@ -32,8 +32,7 @@ const MatchInfo = async ({ matchId }: { matchId: number }) => {
         </TabsList>
 
         <TabsContent value="match" className="m-0 @container">
-          {/* <Match candidate={candidateMatchInfo} /> */}
-          <div className="grid grid-cols-1 auto-rows-auto @3xl:grid-cols-3 gap-x-6 gap-y-10">
+          <div className="grid grid-cols-1 auto-rows-auto @3xl:grid-cols-[40%_1fr_1fr] gap-x-6 gap-y-10">
             <CandyInfo
               role={cv.name}
               work_status={cv.status}
@@ -45,16 +44,15 @@ const MatchInfo = async ({ matchId }: { matchId: number }) => {
               experience_descr={cv.experience_raw}
               skills={null}
             />
-            {/* <CandyMatch
+            <CandyMatch
               matchId={matchId}
-              type={match.type}
-              status_id={2}
-              // match_status={match.match_status}
-              match_point={match.match_point}
-              match_summary={match.match_summary}
-              cv_summary={match.cv.summary}
+              type={type}
+              status_id={status_id}
+              match_point={point}
+              match_summary={summary}
+              cv_summary={cv.summary}
             />
-            <CandyComments comments={match.comments} /> */}
+            <CandyComments comments={[]} />
           </div>
         </TabsContent>
 

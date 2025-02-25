@@ -1,5 +1,5 @@
 'use client'
-import { EMatchStatus, EMatchType } from "@/shared/types";
+import { EMatchStatus, EMatchType, TCandidateFull, TMatchStatus } from "@/shared/types";
 import EditButton from "./buttons/EditButton";
 import { Badge } from "./ui/badge";
 import { FC, useActionState, useEffect, useRef, useState } from "react";
@@ -13,6 +13,7 @@ import { mutationInitialState } from "@/actions/constants";
 import convertToFormData from "@/lib/utils/convertToFormData";
 import { useMatchStatuses } from "@/providers/MatchStatusProvider";
 import { TMutationState } from "@/actions/types";
+import { TResume } from "@/shared/types/resume";
 
 const matchTypeDict = {
   [EMatchType.SOURCING]: 'источник',
@@ -31,10 +32,10 @@ const badgeColors: { [key: string]: string } = {
 type TProps = {
   matchId: string | number,
   type: EMatchType,
-  status_id: number | string
-  match_point: number;
-  match_summary: string;
-  cv_summary: string;
+  status_id: TMatchStatus["id"]
+  match_point: TCandidateFull["point"];
+  match_summary: TCandidateFull["summary"];
+  cv_summary: TResume["summary"];
 }
 
 const CandyMatch: FC<TProps> = ({
@@ -143,21 +144,21 @@ const CandyMatch: FC<TProps> = ({
         </table>
       </div>
 
-      <div>
-        <h2 className="scroll-m-20 text-lg font-semibold tracking-tight">
+      <div className="min-h-40">
+        <h2 className="scroll-m-20 mb-3 text-lg font-semibold tracking-tight">
           Саммори по мэтчу
         </h2>
         <p className='text-muted-foreground text-sm'>
-          {match_summary}
+          {match_summary || 'Отсутствует'}
         </p>
       </div>
 
-      <div>
-        <h2 className="scroll-m-20 text-lg font-semibold tracking-tight">
+      <div className="min-h-40">
+        <h2 className="scroll-m-20 mb-3 text-lg font-semibold tracking-tight">
           Саммори по резюме
         </h2>
         <p className='text-muted-foreground text-sm'>
-          {cv_summary}
+          {cv_summary || 'Отсутствует'}
         </p>
       </div>
     </div>

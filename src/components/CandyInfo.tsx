@@ -50,15 +50,15 @@ const CandyInfo: FC<TProps> = ({
         </p>
         <p className='text-sm'>
           <span className='text-muted-foreground'>Локация: </span>
-          <span>г. {location}</span>
+          <span>г. {location || '-'}</span>
         </p>
-        <a href={`tel:+990 343 23443`} className='text-muted-foreground inline-flex gap-2 items-center text-sm'>
+        <a href={`tel:${phone}`} className='text-muted-foreground inline-flex gap-2 items-center text-sm'>
           <PhoneCall width={16} height={16} />
-          {phone}
+          {phone || '-'}
         </a>
         <a href={`mailto:contact@devid.com`} className='text-muted-foreground inline-flex gap-2 items-center text-sm'>
           <Mail width={16} height={16} />
-          {email}
+          {email || '-'}
         </a>
         <a href={`${link}`} target="_blank" className='text-blue-700 inline-flex gap-2 items-center underline underline-offset-2 text-sm'>
           <FileUser width={16} height={16} />
@@ -81,7 +81,7 @@ const CandyInfo: FC<TProps> = ({
         <h2 className='text-lg font-semibold mb-2'>Навыки</h2>
         <List className='flex gap-3'>
           {
-            skills && skills.split(',').map(el => (<li key={el} className='bg-indigo-100 rounded-md py-1 px-3.5 text-sm'>{el}</li>))
+            skills && skills.split(',').map(el => (<li key={el} className='bg-indigo-100 rounded-md py-1 px-3.5 text-sm'>{el}</li>)) || <span className="text-muted-foreground text-sm">не указано</span>
           }
         </List>
       </div>
