@@ -1,8 +1,8 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { getCandidateFull } from "@/actions/getData";
 import CandyInfo from "../CandyInfo";
-import CandyMatch from "../CandyMatch";
 import CandyComments from "../CandyComments";
+import CandyMatch from "../CandyMatch";
 
 const tabsDict = [
   { value: 'match', text: 'Мэтч' },
@@ -15,7 +15,7 @@ const tabsDict = [
 ]
 
 const MatchInfo = async ({ matchId }: { matchId: number }) => {
-  const { type, point, status_id, summary, cv, status, vacancy } = await getCandidateFull(matchId)
+  const { type, point, status_id, summary, cv } = await getCandidateFull(matchId)
 
   return (
     <div>
@@ -32,7 +32,7 @@ const MatchInfo = async ({ matchId }: { matchId: number }) => {
         </TabsList>
 
         <TabsContent value="match" className="m-0 @container">
-          <div className="grid grid-cols-1 auto-rows-auto @3xl:grid-cols-[40%_1fr_1fr] gap-x-6 gap-y-10">
+          <div className="grid grid-cols-1 auto-rows-auto @3xl:grid-cols-[35%_30%_1fr] gap-x-6 gap-y-10">
             <CandyInfo
               role={cv.name}
               work_status={cv.status}

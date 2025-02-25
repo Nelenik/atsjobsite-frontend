@@ -2,7 +2,10 @@ import { TVacancyShort, EVacancyStatus } from "@/shared/types";
 import { DragStartEvent, DragEndEvent } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
 import { useState, useEffect } from "react";
-import { isValidDragEvent, findItemStatus } from "../helpers";
+import {
+  isValidDragEvent,
+  findItemStatus,
+} from "../components/dnd-boards/helpers";
 
 export const useVacaniesBoard = (
   groupedItems: Record<string, TVacancyShort[]>

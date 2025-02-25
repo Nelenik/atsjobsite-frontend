@@ -12,7 +12,7 @@ import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 import { findItemStatus, isValidDragEvent } from "./helpers";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 import { cn } from "@/lib/utils";
-import { useVacaniesBoard } from "./hooks/useVacanciesBoard";
+import { useVacaniesBoard } from "../../hooks/useVacanciesBoard";
 
 const columns = [
   {

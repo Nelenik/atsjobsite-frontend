@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { getMatchStatuses, getVacancy } from '@/actions/getData';
+import { getVacancy } from '@/actions/getData';
 import { SummaryCard } from '@/components/cards/SummaryCard';
 import { TVacancy } from '@/shared/types';
 import Link from 'next/link';
@@ -16,9 +16,6 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
   const { companyId, vacancyId } = await params;
 
   const vacancy = await getVacancy(vacancyId);
-  console.log(vacancy)
-
-  const matchStatuses = await getMatchStatuses()
 
   return (
     <div className="flex gap-6 flex-col relative">

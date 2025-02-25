@@ -185,7 +185,6 @@ export const getCandidateFull = async (matchId: number) => {
     const response = await apiGet<TApiSuccessResponse<TCandidateFull>>(
       `/match/${matchId}`
     );
-    console.log("matchfull", response);
 
     return response.data;
   } catch (error) {

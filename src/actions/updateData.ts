@@ -46,7 +46,7 @@ export const updateCV = async (
 
 export const updateMatch = async (
   matchId: number | string,
-  _: TMutationState,
+  // _: TMutationState,
   body: FormData
 ) => {
   const result = await updateEntity(`/match/${matchId}`, body);
