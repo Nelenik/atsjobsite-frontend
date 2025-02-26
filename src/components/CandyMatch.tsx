@@ -97,7 +97,7 @@ const CandyMatch: FC<TProps> = ({
             onClick={() => setIsEditing(true)}
           />}
 
-          {isEditing && <>
+          {isEditing && !isPending && <>
             <CancelButton onClick={handleCancel} />
             <ConfirmButton onClick={handleConfirm} />
           </>}

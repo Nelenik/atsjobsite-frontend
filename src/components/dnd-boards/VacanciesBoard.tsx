@@ -2,14 +2,13 @@
 
 import { vacancyStatusDict } from "@/shared/dictionaries";
 import { EVacancyStatus, TVacancyShort } from "@/shared/types";
-import { DndContext, DragEndEvent, DragOverlay, DragStartEvent } from "@dnd-kit/core";
-import { FC, useEffect, useState } from "react";
+import { DndContext, DragOverlay } from "@dnd-kit/core";
+import { FC } from "react";
 import DndDroppable from "../dnd/DndDroppable";
 import DndSortable from "../dnd/DndSortable";
 import VacancyBoardCard from "../cards/VacancyBoardCard";
 import { FunnelCard } from "../cards/FunnelCard";
-import { arrayMove, SortableContext } from "@dnd-kit/sortable";
-import { findItemStatus, isValidDragEvent } from "./helpers";
+import { SortableContext } from "@dnd-kit/sortable";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { useVacaniesBoard } from "../../hooks/useVacanciesBoard";

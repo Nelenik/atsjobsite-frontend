@@ -1,7 +1,6 @@
 'use client'
 import { useState, useCallback, FC } from "react";
 import EditButton from "../buttons/EditButton";
-import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "../ui/dialog";
 import { filterFalsyFields, NonNullableFields } from "@/lib/utils/filterFalsyFields";
 import { TVacancy } from "@/shared/types";
 import VacancyForm from "../app_forms/VacancyForm";
@@ -62,24 +61,6 @@ const EditEntityModal = <T extends object>(
   }
 
   return (
-    // <Dialog open={open} onOpenChange={setOpen}>
-    //   <DialogTrigger asChild>
-    //     <EditButton isIconView={triggerView === 'icon'} className={className} />
-    //   </DialogTrigger>
-
-    //   <DialogContent className="w-[min(100%,800px)] h-full bg-white max-w-none flex flex-col">
-    //     <DialogTitle className="text-3xl">
-    //       {labels[entityType].title}
-    //     </DialogTitle>
-
-    //     <DialogDescription className="visually-hidden">
-    //       {labels[entityType].descr}
-    //     </DialogDescription>
-
-    //     {entityForm[entityType]}
-
-    //   </DialogContent>
-    // </Dialog>
     <Sheet open={open} onOpenChange={setOpen} modal={false}>
       <SheetTrigger asChild onClick={(e) => e.stopPropagation()}>
         <EditButton isIconView={triggerView === 'icon'} className={className} />

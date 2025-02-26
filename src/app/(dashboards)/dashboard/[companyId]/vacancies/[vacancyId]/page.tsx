@@ -25,7 +25,10 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
         entityType='vacancy'
       />
 
-      <Link href={`/dashboard/${companyId}/vacancy-info/${vacancyId}?name=${vacancy.name}`}>
+      <Link
+        scroll={false}
+        href={`/dashboard/${companyId}/vacancy-info/${vacancyId}?name=${vacancy.name}`}
+      >
         <SummaryCard
           vacancyName={vacancy.name}
           createdAt={vacancy.created_at}
