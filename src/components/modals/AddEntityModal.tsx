@@ -7,7 +7,6 @@ import { Sheet, SheetContent, SheetDescription, SheetOverlay, SheetTitle, SheetT
 import VacancyForm from "../app_forms/VacancyForm";
 import { CompanyForm } from "../app_forms/CompanyForm";
 import ResumeForm from "../app_forms/ResumeForm";
-import { createPortal } from "react-dom";
 
 type TProps = {
   className?: string
@@ -35,7 +34,7 @@ const AddEntityModal: FC<TProps> = ({
   }
 
   return (
-    <Sheet open={open} onOpenChange={setOpen} modal={false}>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild onClick={(e) => e.stopPropagation()}>
         <Button className={cn('w-max lg:w-full py-6 text-base flex', className)}>
           <CirclePlus />
@@ -54,15 +53,6 @@ const AddEntityModal: FC<TProps> = ({
         {entityForm[entityType]}
 
       </SheetContent>
-      {open &&
-        createPortal(
-          <div
-            className="fixed inset-0 bg-black/50 z-40"
-            onClick={() => setOpen(false)}
-            aria-hidden="true"
-          />,
-          document.body
-        )}
     </Sheet>
   );
 }

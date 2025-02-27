@@ -1,10 +1,8 @@
 'use client'
-import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useState } from "react";
 import { Sheet, SheetContent, SheetDescription, SheetTitle } from "../ui/sheet";
 import { wait } from "@/lib/utils/wait";
-import { createPortal } from "react-dom";
 
 interface IInterceptingModalProps {
   children: React.ReactNode;
@@ -34,20 +32,7 @@ const InterceptingModal = ({ dialogTitle, dialogDescription, children }: IInterc
     wait(50).then(router.back)
   }, [router.back])
   return (
-    // <Dialog open={open} onOpenChange={handleClose} >
-    //   <DialogContent className="w-[min(100%,1300px)] h-full bg-white max-w-none ">
-    //     <div className="visually-hidden">
-    //       <DialogTitle>
-    //         {dialogTitle}
-    //       </DialogTitle>
-    //       <DialogDescription>
-    //         {dialogDescription}
-    //       </DialogDescription>
-    //     </div>
-    //     {children}
-    //   </DialogContent>
-    // </Dialog>
-    <Sheet open={open} onOpenChange={handleClose} modal={false}>
+    <Sheet open={open} onOpenChange={handleClose}>
       <SheetContent className="w-[min(100%,1300px)] h-full bg-white sm:max-w-none overflow-y-auto">
         <div className="visually-hidden">
           <SheetTitle>
@@ -59,15 +44,6 @@ const InterceptingModal = ({ dialogTitle, dialogDescription, children }: IInterc
         </div>
         {children}
       </SheetContent>
-      {open &&
-        createPortal(
-          <div
-            className="fixed inset-0 bg-black/50 z-40"
-            onClick={() => setOpen(false)}
-            aria-hidden="true"
-          />,
-          document.body
-        )}
     </Sheet>
   );
 }
