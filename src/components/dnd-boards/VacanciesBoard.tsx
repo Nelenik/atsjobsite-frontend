@@ -78,7 +78,7 @@ const VacanciesBoard: FC<TProps> = ({ groupedItems }) => {
                       <DndSortable
                         id={String(vacancy.id)}
                         key={vacancy.id}
-                        type="vac_item"
+                        dndData={{ type: "vac_item" }}
                       >
                         <VacancyBoardCard
                           id={vacancy.id}
@@ -100,15 +100,18 @@ const VacanciesBoard: FC<TProps> = ({ groupedItems }) => {
       </ScrollArea>
       <DragOverlay>
         {activeItem && (
-          <DndSortable id={String(activeItem.id)} type="vac_item">
-            <VacancyBoardCard
-              id={activeItem.id}
-              name={activeItem.name}
-              location={activeItem.location}
-              salary_from={activeItem.salary_from}
-              salary_to={activeItem.salary_to}
-            />
-          </DndSortable>
+          // <DndSortable
+          //   id={String(activeItem.id)}
+          //   dndData={{ type: "vac_item" }}
+          // >
+          <VacancyBoardCard
+            id={activeItem.id}
+            name={activeItem.name}
+            location={activeItem.location}
+            salary_from={activeItem.salary_from}
+            salary_to={activeItem.salary_to}
+          />
+          // </DndSortable>
         )}
       </DragOverlay>
 

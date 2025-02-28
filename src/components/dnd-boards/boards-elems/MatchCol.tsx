@@ -5,28 +5,30 @@ import DndDroppable from "@/components/dnd/DndDroppable";
 import DndSortable from "@/components/dnd/DndSortable";
 import { TCandidateShort } from "@/shared/types";
 import { SortableContext } from "@dnd-kit/sortable";
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { cn } from "@/lib/utils";
 
 type TProps = {
   status: string
   title: string
-  isLoading: boolean
+  isLoading?: boolean
   candidates: TCandidateShort[] | null
+  className: string
 }
 
-const MatchCol: FC<TProps> = ({ status, title, isLoading, candidates }) => {
+const MatchCol: FC<TProps> = ({ status, title, isLoading = false, candidates, className }) => {
+
+  const candidatesIds = useMemo(() => (candidates || []).map(candy => String(candy.id)), [candidates])
 
   return (
-    <>
+    <div className={cn(`flex flex-col gap-6 ring-2 ring-offset-4 rounded-lg ring-border  min-w-[256px] bg-background`, className)}>
       <FunnelCard
         name={title}
         isLoading={isLoading}
         count={candidates?.length || 0}
       />
-      <DndDroppable
-        id={status}
-        type="match_column"
+      <div
         className="flex flex-col gap-2 grow"
       >
         <ScrollArea
@@ -36,12 +38,12 @@ const MatchCol: FC<TProps> = ({ status, title, isLoading, candidates }) => {
             isLoading
               ? <p className="text-muted-foreground text-sm text-center">Loading...</p>
               :
-              <SortableContext items={(candidates || []).map(candy => String(candy.id))}>
+              <SortableContext items={candidatesIds}>
                 {(candidates || [])?.map((candidate) => (
                   <DndSortable
                     id={String(candidate.id)}
                     key={candidate.id}
-                    type="match_item"
+                    dndData={{ type: "match_item", candidate }}
                   >
                     <CandidateCard
                       id={candidate.id}
@@ -55,8 +57,8 @@ const MatchCol: FC<TProps> = ({ status, title, isLoading, candidates }) => {
               </SortableContext>
           }
         </ScrollArea>
-      </DndDroppable>
-    </>
+      </div>
+    </div>
   );
 }
 

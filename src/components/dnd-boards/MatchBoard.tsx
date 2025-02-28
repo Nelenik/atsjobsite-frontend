@@ -1,56 +1,25 @@
 'use client'
-import { DndContext } from "@dnd-kit/core";
+import { DndContext, DragOverlay, DragStartEvent } from "@dnd-kit/core";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
-import { TMatchStatus } from "@/shared/types";
+import { TCandidateShort, TMatchStatus } from "@/shared/types";
 import MatchCol from "./boards-elems/MatchCol";
 import { useQueries } from "@tanstack/react-query";
 import { getBasicCandidatesByStatus } from "@/actions/getData";
 import { useParams } from "next/navigation";
-import { FC, useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { SortableContext } from "@dnd-kit/sortable";
 import { useMatchStatuses } from "@/providers/MatchStatusProvider";
-
-// const columns = [
-//   {
-//     id: EMatchStatus.SCREENING,
-//     title: matchStatusesDict[EMatchStatus.SCREENING]
-//   },
-//   {
-//     id: EMatchStatus.SCORING,
-//     title: matchStatusesDict[EMatchStatus.SCORING]
-//   },
-//   {
-//     id: EMatchStatus.INTERVIEW,
-//     title: matchStatusesDict[EMatchStatus.INTERVIEW]
-//   },
-//   {
-//     id: EMatchStatus.REFUSAL,
-//     title: matchStatusesDict[EMatchStatus.REFUSAL]
-//   },
-//   {
-//     id: EMatchStatus.OFFER,
-//     title: matchStatusesDict[EMatchStatus.OFFER]
-//   },
-// ];
-
-// type TProps = {
-//   matchStatuses: TMatchStatus[]
-// }
-
+import DndSortable from "../dnd/DndSortable";
+import { CandidateCard } from "../cards/CandidateCard";
+import MatchColAbstraction from "./boards-elems/MatchColAbstraction";
 
 const MatchBoard = () => {
   const { vacancyId } = useParams()
 
   const columns = useMatchStatuses()
 
-  // const [columns, setColumns] = useState(matchStatuses)
+  const columnsIds = useMemo(() => columns.map(col => col.key), [columns])
 
-
-  // useEffect(() => {
-  //   setColumns(matchStatuses)
-  // }, [matchStatuses])
-
-  const columnsId = useMemo(() => columns.map(col => col.key), [columns])
   //query all the matches by status
   const queries = useQueries({
     queries: columns.map((col) => ({
@@ -62,11 +31,29 @@ const MatchBoard = () => {
 
   })
 
+  //activeColumn and acitveItem state for DndOverlay
+  const [activeColumn, setActiveColumn] = useState<TMatchStatus | null>(null)
 
+  const [activeItem, setActiveItem] = useState<TCandidateShort | null>(null);
 
-  const handleDragStart = () => { }
+  const handleDragStart = (event: DragStartEvent) => {
+    const { active } = event
+    const data = active.data.current;
+    if (data?.type === 'match_item') {
 
-  const handleDragEnd = () => { }
+      const activeItem = data.candidate || null
+      setActiveItem(activeItem)
+    } else if (data?.type === 'match_column') {
+      const activeColumn = data.column || null
+      setActiveColumn(activeColumn)
+    }
+  }
+
+  const handleDragEnd = () => {
+    setActiveColumn(null)
+    setActiveItem(null)
+  }
+
   return (
     <DndContext
       onDragStart={handleDragStart}
@@ -76,20 +63,23 @@ const MatchBoard = () => {
       <ScrollArea className="pb-4">
         <div className="flex gap-4 w-full p-2 ">
 
-          <SortableContext items={columnsId}>
+          <SortableContext items={columnsIds}>
 
             {queries.map((query, index) => (
-              <div
+              <DndSortable
                 key={columns[index].id}
-                className={`flex flex-col gap-6 ring-2 ring-offset-4 rounded-lg ring-border w-1/${columns.length} min-w-[256px]`}
+                id={columns[index].key}
+                dndData={{ type: "match_column", column: columns[index] }}
+
               >
                 <MatchCol
                   status={columns[index].key}
                   title={columns[index].name}
                   isLoading={query.isFetching}
                   candidates={query.data || null}
+                  className={`w-1/${columns.length}`}
                 />
-              </div>
+              </DndSortable>
             ))}
           </SortableContext>
 
@@ -97,6 +87,28 @@ const MatchBoard = () => {
         </div>
         <ScrollBar orientation="horizontal" className="bg-input/30 h-4 cursor-pointer" />
       </ScrollArea>
+
+      <DragOverlay>
+        {
+          activeColumn && (
+            <MatchColAbstraction
+              title={activeColumn.name}
+              candidates={queries[activeColumn.rank - 1].data || null}
+              className={`w-1/${columns.length}`}
+            />
+          )
+        }
+        {activeItem && (
+          <CandidateCard
+            id={activeItem.id}
+            name={activeItem.name}
+            city={activeItem.city}
+            salary={activeItem.salary}
+            rating={activeItem.match_point}
+          />
+        )}
+
+      </DragOverlay>
     </DndContext>
   );
 }

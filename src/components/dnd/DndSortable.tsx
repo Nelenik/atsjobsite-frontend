@@ -9,7 +9,8 @@ import { useSortable } from "@dnd-kit/sortable";
 type TProps = HTMLAttributes<HTMLDivElement> & {
   asChild?: boolean,
   id: string,
-  type: string
+  // type: string,
+  dndData?: Record<string, unknown>
 }
 
 /**
@@ -40,12 +41,12 @@ type TProps = HTMLAttributes<HTMLDivElement> & {
  * - Typically used within a container that manages the sorting logic and order
  */
 
-const DndSortable: FC<TProps> = ({ children, id, type, asChild = false, className, ...props }) => {
+const DndSortable: FC<TProps> = ({ children, id, dndData, asChild = false, className, ...props }) => {
 
   const { attributes, listeners, setNodeRef, transform } = useSortable({
     id: id,
     data: {
-      type: type,
+      ...dndData
 
     }
   })
@@ -62,7 +63,7 @@ const DndSortable: FC<TProps> = ({ children, id, type, asChild = false, classNam
       style={style}
       {...props}
     >
-      <Button variant={'ghost'} {...attributes} {...listeners} className="absolute left-1 top-2 z-10 p-1 h-max cursor-grab">
+      <Button variant={'ghost'} {...attributes} {...listeners} className="absolute left-1 top-2 z-[100] p-1 h-max cursor-grab">
         <GripVertical className="stroke-muted-foreground" />
       </Button >
       {children}
