@@ -51,7 +51,6 @@ export const updateMatch = async (
 ) => {
   const result = await updateEntity(`/match/${matchId}`, body);
   if (!result.error) {
-    revalidatePath("/dashboard/[companyId]/vacancies/[vacancyId]", "page");
     revalidatePath(
       "/dashboard/[companyId]/candidate-info/[candidateId]",
       "page"
@@ -60,7 +59,7 @@ export const updateMatch = async (
   return result;
 };
 
-export const updateStatusRank = async (statusKey: string, body: FormData) => {
+export const updateStatus = async (statusKey: string, body: FormData) => {
   const result = await updateEntity(`/statuses/${statusKey}`, body);
   return result;
 };

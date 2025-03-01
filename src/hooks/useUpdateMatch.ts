@@ -4,7 +4,6 @@ import { useTransition } from "react";
 import { useToast } from "./use-toast";
 import convertToFormData from "@/lib/utils/convertToFormData";
 import { TCandidateShort } from "@/shared/types";
-import { match } from "assert";
 
 /**
  * Custom hook to handle the update of a match's status, with optimistic UI updates and error handling.
@@ -56,56 +55,66 @@ export const useUpdateMatch = (matchId?: number) => {
 
       //Optimistic updating of the board
       //Store prev state of the initial matches col and of the target
-      const oldStatusMatches: TCandidateShort[] =
-        queryClient.getQueryData(["matchByStatus", initialStatusId]) || [];
+      const oldStatusMatches: TCandidateShort[] | undefined =
+        queryClient.getQueryData(["matchByStatus", initialStatusId]);
 
-      const targetStatusMatches: TCandidateShort[] =
-        queryClient.getQueryData(["matchByStatus", newStatusId]) || [];
+      const targetStatusMatches: TCandidateShort[] | undefined =
+        queryClient.getQueryData(["matchByStatus", newStatusId]);
 
-      const movedCandidate = oldStatusMatches.find(
-        (match) => match.id === matchId
-      );
-      //Optimistic update of the cache
-      queryClient.setQueryData(
-        ["matchByStatus", initialStatusId],
-        (prevData: TCandidateShort[]) =>
-          prevData.filter((match) => match.id !== matchId)
-      );
-      if (movedCandidate) {
-        queryClient.setQueryData(
-          ["matchByStatus", newStatusId],
-          (prevData: TCandidateShort[]) =>
-            [...prevData, movedCandidate].sort((a, b) => a.id - b.id)
+      //check if cache exists, to use optimistic update or not
+      const shouldUpdateOptimistic =
+        !!oldStatusMatches && !!targetStatusMatches;
+
+      if (shouldUpdateOptimistic) {
+        const movedCandidate = oldStatusMatches.find(
+          (match) => match.id === matchId
         );
+        //Optimistic update of the cache
+        queryClient.setQueryData(
+          ["matchByStatus", initialStatusId],
+          (prevData: TCandidateShort[]) =>
+            prevData.filter((match) => match.id !== matchId)
+        );
+        if (movedCandidate) {
+          queryClient.setQueryData(
+            ["matchByStatus", newStatusId],
+            (prevData: TCandidateShort[]) =>
+              [...prevData, movedCandidate].sort((a, b) => a.id - b.id)
+          );
+        }
       }
 
       //Request to server
       const { error } = await updateMatchWithId(newMatchData);
 
       if (error) {
-        queryClient.setQueryData(
-          ["matchByStatus", initialStatusId],
-          oldStatusMatches
-        );
-        queryClient.setQueryData(
-          ["matchByStatus", newStatusId],
-          targetStatusMatches
-        );
+        if (shouldUpdateOptimistic) {
+          queryClient.setQueryData(
+            ["matchByStatus", initialStatusId],
+            oldStatusMatches
+          );
+          queryClient.setQueryData(
+            ["matchByStatus", newStatusId],
+            targetStatusMatches
+          );
+        }
         toast({
           variant: "destructive",
-          description: "Ошибка при обновлении данных",
+          description: "Ошибка при обновлении мэтча",
         });
         return;
       }
 
-      // await Promise.all([
-      //   queryClient.invalidateQueries({
-      //     queryKey: ["matchByStatus", initialStatusId],
-      //   }),
-      //   queryClient.invalidateQueries({
-      //     queryKey: ["matchByStatus", newStatusId],
-      //   }),
-      // ]);
+      if (!shouldUpdateOptimistic) {
+        await Promise.all([
+          queryClient.invalidateQueries({
+            queryKey: ["matchByStatus", initialStatusId],
+          }),
+          queryClient.invalidateQueries({
+            queryKey: ["matchByStatus", newStatusId],
+          }),
+        ]);
+      }
     });
   };
   return {

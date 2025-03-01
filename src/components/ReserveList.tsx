@@ -22,6 +22,7 @@ const badgeColors = {
   [ECvStatus.CONSIDERING]: 'ring-yellow-400 text-yellow-400 hover:text-white hover:bg-yellow-400/70',
   [ECvStatus.NOT_LOOKING]: 'ring-muted-foreground text-muted-foreground hover:text-white hover:bg-muted-foreground/70',
   [ECvStatus.OFFER]: 'ring-sky-500 text-sky-500 hover:text-white hover:bg-sky-500/70',
+  default: 'ring-gray-300 text-gray-300 hover:text-white hover:bg-gray-300/70'
 }
 
 const ReserveList: FC<TProps> = ({
@@ -33,7 +34,7 @@ const ReserveList: FC<TProps> = ({
       {resumeList.map((resume) => (
         <li className="text-lg" key={resume.id}>
           <Card className="py-2 px-6 flex gap-6 items-center justify-between h-full relative">
-            <EditEntityModal entityType="resume" triggerView="icon" initialData={resume} className="absolute right-2 top-2" />
+
             <Avatar >
               <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
               <AvatarFallback>C</AvatarFallback>
@@ -54,8 +55,8 @@ const ReserveList: FC<TProps> = ({
               <p>
                 {getDurationFromMonths(resume.experience_months)}
               </p>
-              <Badge className={cn("py-1 bg-transparent ring-1", badgeColors[resume.status])}>
-                {workStatusDict[resume.status]}
+              <Badge className={cn("py-1 bg-transparent ring-1", badgeColors[resume.status || 'default'])}>
+                {workStatusDict[resume.status] || 'не установлен'}
               </Badge>
             </div>
             <div className="w-[25%]">
@@ -66,6 +67,7 @@ const ReserveList: FC<TProps> = ({
                 {format(new Date(), "d MMMM yyyy", { locale: ru })}
               </p>
             </div>
+            <EditEntityModal entityType="resume" triggerView="icon" initialData={resume} className="absolute right-0 top-0" />
           </Card>
         </li>
       ))}

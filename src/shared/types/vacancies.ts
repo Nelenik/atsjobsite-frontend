@@ -48,7 +48,7 @@ export type TVacancyShort = z.infer<typeof SVacancyShort>;
 export enum EVacancyPosition {
   DEVELOPER = "developer",
   TEAM_LEAD = "team-lead",
-  TESTER = "tester",
+  TESTER = "qa",
   PM = "pm",
   ANALYST = "analyst",
   DEVOPS = "devops",

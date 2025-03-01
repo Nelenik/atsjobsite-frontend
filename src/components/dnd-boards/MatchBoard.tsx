@@ -3,17 +3,16 @@ import { DndContext, DragEndEvent, DragOverlay, DragStartEvent } from "@dnd-kit/
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 import { TCandidateShort, TMatchStatus } from "@/shared/types";
 import MatchCol from "./boards-elems/MatchCol";
-import { useQueries } from "@tanstack/react-query";
+import { useQueries, useQueryClient } from "@tanstack/react-query";
 import { getBasicCandidatesByStatus } from "@/actions/getData";
 import { useParams } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useTransition } from "react";
 import { SortableContext } from "@dnd-kit/sortable";
 import { useMatchStatuses } from "@/providers/MatchStatusProvider";
 import DndSortable from "../dnd/DndSortable";
 import { CandidateCard } from "../cards/CandidateCard";
 import MatchColAbstraction from "./boards-elems/MatchColAbstraction";
 import { GripVertical } from "lucide-react";
-import { isValidDragEvent } from "./helpers";
 import { useUpdateMatch } from "@/hooks/useUpdateMatch";
 import { cn } from "@/lib/utils";
 
@@ -30,18 +29,18 @@ const MatchBoard = () => {
       refetchOnWindowFocus: false,
       queryKey: ['matchByStatus', col.id],
       queryFn: () => getBasicCandidatesByStatus(vacancyId as string, col.key),
-
+      enabled: true
     })),
 
   })
-
 
   //activeColumn and acitveItem state for DndOverlay
   const [activeColumn, setActiveColumn] = useState<TMatchStatus | null>(null)
 
   const [activeItem, setActiveItem] = useState<TCandidateShort | null>(null);
 
-  const { isUpdating, startMatchUpd } = useUpdateMatch(activeItem?.id)
+  // update match hook
+  const { startMatchUpd } = useUpdateMatch(activeItem?.id)
 
   const handleDragStart = (event: DragStartEvent) => {
     const { active } = event
@@ -88,7 +87,6 @@ const MatchBoard = () => {
 
       startMatchUpd(targetStatusId, initialStatusId)
     }
-
 
   }
 
