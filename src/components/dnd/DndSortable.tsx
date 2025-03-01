@@ -8,8 +8,7 @@ import { useSortable } from "@dnd-kit/sortable";
 
 type TProps = HTMLAttributes<HTMLDivElement> & {
   asChild?: boolean,
-  id: string,
-  // type: string,
+  sortableId: string | number,
   dndData?: Record<string, unknown>
 }
 
@@ -21,7 +20,7 @@ type TProps = HTMLAttributes<HTMLDivElement> & {
  * 
  * @param {Object} props - Component props
  * @param {ReactNode} props.children - Content to be made sortable
- * @param {string | number} props.id - Unique identifier for the sortable element
+ * @param {string|number} props.sortableId - Unique identifier for the sortable element
  * @param {string} props.type - Type identifier for the sortable content
  * @param {boolean} [props.asChild=false] - When true, renders as a Slot component instead of a div
  * @param {string} [props.className] - Additional CSS classes to apply to the container
@@ -41,10 +40,10 @@ type TProps = HTMLAttributes<HTMLDivElement> & {
  * - Typically used within a container that manages the sorting logic and order
  */
 
-const DndSortable: FC<TProps> = ({ children, id, dndData, asChild = false, className, ...props }) => {
+const DndSortable: FC<TProps> = ({ children, sortableId, dndData, asChild = false, className, ...props }) => {
 
-  const { attributes, listeners, setNodeRef, transform } = useSortable({
-    id: id,
+  const { attributes, listeners, setNodeRef, transform, isDragging } = useSortable({
+    id: sortableId,
     data: {
       ...dndData
 
@@ -58,7 +57,7 @@ const DndSortable: FC<TProps> = ({ children, id, dndData, asChild = false, class
   const Comp = asChild ? Slot : 'div'
   return (
     <Comp
-      className={cn('relative grow-0', className)}
+      className={cn(isDragging && "opacity-50", 'relative grow-0', className)}
       ref={setNodeRef}
       style={style}
       {...props}

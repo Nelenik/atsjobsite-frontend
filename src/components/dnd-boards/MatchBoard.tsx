@@ -1,5 +1,5 @@
 'use client'
-import { DndContext, DragOverlay, DragStartEvent } from "@dnd-kit/core";
+import { DndContext, DragEndEvent, DragOverlay, DragStartEvent } from "@dnd-kit/core";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 import { TCandidateShort, TMatchStatus } from "@/shared/types";
 import MatchCol from "./boards-elems/MatchCol";
@@ -13,6 +13,9 @@ import DndSortable from "../dnd/DndSortable";
 import { CandidateCard } from "../cards/CandidateCard";
 import MatchColAbstraction from "./boards-elems/MatchColAbstraction";
 import { GripVertical } from "lucide-react";
+import { isValidDragEvent } from "./helpers";
+import { useUpdateMatch } from "@/hooks/useUpdateMatch";
+import { cn } from "@/lib/utils";
 
 const MatchBoard = () => {
   const { vacancyId } = useParams()
@@ -25,7 +28,7 @@ const MatchBoard = () => {
   const queries = useQueries({
     queries: columns.map((col) => ({
       refetchOnWindowFocus: false,
-      queryKey: ['matchCol', col.id],
+      queryKey: ['matchByStatus', col.id],
       queryFn: () => getBasicCandidatesByStatus(vacancyId as string, col.key),
 
     })),
@@ -38,6 +41,8 @@ const MatchBoard = () => {
 
   const [activeItem, setActiveItem] = useState<TCandidateShort | null>(null);
 
+  const { isUpdating, startMatchUpd } = useUpdateMatch(activeItem?.id)
+
   const handleDragStart = (event: DragStartEvent) => {
     const { active } = event
     const data = active.data.current;
@@ -49,11 +54,42 @@ const MatchBoard = () => {
       const activeColumn = data.column || null
       setActiveColumn(activeColumn)
     }
+
   }
 
-  const handleDragEnd = () => {
+  const handleDragEnd = (event: DragEndEvent) => {
     setActiveColumn(null)
     setActiveItem(null)
+    const { active, over } = event;
+    if (!active || !over || active.id === over.id) return;
+
+    const activeData = active.data.current;
+    const overData = over.data.current;
+    if (!activeData || !overData) return
+
+    //Ccheck active element and over zone
+    const isActiveItem = activeData.type === "match_item";
+    const isActiveColumn = activeData.type === "match_column"
+    const isOverItem = overData.type === "match_item";
+    const isOverColumn = overData.type === "match_column";
+
+    // If there is no active element, stop dragging
+    if (!isActiveItem && !isActiveColumn) return;
+
+    if (isActiveItem) {
+
+      const initialStatusId: number = activeData.status_id;
+      let targetStatusId!: number;
+      if (isOverColumn) {
+        targetStatusId = overData.column.id
+      } else if (isOverItem) {
+        targetStatusId = overData.status_id
+      }
+
+      startMatchUpd(targetStatusId, initialStatusId)
+    }
+
+
   }
 
   return (
@@ -70,16 +106,16 @@ const MatchBoard = () => {
             {queries.map((query, index) => (
               <DndSortable
                 key={columns[index].id}
-                id={columns[index].key}
+                sortableId={columns[index].key}
                 dndData={{ type: "match_column", column: columns[index] }}
-
               >
                 <MatchCol
                   status={columns[index].key}
+                  status_id={columns[index].id}
                   title={columns[index].name}
                   isLoading={query.isFetching}
                   candidates={query.data || null}
-                  className={`w-1/${columns.length}`}
+                  className={cn(`w-1/${columns.length}`)}
                 />
               </DndSortable>
             ))}
@@ -101,7 +137,7 @@ const MatchBoard = () => {
           )
         }
         {activeItem && (
-          <div className="relative cursor-grabbing">
+          <div className="relative cursor-grabbing ring-2 rounded-lg ring-offset-2">
             <GripVertical className="absolute left-1 top-2 z-[100] stroke-muted-foreground" />
             <CandidateCard
               id={activeItem.id}

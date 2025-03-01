@@ -153,7 +153,7 @@ export const getMatchStatuses = async () => {
     );
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     throw new Error(
       "Не удалось загрузить статусы мэтчей. Пожалуйста, попробуйте позже."
     );
@@ -164,12 +164,10 @@ export const getBasicCandidatesByStatus = async (
   vacId: number | string,
   status: string
 ): Promise<TCandidateShort[]> => {
-  // return wait(9000).then(() => mockCandidateShort[status] || []);
   try {
     const response = await apiGet<TApiListResponse<TCandidateShort>>(
       `/match/candidates?vacancy_id=${vacId}&status=${status}`
     );
-    console.log("candidate", response);
     return response.data;
   } catch (error) {
     console.error(error);

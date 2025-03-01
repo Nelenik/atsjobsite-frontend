@@ -3,21 +3,41 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useTransition } from "react";
 import { useToast } from "./use-toast";
 import convertToFormData from "@/lib/utils/convertToFormData";
+import { TCandidateShort } from "@/shared/types";
+import { match } from "assert";
 
 /**
+ * Custom hook to handle the update of a match's status, with optimistic UI updates and error handling.
+ * It allows updating the match's status either via a form data object or a new status ID.
  *
- * @param {number} matchId
- * @param {number} initialStatusId
- * @returns
+ * The hook provides a function `startUpdating` to initiate the update and manage the optimistic update
+ * and error recovery. It also returns a flag `isPending` to indicate if the update operation is in progress.
+ *
+ * @param matchId - The ID of the match to be updated.
+ * @param initialStatusId - The initial status ID of the match before the update.
+ *
+ * @returns An object containing:
+ *   - `isPending`: A boolean indicating if the update process is pending.
+ *   - `startUpdating`: A function to initiate the update process, accepting either FormData or a new status ID.
+ *
+ * @example
+ * const { isPending, startUpdating } = useUpdateMatch(matchId, initialStatusId);
+ * startUpdating(newStatusId);
+ *
+ * @throws Will handle errors by showing a toast message and reverting the changes if the update fails.
  */
 
-export const useUpdateMatch = (matchId: number, initialStatusId: number) => {
+export const useUpdateMatch = (matchId?: number) => {
   const { toast } = useToast();
-  const updateMatchWithId = updateMatch.bind(null, matchId);
+
   const [isPending, startTransition] = useTransition();
+
   const queryClient = useQueryClient();
 
-  const startUpdating = (formDataOrNewStatusId: FormData | number) => {
+  const startMatchUpd = (
+    formDataOrNewStatusId: FormData | number,
+    initialStatusId: number
+  ) => {
     let newStatusId: number;
     let newMatchData: FormData;
 
@@ -30,26 +50,66 @@ export const useUpdateMatch = (matchId: number, initialStatusId: number) => {
     }
 
     startTransition(async () => {
+      if (!matchId) return;
+
+      const updateMatchWithId = updateMatch.bind(null, matchId);
+
+      //Optimistic updating of the board
+      //Store prev state of the initial matches col and of the target
+      const oldStatusMatches: TCandidateShort[] =
+        queryClient.getQueryData(["matchByStatus", initialStatusId]) || [];
+
+      const targetStatusMatches: TCandidateShort[] =
+        queryClient.getQueryData(["matchByStatus", newStatusId]) || [];
+
+      const movedCandidate = oldStatusMatches.find(
+        (match) => match.id === matchId
+      );
+      //Optimistic update of the cache
+      queryClient.setQueryData(
+        ["matchByStatus", initialStatusId],
+        (prevData: TCandidateShort[]) =>
+          prevData.filter((match) => match.id !== matchId)
+      );
+      if (movedCandidate) {
+        queryClient.setQueryData(
+          ["matchByStatus", newStatusId],
+          (prevData: TCandidateShort[]) =>
+            [...prevData, movedCandidate].sort((a, b) => a.id - b.id)
+        );
+      }
+
+      //Request to server
       const { error } = await updateMatchWithId(newMatchData);
-      if (!error) {
-        Promise.all([
-          queryClient.invalidateQueries({
-            queryKey: ["matchCol", initialStatusId],
-          }),
-          queryClient.invalidateQueries({
-            queryKey: ["matchCol", newStatusId],
-          }),
-        ]);
-      } else {
+
+      if (error) {
+        queryClient.setQueryData(
+          ["matchByStatus", initialStatusId],
+          oldStatusMatches
+        );
+        queryClient.setQueryData(
+          ["matchByStatus", newStatusId],
+          targetStatusMatches
+        );
         toast({
           variant: "destructive",
           description: "Ошибка при обновлении данных",
         });
+        return;
       }
+
+      // await Promise.all([
+      //   queryClient.invalidateQueries({
+      //     queryKey: ["matchByStatus", initialStatusId],
+      //   }),
+      //   queryClient.invalidateQueries({
+      //     queryKey: ["matchByStatus", newStatusId],
+      //   }),
+      // ]);
     });
   };
   return {
-    isPending,
-    startUpdating,
+    isUpdating: isPending,
+    startMatchUpd,
   };
 };

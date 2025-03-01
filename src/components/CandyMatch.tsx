@@ -46,7 +46,7 @@ const CandyMatch: FC<TProps> = ({
 }) => {
   const matchStatuses = useMatchStatuses()
 
-  const { isPending, startUpdating } = useUpdateMatch(matchId, status_id)
+  const { isUpdating, startMatchUpd } = useUpdateMatch(matchId)
 
   const initStatusId = String(status_id)
 
@@ -60,7 +60,7 @@ const CandyMatch: FC<TProps> = ({
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
-    startUpdating(formData)
+    startMatchUpd(formData, status_id)
 
     setIsEditing(false);
   };
@@ -81,18 +81,18 @@ const CandyMatch: FC<TProps> = ({
 
         {/* edit, confirm, cancel btns and spinner */}
         <span className="absolute top-0 right-1/4 text-[0px]">
-          {!isEditing && !isPending && <EditButton
+          {!isEditing && !isUpdating && <EditButton
             className="p-0.5 h-max aspect-square"
             isIconView={true}
             onClick={() => setIsEditing(true)}
           />}
 
-          {isEditing && !isPending && <>
+          {isEditing && !isUpdating && <>
             <CancelButton onClick={handleCancel} />
             <ConfirmButton onClick={handleConfirm} />
           </>}
 
-          {!isEditing && isPending && <SpinnerTwo className="fill-primary/70 w-4 inline-block" />}
+          {!isEditing && isUpdating && <SpinnerTwo className="fill-primary/70 w-4 inline-block" />}
         </span>
 
         <h2 className="scroll-m-20 text-lg font-semibold tracking-tight">

@@ -76,7 +76,7 @@ const VacanciesBoard: FC<TProps> = ({ groupedItems }) => {
 
                     {(groups[col.id] || []).map((vacancy: TVacancyShort) => (
                       <DndSortable
-                        id={String(vacancy.id)}
+                        sortableId={String(vacancy.id)}
                         key={vacancy.id}
                         dndData={{ type: "vac_item" }}
                       >

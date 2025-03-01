@@ -10,14 +10,15 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 
 type TProps = {
-  status: string
+  status: string,
+  status_id: number
   title: string
   isLoading?: boolean
   candidates: TCandidateShort[] | null
   className: string
 }
 
-const MatchCol: FC<TProps> = ({ status, title, isLoading = false, candidates, className }) => {
+const MatchCol: FC<TProps> = ({ status, status_id, title, isLoading = false, candidates, className }) => {
 
   const candidatesIds = useMemo(() => (candidates || []).map(candy => String(candy.id)), [candidates])
 
@@ -41,9 +42,9 @@ const MatchCol: FC<TProps> = ({ status, title, isLoading = false, candidates, cl
               <SortableContext items={candidatesIds}>
                 {(candidates || [])?.map((candidate) => (
                   <DndSortable
-                    id={String(candidate.id)}
+                    sortableId={candidate.id}
                     key={candidate.id}
-                    dndData={{ type: "match_item", candidate }}
+                    dndData={{ type: "match_item", candidate, status, status_id }}
                   >
                     <CandidateCard
                       id={candidate.id}

@@ -21,7 +21,7 @@ const MatchColAbstraction: FC<TProps> = ({
   title, candidates, className
 }) => {
   return (
-    <div className={cn(`relative flex flex-col gap-6 ring-2 bg-background ring-offset-4 rounded-lg ring-border  min-w-[256px] cursor-grabbing`, className)}>
+    <div className={cn(`relative flex flex-col gap-6 ring-2 bg-background ring-offset-4 rounded-lg   min-w-[256px] cursor-grabbing`, className)}>
       <GripVertical className="absolute left-1 top-2 z-[100] stroke-muted-foreground" />
       <FunnelCard
         name={title}

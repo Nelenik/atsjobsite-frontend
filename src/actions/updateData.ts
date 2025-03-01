@@ -60,11 +60,15 @@ export const updateMatch = async (
   return result;
 };
 
+export const updateStatusRank = async (statusKey: string, body: FormData) => {
+  const result = await updateEntity(`/statuses/${statusKey}`, body);
+  return result;
+};
+
 //Full entity update (PUT request)
 const updateEntity = async (url: string, body: FormData) => {
   try {
     const response = await apiPut<boolean | TBadRequest>(url, body);
-    console.log("update resp", response);
     if (response && typeof response === "object" && response.errorType) {
       return {
         sent: true,
