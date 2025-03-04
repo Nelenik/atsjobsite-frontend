@@ -1,8 +1,8 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { getCandidateFull } from "@/actions/getData";
-import CandyInfo from "../CandyInfo";
-import CandyComments from "../CandyComments";
-import CandyMatch from "../CandyMatch";
+import CandyInfo from "./match_elmts/CandyInfo";
+import CandyMatch from "./match_elmts/CandyMatch";
+import CandyComments from "./match_elmts/CandyComments";
 
 const tabsDict = [
   { value: 'match', text: 'Мэтч' },

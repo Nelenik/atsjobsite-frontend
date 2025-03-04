@@ -1,9 +1,10 @@
 import { FileUser, Mail, PhoneCall } from "lucide-react";
-import List from "./ui/list";
+// import List from "../../../ui/list";
 import { FC } from "react";
 import { workStatusDict } from "@/shared/dictionaries/resume";
 import { ECvStatus, TResume } from "@/shared/types/resume";
 import sanitize from "sanitize-html";
+import List from "@/components/ui/list";
 
 
 type TProps = {

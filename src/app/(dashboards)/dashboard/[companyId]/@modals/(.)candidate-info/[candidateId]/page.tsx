@@ -1,5 +1,5 @@
 import InterceptingModal from '@/components/modals/InterceptingModal';
-import MatchInfo from '@/components/pages/MatchInfo';
+import MatchInfo from '@/components/pages/matchInfo/MatchInfo';
 
 const ResumeModal = async ({ params }: { params: Promise<{ candidateId: string }> }) => {
   const { candidateId } = await params;

@@ -19,12 +19,7 @@ import { filterFalsyFields } from "@/lib/utils/filterFalsyFields";
 import { TCompany } from "@/shared/types/companies";
 import { TResume } from "@/shared/types/resume";
 import { z } from "zod";
-import {
-  SVacancy,
-  SVacancyList,
-  SVacancyShort,
-} from "@/shared/schemas/vacancies";
-import { wait } from "@/lib/utils/wait";
+import { SVacancy, SVacancyList } from "@/shared/schemas/vacancies";
 
 /* USER */
 /*----Needs to be redone with real data.--- */

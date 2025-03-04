@@ -1,20 +1,17 @@
 'use client'
 import { EMatchStatus, EMatchType, TCandidateFull, TMatchStatus } from "@/shared/types";
-import EditButton from "./buttons/EditButton";
-import { Badge } from "./ui/badge";
-import { FC, useRef, useState, useTransition } from "react";
+import { FC, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
-import ConfirmButton from "./buttons/ConfirmButton";
-import CancelButton from "./buttons/CancelButton";
-import { updateMatch } from "@/actions/updateData";
 import { useMatchStatuses } from "@/providers/MatchStatusProvider";
 import { TResume } from "@/shared/types/resume";
-import { useQueryClient } from "@tanstack/react-query";
 import { matchTypeDict } from "@/shared/dictionaries";
-import { useToast } from "@/hooks/use-toast";
 import SpinnerTwo from '@/assets/icons/spinner2.svg?rc'
 import { useUpdateMatch } from "@/hooks/useUpdateMatch";
+import CancelButton from "@/components/buttons/CancelButton";
+import ConfirmButton from "@/components/buttons/ConfirmButton";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import EditButton from "@/components/buttons/EditButton";
+import { Badge } from "@/components/ui/badge";
 
 
 

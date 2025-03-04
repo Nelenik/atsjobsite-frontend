@@ -1,7 +1,6 @@
 'use client'
-import { ReadonlyURLSearchParams, usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Input } from "../../ui/input";
-import { ChangeEvent, FC, HTMLAttributes, InputHTMLAttributes, ReactNode, useRef, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { ChangeEvent, FC, InputHTMLAttributes, ReactNode, useRef, useState } from "react";
 import { updateQueryString } from "@/shared/helpers/updateQueryString";
 
 type TFormElems = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement

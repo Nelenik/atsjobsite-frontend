@@ -2,7 +2,7 @@
 
 import { getMatchStatuses } from "@/actions/getData"
 import { TMatchStatus } from "@/shared/types"
-import { useQuery, useSuspenseQuery } from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query"
 import { FC, ReactNode, useContext } from "react"
 import { createContext } from "react"
 
