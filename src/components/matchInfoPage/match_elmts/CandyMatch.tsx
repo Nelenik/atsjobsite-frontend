@@ -11,18 +11,18 @@ import CancelButton from "@/components/buttons/CancelButton";
 import ConfirmButton from "@/components/buttons/ConfirmButton";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import EditButton from "@/components/buttons/EditButton";
-import { Badge } from "@/components/ui/badge";
+import StatusBadge from "@/components/StatusBadge";
+import { matchBadgeColors } from "@/shared/dictionaries/badgeColors";
 
 
-
-const badgeColors: { [key: string]: string } = {
-  [EMatchStatus.SCREENING]: 'ring-primary text-primary hover:text-white hover:bg-primary/70',
-  [EMatchStatus.SCORING]: 'ring-yellow-400 text-yellow-400 hover:text-white hover:bg-yellow-400/70',
-  [EMatchStatus.INTERVIEW]: 'ring-orange-500 text-orange-500 hover:text-white hover:bg-orange-500/70',
-  [EMatchStatus.REFUSAL]: 'ring-destructive text-destructive hover:text-white hover:bg-destructive/70',
-  [EMatchStatus.OFFER]: 'ring-emerald-400 text-emerald-400 hover:text-white hover:bg-emerald-400/70',
-  default: 'ring-gray-400 text-gray-400 hover:text-white hover:bg-gray-400/70'
-} as const
+// const badgeColors: { [key: string]: string } = {
+//   [EMatchStatus.SCREENING]: 'ring-primary text-primary hover:text-white hover:bg-primary/70',
+//   [EMatchStatus.SCORING]: 'ring-yellow-400 text-yellow-400 hover:text-white hover:bg-yellow-400/70',
+//   [EMatchStatus.INTERVIEW]: 'ring-orange-500 text-orange-500 hover:text-white hover:bg-orange-500/70',
+//   [EMatchStatus.REFUSAL]: 'ring-destructive text-destructive hover:text-white hover:bg-destructive/70',
+//   [EMatchStatus.OFFER]: 'ring-emerald-400 text-emerald-400 hover:text-white hover:bg-emerald-400/70',
+//   default: 'ring-gray-400 text-gray-400 hover:text-white hover:bg-gray-400/70'
+// } as const
 
 type TProps = {
   matchId: number,
@@ -123,14 +123,13 @@ const CandyMatch: FC<TProps> = ({
                         ))}
                       </SelectContent>
                     </Select>
-                    : <Badge
+                    : <StatusBadge
                       className={cn(
-                        "py-[5px] bg-transparent ring-1",
-                        initStatusData ? badgeColors[initStatusData.key] : badgeColors.default
+                        initStatusData ? matchBadgeColors[initStatusData.key] : matchBadgeColors.default
                       )}
                     >
                       {initStatusData?.name}
-                    </Badge>
+                    </StatusBadge>
                   }
 
                 </td>

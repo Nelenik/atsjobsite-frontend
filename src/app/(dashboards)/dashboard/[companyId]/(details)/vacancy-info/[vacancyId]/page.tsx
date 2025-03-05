@@ -1,4 +1,4 @@
-import VacancyInfo from "@/components/pages/vacancyInfo/VacancyInfo";
+import VacancyInfo from "@/components/vacancyInfoPage/VacancyInfo";
 
 const VacancyDetailsPage = async ({ params }: { params: Promise<{ vacancyId: string }> }) => {
   const { vacancyId } = await params;

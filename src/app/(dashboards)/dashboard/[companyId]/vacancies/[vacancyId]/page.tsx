@@ -20,7 +20,7 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
   return (
     <div className="flex gap-6 flex-col relative">
       <EditEntityModal<TVacancy>
-        className='absolute top-2 right-2 z-10' triggerView='icon'
+        className='absolute top-0 right-0 z-10' triggerView='icon'
         initialData={vacancy}
         entityType='vacancy'
       />
@@ -38,6 +38,7 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
           salaryCandidate={vacancy.salary_candy}
           candidatesCount={vacancy.match_count}
           jobReactions={vacancy.match_hot_count}
+          vacancyStatus={vacancy.status}
         />
       </Link>
 
