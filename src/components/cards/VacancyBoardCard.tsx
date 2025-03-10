@@ -7,7 +7,7 @@ import { TVacancyShort } from "@/shared/types";
 import { FC } from "react";
 import { usePathname } from "next/navigation";
 
-type TProps = Omit<TVacancyShort, 'created_at' | 'status'>
+type TProps = Omit<TVacancyShort, 'created_at' | 'status_id'>
 
 const VacancyBoardCard: FC<TProps> = ({ id, name, location, salary_from, salary_to }) => {
   const pathname = usePathname()

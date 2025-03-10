@@ -5,11 +5,11 @@ import Header from '@/components/navigation/Header';
 
 import { Suspense } from 'react';
 import { Toaster } from '@/components/ui/toaster';
-import { getCompaniesList, getCompany, getMatchStatuses, getUser } from '@/actions/getData';
+import { getCompaniesList, getCompany, getStatuses, getUser } from '@/actions/getData';
 import React from 'react';
 import Breadcrumbs from '@/components/navigation/Breadcrumbs';
 import { CompaniesProvider } from '@/providers/CompaniesProvider';
-import { MatchStatusProvider } from '@/providers/MatchStatusProvider';
+import { AppStatusesProvider } from '@/providers/AppStatusesProvider';
 
 export const metadata: Metadata = {
   title: 'REkrutAI|Дашборд',
@@ -37,11 +37,12 @@ export default async function DashboardLayout({
   const activeCompany = result[0].status === 'fulfilled' ? result[0].value : null
   const companiesPrefetch = result[1].status === 'fulfilled' ? result[1].value : { data: [], total: 0, currentPage: 1 }
 
-  const matchStatusesPrefetch = await getMatchStatuses()
+  //All available statuses in the application
+  const appAllStatuses = await getStatuses()
 
   return (
     <CompaniesProvider activeCompany={activeCompany} companiesPrefetch={companiesPrefetch}>
-      <MatchStatusProvider initialStatuses={matchStatusesPrefetch}>
+      <AppStatusesProvider initialStatuses={appAllStatuses}>
         <Header userData={userData} className="md:hidden" />
 
         <main className="w-full flex h-screen overflow-hidden">
@@ -62,7 +63,7 @@ export default async function DashboardLayout({
           </div>
         </main>
         <Toaster />
-      </MatchStatusProvider>
+      </AppStatusesProvider>
     </CompaniesProvider>
   );
 }

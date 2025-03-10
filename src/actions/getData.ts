@@ -1,7 +1,7 @@
 "use server";
 
 import {
-  EMatchStatus,
+  // EMatchStatus,
   TApiListResponse,
   TApiSuccessResponse,
   TCandidateFull,
@@ -14,12 +14,12 @@ import {
 
 import { apiGet } from "./api";
 import { IUser } from "@/shared/types/user";
-import { mockCandidateShort, mockMatchInfo } from "./mockData";
 import { filterFalsyFields } from "@/lib/utils/filterFalsyFields";
 import { TCompany } from "@/shared/types/companies";
 import { TResume } from "@/shared/types/resume";
-import { z } from "zod";
-import { SVacancy, SVacancyList } from "@/shared/schemas/vacancies";
+import { TStatus } from "@/shared/types/statuses";
+// import { z } from "zod";
+// import { SVacancy, SVacancyList } from "@/shared/schemas/vacancies";
 
 /* USER */
 /*----Needs to be redone with real data.--- */
@@ -99,8 +99,8 @@ export const getVacanciesList = async ({
     const response = await apiGet<TApiListResponse<TVacancyShort>>(
       "/vacancy?" + qs.toString()
     );
-
-    return SVacancyList.parse(response.data);
+    return response.data;
+    // return SVacancyList.parse(response.data);
   } catch (error) {
     console.error(error);
     throw new Error(
@@ -114,8 +114,8 @@ export const getVacancy = async (id: number | string): Promise<TVacancy> => {
     const response = await apiGet<TApiSuccessResponse<TVacancy>>(
       `/vacancy/${id}`
     );
-
-    return SVacancy.parse(response.data);
+    return response.data;
+    // return SVacancy.parse(response.data);
   } catch (error) {
     console.error(error);
     throw new Error(
@@ -141,11 +141,9 @@ export const getVacancyPositions = async (): Promise<string[]> => {
 
 /* CANDIDATE MATCH */
 
-export const getMatchStatuses = async () => {
+export const getStatuses = async () => {
   try {
-    const response = await apiGet<TApiListResponse<TMatchStatus>>(
-      `/match/statuses`
-    );
+    const response = await apiGet<TApiListResponse<TStatus>>(`/status`);
     return response.data;
   } catch (error) {
     console.error(error);

@@ -8,7 +8,9 @@ import { useMemo } from 'react';
 
 const VacanciesPage = () => {
   const vacancies = useVacancies()
-  const groupedVacs = useMemo(() => groupBy(vacancies, (el) => el.status), [vacancies])
+  console.log(vacancies)
+  const groupedVacs = useMemo(() => groupBy(vacancies, (el) => String(el.status_id)), [vacancies])
+
   return (
     <div className="flex flex-col gap-6 h-full">
       <AddEntityModal entityType='vacancy' className="lg:w-max ml-auto" />

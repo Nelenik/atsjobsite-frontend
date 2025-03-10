@@ -2,7 +2,7 @@ import {
   EVacancyEmployment,
   EVacancyExperience,
   EVacancyPosition,
-  EVacancyStatus,
+  // EVacancyStatus,
   EVacancyWorkFormat,
 } from "../types";
 
@@ -18,13 +18,13 @@ export const vacancyPositionsDict: Record<string, string> = {
   [EVacancyPosition.TECHNICAL_SUPPORT]: "Тех.поддержка",
 };
 
-export const vacancyStatusDict: Record<string, string> = {
-  [EVacancyStatus.SETTING]: "Настройка",
-  [EVacancyStatus.WORK]: "В работе",
-  [EVacancyStatus.PAUSE]: "На паузе",
-  [EVacancyStatus.WAIT]: "Ожидание",
-  [EVacancyStatus.UNASSIGNED]: "Не задан",
-};
+// export const vacancyStatusDict: Record<string, string> = {
+//   [EVacancyStatus.SETTING]: "Настройка",
+//   [EVacancyStatus.WORK]: "В работе",
+//   [EVacancyStatus.PAUSE]: "На паузе",
+//   [EVacancyStatus.WAIT]: "Ожидание",
+//   [EVacancyStatus.UNASSIGNED]: "Не задан",
+// };
 
 export const vacancyEpmpoymentDict: Record<string, string> = {
   [EVacancyEmployment.FULL]: "полная",

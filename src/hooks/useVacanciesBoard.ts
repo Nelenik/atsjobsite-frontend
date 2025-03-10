@@ -1,4 +1,4 @@
-import { TVacancyShort, EVacancyStatus } from "@/shared/types";
+import { TVacancyShort } from "@/shared/types";
 import { DragStartEvent, DragEndEvent } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
 import { useState, useEffect } from "react";
@@ -68,7 +68,7 @@ export const useVacaniesBoard = (
             ),
             [targetColStatus]: [
               ...targetItems,
-              { ...draggableItem, status: targetColStatus as EVacancyStatus },
+              { ...draggableItem, status: targetColStatus },
             ],
           };
         });
@@ -89,7 +89,7 @@ export const useVacaniesBoard = (
               ),
               [targetColStatus]: [
                 ...targetItems.slice(0, overIndex),
-                { ...draggableItem, status: targetColStatus as EVacancyStatus },
+                { ...draggableItem, status: targetColStatus },
                 ...targetItems.slice(overIndex),
               ],
             };
