@@ -1,8 +1,11 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { getCandidateFull } from "@/actions/getData";
-import CandyInfo from "../CandyInfo";
-import CandyComments from "../CandyComments";
-import CandyMatch from "../CandyMatch";
+import CandyInfo from "./match_elmts/CandyInfo";
+import CandyMatch from "./match_elmts/CandyMatch";
+import CandyComments from "./match_elmts/CandyComments";
+import CandyExperience from "./match_elmts/CandyExperience";
+import TextFormatter from "../TextFormatter";
+import { TStatus } from "@/shared/types/statuses";
 
 const tabsDict = [
   { value: 'match', text: 'Мэтч' },
@@ -14,9 +17,72 @@ const tabsDict = [
 
 ]
 
-const MatchInfo = async ({ matchId }: { matchId: number }) => {
-  const { type, point, status_id, summary, cv } = await getCandidateFull(matchId)
+//temporar list
+const matchSt = [
+  {
+    "vacancy_id": 7,
+    "status_id": 1,
+    "rank": 0,
+    "status": {
+      "id": 1,
+      "name": "Скоринг",
+      "color": "#facc15",
+      "rank": 1
+    }
+  },
+  {
+    "vacancy_id": 7,
+    "status_id": 2,
+    "rank": 1,
+    "status": {
+      "id": 2,
+      "name": "Скрининг",
+      "color": "#fb923c",
+      "rank": 2
+    }
+  },
+  {
+    "vacancy_id": 7,
+    "status_id": 3,
+    "rank": 2,
+    "status": {
+      "id": 3,
+      "name": "Собеседование",
+      "color": "#60a5fa",
+      "rank": 3
+    }
+  },
+  {
+    "vacancy_id": 7,
+    "status_id": 4,
+    "rank": 3,
+    "status": {
+      "id": 4,
+      "name": "Отказ",
+      "color": "#fb7185",
+      "rank": 4
+    }
+  },
+  {
+    "vacancy_id": 7,
+    "status_id": 5,
+    "rank": 4,
+    "status": {
+      "id": 5,
+      "name": "Оффер",
+      "color": "#34d399",
+      "rank": 5
+    }
+  }
+]
 
+const MatchInfo = async ({ matchId }: { matchId: number }) => {
+  // const { type, point, status_id, summary, cv } = await getCandidateFull(matchId)
+  const { type, point, status, summary, cv, vacancy } = await getCandidateFull(101)
+
+  const matchStatuses: Pick<TStatus, 'id' | 'name'>[] = (vacancy.matchStatuses || matchSt).map(({ status }) => ({ id: status.id, name: status.name }))
+
+  console.log(cv)
   return (
     <div>
       <h2 className="scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0 mb-6">
@@ -41,13 +107,14 @@ const MatchInfo = async ({ matchId }: { matchId: number }) => {
               email={cv.candy_email}
               link={cv.link}
               bio={cv.bio}
-              experience_descr={cv.experience_raw}
+              experience_duration={cv.experience_months}
               skills={null}
             />
             <CandyMatch
               matchId={matchId}
               type={type}
-              status_id={status_id}
+              match_statuses={matchStatuses}
+              statusData={status}
               match_point={point}
               match_summary={summary}
               cv_summary={cv.summary}
@@ -56,11 +123,18 @@ const MatchInfo = async ({ matchId }: { matchId: number }) => {
           </div>
         </TabsContent>
 
-        {/* <TabsContent value="experience">Experience, coming soon...</TabsContent>
+        <TabsContent value="experience">
+          {
+            cv.experience
+              ? <CandyExperience experience={cv.experience} />
+              : <TextFormatter text={cv.experience_raw} />
+          }
+        </TabsContent>
+
         <TabsContent value="screening">Скрининг, coming soon...</TabsContent>
         <TabsContent value="interview">Собеседование, coming soon...</TabsContent>
         <TabsContent value="raport">Отчет, coming soon...</TabsContent>
-        <TabsContent value="similar">Похожие, coming soon...</TabsContent> */}
+        <TabsContent value="similar">Похожие, coming soon...</TabsContent>
       </Tabs>
     </div>
   );

@@ -2,40 +2,45 @@
 import { DndContext, DragEndEvent, DragOverlay, DragStartEvent } from "@dnd-kit/core";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 import { TCandidateShort, TMatchStatus } from "@/shared/types";
-import MatchCol from "./boards-elems/MatchCol";
-import { useQueries, useQueryClient } from "@tanstack/react-query";
+import MatchCol from "./boards_elmts/MatchCol";
+import { useQueries } from "@tanstack/react-query";
 import { getBasicCandidatesByStatus } from "@/actions/getData";
 import { useParams } from "next/navigation";
-import { useMemo, useState, useTransition } from "react";
+import { FC, useMemo, useState } from "react";
 import { SortableContext } from "@dnd-kit/sortable";
-import { useMatchStatuses } from "@/providers/MatchStatusProvider";
+// import { useMatchStatuses } from "@/providers/AppStatusesProvider";
 import DndSortable from "../dnd/DndSortable";
 import { CandidateCard } from "../cards/CandidateCard";
-import MatchColAbstraction from "./boards-elems/MatchColAbstraction";
+import MatchColAbstraction from "./boards_elmts/MatchColAbstraction";
 import { GripVertical } from "lucide-react";
 import { useUpdateMatch } from "@/hooks/useUpdateMatch";
 import { cn } from "@/lib/utils";
+import { TStatus } from "@/shared/types/statuses";
 
-const MatchBoard = () => {
+type TProps = {
+  match_statuses: TMatchStatus[]
+}
+
+const MatchBoard: FC<TProps> = ({ match_statuses }) => {
   const { vacancyId } = useParams()
 
-  const columns = useMatchStatuses()
+  const [columns, setColumns] = useState(match_statuses.map(el => el.status))
 
-  const columnsIds = useMemo(() => columns.map(col => col.key), [columns])
+  const columnsIds = useMemo(() => columns.map(col => col.id), [columns])
 
   //query all the matches by status
   const queries = useQueries({
     queries: columns.map((col) => ({
       refetchOnWindowFocus: false,
       queryKey: ['matchByStatus', col.id],
-      queryFn: () => getBasicCandidatesByStatus(vacancyId as string, col.key),
+      queryFn: () => getBasicCandidatesByStatus(vacancyId as string, col.id),
       enabled: true
     })),
 
   })
 
   //activeColumn and acitveItem state for DndOverlay
-  const [activeColumn, setActiveColumn] = useState<TMatchStatus | null>(null)
+  const [activeColumn, setActiveColumn] = useState<TStatus | null>(null)
 
   const [activeItem, setActiveItem] = useState<TCandidateShort | null>(null);
 
@@ -104,11 +109,11 @@ const MatchBoard = () => {
             {queries.map((query, index) => (
               <DndSortable
                 key={columns[index].id}
-                sortableId={columns[index].key}
+                sortableId={columns[index].id}
                 dndData={{ type: "match_column", column: columns[index] }}
               >
                 <MatchCol
-                  status={columns[index].key}
+                  status={columns[index].name}
                   status_id={columns[index].id}
                   title={columns[index].name}
                   isLoading={query.isFetching}

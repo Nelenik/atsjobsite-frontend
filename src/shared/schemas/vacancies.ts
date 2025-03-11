@@ -1,9 +1,9 @@
 import z from "zod";
-import { EVacancyStatus } from "../types";
 
 export const SVacancy = z.object({
   id: z.number(),
   company_id: z.number().optional(),
+  status_id: z.number().optional(),
   name: z.string().nullable(),
   position: z.string().nullable(),
   responsibilities: z.string().nullable(),
@@ -19,10 +19,10 @@ export const SVacancy = z.object({
   salary_candy: z.number().nullable(),
   salary_market: z.number().nullable(),
   //set default value for status to setting if from server come null
-  status: z
-    .nativeEnum(EVacancyStatus)
-    .nullable()
-    .transform((val) => val ?? EVacancyStatus.UNASSIGNED),
+  // status: z
+  //   .nativeEnum(EVacancyStatus)
+  //   .nullable()
+  //   .transform((val) => val ?? EVacancyStatus.UNASSIGNED),
   match_count: z.number().nullable(),
   match_hot_count: z.number().nullable(),
   created_at: z.string(),
@@ -31,7 +31,7 @@ export const SVacancy = z.object({
 export const SVacancyShort = SVacancy.pick({
   id: true,
   name: true,
-  status: true,
+  // status: true,
   created_at: true,
   location: true,
   salary_from: true,

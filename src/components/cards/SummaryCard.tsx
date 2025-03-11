@@ -7,6 +7,8 @@ import { formatPrice } from '@/lib/utils/formatersIntl';
 import { getSalaryRange } from '@/lib/utils/getSalaryRange';
 import { TVacancy } from '@/shared/types';
 import { getDaysSinceCreated } from '@/lib/utils/getDaysSinceCreated';
+import StatusBadge from '../StatusBadge';
+import { cn } from '@/lib/utils';
 
 
 type TProps = {
@@ -18,7 +20,9 @@ type TProps = {
   salaryCandidate: TVacancy['salary_candy'];
   candidatesCount: TVacancy['match_count'];
   jobReactions: TVacancy['match_hot_count'];
+  vacancyStatus: TVacancy["status"];
 };
+
 
 
 export const SummaryCard: FC<TProps> = ({
@@ -30,6 +34,7 @@ export const SummaryCard: FC<TProps> = ({
   salaryCandidate,
   candidatesCount,
   jobReactions,
+  vacancyStatus
 }) => {
   const daysInProcessing = getDaysSinceCreated(createdAt)
   const daysString = `${daysInProcessing} ${getWordEndings(daysInProcessing, [
@@ -50,8 +55,11 @@ export const SummaryCard: FC<TProps> = ({
       </div>
 
       <div className="grow">
-        <CardTitle className="mb-2 first-letter:uppercase  typograpghy-h2">
+        <CardTitle className="mb-2 first-letter:uppercase  typograpghy-h2 flex items-start gap-4">
           {vacancyName ?? 'Имя неизвестно'}
+          <StatusBadge color={vacancyStatus.color} className={cn('py-0 px-1')}>
+            {vacancyStatus.name.toLowerCase()}
+          </StatusBadge>
         </CardTitle>
 
         <ul

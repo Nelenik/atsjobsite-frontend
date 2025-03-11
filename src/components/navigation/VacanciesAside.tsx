@@ -44,7 +44,7 @@ export const VacanciesAside: FC<TProps> = ({ className }) => {
               <VacancyCard
                 vacancyName={vacancy.name}
                 daysInProcessing={days}
-                vacancyStatus={vacancy.status}
+                vacancyStatus={vacancy.status_id}
                 className="h-full"
               />
             </Link>

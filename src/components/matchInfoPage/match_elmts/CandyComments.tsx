@@ -1,7 +1,7 @@
 'use client'
+import List from "@/components/ui/list";
+import { Separator } from "@/components/ui/separator";
 import { format } from "date-fns";
-import List from "./ui/list";
-import { Separator } from "./ui/separator";
 import { MessageCircleMore } from "lucide-react";
 import { FC, useCallback } from "react";
 

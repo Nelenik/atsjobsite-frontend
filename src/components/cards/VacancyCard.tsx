@@ -3,24 +3,16 @@ import { FC } from 'react';
 import { Card, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { getWordEndings } from '@/lib/utils/getWordEnding';
 import { cn } from '@/lib/utils';
-import { EVacancyStatus, TVacancy } from '@/shared/types';
+import { TVacancy } from '@/shared/types';
 
-import { Badge } from '../ui/badge';
-import { vacancyStatusDict } from '@/shared/dictionaries';
-
-const badgeColors: Record<EVacancyStatus, string> = {
-  [EVacancyStatus.SETTING]: 'bg-indigo-300 hover:bg-indigo-300/80',
-  [EVacancyStatus.WORK]: 'bg-blue-300 hover:bg-blue-300/80',
-  [EVacancyStatus.PAUSE]: 'bg-gray-500 hover:bg-gray-500/80',
-  [EVacancyStatus.WAIT]: 'bg-emerald-400 hover:bg-emerald-400/80',
-  [EVacancyStatus.UNASSIGNED]: 'bg-orange-300 hover:bg-orange-300/80'
-};
+// import { vacancyStatusDict } from '@/shared/dictionaries';
+import StatusBadge from '@/components/StatusBadge';
 
 
 type TProps = {
   vacancyName: TVacancy['name'];
   daysInProcessing: number;
-  vacancyStatus: EVacancyStatus;
+  vacancyStatus: number;
   className?: string;
 };
 
@@ -49,14 +41,14 @@ export const VacancyCard: FC<TProps> = ({
 
       <CardFooter className="flex justify-between p-0 text-sm text-muted-foreground">
         {daysString}
-
-        <Badge
+        {/* 
+        <StatusBadge
           className={
-            badgeColors[vacancyStatus] ?? 'bg-zinc-900 hover:bg-zinc-900/80'
+            cn(vacancyBadgeColors[vacancyStatus], 'py-0 px-1')
           }
         >
           {vacancyStatusDict[vacancyStatus].toLowerCase()}
-        </Badge>
+        </StatusBadge> */}
       </CardFooter>
     </Card>
   );

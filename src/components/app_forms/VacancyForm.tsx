@@ -27,6 +27,7 @@ import { updateVacancy } from '@/actions/updateData';
 import { storeVacancy } from '@/actions/postData';
 import { mutationInitialState } from '@/actions/constants';
 import convertToFormData from '@/lib/utils/convertToFormData';
+import { removeField } from '@/lib/utils/removeField';
 
 type TFormMutationAction = (
   _: TMutationState,
@@ -36,13 +37,15 @@ type TFormMutationAction = (
 type TProps = {
   type: 'edit' | 'add'
   initialData?: NonNullableFields<TVacancy>
-  closeModal?: () => void
+  onSuccess?: () => void
+  onCancel?: () => void
 }
 
 const VacancyForm = ({
   type,
   initialData,
-  closeModal = () => { }
+  onSuccess = () => { },
+  onCancel = () => { }
 }: TProps) => {
   const { companyId } = useParams<{ companyId: string }>();
 
@@ -56,16 +59,20 @@ const VacancyForm = ({
     ? updateVacancy.bind(null, initialData.id)
     : storeVacancy
 
+  //remove the field "status" (shoul find a better solution, may be made universal converToFormData function)
+
+  const cleanedInitialData = initialData && removeField(initialData, ['status', 'matchStatuses'])
+
   //define initial state
   const initialState = {
     ...mutationInitialState,
-    ...(initialData && { payload: convertToFormData(initialData) })
+    ...(cleanedInitialData && { payload: convertToFormData(cleanedInitialData) })
   }
   //define toast message
   const toastMessage = type === 'edit' ? 'Вакансия успешно обновлена' : 'Вакансия успешно сохранена'
 
   const { formAction, pending, defaultValues, errors, onChange } =
-    useFormMutation(action, closeModal, initialState, toastMessage);
+    useFormMutation(action, onSuccess, initialState, toastMessage);
 
   return (
     <form action={formAction} className="flex flex-col justify-between grow">
@@ -183,7 +190,7 @@ const VacancyForm = ({
 
         <FormItem labelText="Описание" error={errors.description}>
           <Textarea
-            placeholder="Требования к кандидату"
+            placeholder="Описание "
             name="description"
             className={cn(
               'resize-none',
@@ -292,7 +299,7 @@ const VacancyForm = ({
       </div>
 
       <div className="self-end">
-        <Button type="button" variant="ghost" className="mr-2">
+        <Button type="button" variant="ghost" className="mr-2" onClick={onCancel}>
           Отмена
         </Button>
         <Button type="submit">{pending ? 'Сохранение...' : 'Сохранить'}</Button>

@@ -1,7 +1,7 @@
 'use client'
 
-import { vacancyStatusDict } from "@/shared/dictionaries";
-import { EVacancyStatus, TVacancyShort } from "@/shared/types";
+// import { vacancyStatusDict } from "@/shared/dictionaries";
+import { TVacancyShort } from "@/shared/types";
 import { DndContext, DragOverlay } from "@dnd-kit/core";
 import { FC } from "react";
 import DndDroppable from "../dnd/DndDroppable";
@@ -12,27 +12,28 @@ import { SortableContext } from "@dnd-kit/sortable";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { useVacaniesBoard } from "../../hooks/useVacanciesBoard";
+import { useStatuses } from "@/providers/AppStatusesProvider";
 
 const columns = [
   {
-    id: EVacancyStatus.UNASSIGNED,
-    title: vacancyStatusDict[EVacancyStatus.UNASSIGNED]
+    id: 'unassigned',
+    title: '"Не задан"'
   },
   {
-    id: EVacancyStatus.SETTING,
-    title: vacancyStatusDict[EVacancyStatus.SETTING]
+    id: 'setting',
+    title: 'Настройка'
   },
   {
-    id: EVacancyStatus.WORK,
-    title: vacancyStatusDict[EVacancyStatus.WORK]
+    id: 'work',
+    title: 'В работе'
   },
   {
-    id: EVacancyStatus.WAIT,
-    title: vacancyStatusDict[EVacancyStatus.WAIT]
+    id: 'wait',
+    title: 'Ожидание'
   },
   {
-    id: EVacancyStatus.PAUSE,
-    title: vacancyStatusDict[EVacancyStatus.PAUSE]
+    id: 'pause',
+    title: "На паузе"
   },
 ];
 
@@ -42,12 +43,16 @@ type TProps = {
 
 const VacanciesBoard: FC<TProps> = ({ groupedItems }) => {
 
+  const appStatuses = useStatuses()
+
   const {
     handleDragEnd,
     handleDragStart,
     activeItem,
     groups
   } = useVacaniesBoard(groupedItems)
+
+  console.log('groups', Object.entries(groups))
 
   return (
     <DndContext
@@ -57,53 +62,52 @@ const VacanciesBoard: FC<TProps> = ({ groupedItems }) => {
     >
       <ScrollArea className="pb-4">
         <div className="flex gap-4 w-full p-2 ">
-          {columns.map((col) => (
-            <div
-              key={col.id}
-              className={cn(`flex flex-col gap-6 ring-2 ring-offset-4 rounded-lg ring-border w-1/5 min-w-[200px]`)}
-            >
-              <FunnelCard
-                name={col.title}
-                count={groups[col.id]?.length || 0}
-              />
-              <DndDroppable
-                id={col.id}
-                type="vac_column"
-                className="flex flex-col gap-2 grow"
+          {Object.entries(groups).map(([id, items]) => {
+            const colName = appStatuses.find(el => el.id === +id)?.name || 'Не задан'
+            return (
+              <div
+                key={id}
+                className={cn(`flex flex-col gap-6 ring-2 ring-offset-4 rounded-lg ring-border w-1/5 min-w-[200px]`)}
               >
-                <ScrollArea className="h-[clamp(500px,65vh,800px)] px-2">
-                  <SortableContext items={(groups[col.id] || []).map(v => String(v.id))}>
+                <FunnelCard
+                  name={colName}
+                  count={items?.length || 0}
+                />
+                <DndDroppable
+                  id={id}
+                  type="vac_column"
+                  className="flex flex-col gap-2 grow"
+                >
+                  <ScrollArea className="h-[clamp(500px,65vh,800px)] px-2">
+                    <SortableContext items={(items || []).map(v => String(v.id))}>
 
-                    {(groups[col.id] || []).map((vacancy: TVacancyShort) => (
-                      <DndSortable
-                        sortableId={String(vacancy.id)}
-                        key={vacancy.id}
-                        dndData={{ type: "vac_item" }}
-                      >
-                        <VacancyBoardCard
-                          id={vacancy.id}
-                          name={vacancy.name}
-                          location={vacancy.location}
-                          salary_from={vacancy.salary_from}
-                          salary_to={vacancy.salary_to}
-                        />
-                      </DndSortable>
-                    ))}
-                  </SortableContext>
-                  <ScrollBar className="w-2" />
-                </ScrollArea>
-              </DndDroppable>
-            </div>
-          ))}
+                      {(items || []).map((vacancy: TVacancyShort) => (
+                        <DndSortable
+                          sortableId={String(vacancy.id)}
+                          key={vacancy.id}
+                          dndData={{ type: "vac_item" }}
+                        >
+                          <VacancyBoardCard
+                            id={vacancy.id}
+                            name={vacancy.name}
+                            location={vacancy.location}
+                            salary_from={vacancy.salary_from}
+                            salary_to={vacancy.salary_to}
+                          />
+                        </DndSortable>
+                      ))}
+                    </SortableContext>
+                    <ScrollBar className="w-2" />
+                  </ScrollArea>
+                </DndDroppable>
+              </div>
+            )
+          })}
         </div>
         <ScrollBar orientation="horizontal" className="bg-input/30 h-4 cursor-pointer" />
       </ScrollArea>
       <DragOverlay>
         {activeItem && (
-          // <DndSortable
-          //   id={String(activeItem.id)}
-          //   dndData={{ type: "vac_item" }}
-          // >
           <VacancyBoardCard
             id={activeItem.id}
             name={activeItem.name}
@@ -111,7 +115,6 @@ const VacanciesBoard: FC<TProps> = ({ groupedItems }) => {
             salary_from={activeItem.salary_from}
             salary_to={activeItem.salary_to}
           />
-          // </DndSortable>
         )}
       </DragOverlay>
 

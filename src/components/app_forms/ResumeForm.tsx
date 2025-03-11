@@ -15,33 +15,40 @@ import { NonNullableFields } from '@/lib/utils/filterFalsyFields';
 import { mutationInitialState } from '@/actions/constants';
 import convertToFormData from '@/lib/utils/convertToFormData';
 import { TResume } from '@/shared/types/resume';
+import { removeField } from '@/lib/utils/removeField';
 
 type TProps = {
   type: 'edit' | 'add'
   initialData?: NonNullableFields<TResume>
-  closeModal?: () => void
+  onSuccess?: () => void
+  onCancel?: () => void
 }
 
 const ResumeForm: FC<TProps> = ({
   type,
   initialData,
-  closeModal = () => { }
+  onSuccess = () => { },
+  onCancel = () => { }
 }) => {
   //define form action depending of the form type
   const action = type === 'edit' && initialData
     ? updateCV.bind(null, initialData.id)
     : storeCv
 
+  //remove the field "experience" (shoul find a better solution, may be made universal converToFormData function)
+
+  const cleanedInitialData = initialData && removeField(initialData, ['experience'])
+
   //define initial state
   const initialState = {
     ...mutationInitialState,
-    ...(initialData && { payload: convertToFormData(initialData) })
+    ...(cleanedInitialData && { payload: convertToFormData(cleanedInitialData) })
   }
   //define toast message
   const toastMessage = type === 'edit' ? 'Данные о резюме успешно обновлены' : 'Новое резюме успешно сохранено'
 
   const { formAction, pending, defaultValues, errors, onChange } =
-    useFormMutation(action, closeModal, initialState, toastMessage);
+    useFormMutation(action, onSuccess, initialState, toastMessage);
   return (
     <form action={formAction} className="flex flex-col justify-between grow">
       <div className="sm:columns-2 sm:gap-6 [&>*:not(:last-child)]:mb-6 mb-6">
@@ -193,7 +200,7 @@ const ResumeForm: FC<TProps> = ({
       </div>
 
       <div className="self-end">
-        <Button type="button" variant="ghost" className="mr-2" onClick={closeModal}>
+        <Button type="button" variant="ghost" className="mr-2" onClick={onCancel}>
           Отмена
         </Button>
         <Button type="submit">

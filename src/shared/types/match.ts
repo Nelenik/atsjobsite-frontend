@@ -1,4 +1,5 @@
 import { TResume } from "./resume";
+import { TStatus } from "./statuses";
 import { TVacancy } from "./vacancies";
 
 export enum EMatchStatus {
@@ -23,10 +24,10 @@ export type TCandidateShort = {
 };
 
 export type TMatchStatus = {
-  id: number;
-  name: string;
-  key: string;
+  vacancy_id: number;
+  status_id: number;
   rank: number;
+  status: TStatus;
 };
 
 export type TCandidateFull = {
@@ -41,5 +42,5 @@ export type TCandidateFull = {
   created_at: string;
   vacancy: TVacancy;
   cv: TResume;
-  status: TMatchStatus;
+  status: TStatus;
 };
