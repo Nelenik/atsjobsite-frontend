@@ -1,6 +1,7 @@
 import { z } from "zod";
 // import { SVacancy, SVacancyShort } from "../schemas/vacancies";
 import { TStatus } from "./statuses";
+import { TMatchStatus } from "./match";
 
 // export enum EVacancyStatus {
 //   SETTING = "setting",
@@ -34,6 +35,7 @@ export type TVacancy = {
   status: TStatus;
   match_count: number;
   match_hot_count: number;
+  matchStatuses: TMatchStatus[];
   created_at: string;
 };
 

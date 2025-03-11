@@ -13,8 +13,6 @@ import sanitize from "sanitize-html";
 
 const TextFormatter = ({ text, className }: { text: string, className?: string }) => {
   const cleanedText = sanitize(text).replace(/\r\n/g, '\n')
-  console.log('cleaned', cleanedText)
-
   const regexp = /^([A-ZА-ЯЁ][^:\n]+):/g
   const blocks = cleanedText.split(/\n{2,}/).map((block, id) => {
     const replaced = block

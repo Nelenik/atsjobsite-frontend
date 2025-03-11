@@ -1,9 +1,5 @@
 import { EMatchStatus } from "../types";
 
-export const getBadgeStyle = (color: string): string => {
-  return `ring-${color} text-${color} hover:text-white hover:bg-${color}/70`;
-};
-
 export const matchBadgeColors: { [key: string]: string } = {
   [EMatchStatus.SCREENING]:
     "ring-primary text-primary hover:text-white hover:bg-primary/70",

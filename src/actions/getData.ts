@@ -155,12 +155,13 @@ export const getStatuses = async () => {
 
 export const getBasicCandidatesByStatus = async (
   vacId: number | string,
-  status: string
+  statusId: number | string
 ): Promise<TCandidateShort[]> => {
   try {
     const response = await apiGet<TApiListResponse<TCandidateShort>>(
-      `/match/candidates?vacancy_id=${vacId}&status=${status}`
+      `/match/candidates?vacancy_id=${vacId}&status_id=${statusId}`
     );
+    console.log(response.data, "candy list");
     return response.data;
   } catch (error) {
     console.error(error);

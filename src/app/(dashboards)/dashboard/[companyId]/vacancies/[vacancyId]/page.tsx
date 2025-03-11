@@ -42,7 +42,7 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
         />
       </Link>
 
-      <MatchBoard />
+      <MatchBoard match_statuses={vacancy.matchStatuses} />
     </div>
   );
 };

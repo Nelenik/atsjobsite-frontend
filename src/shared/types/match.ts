@@ -42,5 +42,5 @@ export type TCandidateFull = {
   created_at: string;
   vacancy: TVacancy;
   cv: TResume;
-  status: TMatchStatus;
+  status: TStatus;
 };
