@@ -8,9 +8,8 @@ import { getSalaryRange } from '@/lib/utils/getSalaryRange';
 import { TVacancy } from '@/shared/types';
 import { getDaysSinceCreated } from '@/lib/utils/getDaysSinceCreated';
 import StatusBadge from '../StatusBadge';
-import { vacancyStatusDict } from '@/shared/dictionaries';
 import { cn } from '@/lib/utils';
-import { vacancyBadgeColors } from '@/shared/dictionaries/badgeColors';
+import { getBadgeStyle } from '@/shared/dictionaries/constants';
 
 
 type TProps = {
@@ -22,7 +21,7 @@ type TProps = {
   salaryCandidate: TVacancy['salary_candy'];
   candidatesCount: TVacancy['match_count'];
   jobReactions: TVacancy['match_hot_count'];
-  vacancyStatus: TVacancy["status"]
+  vacancyStatus: TVacancy["status"];
 };
 
 
@@ -58,8 +57,8 @@ export const SummaryCard: FC<TProps> = ({
       <div className="grow">
         <CardTitle className="mb-2 first-letter:uppercase  typograpghy-h2 flex items-start gap-4">
           {vacancyName ?? 'Имя неизвестно'}
-          <StatusBadge className={cn(vacancyBadgeColors[vacancyStatus], 'py-0 px-1')}>
-            {vacancyStatusDict[vacancyStatus].toLowerCase()}
+          <StatusBadge className={cn(getBadgeStyle(vacancyStatus.color), 'py-0 px-1')}>
+            {vacancyStatus.name.toLowerCase()}
           </StatusBadge>
         </CardTitle>
 

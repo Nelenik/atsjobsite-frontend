@@ -8,7 +8,7 @@ import { getBasicCandidatesByStatus } from "@/actions/getData";
 import { useParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import { SortableContext } from "@dnd-kit/sortable";
-import { useMatchStatuses } from "@/providers/AppStatusesProvider";
+// import { useMatchStatuses } from "@/providers/AppStatusesProvider";
 import DndSortable from "../dnd/DndSortable";
 import { CandidateCard } from "../cards/CandidateCard";
 import MatchColAbstraction from "./boards_elmts/MatchColAbstraction";

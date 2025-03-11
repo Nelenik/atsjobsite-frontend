@@ -1,6 +1,6 @@
 export type TStatus = {
   id: number;
   name: string;
-  key: string;
+  color: string;
   rank: number;
 };

@@ -3,17 +3,16 @@ import { FC } from 'react';
 import { Card, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { getWordEndings } from '@/lib/utils/getWordEnding';
 import { cn } from '@/lib/utils';
-import { EVacancyStatus, TVacancy } from '@/shared/types';
+import { TVacancy } from '@/shared/types';
 
-import { vacancyStatusDict } from '@/shared/dictionaries';
+// import { vacancyStatusDict } from '@/shared/dictionaries';
 import StatusBadge from '@/components/StatusBadge';
-import { vacancyBadgeColors } from '@/shared/dictionaries/badgeColors';
 
 
 type TProps = {
   vacancyName: TVacancy['name'];
   daysInProcessing: number;
-  vacancyStatus: EVacancyStatus;
+  vacancyStatus: number;
   className?: string;
 };
 
@@ -42,14 +41,14 @@ export const VacancyCard: FC<TProps> = ({
 
       <CardFooter className="flex justify-between p-0 text-sm text-muted-foreground">
         {daysString}
-
+        {/* 
         <StatusBadge
           className={
             cn(vacancyBadgeColors[vacancyStatus], 'py-0 px-1')
           }
         >
           {vacancyStatusDict[vacancyStatus].toLowerCase()}
-        </StatusBadge>
+        </StatusBadge> */}
       </CardFooter>
     </Card>
   );

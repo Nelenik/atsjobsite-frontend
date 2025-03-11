@@ -12,7 +12,7 @@ import ConfirmButton from "@/components/buttons/ConfirmButton";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import EditButton from "@/components/buttons/EditButton";
 import StatusBadge from "@/components/StatusBadge";
-import { matchBadgeColors } from "@/shared/dictionaries/badgeColors";
+import { matchBadgeColors } from "@/shared/dictionaries/constants";
 
 
 // const badgeColors: { [key: string]: string } = {

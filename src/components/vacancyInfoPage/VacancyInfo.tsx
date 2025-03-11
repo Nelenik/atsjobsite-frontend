@@ -2,8 +2,7 @@
 import StatusBadge from "@/components/StatusBadge";
 import { cn } from "@/lib/utils";
 import { formatPrice } from "@/lib/utils/formatersIntl";
-import { vacancyEpmpoymentDict, vacancyExperienceDict, vacancyPositionsDict, vacancyStatusDict, vacancyWorkFormatDict } from "@/shared/dictionaries";
-import { vacancyBadgeColors } from "@/shared/dictionaries/badgeColors";
+import { vacancyEpmpoymentDict, vacancyExperienceDict, vacancyPositionsDict, vacancyWorkFormatDict } from "@/shared/dictionaries";
 import CompanyOverview from "./vacancy_elmts/CompanyOverview";
 import TextFormatter from "../TextFormatter";
 import { TVacancy } from "@/shared/types";
@@ -11,6 +10,7 @@ import { useState } from "react";
 import VacancyForm from "../app_forms/VacancyForm";
 import { filterFalsyFields } from "@/lib/utils/filterFalsyFields";
 import EditButton from "../buttons/EditButton";
+import { getBadgeStyle } from "@/shared/dictionaries/constants";
 
 const VacancyInfo = ({ vacancy }: { vacancy: TVacancy }) => {
   const [isEdit, setIsEdit] = useState(false)
@@ -55,8 +55,11 @@ const VacancyInfo = ({ vacancy }: { vacancy: TVacancy }) => {
     <div>
       <h2 className="scroll-m-20 text-3xl font-bold tracking-tight first:mt-0 mb-6 flex items-start gap-4">
         {name || 'Имя не указано'}
-        <StatusBadge className={cn(vacancyBadgeColors[status], 'text-xs py-0 px-1')}>
-          {vacancyStatusDict[status]}
+        <StatusBadge className={cn(
+          getBadgeStyle(status.color),
+          'text-xs py-0 px-1'
+        )}>
+          {status.name}
         </StatusBadge>
         <EditButton onClick={showForm} isIconView={true} />
       </h2>
