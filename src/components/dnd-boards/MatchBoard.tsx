@@ -56,6 +56,7 @@ const MatchBoard: FC<TProps> = ({ match_statuses }) => {
       setActiveItem(activeItem)
     } else if (data?.type === 'match_column') {
       const activeColumn = data.column || null
+      console.log('activeCol', activeColumn)
       setActiveColumn(activeColumn)
     }
 

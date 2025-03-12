@@ -59,7 +59,7 @@ const VacancyForm = ({
     ? updateVacancy.bind(null, initialData.id)
     : storeVacancy
 
-  //remove the field "status" (shoul find a better solution, may be made universal converToFormData function)
+  //!!!! remove the fields "status" and "matchStatuses" (should find a better solution, may be made universal convertToFormData function)
 
   const cleanedInitialData = initialData && removeField(initialData, ['status', 'matchStatuses'])
 
