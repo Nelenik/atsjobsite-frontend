@@ -22,22 +22,11 @@ type TProps = {
 }
 
 const MatchBoard: FC<TProps> = ({ match_statuses }) => {
-  const { vacancyId } = useParams()
+  // const { vacancyId } = useParams()
 
   const [columns, setColumns] = useState(match_statuses.map(el => el.status))
 
   const columnsIds = useMemo(() => columns.map(col => col.id), [columns])
-
-  //query all the matches by status
-  const queries = useQueries({
-    queries: columns.map((col) => ({
-      refetchOnWindowFocus: false,
-      queryKey: ['matchByStatus', col.id],
-      queryFn: () => getBasicCandidatesByStatus(vacancyId as string, col.id),
-      enabled: true
-    })),
-
-  })
 
   //activeColumn and acitveItem state for DndOverlay
   const [activeColumn, setActiveColumn] = useState<TStatus | null>(null)
@@ -107,18 +96,15 @@ const MatchBoard: FC<TProps> = ({ match_statuses }) => {
 
           <SortableContext items={columnsIds}>
 
-            {queries.map((query, index) => (
+            {columns.map((col, index) => (
               <DndSortable
-                key={columns[index].id}
-                sortableId={columns[index].id}
-                dndData={{ type: "match_column", column: columns[index] }}
+                key={col.id}
+                sortableId={col.id}
+                dndData={{ type: "match_column", column: col }}
               >
                 <MatchCol
-                  status={columns[index].name}
-                  status_id={columns[index].id}
-                  title={columns[index].name}
-                  isLoading={query.isFetching}
-                  candidates={query.data || null}
+                  status_id={col.id}
+                  title={col.name}
                   className={cn(`w-1/${columns.length}`)}
                 />
               </DndSortable>
@@ -135,7 +121,7 @@ const MatchBoard: FC<TProps> = ({ match_statuses }) => {
           activeColumn && (
             <MatchColAbstraction
               title={activeColumn.name}
-              candidates={queries[activeColumn.rank - 1].data || null}
+              status_id={activeColumn.id}
               className={`w-1/${columns.length}`}
             />
           )
