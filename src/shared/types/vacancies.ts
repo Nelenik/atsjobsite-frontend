@@ -50,6 +50,16 @@ export type TVacancyShort = Pick<
   | "salary_to"
 >;
 
+export type TVacancyUpdate = Omit<
+  TVacancy,
+  | "id"
+  | "created_at"
+  | "match_hot_count"
+  | "match_count"
+  | "status"
+  | "status_id"
+>;
+
 export enum EVacancyPosition {
   DEVELOPER = "developer",
   TEAM_LEAD = "team-lead",

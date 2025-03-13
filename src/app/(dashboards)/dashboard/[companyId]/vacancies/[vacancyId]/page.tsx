@@ -6,6 +6,7 @@ import { TVacancy } from '@/shared/types';
 import Link from 'next/link';
 import EditEntityModal from '@/components/modals/EditEntityModal';
 import MatchBoard from '@/components/dnd-boards/MatchBoard';
+import { pickAndFilter } from '@/lib/utils/pickAndFilter';
 
 
 type TProps = {
@@ -16,6 +17,7 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
   const { companyId, vacancyId } = await params;
 
   const vacancy = await getVacancy(vacancyId);
+  console.log('vacancy', vacancy)
 
   return (
     <div className="flex gap-6 flex-col relative">
@@ -30,15 +32,9 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
         href={`/dashboard/${companyId}/vacancy-info/${vacancyId}?name=${vacancy.name}`}
       >
         <SummaryCard
-          vacancyName={vacancy.name}
-          createdAt={vacancy.created_at}
-          salaryOfferFrom={vacancy.salary_from}
-          salaryOfferTo={vacancy.salary_to}
-          salaryMiddle={vacancy.salary_market}
-          salaryCandidate={vacancy.salary_candy}
-          candidatesCount={vacancy.match_count}
-          jobReactions={vacancy.match_hot_count}
-          vacancyStatus={vacancy.status}
+          summaryData={
+            pickAndFilter(vacancy, ['name', 'created_at', 'salary_from', 'salary_to', 'salary_market', 'salary_candy', 'match_count', 'match_hot_count', 'status'])
+          }
         />
       </Link>
 
