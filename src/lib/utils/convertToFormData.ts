@@ -1,5 +1,5 @@
 const convertToFormData = (
-  data: Record<string, string | number | boolean | null | string[]>
+  data: Record<string, string | number | boolean | null | number[]>
 ) => {
   const result = new FormData();
   for (const [key, value] of Object.entries(data)) {

@@ -52,12 +52,7 @@ export type TVacancyShort = Pick<
 
 export type TVacancyEdit = Omit<
   TVacancy,
-  | "id"
-  | "created_at"
-  | "match_hot_count"
-  | "match_count"
-  | "status"
-  | "status_id"
+  "created_at" | "match_hot_count" | "match_count" | "status" | "status_id"
 >;
 
 export enum EVacancyPosition {

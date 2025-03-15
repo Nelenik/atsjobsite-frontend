@@ -10,7 +10,7 @@ import { apiPut } from "./api";
 
 export const updateVacancy = async (
   vacancyId: number | string,
-  _: TMutationState,
+  _: TMutationState | null,
   body: FormData
 ) => {
   const result = await updateEntity(`/vacancy/${vacancyId}`, body);

@@ -1,25 +1,55 @@
 'use client'
 import { DndContext, DragEndEvent, DragOverlay, DragStartEvent } from "@dnd-kit/core";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
-import { TCandidateShort, TMatchStatus } from "@/shared/types";
+import { TCandidateShort, TMatchStatus, TVacancyEdit } from "@/shared/types";
 import MatchCol from "./boards_elmts/MatchCol";
-import { FC, useMemo, useState } from "react";
-import { SortableContext } from "@dnd-kit/sortable";
+import { FC, useMemo, useState, useTransition } from "react";
+import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 import DndSortable from "../dnd/DndSortable";
 import { CandidateCard } from "../cards/CandidateCard";
 import MatchColAbstraction from "./boards_elmts/MatchColAbstraction";
 import { GripVertical } from "lucide-react";
-import { useUpdateMatch } from "@/hooks/useUpdateMatch";
 import { cn } from "@/lib/utils";
 import { TStatus } from "@/shared/types/statuses";
 import { useOptimisticUpdateMatch } from "@/hooks/useOptimisticUpdateMatch";
+import { updateVacancy } from "@/actions/updateData";
+import convertToFormData from "@/lib/utils/convertToFormData";
 
 type TProps = {
-  match_statuses: TMatchStatus[]
+  matchBoardData: TVacancyEdit
+  // match_statuses: TMatchStatus[]
 }
 
-const MatchBoard: FC<TProps> = ({ match_statuses }) => {
-  const [columns, setColumns] = useState(match_statuses.map(el => el.status))
+//actions over columns
+// const ACTIONS = {
+//   MOVE_COLUMN: 'move_column',
+//   ADD_COLUMN: 'add_column',
+//   REMOVE_COLUMN: 'remove_column',
+//   RESET_COLUMNS: 'reset_columns'
+// };
+
+// const columnsReducer = (columnsState, action) => {
+
+// }
+
+// const useMatchBoardsColumns = (matchStatuses:TMatchStatus[]) => {
+//   //sort match statuses by rank to get right columns order
+//   const initColumns = matchStatuses.toSorted((a, b) => a.rank - b.rank).map(el => el.status)
+
+//   const [columns, setColumns] = useState(initColumns)
+//   //transition to update column position
+//   const [isPending, startTransition] = useTransition();
+
+
+// }
+
+const MatchBoard: FC<TProps> = ({ matchBoardData }) => {
+  const { matchStatuses, id: vacancyId, ...vacancyData } = matchBoardData
+
+  //sort match statuses by rank to get right columns order
+  const initColumns = matchStatuses.toSorted((a, b) => a.rank - b.rank).map(el => el.status)
+
+  const [columns, setColumns] = useState(initColumns)
 
   const columnsIds = useMemo(() => columns.map(col => col.id), [columns])
 
@@ -31,6 +61,9 @@ const MatchBoard: FC<TProps> = ({ match_statuses }) => {
   // update match hook
   const { startMatchUpd } = useOptimisticUpdateMatch(activeItem?.id)
 
+  //transition to update column position
+  const [isPending, startTransition] = useTransition();
+
   const handleDragStart = (event: DragStartEvent) => {
     const { active } = event
     const data = active.data.current;
@@ -40,7 +73,6 @@ const MatchBoard: FC<TProps> = ({ match_statuses }) => {
       setActiveItem(activeItem)
     } else if (data?.type === 'match_column') {
       const activeColumn = data.column || null
-      console.log('activeCol', activeColumn)
       setActiveColumn(activeColumn)
     }
 
@@ -76,8 +108,35 @@ const MatchBoard: FC<TProps> = ({ match_statuses }) => {
       }
 
       startMatchUpd(targetStatusId, initialStatusId)
-    }
+    } else if (isActiveColumn) {
 
+      const prevColumns = [...columns];
+
+      // Вычисляем новый порядок колонок
+      const activeColIndex = columns.findIndex(col => col.id === active.id);
+      const overColIndex = columns.findIndex(col => col.id === over.id);
+      const newColumns = arrayMove(columns, activeColIndex, overColIndex);
+      console.log("newCol", newColumns)
+
+      // Обновляем состояние
+      setColumns(newColumns);
+
+      // Используем новый порядок для обновления на сервере
+      startTransition(async () => {
+        const { error } = await updateVacancy(
+          vacancyId,
+          null,
+          convertToFormData({
+            ...vacancyData,
+            matchStatuses: newColumns.map(el => el.id)
+          })
+        );
+
+        if (error) {
+          setColumns(prevColumns);
+        }
+      });
+    }
   }
 
   return (

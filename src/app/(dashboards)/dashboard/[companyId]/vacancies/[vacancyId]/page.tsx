@@ -7,6 +7,7 @@ import Link from 'next/link';
 import EditEntityModal from '@/components/modals/EditEntityModal';
 import MatchBoard from '@/components/dnd-boards/MatchBoard';
 import { pickAndFilter } from '@/lib/utils/pickAndFilter';
+import { omitFields } from '@/lib/utils/omitFields';
 
 
 type TProps = {
@@ -38,7 +39,7 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
         />
       </Link>
 
-      <MatchBoard match_statuses={vacancy.matchStatuses} />
+      <MatchBoard matchBoardData={omitFields(vacancy, ["created_at", "match_hot_count", "match_count", "status", "status_id"])} />
     </div>
   );
 };
