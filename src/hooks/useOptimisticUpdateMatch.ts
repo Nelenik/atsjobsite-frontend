@@ -3,8 +3,10 @@ import convertToFormData from "@/lib/utils/convertToFormData";
 import { TCandidateShort } from "@/shared/types";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTransition } from "react";
+import { useToast } from "./use-toast";
 
 export const useOptimisticUpdateMatch = (matchId?: number) => {
+  const { toast } = useToast();
   const [isPending, startTransition] = useTransition();
   const queryClient = useQueryClient();
 
@@ -51,6 +53,10 @@ export const useOptimisticUpdateMatch = (matchId?: number) => {
       const { error } = await updateMatchWithId(null, newMatchFormData);
 
       if (error && shouldUpdateOptimistic) {
+        toast({
+          variant: "destructive",
+          description: "Ошибка при обновлении статуса мэтча",
+        });
         queryClient.setQueryData(
           ["matchByStatus", initialStatusId],
           oldStatusMatches

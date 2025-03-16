@@ -1,10 +1,10 @@
 'use client'
 import { DndContext, DragEndEvent, DragOverlay, DragStartEvent } from "@dnd-kit/core";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
-import { TCandidateShort, TMatchStatus, TVacancyEdit } from "@/shared/types";
+import { TCandidateShort, TVacancyMatchBoard } from "@/shared/types";
 import MatchCol from "./boards_elmts/MatchCol";
-import { FC, useMemo, useState, useTransition } from "react";
-import { arrayMove, SortableContext } from "@dnd-kit/sortable";
+import { FC, useMemo, useState } from "react";
+import { SortableContext } from "@dnd-kit/sortable";
 import DndSortable from "../dnd/DndSortable";
 import { CandidateCard } from "../cards/CandidateCard";
 import MatchColAbstraction from "./boards_elmts/MatchColAbstraction";
@@ -12,44 +12,16 @@ import { GripVertical } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { TStatus } from "@/shared/types/statuses";
 import { useOptimisticUpdateMatch } from "@/hooks/useOptimisticUpdateMatch";
-import { updateVacancy } from "@/actions/updateData";
-import convertToFormData from "@/lib/utils/convertToFormData";
+import { useMatchBoardsColumns } from "@/hooks/useMatchBoardsColumns";
 
 type TProps = {
-  matchBoardData: TVacancyEdit
-  // match_statuses: TMatchStatus[]
+  matchBoardData: TVacancyMatchBoard
 }
-
-//actions over columns
-// const ACTIONS = {
-//   MOVE_COLUMN: 'move_column',
-//   ADD_COLUMN: 'add_column',
-//   REMOVE_COLUMN: 'remove_column',
-//   RESET_COLUMNS: 'reset_columns'
-// };
-
-// const columnsReducer = (columnsState, action) => {
-
-// }
-
-// const useMatchBoardsColumns = (matchStatuses:TMatchStatus[]) => {
-//   //sort match statuses by rank to get right columns order
-//   const initColumns = matchStatuses.toSorted((a, b) => a.rank - b.rank).map(el => el.status)
-
-//   const [columns, setColumns] = useState(initColumns)
-//   //transition to update column position
-//   const [isPending, startTransition] = useTransition();
-
-
-// }
 
 const MatchBoard: FC<TProps> = ({ matchBoardData }) => {
   const { matchStatuses, id: vacancyId, ...vacancyData } = matchBoardData
 
-  //sort match statuses by rank to get right columns order
-  const initColumns = matchStatuses.toSorted((a, b) => a.rank - b.rank).map(el => el.status)
-
-  const [columns, setColumns] = useState(initColumns)
+  const { columns, isUpdating, moveColumn } = useMatchBoardsColumns(matchStatuses, vacancyId, vacancyData)
 
   const columnsIds = useMemo(() => columns.map(col => col.id), [columns])
 
@@ -58,12 +30,10 @@ const MatchBoard: FC<TProps> = ({ matchBoardData }) => {
 
   const [activeItem, setActiveItem] = useState<TCandidateShort | null>(null);
 
-  // update match hook
+  // update match status hook
   const { startMatchUpd } = useOptimisticUpdateMatch(activeItem?.id)
 
-  //transition to update column position
-  const [isPending, startTransition] = useTransition();
-
+  /****DND HANDLERS *****/
   const handleDragStart = (event: DragStartEvent) => {
     const { active } = event
     const data = active.data.current;
@@ -109,33 +79,7 @@ const MatchBoard: FC<TProps> = ({ matchBoardData }) => {
 
       startMatchUpd(targetStatusId, initialStatusId)
     } else if (isActiveColumn) {
-
-      const prevColumns = [...columns];
-
-      // Вычисляем новый порядок колонок
-      const activeColIndex = columns.findIndex(col => col.id === active.id);
-      const overColIndex = columns.findIndex(col => col.id === over.id);
-      const newColumns = arrayMove(columns, activeColIndex, overColIndex);
-      console.log("newCol", newColumns)
-
-      // Обновляем состояние
-      setColumns(newColumns);
-
-      // Используем новый порядок для обновления на сервере
-      startTransition(async () => {
-        const { error } = await updateVacancy(
-          vacancyId,
-          null,
-          convertToFormData({
-            ...vacancyData,
-            matchStatuses: newColumns.map(el => el.id)
-          })
-        );
-
-        if (error) {
-          setColumns(prevColumns);
-        }
-      });
+      moveColumn(active.id, over.id)
     }
   }
 
