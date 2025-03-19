@@ -4,8 +4,8 @@ import CandyInfo from "./match_elmts/CandyInfo";
 import CandyMatch from "./match_elmts/CandyMatch";
 import CandyComments from "./match_elmts/CandyComments";
 import CandyExperience from "./match_elmts/CandyExperience";
-import TextFormatter from "../TextFormatter";
 import { TStatus } from "@/shared/types/statuses";
+import TextFormatter from "@/components/shared/TextFormatter";
 
 const tabsDict = [
   { value: 'match', text: 'Мэтч' },
