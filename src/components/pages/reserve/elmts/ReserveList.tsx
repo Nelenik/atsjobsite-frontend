@@ -1,16 +1,16 @@
 import { ECvStatus, TResume } from "@/shared/types/resume";
-import List from "./ui/list";
+import List from "../../../ui/list";
 import { FC } from "react";
-import { Card } from "./ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Card } from "../../../ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "../../../ui/avatar";
 import { MapPin } from "lucide-react";
-import { Badge } from "./ui/badge";
+import { Badge } from "../../../ui/badge";
 import { workStatusDict } from "@/shared/dictionaries/resume";
 import { formatPrice } from "@/lib/utils/formatersIntl";
 import { format } from "date-fns";
 import { ru } from "date-fns/locale";
 import { cn } from "@/lib/utils";
-import EditEntityModal from "./modals/EditEntityModal";
+import EditEntityModal from "../../../modals/EditEntityModal";
 import { getDurationFromMonths } from "@/lib/utils/getDurationFromMonths";
 
 type TProps = {

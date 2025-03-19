@@ -1,7 +1,7 @@
 import { getResumeList } from "@/actions/getData";
 import AddEntityModal from "@/components/modals/AddEntityModal";
 import ReserveFilter from "@/components/filters/ReserveFilter";
-import ReserveList from "@/components/ReserveList";
+import ReserveList from "@/components/pages/reserve/elmts/ReserveList";
 import { FC } from "react";
 
 type TProps = {
