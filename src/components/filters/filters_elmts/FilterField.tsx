@@ -1,13 +1,14 @@
 'use client'
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { ChangeEvent, FC, InputHTMLAttributes, ReactNode, useRef, useState } from "react";
+import { FC, HTMLAttributes, ReactNode, useEffect, useRef, useState } from "react";
 import { updateQueryString } from "@/shared/helpers/updateQueryString";
+import { SelectProps } from "@radix-ui/react-select";
 
 type TFormElems = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
 
 type TProps = {
   paramName: string,
-  render: (props: InputHTMLAttributes<TFormElems>) => ReactNode
+  render: (props: HTMLAttributes<TFormElems> & SelectProps & { onClick?: () => void }) => ReactNode
 }
 
 /**
@@ -16,7 +17,7 @@ type TProps = {
  *
  * @component
  * @param {string} paramName - The name of the query parameter to update.
- * @param {(props: { value: string; onChange: (e: ChangeEvent<TFormElems>) => void }) => JSX.Element} render - A render prop that provides input state and change handler.
+ * @param {(props: { value: string; onValueChange: (value: string) => void }) => JSX.Element} render - A render prop that provides input state and change handler.
  *
  * @example
  * ```tsx
@@ -41,24 +42,43 @@ const FilterField: FC<TProps> = ({
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState(searchParams.get(paramName) || '')
 
   //use ref for debounce
   const debounceRef = useRef<NodeJS.Timeout | null>(null)
 
-  const handleChange = (e: ChangeEvent<TFormElems>) => {
+  useEffect(() => {
     if (debounceRef.current) {
-      clearTimeout(debounceRef.current)
+      clearTimeout(debounceRef.current);
     }
-    setValue(e.target.value)
 
     debounceRef.current = setTimeout(() => {
-      const newQS = updateQueryString(searchParams, paramName, e.target.value)
-      router.push(`${pathname}?${newQS}`)
-    }, 300)
+      const newQS = updateQueryString(searchParams, paramName, value);
+      router.push(`${pathname}?${newQS}`);
+    }, 250);
+
+    // clean timer on unmount
+    return () => {
+      if (debounceRef.current) {
+        clearTimeout(debounceRef.current);
+      }
+    };
+  }, [paramName, pathname, router, searchParams, value]);
+
+  const handleChange = (value: string) => {
+    console.log(value)
+    setValue(value)
   }
 
-  return <>{render({ value, onChange: handleChange })}</>
+  const resetFilter = () => {
+    setValue('')
+  }
+
+  return <>{render({
+    value,
+    onValueChange: handleChange,
+    onClick: resetFilter,
+  })}</>
 }
 
 export default FilterField;
