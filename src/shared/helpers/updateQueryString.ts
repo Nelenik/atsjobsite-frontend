@@ -18,7 +18,6 @@ export function updateQueryString(
   currentSearchParams: ReadonlyURLSearchParams,
   newValues: { [key: string]: string | number } | null
 ) {
-  console.log("new values", newValues);
   const qs = new URLSearchParams(currentSearchParams);
 
   if (newValues === null) {

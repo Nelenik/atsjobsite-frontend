@@ -72,6 +72,8 @@ export const getResumeList = async (filters: Record<string, string> = {}) => {
     const filterString = new URLSearchParams(
       filterFalsyFields(filters)
     ).toString();
+
+    console.log(filters, "filters api");
     const response = await apiGet<TApiListResponse<TResume>>(
       "/cv?" + filterString
     );
@@ -83,7 +85,7 @@ export const getResumeList = async (filters: Record<string, string> = {}) => {
   } catch (error) {
     console.error(error);
     throw new Error(
-      "Не удалось загрузить список компаний. Пожалуйста, попробуйте позже."
+      "Не удалось загрузить резервный список. Пожалуйста, попробуйте позже."
     );
   }
 };

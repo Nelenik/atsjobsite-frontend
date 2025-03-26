@@ -1,6 +1,6 @@
-import { ECvStatus, TResume } from "@/shared/types/resume";
+'use client'
+import { ECvStatus } from "@/shared/types/resume";
 import List from "../../../ui/list";
-import { FC } from "react";
 import { Card } from "../../../ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "../../../ui/avatar";
 import { MapPin } from "lucide-react";
@@ -12,10 +12,10 @@ import { ru } from "date-fns/locale";
 import { cn } from "@/lib/utils";
 import EditEntityModal from "../../../modals/EditEntityModal";
 import { getDurationFromMonths } from "@/lib/utils/getDurationFromMonths";
+import Loader from "@/components/shared/Loader";
+import { useInfiniteScroll } from "./useInfiniteScroll";
+import ScrollUpBtn from "./ScrollUpBtn";
 
-type TProps = {
-  resumeList: TResume[]
-}
 
 const badgeColors = {
   [ECvStatus.LOOKING]: 'ring-emerald-400 text-emerald-400 hover:text-white hover:bg-emerald-400/70',
@@ -25,53 +25,99 @@ const badgeColors = {
   default: 'ring-gray-300 text-gray-300 hover:text-white hover:bg-gray-300/70'
 }
 
-const ReserveList: FC<TProps> = ({
-  resumeList
-}) => {
+
+const ReserveList = () => {
+  const {
+    resumeList,
+    firstElementRef,
+    lastElementRef,
+    isFetchingNextPage,
+    isFetchingPreviousPage,
+    scrollToElementRef,
+    indexTo,
+    handleScrollUp
+  } = useInfiniteScroll()
 
   return (
-    <List className="self-start grow flex flex-col gap-4 ">
-      {resumeList.map((resume) => (
-        <li className="text-lg w-[min(100%,850px)] mx-auto" key={resume.id}>
-          <Card className="py-2 px-6 min-h-[102px] flex gap-6 items-center justify-between h-full relative">
+    <div className="self-start grow pb-10">
+      <ScrollUpBtn onClick={handleScrollUp} />
+      {/* <Button
+        onClick={handleScrollUp}
+        variant={'outline'}
+        className={cn(
+          "p-0 border-primary w-10 aspect-square rounded-full fixed bottom-4 right-4 z-10 bg-transparent",
+          "hover:bg-primary/70 [&:hover_svg]:text-white"
+        )}>
+        <CircleChevronUp className="text-primary" />
+      </Button> */}
+      <div
+        ref={firstElementRef}
+        data-id="topBoundary"
+        className="relative"
+      >
+        {isFetchingPreviousPage && <Loader />}
+      </div>
+      <List className="flex flex-col gap-4">
+        {resumeList.map((resume, index) => {
+          return (
+            <li
+              ref={index === indexTo ? scrollToElementRef : null}
+              key={resume.id}
+              className="text-lg w-[min(100%,850px)] mx-auto"
+            >
+              <Card className="py-2 px-6 min-h-[102px] flex gap-6 items-center justify-between h-full relative">
 
-            <Avatar >
-              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-              <AvatarFallback>C</AvatarFallback>
-            </Avatar>
-            <div className="w-[40%] mr-auto">
-              <p>
-                {resume.candy_name || 'Имя не указано'}
-              </p>
-              <p className="font-semibold">
-                {resume.name}
-              </p>
-              <p className="text-muted-foreground flex items-center gap-2">
-                <MapPin size={16} />
-                {resume.candy_location || 'Не указан'}
-              </p>
-            </div>
-            <div className="w-[25%]">
-              <p>
-                {getDurationFromMonths(resume.experience_months)}
-              </p>
-              <Badge className={cn("py-1 bg-transparent ring-1", badgeColors[resume.status || 'default'])}>
-                {workStatusDict[resume.status] || 'не установлен'}
-              </Badge>
-            </div>
-            <div className="w-[25%]">
-              <p className="font-medium">
-                {formatPrice(resume.salary || 0, 'ru-Ru', 'RUB')}
-              </p>
-              <p>
-                {format(new Date(), "d MMMM yyyy", { locale: ru })}
-              </p>
-            </div>
-            <EditEntityModal entityType="resume" triggerView="icon" initialData={resume} className="absolute right-0 top-0" />
-          </Card>
-        </li>
-      ))}
-    </List>
+                <Avatar >
+                  <AvatarImage
+                    src={resume.candy_photo}
+                    alt={`${resume.candy_name} avatar`}
+                  />
+                  <AvatarFallback>
+                    {(resume.candy_name || '').at(0)?.toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="w-[40%] mr-auto">
+                  <p>
+                    {resume.candy_name || 'Имя не указано'}
+                  </p>
+                  <p className="font-semibold">
+                    {resume.name}
+                  </p>
+                  <p className="text-muted-foreground flex items-center gap-2">
+                    <MapPin size={16} />
+                    {resume.candy_location || 'Не указан'}
+                  </p>
+                </div>
+                <div className="w-[25%]">
+                  <p>
+                    {getDurationFromMonths(resume.experience_months)}
+                  </p>
+                  <Badge className={cn("py-1 bg-transparent ring-1", badgeColors[resume.status || 'default'])}>
+                    {workStatusDict[resume.status] || 'не установлен'}
+                  </Badge>
+                </div>
+                <div className="w-[25%]">
+                  <p className="font-medium">
+                    {formatPrice(resume.salary || 0, 'ru-Ru', 'RUB')}
+                  </p>
+                  <p>
+                    {format(new Date(), "d MMMM yyyy", { locale: ru })}
+                  </p>
+                </div>
+                <EditEntityModal entityType="resume" triggerView="icon" initialData={resume} className="absolute right-0 top-0" />
+              </Card>
+            </li>
+          )
+        })}
+      </List>
+      <div
+        ref={lastElementRef}
+        data-id="bottomBoundary"
+        className="min-h-2 relative"
+      >
+        {isFetchingNextPage && <Loader />}
+      </div>
+    </div>
   );
 }
 

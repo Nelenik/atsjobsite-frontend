@@ -30,7 +30,6 @@ const Filters: FC<TProps> = ({
 
     const handler = setTimeout(() => {
       const newQS = updateQueryString(searchParams, filters);
-      console.log('qs', newQS)
       router.push(`${pathname}?${newQS}`);
     }, 300);
 
