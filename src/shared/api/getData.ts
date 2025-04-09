@@ -10,7 +10,6 @@ import { filterFalsyFields } from "../lib/object_manipulations/filterFalsyFields
 import { TCandidateFull, TCandidateShort } from "./types/match";
 import { TVacancy, TVacancyShort } from "./types/vacancies";
 import { TTariff } from "./types/tariffs";
-import { wait } from "../lib/wait";
 
 /* USER */
 /*----Needs to be redone with real data.--- */
@@ -27,7 +26,6 @@ export const getCompaniesList = async (
   filters: Record<string, string> = {}
 ) => {
   try {
-    await wait(10000);
     const filterString = new URLSearchParams(
       filterFalsyFields(filters)
     ).toString();
