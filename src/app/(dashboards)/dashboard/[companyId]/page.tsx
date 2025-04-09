@@ -4,7 +4,7 @@ const DashboardMainPage: FC = async () => {
   return (
     <div>
       <div className="">
-        Dashboard Main page
+        В разарботке...
       </div>
     </div>
   );

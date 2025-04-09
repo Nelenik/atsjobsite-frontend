@@ -10,7 +10,7 @@ import { ScrollArea } from "@/shared/ui/shadcn/scroll-area";
 import { DndSortable } from "@/features/dnd";
 import { CandidateCard } from "./CandidateCard";
 import { FunnelCard } from "@/shared/ui/FunnelCard";
-import { BoardListSkeleton } from "@/shared/ui/BoardSkeleton";
+import { BoardListSkeleton } from "@/shared/ui/skeletons/BoardSkeleton";
 
 type TProps = {
   color: string

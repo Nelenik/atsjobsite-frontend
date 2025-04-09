@@ -6,7 +6,7 @@ import { Loader } from "@/shared/ui/Loader";
 import List from "@/shared/ui/shadcn/list";
 import { CvCard } from "@/entities/cv";
 import { EditEntity } from "@/features/mutate-entity";
-import { CvListSkeleton } from "@/shared/ui/CvListSkeleton";
+import { CvListSkeleton } from "@/shared/ui/skeletons/CvListSkeleton";
 
 export const CvList = () => {
   const {
