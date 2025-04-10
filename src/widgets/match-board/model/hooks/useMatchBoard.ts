@@ -1,12 +1,12 @@
-import { useSingleVacancy } from "@/shared/providers/SingleVacancyProvider";
 import { TCandidateShort } from "@/shared/api/types";
 import { TStatus } from "@/shared/api/types/statuses";
 import { DragStartEvent, DragEndEvent } from "@dnd-kit/core";
 import { useMemo, useState } from "react";
 import { useOptimisticUpdateMatch } from "./useOptimisticUpdateMatch";
+import { useVacancyMatchStatuses } from "@/entities/vacancy";
 
 export const useMatchBoard = () => {
-  const { columns, moveColumn } = useSingleVacancy();
+  const { columns, moveColumn } = useVacancyMatchStatuses();
   const columnsIds = useMemo(() => columns.map((col) => col.id), [columns]);
 
   //activeColumn and acitveItem state for DndOverlay

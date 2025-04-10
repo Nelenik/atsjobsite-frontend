@@ -1,7 +1,7 @@
 'use client'
 import { AddEntity } from '@/features/mutate-entity';
 import { groupBy } from '@/shared/lib/array_manipulations/groupBy';
-import { useVacancies } from '@/shared/providers/VacanciesProvider';
+import { useVacancies } from '@/entities/vacancy';
 import { VacanciesBoard } from '@/widgets/vacancies-board';
 import { useMemo } from 'react';
 

@@ -5,7 +5,7 @@ import { formatPrice } from '@/shared/lib/formatters/formatersIntl';
 import { getDaysSinceCreated } from '@/shared/lib/date_time/getDaysSinceCreated';
 import { formatSalaryRange } from '@/shared/lib/formatters/formatSalaryRange';
 import { formatWordEndings } from '@/shared/lib/formatters/formatWordEndings';
-import { useSingleVacancy } from '@/shared/providers/SingleVacancyProvider';
+import { useSingleVacancy } from '@/entities/vacancy';
 import { cn } from '@/shared/lib/utils';
 import { StatusBadge } from '@/shared/ui/StatusBadge';
 import { Card, CardDescription, CardTitle } from '@/shared/ui/shadcn/card';

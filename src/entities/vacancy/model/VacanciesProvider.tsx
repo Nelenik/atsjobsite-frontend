@@ -1,7 +1,7 @@
 'use client'
 
+import { TVacancyShort } from "@/shared/api/types"
 import { createContext, ReactNode, useContext } from "react"
-import { TVacancyShort } from "../api/types"
 
 const VacanciesContext = createContext<TVacancyShort[]>([])
 

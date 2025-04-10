@@ -1,5 +1,5 @@
 import { getVacanciesList } from "@/shared/api/getData";
-import { VacanciesProvider } from "@/shared/providers/VacanciesProvider";
+import { VacanciesProvider } from "@/entities/vacancy";
 import { FC, PropsWithChildren } from "react";
 
 

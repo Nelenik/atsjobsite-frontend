@@ -5,12 +5,12 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { getBasicCandidatesByStatus } from "@/shared/api/getData";
 import { cn } from "@/shared/lib/utils";
-import { ColActionMenu } from "./ColActionMenu";
 import { ScrollArea } from "@/shared/ui/shadcn/scroll-area";
 import { DndSortable } from "@/features/dnd";
 import { CandidateCard } from "./CandidateCard";
 import { FunnelCard } from "@/shared/ui/FunnelCard";
 import { BoardListSkeleton } from "@/shared/ui/skeletons/BoardSkeleton";
+import { ColumnMenu } from "@/features/column-menu";
 
 type TProps = {
   color: string
@@ -26,7 +26,7 @@ export const MatchCol: FC<TProps> = ({ color, status_id, title, className, isEdi
   const { data: candidates, isLoading } = useQuery({
     queryKey: ['matchByStatus', status_id],
     queryFn: () => getBasicCandidatesByStatus(vacancyId as string, status_id),
-    // refetchInterval: 10000,//refetch columns every 10 sec
+    refetchInterval: 5000,//refetch columns every 5 sec
     staleTime: 1000,
   })
 
@@ -42,7 +42,7 @@ export const MatchCol: FC<TProps> = ({ color, status_id, title, className, isEdi
         name={title}
         count={candidates?.length || 0}
       >
-        {isEditable && <ColActionMenu currentColId={status_id} className='absolute top-1 right-1' />}
+        {isEditable && <ColumnMenu columnId={status_id} className='absolute top-1 right-1' />}
       </FunnelCard>
       <div
         className="flex flex-col gap-2 grow"
