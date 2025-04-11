@@ -7,3 +7,4 @@ export { PositionSelect } from "./ui/PositionSelect";
 export * from "./model/SingleVacancyProvider";
 export * from "./model/VacanciesProvider";
 export * from "./model/VacancyMatchStatusesProvider";
+export * from "./lib/dictionary";
