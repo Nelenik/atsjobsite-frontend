@@ -79,10 +79,22 @@ export default {
             height: "var(--radix-collapsible-content-height)",
           },
         },
+        "fade-in-out": {
+          "0%": {
+            opacity: "0",
+          },
+          "50%": {
+            opacity: "1",
+          },
+          "100%": {
+            opacity: "0",
+          },
+        },
       },
       animation: {
         "slide-up": "slide-up 200ms ease",
         "slide-down": "slide-down 200ms ease",
+        "fade-in-out": "5s fade-in-out 500ms ease ",
       },
     },
   },

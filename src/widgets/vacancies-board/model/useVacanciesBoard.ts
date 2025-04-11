@@ -10,6 +10,7 @@ export const useVacaniesBoard = (
   const [groups, setGroups] =
     useState<Record<string, TVacancyShort[]>>(groupedItems);
 
+  //set initial items grouped by status_id
   useEffect(() => {
     setGroups(groupedItems);
   }, [groupedItems]);

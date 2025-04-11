@@ -120,7 +120,7 @@ body {
 
 /* tooltip for grip button on draggable cards */
 .group:hover>.tooltip::after, .group:hover>.tooltip::before {
-  @apply opacity-100
+  @apply animate-fade-in-out
 }
 
 .tooltip::after, .tooltip::before {

@@ -26,7 +26,7 @@ export const MatchCol: FC<TProps> = ({ color, status_id, title, className, isEdi
   const { data: candidates, isLoading } = useQuery({
     queryKey: ['matchByStatus', status_id],
     queryFn: () => getBasicCandidatesByStatus(vacancyId as string, status_id),
-    refetchInterval: 5000,//refetch columns every 5 sec
+    refetchInterval: 5000,//refetch columns every 5 sec to keep data fresh
     staleTime: 1000,
   })
 

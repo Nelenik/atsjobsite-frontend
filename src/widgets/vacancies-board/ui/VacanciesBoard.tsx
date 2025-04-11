@@ -1,6 +1,5 @@
 'use client'
 
-import { useStatuses } from "@/shared/providers/AppStatusesProvider"
 import { ScrollArea, ScrollBar } from "@/shared/ui/shadcn/scroll-area"
 import { DndContext, DragOverlay } from "@dnd-kit/core"
 import { SortableContext } from "@dnd-kit/sortable"
@@ -9,7 +8,7 @@ import { DndDroppable, DndSortable } from "@/features/dnd"
 import { cn } from "@/shared/lib/utils"
 import { useVacaniesBoard } from "../model/useVacanciesBoard"
 import { VacancyBoardCard } from "@/entities/vacancy/ui/VacancyBoardCard"
-import { TVacancyShort } from "@/shared/api/types"
+import { TStatus, TVacancyShort } from "@/shared/api/types"
 import { FunnelCard } from "@/shared/ui/FunnelCard"
 
 
@@ -17,9 +16,34 @@ type TProps = {
   groupedItems: Record<string, TVacancyShort[]>
 }
 
-export const VacanciesBoard: FC<TProps> = ({ groupedItems }) => {
+const vacanciesDefaultStatuses: TStatus[] = [
+  {
+    "id": 191,
+    "name": "Черновик",
+    "color": "#A9A9A9",
+    "rank": 1
+  },
+  {
+    "id": 192,
+    "name": "В работе",
+    "color": "#FFA500",
+    "rank": 2
+  },
+  {
+    "id": 193,
+    "name": "Ожидание",
+    "color": "#ADD8E6",
+    "rank": 3
+  },
+  {
+    "id": 194,
+    "name": "На паузе",
+    "color": "#4682B4",
+    "rank": 4
+  }
+]
 
-  const appStatuses = useStatuses()
+export const VacanciesBoard: FC<TProps> = ({ groupedItems }) => {
 
   const {
     handleDragEnd,
@@ -36,11 +60,12 @@ export const VacanciesBoard: FC<TProps> = ({ groupedItems }) => {
     >
       <ScrollArea className="pb-4">
         <div className="flex gap-4 w-full p-2 ">
-          {Object.entries(groups).map(([id, items]) => {
-            const colName = appStatuses.find(el => el.id === +id)?.name || 'Не задан'
+          {vacanciesDefaultStatuses.map((status) => {
+            const colName = status?.name || 'Не задан'
+            const items = groups[status.id] || []
             return (
               <div
-                key={id}
+                key={status.id}
                 className={cn(`flex flex-col gap-6 ring-2 ring-offset-4 rounded-lg ring-border w-1/5 min-w-[250px]`)}
               >
                 <FunnelCard
@@ -48,7 +73,7 @@ export const VacanciesBoard: FC<TProps> = ({ groupedItems }) => {
                   count={items?.length || 0}
                 />
                 <DndDroppable
-                  id={id}
+                  id={String(status.id)}
                   type="vac_column"
                   className="flex flex-col gap-2 grow"
                 >
