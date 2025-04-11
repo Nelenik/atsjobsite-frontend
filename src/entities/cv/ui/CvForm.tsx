@@ -13,6 +13,7 @@ import FormItem from '@/shared/ui/FormItem';
 import { Button } from '@/shared/ui/shadcn/button';
 import { Input } from '@/shared/ui/shadcn/input';
 import { Textarea } from '@/shared/ui/shadcn/textarea';
+import { useQueryClient } from '@tanstack/react-query';
 import { FC } from 'react';
 
 
@@ -29,6 +30,9 @@ export const CvForm: FC<TProps> = ({
   onSuccess = () => { },
   onCancel = () => { }
 }) => {
+
+  const queryClient = useQueryClient()
+
   //define form action depending of the form type
   const action = type === 'edit' && initialData
     ? updateCV.bind(null, initialData.id)
@@ -49,7 +53,10 @@ export const CvForm: FC<TProps> = ({
   const { formAction, pending, defaultValues, errors, onChange } =
     useFormMutation({
       mutationAction: action,
-      onSuccess,
+      onSuccess: () => {
+        onSuccess()
+        queryClient.invalidateQueries({ queryKey: ["reserve-infinite-list"] })
+      },
       initialState,
       toastMessage
     });
