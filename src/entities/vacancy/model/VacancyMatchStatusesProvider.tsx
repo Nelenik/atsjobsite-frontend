@@ -1,16 +1,15 @@
 'use client'
 
+import { TStatus, TVacancy } from "@/shared/api/types"
+import { createContext, ReactNode, useCallback, useContext, useMemo, useRef, useState, useTransition } from "react"
+import { useSingleVacancy } from "./SingleVacancyProvider"
+import { updateVacancy } from "@/shared/api/updateData"
+import convertToFormData from "@/shared/lib/object_manipulations/convertToFormData"
+import { omitFields } from "@/shared/lib/object_manipulations/omitFields"
+import { useToast } from "@/shared/model/hooks/use-toast"
 import { arrayMove } from "@dnd-kit/sortable"
-import { useQueryClient } from "@tanstack/react-query"
-import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useRef, useState, useTransition } from "react"
-import { TStatus, TVacancy } from "../api/types"
-import { omitFields } from "../lib/object_manipulations/omitFields"
-import { useToast } from "../model/hooks/use-toast"
-import { updateVacancy } from "../api/updateData"
-import convertToFormData from "../lib/object_manipulations/convertToFormData"
 
-type TVacancyContext = {
-  vacancy: TVacancy,
+type TVacancyMatchStatusesContext = {
   columns: TStatus[],
   moveColumn: (activeId: number | string, overId: number | string) => void,
   addColumn: (currentId: number | string, newStatus: TStatus, position: "left" | "right") => void,
@@ -23,17 +22,29 @@ type TVacancyEdit = Omit<
   "created_at" | "match_hot_count" | "match_count" | "status" | "status_id" | "matchStatuses" | "id"
 >
 
-const VacancyContext = createContext<TVacancyContext | null>(null)
+// Context for managing vacancy match statuses
+const VacancyMatchStatusesContext = createContext<TVacancyMatchStatusesContext | null>(null)
 
-export const SingleVacancyProvider = ({ children, vacancy }: { children: ReactNode, vacancy: TVacancy }) => {
+/**
+ * VacancyMatchStatusesProvider component provides context to manage and manipulate columns (statuses) related to a vacancy.
+ * It allows adding, moving, updating, and deleting columns.
+ * 
+ * @param children - The children components to be wrapped by this provider.
+ * 
+ * @returns A provider component that passes the columns and manipulation functions down the component tree.
+ * 
+ * @example
+ * ```tsx
+ * <VacancyMatchStatusesProvider>
+ *   <SomeComponent />
+ * </VacancyMatchStatusesProvider>
+ * ```
+ 
+ */
+export const VacancyMatchStatusesProvider = ({ children }: { children: ReactNode }) => {
+  const { vacancy } = useSingleVacancy()
 
-  const queryClient = useQueryClient();
-
-  useEffect(() => {
-    queryClient.resetQueries({ queryKey: ['matchByStatus'] });
-  }, [queryClient, vacancy.id]);
-
-  //extract fields which are necessary for vacancy updating
+  // Extract fields necessary for vacancy updating, excluding irrelevant fields
   const vacancyEditData: TVacancyEdit = useMemo(() =>
     omitFields(vacancy, ["created_at", "match_hot_count", "match_count", "status", "status_id", "matchStatuses", "id"]),
     [vacancy]
@@ -41,11 +52,11 @@ export const SingleVacancyProvider = ({ children, vacancy }: { children: ReactNo
 
   const { toast } = useToast();
   //sort match statuses by rank to get right columns order
-  const initColumns = vacancy.matchStatuses
+  const initialColumns = vacancy.matchStatuses
     .toSorted((a, b) => a.rank - b.rank)
     .map((el) => el.status);
 
-  const [columns, setColumns] = useState(initColumns);
+  const [columns, setColumns] = useState(initialColumns);
 
   //transition to update column position
   const [, startTransition] = useTransition();
@@ -53,6 +64,7 @@ export const SingleVacancyProvider = ({ children, vacancy }: { children: ReactNo
   //save the initial columns state to return to it if is needed
   const prevColumnsState = useRef(columns);
 
+  // Update the vacancy matchStatuses on the server
   const updateAtServer = useCallback((newColumns: TStatus[]) =>
     startTransition(async () => {
       const { error } = await updateVacancy(
@@ -74,11 +86,13 @@ export const SingleVacancyProvider = ({ children, vacancy }: { children: ReactNo
       }
     }), [toast, vacancy.id, vacancyEditData]);
 
+  // Update the columns state locally and on the server
   const updateColumns = useCallback((newColumns: TStatus[]) => {
     setColumns(newColumns);
     updateAtServer(newColumns);
   }, [updateAtServer]);
 
+  // Function to move a column's position within the list
   const moveColumn = useCallback((activeId: number | string, overId: number | string) => {
     const activeColIndex = columns.findIndex((col) => col.id === activeId);
     const overColIndex = columns.findIndex((col) => col.id === overId);
@@ -86,11 +100,13 @@ export const SingleVacancyProvider = ({ children, vacancy }: { children: ReactNo
     updateColumns(newColumns);
   }, [columns, updateColumns]);
 
+  // Function to delete a column
   const deleteColumn = useCallback((deletingColId: number | string) => {
     const newColumns = columns.filter((col) => col.id !== deletingColId);
     updateColumns(newColumns);
   }, [columns, updateColumns]);
 
+  // Function to add a new column to the left or right of the current column
   const addColumn = useCallback((
     currentId: number | string,
     newStatus: TStatus,
@@ -106,15 +122,39 @@ export const SingleVacancyProvider = ({ children, vacancy }: { children: ReactNo
     setColumns(prev => prev.map(col => col.id === currentId ? { ...col, ...changes } : col))
   }, [])
 
-  return (<VacancyContext value={{ vacancy, columns, moveColumn, addColumn, deleteColumn, updateColumn }}>
-    {children}
-  </VacancyContext>)
+  return (
+    <VacancyMatchStatusesContext
+      value={{
+        columns,
+        moveColumn,
+        addColumn,
+        updateColumn,
+        deleteColumn
+      }}
+    >
+      {children}
+    </VacancyMatchStatusesContext>
+  )
 }
 
-export const useSingleVacancy = () => {
-  const context = useContext(VacancyContext)
+/**
+ * Custom hook to access the vacancy match statuses context.
+ * It provides functions to manipulate columns (statuses) of a vacancy.
+ * 
+ * @throws {Error} Throws an error if the hook is used outside of the `VacancyMatchStatusesProvider`.
+ * 
+ * @returns The context value containing columns and manipulation functions.
+ * 
+ * @example
+ * ```tsx
+ * const { columns, moveColumn, addColumn } = useVacancyMatchStatuses();
+ * ```
+ 
+ */
+export const useVacancyMatchStatuses = () => {
+  const context = useContext(VacancyMatchStatusesContext)
   if (!context) {
-    throw new Error('useSingleVacancy must be used within SingleVacancyProvider')
+    throw new Error('useVacancyMatchStatuses must be used within VacancyMatchStatusesProvider')
   }
   return context
 }

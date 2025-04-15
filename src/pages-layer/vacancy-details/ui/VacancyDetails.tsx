@@ -1,8 +1,6 @@
 'use client'
-import { vacancyPositionsDict } from "@/entities/vacancy/lib/dictionary";
-import { VacancyForm } from "@/entities/vacancy";
+import { vacancyEpmpoymentDict, vacancyExperienceDict, VacancyForm, vacancyPositionsDict, vacancyWorkFormatDict } from "@/entities/vacancy";
 import { TVacancy } from "@/shared/api/types";
-import { vacancyEpmpoymentDict, vacancyExperienceDict, vacancyWorkFormatDict } from "@/shared/dictionaries";
 import { formatPrice } from "@/shared/lib/formatters/formatersIntl";
 import { filterFalsyFields } from "@/shared/lib/object_manipulations/filterFalsyFields";
 import { EditButton } from "@/shared/ui/buttons/EditButton";

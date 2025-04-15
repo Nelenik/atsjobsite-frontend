@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 
 import ArchiveIcon from '@/assets/icons/archive.svg?rc';
-import { useVacancies } from '@/shared/providers/VacanciesProvider';
+import { useVacancies } from '@/entities/vacancy';
 import { cn } from '@/shared/lib/utils';
 import { getTimePartsFromSec } from '@/shared/lib/date_time/getTimePartsFromSec';
 import { VacancyCard } from '@/entities/vacancy/ui/VacancyCard';

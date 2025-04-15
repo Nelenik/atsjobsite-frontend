@@ -1,116 +1,105 @@
 import { TVacancyShort } from "@/shared/api/types";
 import { DragStartEvent, DragEndEvent } from "@dnd-kit/core";
+import { useState } from "react";
 import { arrayMove } from "@dnd-kit/sortable";
-import { useState, useEffect } from "react";
-import { findItemStatus, isValidDragEvent } from "../lib/helpers";
+import { TGroupedVacancies } from "./types";
+import { useGroupedVacancies } from "./useGroupedVacancies";
+import { useUpdateVacancyAtServer } from "./useUpdateVacancyAtServer";
 
-export const useVacaniesBoard = (
-  groupedItems: Record<string, TVacancyShort[]>
-) => {
-  const [groups, setGroups] =
-    useState<Record<string, TVacancyShort[]>>(groupedItems);
+export const useVacaniesBoard = () => {
+  const { groups, updateGroups, isLoading } = useGroupedVacancies();
 
-  useEffect(() => {
-    setGroups(groupedItems);
-  }, [groupedItems]);
+  const { optimisticGroups, startUpdVacancyStatus } = useUpdateVacancyAtServer(
+    groups,
+    updateGroups
+  );
 
+  //dnd logic
   const [activeItem, setActiveItem] = useState<TVacancyShort | null>(null);
 
   const handleDragStart = (event: DragStartEvent) => {
     const { active } = event;
-    const activeVacancy =
-      Object.values(groups)
-        .flat()
-        .find((vacancy) => String(vacancy.id) === active.id) || null;
-
+    const activeVacancy = active.data.current?.vacancy;
     setActiveItem(activeVacancy);
   };
 
   const handleDragEnd = (event: DragEndEvent) => {
+    setActiveItem(null);
+    if (!groups) return;
     const { active, over } = event;
-    if (!isValidDragEvent(active, over)) return;
+    if (!active || !over || active.id === over.id) return;
 
+    const activeData = active.data.current;
+    const overData = over.data.current;
+
+    if (!activeData || !overData) return;
     //Ccheck active element and over zone
-    const isActiveItem = active.data.current?.type === "vac_item";
-    const isOverItem = over?.data?.current?.type === "vac_item";
-    const isOverColumn = over?.data?.current?.type === "vac_column";
+    const isActiveItem = activeData.type === "vac_item";
 
-    // If there is no active element, stop dragging
-    if (!isActiveItem) return;
-
-    const sourceColStatus = findItemStatus(groups, String(active.id));
-
-    const targetColStatus = isOverColumn
-      ? String(over.id)
-      : findItemStatus(groups, String(over?.id));
+    const sourceColStatus = Number(activeData.status_id);
+    const targetColStatus = Number(overData.status_id);
 
     if (!sourceColStatus || !targetColStatus) return;
 
+    //If thie item is moving
     if (isActiveItem) {
-      const draggableItem = Object.values(groups)
-        .flat()
-        .find((vac) => String(vac.id) === active.id);
+      const draggableItem = activeData.vacancy;
       if (!draggableItem) return;
 
-      //if element is over column
-      if (isOverColumn) {
-        setGroups((prev) => {
-          if (sourceColStatus === targetColStatus) return prev;
-          const sourceItems = [...prev[sourceColStatus]];
-          const targetItems = [...(prev[targetColStatus] || [])];
-          return {
-            ...prev,
-            [sourceColStatus]: sourceItems.filter(
-              (vac: TVacancyShort) => String(vac.id) !== active.id
-            ),
-            [targetColStatus]: [
-              ...targetItems,
-              { ...draggableItem, status: targetColStatus },
-            ],
-          };
-        });
-      } else if (isOverItem) {
-        //if element is over another element(item, card)
-        setGroups((prev) => {
-          const sourceItems = [...prev[sourceColStatus]];
-          const targetItems = [...(prev[targetColStatus] || [])];
+      const sourceItems = [...groups[sourceColStatus]];
+      const targetItems = [...(groups[targetColStatus] || [])];
 
-          const overIndex = over.data.current?.sortable.index ?? -1;
+      //find the active el index in sortable context and the over item index
+      const activeIndex = sourceItems.findIndex(
+        (el) => el.id === draggableItem.id
+      );
 
-          //if move item between columns ant is is over other item
-          if (sourceColStatus !== targetColStatus) {
-            return {
-              ...prev,
-              [sourceColStatus]: sourceItems.filter(
-                (item) => String(item.id) !== active.id
-              ),
-              [targetColStatus]: [
-                ...targetItems.slice(0, overIndex),
-                { ...draggableItem, status: targetColStatus },
-                ...targetItems.slice(overIndex),
-              ],
-            };
-          }
+      const overItem: TVacancyShort | undefined = overData.vacancy;
+      const overIndex: number = overItem
+        ? targetItems.findIndex((el) => el.id === overItem.id)
+        : targetItems.length;
 
-          const activeIndex = sourceItems.findIndex(
-            (item) => String(item.id) === active.id
+      const newGroups: TGroupedVacancies = { ...groups };
+
+      //in the same column
+      if (sourceColStatus === targetColStatus) {
+        if (
+          activeIndex !== -1 &&
+          overIndex !== -1 &&
+          activeIndex !== overIndex
+        ) {
+          newGroups[sourceColStatus] = arrayMove(
+            sourceItems,
+            activeIndex,
+            overIndex
           );
-
-          if (activeIndex === overIndex || overIndex === -1) return prev;
-          return {
-            ...prev,
-            [sourceColStatus]: arrayMove(sourceItems, activeIndex, overIndex),
-          };
-        });
+          updateGroups(newGroups);
+        }
+      } else {
+        // Remove from source column
+        newGroups[sourceColStatus] = sourceItems.filter(
+          (item) => item.id !== draggableItem.id
+        );
+        newGroups[targetColStatus] = [
+          ...targetItems.slice(0, overIndex),
+          { ...draggableItem, status_id: targetColStatus },
+          ...targetItems.slice(overIndex),
+        ];
+        startUpdVacancyStatus(
+          draggableItem.id,
+          draggableItem.name,
+          targetColStatus,
+          newGroups
+        );
       }
     }
-
-    setActiveItem(null);
   };
+
   return {
+    isLoading,
     handleDragStart,
     handleDragEnd,
     activeItem,
-    groups,
+    groups: optimisticGroups,
   };
 };

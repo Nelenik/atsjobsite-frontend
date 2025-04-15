@@ -1,32 +1,27 @@
 'use client'
 
-import { useStatuses } from "@/shared/providers/AppStatusesProvider"
 import { ScrollArea, ScrollBar } from "@/shared/ui/shadcn/scroll-area"
 import { DndContext, DragOverlay } from "@dnd-kit/core"
 import { SortableContext } from "@dnd-kit/sortable"
-import { FC } from "react"
 import { DndDroppable, DndSortable } from "@/features/dnd"
 import { cn } from "@/shared/lib/utils"
 import { useVacaniesBoard } from "../model/useVacanciesBoard"
 import { VacancyBoardCard } from "@/entities/vacancy/ui/VacancyBoardCard"
 import { TVacancyShort } from "@/shared/api/types"
 import { FunnelCard } from "@/shared/ui/FunnelCard"
+import { vacanciesDefaultStatuses } from "@/shared/constants/default-vacancy-statuses"
+import { BoardListSkeleton } from "@/shared/ui/skeletons/BoardSkeleton"
 
 
-type TProps = {
-  groupedItems: Record<string, TVacancyShort[]>
-}
-
-export const VacanciesBoard: FC<TProps> = ({ groupedItems }) => {
-
-  const appStatuses = useStatuses()
+export const VacanciesBoard = () => {
 
   const {
+    isLoading,
     handleDragEnd,
     handleDragStart,
     activeItem,
     groups
-  } = useVacaniesBoard(groupedItems)
+  } = useVacaniesBoard()
 
   return (
     <DndContext
@@ -34,43 +29,59 @@ export const VacanciesBoard: FC<TProps> = ({ groupedItems }) => {
       onDragEnd={handleDragEnd}
       id="vacanciesboard-context-id"
     >
-      <ScrollArea className="pb-4">
+      <ScrollArea className="p-2 border-2 rounded-xl">
         <div className="flex gap-4 w-full p-2 ">
-          {Object.entries(groups).map(([id, items]) => {
-            const colName = appStatuses.find(el => el.id === +id)?.name || 'Не задан'
+          {vacanciesDefaultStatuses.map((status) => {
+            const colName = status?.name || 'Не задан'
+            const items = groups?.[status.id] || []
             return (
               <div
-                key={id}
+                key={status.id}
                 className={cn(`flex flex-col gap-6 ring-2 ring-offset-4 rounded-lg ring-border w-1/5 min-w-[250px]`)}
               >
                 <FunnelCard
+                  color={status.color}
                   name={colName}
+                  isLoading={isLoading}
                   count={items?.length || 0}
                 />
                 <DndDroppable
-                  id={id}
-                  type="vac_column"
+                  droppableId={status.id}
+                  dndData={{
+                    type: "vac_column",
+                    status_id: status.id
+                  }}
                   className="flex flex-col gap-2 grow"
                 >
                   <ScrollArea className="h-[clamp(500px,65vh,800px)] px-2">
-                    <SortableContext items={(items || []).map(v => String(v.id))}>
+                    {
+                      isLoading
+                        ? <BoardListSkeleton count={5} />
+                        : <SortableContext items={(items || []).map(v => v.id)}>
 
-                      {(items || []).map((vacancy: TVacancyShort) => (
-                        <DndSortable
-                          sortableId={String(vacancy.id)}
-                          key={vacancy.id}
-                          dndData={{ type: "vac_item" }}
-                        >
-                          <VacancyBoardCard
-                            id={vacancy.id}
-                            name={vacancy.name}
-                            location={vacancy.location}
-                            salary_from={vacancy.salary_from}
-                            salary_to={vacancy.salary_to}
-                          />
-                        </DndSortable>
-                      ))}
-                    </SortableContext>
+                          {(items || []).map((vacancy: TVacancyShort) => (
+                            <DndSortable
+                              sortableId={vacancy.id}
+                              key={vacancy.id}
+                              dndData={{
+                                type: "vac_item",
+                                vacancy,
+                                status_id: vacancy.status_id
+                              }}
+                              enableGrip
+                            >
+                              <VacancyBoardCard
+                                id={vacancy.id}
+                                name={vacancy.name}
+                                location={vacancy.location}
+                                salary_from={vacancy.salary_from}
+                                salary_to={vacancy.salary_to}
+                              />
+                            </DndSortable>
+                          ))}
+                        </SortableContext>
+                    }
+
                     <ScrollBar className="w-2" />
                   </ScrollArea>
                 </DndDroppable>

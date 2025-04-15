@@ -1,9 +1,8 @@
 import { FC, Suspense } from 'react';
 import Link from 'next/link';
 import { getVacancy } from '@/shared/api/getData';
-import { SingleVacancyProvider } from '@/shared/providers/SingleVacancyProvider';
 import { MatchBoard } from '@/widgets/match-board';
-import { VacancySummaryCard } from '@/entities/vacancy';
+import { SingleVacancyProvider, VacancyMatchStatusesProvider, VacancySummaryCard } from '@/entities/vacancy';
 import { EditEntity } from '@/features/mutate-entity';
 import { TVacancy } from '@/shared/api/types';
 import { VacancyPageSkeleton } from '@/shared/ui/skeletons/VacancyPageSkeleton';
@@ -22,23 +21,25 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
     <Suspense fallback={<VacancyPageSkeleton />}>
 
       <SingleVacancyProvider vacancy={vacancy}>
+        <VacancyMatchStatusesProvider>
+          <div className="flex gap-6 flex-col relative">
+            <EditEntity<TVacancy>
+              className='absolute top-0 right-0 z-10' triggerView='icon'
+              initialData={vacancy}
+              entityType='vacancy'
+            />
 
-        <div className="flex gap-6 flex-col relative">
-          <EditEntity<TVacancy>
-            className='absolute top-0 right-0 z-10' triggerView='icon'
-            initialData={vacancy}
-            entityType='vacancy'
-          />
+            <Link
+              scroll={false}
+              href={`/dashboard/${companyId}/vacancyDetails/${vacancyId}?name=${vacancy.name}`}
+            >
+              <VacancySummaryCard />
+            </Link>
 
-          <Link
-            scroll={false}
-            href={`/dashboard/${companyId}/vacancyDetails/${vacancyId}?name=${vacancy.name}`}
-          >
-            <VacancySummaryCard />
-          </Link>
+            <MatchBoard />
+          </div>
+        </VacancyMatchStatusesProvider>
 
-          <MatchBoard />
-        </div>
       </SingleVacancyProvider>
     </Suspense>
   );
