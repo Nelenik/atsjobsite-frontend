@@ -4,16 +4,17 @@ import { useState } from "react";
 import { arrayMove } from "@dnd-kit/sortable";
 import { TGroupedVacancies } from "./types";
 import { useGroupedVacancies } from "./useGroupedVacancies";
+import { useUpdateVacancyAtServer } from "./useUpdateVacancyAtServer";
 
 export const useVacaniesBoard = () => {
   const { groups, updateGroups, isLoading } = useGroupedVacancies();
 
-  // const [groups, setGroups] = useState<TGroupedVacancies>(grouped);
+  const { optimisticGroups, startUpdVacancyStatus } = useUpdateVacancyAtServer(
+    groups,
+    updateGroups
+  );
 
-  // useEffect(() => {
-  //   setGroups(grouped);
-  // }, [grouped]);
-
+  //dnd logic
   const [activeItem, setActiveItem] = useState<TVacancyShort | null>(null);
 
   const handleDragStart = (event: DragStartEvent) => {
@@ -31,20 +32,12 @@ export const useVacaniesBoard = () => {
     const activeData = active.data.current;
     const overData = over.data.current;
 
-    console.log("activeData", active);
-    console.log("over", over);
-
     if (!activeData || !overData) return;
     //Ccheck active element and over zone
     const isActiveItem = activeData.type === "vac_item";
-    // const isOverItem = overData.type === "vac_item";
-    // const isOverColumn = overData.type === "vac_column";
 
-    // If there is no active element, stop dragging
-    if (!isActiveItem) return;
-
-    const sourceColStatus = activeData.status_id;
-    const targetColStatus = overData.status_id;
+    const sourceColStatus = Number(activeData.status_id);
+    const targetColStatus = Number(overData.status_id);
 
     if (!sourceColStatus || !targetColStatus) return;
 
@@ -52,8 +45,6 @@ export const useVacaniesBoard = () => {
     if (isActiveItem) {
       const draggableItem = activeData.vacancy;
       if (!draggableItem) return;
-
-      const overItem: TVacancyShort | undefined = overData.vacancy;
 
       const sourceItems = [...groups[sourceColStatus]];
       const targetItems = [...(groups[targetColStatus] || [])];
@@ -63,100 +54,45 @@ export const useVacaniesBoard = () => {
         (el) => el.id === draggableItem.id
       );
 
-      const overIndex = overItem
+      const overItem: TVacancyShort | undefined = overData.vacancy;
+      const overIndex: number = overItem
         ? targetItems.findIndex((el) => el.id === overItem.id)
-        : undefined;
+        : targetItems.length;
 
       const newGroups: TGroupedVacancies = { ...groups };
 
       //in the same column
       if (sourceColStatus === targetColStatus) {
-        if (overIndex !== undefined && activeIndex !== overIndex) {
+        if (
+          activeIndex !== -1 &&
+          overIndex !== -1 &&
+          activeIndex !== overIndex
+        ) {
           newGroups[sourceColStatus] = arrayMove(
             sourceItems,
             activeIndex,
             overIndex
           );
+          updateGroups(newGroups);
         }
       } else {
         // Remove from source column
         newGroups[sourceColStatus] = sourceItems.filter(
           (item) => item.id !== draggableItem.id
         );
-        if (overIndex !== undefined) {
-          // Add at specific position
-          newGroups[targetColStatus] = [
-            ...targetItems.slice(0, overIndex),
-            { ...draggableItem, status_id: Number(targetColStatus) },
-            ...targetItems.slice(overIndex),
-          ];
-        } else {
-          // Add to end of column
-          newGroups[targetColStatus] = [
-            ...targetItems,
-            { ...draggableItem, status_id: Number(targetColStatus) },
-          ];
-        }
+        newGroups[targetColStatus] = [
+          ...targetItems.slice(0, overIndex),
+          { ...draggableItem, status_id: targetColStatus },
+          ...targetItems.slice(overIndex),
+        ];
+        startUpdVacancyStatus(
+          draggableItem.id,
+          draggableItem.name,
+          targetColStatus,
+          newGroups
+        );
       }
-      updateGroups(newGroups);
     }
-
-    // if (isActiveItem) {
-    //   const draggableItem = activeData.vacancy;
-    //   if (!draggableItem) return;
-
-    //   //if element is over column
-    //   if (isOverColumn) {
-    //     setGroups((prev) => {
-    //       if (sourceColStatus === targetColStatus) return prev;
-    //       const sourceItems = [...prev[sourceColStatus]];
-    //       const targetItems = [...(prev[targetColStatus] || [])];
-    //       return {
-    //         ...prev,
-    //         [sourceColStatus]: sourceItems.filter(
-    //           (vac: TVacancyShort) => vac.id !== draggableItem.id
-    //         ),
-    //         [targetColStatus]: [
-    //           ...targetItems,
-    //           { ...draggableItem, status_id: targetColStatus },
-    //         ],
-    //       };
-    //     });
-    //   } else if (isOverItem) {
-    //     //if element is over another element(item, card)
-    //     setGroups((prev) => {
-    //       const sourceItems = [...prev[sourceColStatus]];
-    //       const targetItems = [...(prev[targetColStatus] || [])];
-
-    //       const overIndex = overData.sortable.index ?? -1;
-
-    //       //if move item between columns ant is is over other item
-    //       if (sourceColStatus !== targetColStatus) {
-    //         return {
-    //           ...prev,
-    //           [sourceColStatus]: sourceItems.filter(
-    //             (item) => item.id !== draggableItem.id
-    //           ),
-    //           [targetColStatus]: [
-    //             ...targetItems.slice(0, overIndex),
-    //             { ...draggableItem, status_id: targetColStatus },
-    //             ...targetItems.slice(overIndex),
-    //           ],
-    //         };
-    //       }
-
-    //       const activeIndex = sourceItems.findIndex(
-    //         (item) => item.id === draggableItem.id
-    //       );
-
-    //       if (activeIndex === overIndex || overIndex === -1) return prev;
-    //       return {
-    //         ...prev,
-    //         [sourceColStatus]: arrayMove(sourceItems, activeIndex, overIndex),
-    //       };
-    //     });
-    //   }
-    // }
   };
 
   return {
@@ -164,6 +100,6 @@ export const useVacaniesBoard = () => {
     handleDragStart,
     handleDragEnd,
     activeItem,
-    groups,
+    groups: optimisticGroups,
   };
 };
