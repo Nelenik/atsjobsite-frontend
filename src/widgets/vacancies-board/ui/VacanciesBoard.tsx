@@ -29,7 +29,7 @@ export const VacanciesBoard = () => {
       onDragEnd={handleDragEnd}
       id="vacanciesboard-context-id"
     >
-      <ScrollArea className="pb-4">
+      <ScrollArea className="p-2 border-2 rounded-xl">
         <div className="flex gap-4 w-full p-2 ">
           {vacanciesDefaultStatuses.map((status) => {
             const colName = status?.name || 'Не задан'
