@@ -1,20 +1,27 @@
+'use client'
+import { useFormMutation } from "@/shared/model/hooks/useFormMutation";
 import { StartPageButton } from "@/shared/ui/buttons/StartPageButtons";
 import FormItem from "@/shared/ui/FormItem";
 import { Input } from "@/shared/ui/shadcn/input";
+import { signin } from "../api/auth-actions";
 
 export const SignInForm = () => {
+  const { formAction, pending } = useFormMutation({
+    mutationAction: signin
+  })
   return (
-    <form className="flex flex-col justify-between grow gap-8">
+    <form action={formAction} className="flex flex-col justify-between grow gap-8">
       <FormItem
-        labelText="Логин *"
+        labelText="Email *"
 
       // error={errors?.name}
       >
 
         <Input
-          placeholder="Введите логин"
+          placeholder="example@mail.com"
+          type="email"
           required
-          name="login"
+          name="email"
         // defaultValue={defaultValues?.name}
         // className={errors?.name && 'ring-2 ring-destructive'}
         // onChange={onChange}
@@ -27,6 +34,7 @@ export const SignInForm = () => {
       >
         <Input
           placeholder="Введите пароль"
+          type='password'
           required
           name="password"
         // defaultValue={defaultValues?.inn}
@@ -39,7 +47,7 @@ export const SignInForm = () => {
       <StartPageButton
         type="submit"
       >
-        Войти в админ панель
+        {pending ? "Авторизация..." : "Войти в админ панель"}
       </StartPageButton>
     </form>
   );

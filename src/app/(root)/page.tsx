@@ -3,8 +3,7 @@ import logoImg from '@/assets/logo.webp';
 import Link from "next/link";
 import { StartPageButton } from "@/shared/ui/buttons/StartPageButtons";
 import { cn } from "@/shared/lib/utils";
-import { AuthTabs } from "@/pages-layer/start-page";
-import { Features } from "@/pages-layer/start-page";
+import { AuthTabs, Features } from "@/pages-layer/start-page";
 
 
 
