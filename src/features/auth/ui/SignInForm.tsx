@@ -6,8 +6,9 @@ import { Input } from "@/shared/ui/shadcn/input";
 import { signin } from "../api/auth-actions";
 
 export const SignInForm = () => {
-  const { formAction, pending } = useFormMutation({
-    mutationAction: signin
+  const { formAction, pending, defaultValues } = useFormMutation({
+    mutationAction: signin,
+
   })
   return (
     <form action={formAction} className="flex flex-col justify-between grow gap-8">
@@ -22,7 +23,7 @@ export const SignInForm = () => {
           type="email"
           required
           name="email"
-        // defaultValue={defaultValues?.name}
+          defaultValue={defaultValues?.email}
         // className={errors?.name && 'ring-2 ring-destructive'}
         // onChange={onChange}
         />
@@ -37,7 +38,7 @@ export const SignInForm = () => {
           type='password'
           required
           name="password"
-        // defaultValue={defaultValues?.inn}
+          defaultValue={defaultValues?.password}
         // className={cn(errors?.inn && 'ring-2 ring-destructive')}
         // onChange={onChange}
         />
