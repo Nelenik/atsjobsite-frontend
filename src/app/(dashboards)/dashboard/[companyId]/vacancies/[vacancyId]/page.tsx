@@ -6,6 +6,7 @@ import { SingleVacancyProvider, VacancyMatchStatusesProvider, VacancySummaryCard
 import { EditEntity } from '@/features/mutate-entity';
 import { TVacancy } from '@/shared/api/types';
 import { VacancyPageSkeleton } from '@/shared/ui/skeletons/VacancyPageSkeleton';
+import { AddMatchesForm } from '@/features/add-matches/ui/AddMatchesForm';
 
 
 type TProps = {
@@ -35,7 +36,7 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
             >
               <VacancySummaryCard />
             </Link>
-
+            <AddMatchesForm vacancyId={vacancyId} />
             <MatchBoard />
           </div>
         </VacancyMatchStatusesProvider>

@@ -11,17 +11,37 @@ type TGoodRequest<T> = {
 };
 
 type TMutateOptions = {
+  body?: FormData;
   method?: "POST" | "PUT" | "PATCH";
   enableResponseData?: boolean;
   withAuth?: boolean;
 };
 
+/**
+ * Performs a mutation (e.g., form submission) to the provided URL using the specified HTTP method.
+ * Designed to work with `FormData`, with support for typed response handling and error extraction.
+ *
+ * @template T - The expected shape of the successful response data.
+ *
+ * @param {string} url - The API endpoint to send the request to.
+ * @param {TMutateOptions} [mutateOptions] - Configuration options for the mutation:
+ *   - `body`: Optional `FormData` to be sent with the request.
+ *   - `method`: HTTP method (`POST`, `PUT`, or `PATCH`). Defaults to `"POST"`.
+ *   - `enableResponseData`: If `true`, extracts and returns typed data from the response.
+ *   - `withAuth`: Whether to include authentication headers. Defaults to `true`.
+ *
+ * @returns {Promise<TMutationState<T>>} - The result of the mutation, including error info and payload.
+ * If `enableResponseData` is `true` and the response is successful, the payload will contain typed data of type `T`.
+ * If an error occurs, the payload will contain the original `FormData` to preserve user input.
+ */
+
 export const mutateAction = async <T = unknown>(
   url: string,
-  body: FormData,
+  // body: FormData,
   mutateOptions: TMutateOptions = {}
 ) => {
   const {
+    body = new FormData(),
     method = "POST",
     enableResponseData = false,
     withAuth = true,

@@ -10,7 +10,7 @@ import convertToFormData from "../lib/object_manipulations/convertToFormData";
 import { getSyntheticError } from "./common/errors";
 
 export const storeCompany = async (_: TMutationState, body: FormData) => {
-  const result = await mutateAction("/company", body);
+  const result = await mutateAction("/company", { body });
   if (!result.error) {
     revalidatePath("/dashboard/[companyId]", "layout");
   }
@@ -18,7 +18,7 @@ export const storeCompany = async (_: TMutationState, body: FormData) => {
 };
 
 export const storeCv = async (_: TMutationState, body: FormData) => {
-  const result = await mutateAction("/cv", body);
+  const result = await mutateAction("/cv", { body });
   if (!result.error) {
     revalidatePath("/dashboard/[companyId]/reserve", "page");
   }
@@ -50,7 +50,7 @@ export const storeVacancy = async (_: TMutationState, body: FormData) => {
     }
   });
 
-  const result = await mutateAction("/vacancy", body);
+  const result = await mutateAction("/vacancy", { body });
   if (!result.error) {
     revalidatePath("/dashboard/[companyId]/vacancies", "layout");
     revalidatePath("/dashboard/[companyId]/vacancies/[vacancyId]", "layout");
@@ -63,7 +63,8 @@ export const storeStatus = async (
   _: TMutationState | null,
   body: FormData
 ): Promise<TMutationState<TStatus>> => {
-  const result = await mutateAction<TStatus>("/status", body, {
+  const result = await mutateAction<TStatus>("/status", {
+    body,
     enableResponseData: true,
   });
   return result;
@@ -74,9 +75,8 @@ export const storeMatchComment = async (
   _: TMutationState | null,
   body: FormData
 ) => {
-  const result = await mutateAction<TComment>(
-    `/match/${matchId}/comment`,
-    body
-  );
+  const result = await mutateAction<TComment>(`/match/${matchId}/comment`, {
+    body,
+  });
   return result;
 };

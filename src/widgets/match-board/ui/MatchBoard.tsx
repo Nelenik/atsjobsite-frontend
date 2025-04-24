@@ -46,7 +46,6 @@ export const MatchBoard = () => {
                   status_id={col.id}
                   title={col.name}
                   className={cn(`w-1/${columns.length}`)}
-                  isEditable={col.id !== 1}
                 />
               </DndSortable>
             ))}
