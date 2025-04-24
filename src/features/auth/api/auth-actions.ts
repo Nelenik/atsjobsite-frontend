@@ -24,7 +24,8 @@ const setCookie = async (token: string) => {
 };
 
 export const signin = async (_: TMutationState, body: FormData) => {
-  const response = await mutateAction<TAuthData>("/auth/sign-in", body, {
+  const response = await mutateAction<TAuthData>("/auth/sign-in", {
+    body,
     withAuth: false,
     enableResponseData: true,
   });
