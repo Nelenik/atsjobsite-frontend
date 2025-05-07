@@ -47,7 +47,7 @@ export const CompaniesTable: FC<TProps> = ({
                 {company.rate}
               </TableCell>
               <TableCell className="font-medium text-left text-sm">
-                {format(new Date(company.rate_at), "dd.MM.yyyy")}
+                {company.rate_at ? format(new Date(company.rate_at), "dd.MM.yyyy") : 'Дата оплаты не указана'}
               </TableCell>
               <TableCell>
                 <EditEntity
