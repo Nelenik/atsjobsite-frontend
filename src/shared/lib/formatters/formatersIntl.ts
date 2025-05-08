@@ -61,5 +61,6 @@ export const formatNumber = (
 ): string => {
   return new Intl.NumberFormat(locale, {
     minimumFractionDigits: minFractionDigits,
+    maximumFractionDigits: minFractionDigits,
   }).format(number);
 };

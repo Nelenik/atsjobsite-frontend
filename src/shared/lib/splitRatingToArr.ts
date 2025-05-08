@@ -7,7 +7,7 @@
  * - The remaining stars are filled with `0`.
  *
  * @param {number} rating - The rating to be split into an array (can be a decimal number).
- * @param {number} [minCountOfStars=5] - The minimum number of stars to return, defaults to 5.
+ * @param {number} [minCountOfStars=8] - The minimum number of stars to return, defaults to 5.
  * @returns {{fullness:number, id:string}[]} An array of objects, where each object has:
  *          - `fullness`: A number indicating the star's value (1 for full stars, fractional for partial stars, and 0 for empty stars).
  *          - `id`: A unique string identifier for the star.
@@ -27,7 +27,7 @@
  */
 export const splitRatingToArr = (
   rating: number,
-  minCountOfStars: number = 5
+  minCountOfStars: number = 8
 ): { fullness: number; id: string }[] => {
   const intPart = Math.floor(rating);
   const decimalPart = parseFloat((rating % 1).toFixed(1));
