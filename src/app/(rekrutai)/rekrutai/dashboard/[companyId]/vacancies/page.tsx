@@ -7,7 +7,7 @@ import { VacanciesBoard } from '@/widgets/vacancies-board';
 
 const VacanciesPage = () => {
   return (
-    <div className="flex flex-col gap-6 h-full">
+    <div className="flex flex-col gap-6 h-full pb-8">
       <AddEntity entityType='vacancy' className="lg:w-max ml-auto" />
       <VacanciesBoard />
     </div>
