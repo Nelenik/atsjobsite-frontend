@@ -36,6 +36,14 @@ export const apiGet = async <T = unknown>(
     // cache: "force-cache",
   });
 
+  if (!response.ok) {
+    const error = new Error(
+      `GET ${url} failed: ${response.status} ${response.statusText}`
+    );
+    error.name = "APIError";
+    error.cause = response.status;
+    throw error;
+  }
   return response.json();
 };
 

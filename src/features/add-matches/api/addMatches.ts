@@ -1,9 +1,9 @@
 "use server";
 
 import { apiGet } from "@/shared/api/common/api";
-import { getSyntheticError, TBadRequest } from "@/shared/api/common/errors";
+import { getSyntheticError } from "@/shared/api/common/errors";
 // import { mutateAction } from "@/shared/api/common/mutate";
-import { TGoodRequest } from "@/shared/api/common/success";
+// import { TGoodRequest } from "@/shared/api/common/success";
 
 // This action triggers the match creation flow to get additional matches for the vacancy.
 // export const addMatches = async (
@@ -21,17 +21,7 @@ import { TGoodRequest } from "@/shared/api/common/success";
 
 export const addMatches = async (vacancyId: number | string) => {
   try {
-    const response: TBadRequest | TGoodRequest<unknown> = await apiGet(
-      `/vacancy/${vacancyId}/refresh`
-    );
-
-    if (response && "errorType" in response) {
-      return {
-        sent: true,
-        error: getSyntheticError("Ошибка при добавлении мэтчей"),
-      };
-    }
-
+    await apiGet(`/vacancy/${vacancyId}/refresh`);
     return {
       sent: true,
       error: null,
@@ -40,7 +30,7 @@ export const addMatches = async (vacancyId: number | string) => {
     console.error(error);
     return {
       sent: true,
-      error: getSyntheticError("Ошибка запроса", 500),
+      error: getSyntheticError("Ошибка при добавлении мэтчей"),
     };
   }
 };

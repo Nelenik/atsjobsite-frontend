@@ -54,9 +54,11 @@ export const getCompaniesList = async (
     };
   } catch (error) {
     console.error(error);
-    throw new Error(
-      "Не удалось загрузить список компаний. Пожалуйста, попробуйте позже."
-    );
+    if (error instanceof Error) {
+      error.message =
+        "Не удалось загрузить список компаний. Пожалуйста, попробуйте позже.";
+    }
+    throw error;
   }
 };
 
@@ -68,9 +70,11 @@ export const getCompany = async (id: number | string) => {
     return response.data;
   } catch (error) {
     console.error(error);
-    throw new Error(
-      "Не удалось загрузить компанию. Пожалуйста, попробуйте позже."
-    );
+    if (error instanceof Error) {
+      error.message =
+        "Не удалось загрузить компанию. Пожалуйста, попробуйте позже.";
+    }
+    throw error;
   }
 };
 
@@ -90,9 +94,11 @@ export const getResumeList = async (filters: Record<string, string> = {}) => {
     };
   } catch (error) {
     console.error(error);
-    throw new Error(
-      "Не удалось загрузить резервный список. Пожалуйста, попробуйте позже."
-    );
+    if (error instanceof Error) {
+      error.message =
+        "Не удалось загрузить список резюме. Пожалуйста, попробуйте позже.";
+    }
+    throw error;
   }
 };
 
@@ -102,9 +108,11 @@ export const getResumeById = async (id: number | string): Promise<TResume> => {
     return response.data;
   } catch (error) {
     console.error(error);
-    throw new Error(
-      "Не удалось загрузить резюме. Пожалуйста, попробуйте позже."
-    );
+    if (error instanceof Error) {
+      error.message =
+        "Не удалось загрузить резюме. Пожалуйста, попробуйте позже.";
+    }
+    throw error;
   }
 };
 
@@ -124,9 +132,11 @@ export const getVacanciesList = async ({
     // return SVacancyList.parse(response.data);
   } catch (error) {
     console.error(error);
-    throw new Error(
-      "Не удалось загрузить вакансии. Пожалуйста, попробуйте позже."
-    );
+    if (error instanceof Error) {
+      error.message =
+        "Не удалось загрузить список вакансий. Пожалуйста, попробуйте позже.";
+    }
+    throw error;
   }
 };
 
@@ -139,9 +149,11 @@ export const getVacancy = async (id: number | string): Promise<TVacancy> => {
     // return SVacancy.parse(response.data);
   } catch (error) {
     console.error(error);
-    throw new Error(
-      "Не удалось загрузить вакансию. Пожалуйста, попробуйте позже."
-    );
+    if (error instanceof Error) {
+      error.message =
+        "Не удалось загрузить вакансию. Пожалуйста, попробуйте позже.";
+    }
+    throw error;
   }
 };
 
@@ -153,9 +165,11 @@ export const getVacancyPositions = async (): Promise<string[]> => {
     return response.data || [];
   } catch (error) {
     console.log(error);
-    throw new Error(
-      "Не удалось загрузить позиции. Пожалуйста, попробуйте позже."
-    );
+    if (error instanceof Error) {
+      error.message =
+        "Не удалось загрузить позиции вакансий. Пожалуйста, попробуйте позже.";
+    }
+    throw error;
   }
 };
 
@@ -172,9 +186,11 @@ export const getBasicCandidatesByStatus = async (
     return response.data.toSorted((a, b) => b.match_point - a.match_point);
   } catch (error) {
     console.error(error);
-    throw new Error(
-      "Не удалось загрузить кандидатов. Пожалуйста, попробуйте позже."
-    );
+    if (error instanceof Error) {
+      error.message =
+        "Не удалось загрузить кандидатов. Пожалуйста, попробуйте позже.";
+    }
+    throw error;
   }
 };
 
@@ -188,9 +204,11 @@ export const getCandidateFull = async (matchId: number) => {
     return response.data;
   } catch (error) {
     console.error(error);
-    throw new Error(
-      "Не удалось загрузить информацию о кандидате. Пожалуйста, попробуйте позже."
-    );
+    if (error instanceof Error) {
+      error.message =
+        "Не удалось загрузить информацию о кандидате. Пожалуйста, попробуйте позже.";
+    }
+    throw error;
   }
 };
 
@@ -202,9 +220,11 @@ export const getTariffs = async (): Promise<TTariff[]> => {
     return response.data;
   } catch (error) {
     console.error(error);
-    throw new Error(
-      "Не удалось загрузить тарифы. Пожалуйста, попробуйте позже."
-    );
+    if (error instanceof Error) {
+      error.message =
+        "Не удалось загрузить тарифы. Пожалуйста, попробуйте позже.";
+    }
+    throw error;
   }
 };
 
@@ -215,9 +235,11 @@ export const getStatuses = async () => {
     return response.data;
   } catch (error) {
     console.error(error);
-    throw new Error(
-      "Не удалось загрузить статусы. Пожалуйста, попробуйте позже."
-    );
+    if (error instanceof Error) {
+      error.message =
+        "Не удалось загрузить статусы. Пожалуйста, попробуйте позже.";
+    }
+    throw error;
   }
 };
 
@@ -237,8 +259,10 @@ export const getMatchCommentList = async (
     };
   } catch (error) {
     console.error(error);
-    throw new Error(
-      "Не удалось загрузить комментарии к мэтчу. Пожалуйста, попробуйте позже."
-    );
+    if (error instanceof Error) {
+      error.message =
+        "Не удалось загрузить комментарии к мэтчу. Пожалуйста, попробуйте позже.";
+    }
+    throw error;
   }
 };
