@@ -52,12 +52,12 @@ const defineBreadcrumbsPaths: DefineBreadcrumbsPaths = (breadcrumbsMapping, path
   return breadcrumbsPaths;
 };
 
-const useBreadcrumbs = (tenat: string) => {
+const useBreadcrumbs = (tenant: string) => {
   const pathname = usePathname() as string
   const searchParams = useSearchParams() as ReadonlyURLSearchParams
 
   // Get breadcrumbs mapping based on current tenat
-  const currentMapping = getBreadcrumbMapping(tenat)
+  const currentMapping = getBreadcrumbMapping(tenant)
 
   return defineBreadcrumbsPaths(currentMapping, pathname, searchParams)
 }

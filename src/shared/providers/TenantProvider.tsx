@@ -25,7 +25,7 @@ export const TenantProvider = ({ children, tenant }: TProps) => {
 export const useTenant = () => {
   const context = useContext(TenantContext)
   if (!context) {
-    throw new Error('useTenat must be used within TenatProvider')
+    throw new Error('useTenant must be used within TenantProvider')
   }
   return context
 }

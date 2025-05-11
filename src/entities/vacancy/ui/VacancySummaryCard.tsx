@@ -50,7 +50,7 @@ export const VacancySummaryCard = () => {
           </span>
           <StatusBadge
             color={vacancyStatus.color}
-            className={cn('py-0 px-1')}
+            className={cn('py-0 px-1 shrink-0')}
           >
             {vacancyStatus.name.toLowerCase()}
           </StatusBadge>

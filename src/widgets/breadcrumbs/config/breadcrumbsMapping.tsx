@@ -18,7 +18,7 @@ import { jobsitePathMapping } from "./jobsite.pathMapping";
  * @example
  * const breadcrumbs = getBreadcrumbMapping("rekrutai.example.com");
  */
-export const getBreadcrumbMapping = (tenat: string) => {
+export const getBreadcrumbMapping = (tenant: string) => {
   // Get the allowed hosts from environment variables.
   // These are the expected hosts for the two sites: rekrutai and jobsite.
   const rekrutaiHost = process.env.NEXT_PUBLIC_REKRUTAI_HOST || "";
@@ -27,7 +27,7 @@ export const getBreadcrumbMapping = (tenat: string) => {
     [rekrutaiHost]: rekrutaiPathMapping,
     [jobsiteHost]: jobsitePathMapping
   }
-  return hostMapping[tenat] || []
+  return hostMapping[tenant] || []
 }
 
 // export const breadcrumbsMapping: IBreadcrumbPattern[] = [

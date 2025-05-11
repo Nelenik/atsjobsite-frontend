@@ -4,15 +4,15 @@ import React from "react";
 import useBreadcrumbs from "../model/useBreadcrumbs";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbSeparator } from "@/shared/ui/shadcn/breadcrumb";
 import { cn } from "@/shared/lib/utils";
-import { useTenat } from "@/shared/providers/TenantProvider";
+import { useTenant } from "@/shared/providers/TenantProvider";
 
 type TProps = {
   className?: string
 }
 
 export const Breadcrumbs = ({ className }: TProps) => {
-  const { tenat } = useTenat()
-  const breadcrumbPaths = useBreadcrumbs(tenat)
+  const { tenant } = useTenant()
+  const breadcrumbPaths = useBreadcrumbs(tenant)
   return (
     <Breadcrumb className={className}>
       <BreadcrumbList className="gap-2 sm:gap-2">
