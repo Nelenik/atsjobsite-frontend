@@ -5,7 +5,7 @@ export type TUser = {
   profile_image?: string;
 };
 
-export type TAuthorized = { isAuthorized: true; user: TUser };
-export type TUnauthorized = { isAuthorized: false };
+export type TAuthorized = { isAuthorized: boolean; user: TUser };
+export type TUnauthorized = { isAuthorized: boolean };
 
-export type TSession = TAuthorized | TUnauthorized;
+export type TSession = { isAuthorized: boolean; user?: TUser };

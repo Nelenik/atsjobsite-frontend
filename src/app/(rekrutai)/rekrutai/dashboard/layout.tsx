@@ -3,6 +3,7 @@ import QueryProvider from '@/shared/providers/QueryProvider';
 import { Toaster } from '@/shared/ui/shadcn/toaster';
 import { getSession, SessionPovider } from '@/features/auth';
 import { signout } from '@/features/auth/api/auth-actions';
+import { TAuthorized } from '@/shared/api/types';
 
 export const metadata: Metadata = {
   title: 'RekrutAI|Дашборд',
@@ -30,7 +31,7 @@ export default async function AppLayout({
     <div
       className={`overflow-x-hidden`}
     >
-      <SessionPovider session={session}>
+      <SessionPovider session={session as TAuthorized}>
         <QueryProvider>
 
           {children}

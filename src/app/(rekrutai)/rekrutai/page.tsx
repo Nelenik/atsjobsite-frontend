@@ -6,11 +6,12 @@ import { cn } from "@/shared/lib/utils";
 import { AuthTabs, Features } from "@/pages-layer/start-page";
 import { SignOutForm } from "@/features/auth";
 import { getSession } from "@/features/auth";
+import { Greeting } from "@/pages-layer/start-page/ui/Greeting";
 
 
 
 export default async function RekrutaiHome() {
-  const { isAuthorized } = await getSession()
+  const { isAuthorized, user } = await getSession()
   return (
     <>
       <header className="absolute top-0 left-0 w-full">
@@ -47,10 +48,15 @@ export default async function RekrutaiHome() {
           "md-lg:w-[50%] md-lg:pt-40 md-lg:pb-0"
         )}>
           <div className={cn(
-            "w-full flex justify-center",
+            "w-full flex justify-center ",
             "md-lg:max-w-[600px] px-6 md-lg:ml-auto "
           )}>
-            <AuthTabs />
+            {isAuthorized ?
+              <Greeting
+                userName={user?.name || ''} />
+
+              : <AuthTabs />}
+
           </div>
         </div>
         <div className={cn(
