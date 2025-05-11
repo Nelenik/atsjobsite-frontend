@@ -2,7 +2,7 @@
 
 import { createContext, ReactNode, useContext } from "react"
 
-export const TenatContext = createContext<{ tenat: string } | null>(null)
+export const TenantContext = createContext<{ tenant: string } | null>(null)
 
 /**
  * Is used for sharing current tenat through components
@@ -10,20 +10,20 @@ export const TenatContext = createContext<{ tenat: string } | null>(null)
 
 type TProps = {
   children: ReactNode,
-  tenat: string
+  tenant: string
 }
 
-export const TenatProvider = ({ children, tenat }: TProps) => {
+export const TenantProvider = ({ children, tenant }: TProps) => {
 
-  return (<TenatContext value={{
-    tenat
+  return (<TenantContext value={{
+    tenant
   }}>
     {children}
-  </TenatContext>)
+  </TenantContext>)
 }
 
-export const useTenat = () => {
-  const context = useContext(TenatContext)
+export const useTenant = () => {
+  const context = useContext(TenantContext)
   if (!context) {
     throw new Error('useTenat must be used within TenatProvider')
   }

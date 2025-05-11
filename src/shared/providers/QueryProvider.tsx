@@ -1,7 +1,7 @@
 'use client'
 import { QueryClientProvider, QueryClient, isServer } from "@tanstack/react-query";
-import { ReactNode } from "react";
-import { useTenat } from "./TenatProvider";
+import { ReactNode, useEffect, useMemo } from "react";
+import { useTenant } from "./TenantProvider";
 
 function makeQueryClient() {
   return new QueryClient({
@@ -16,10 +16,13 @@ function makeQueryClient() {
 }
 
 //Caching clients for different tenats
-const browserQueryClients: Record<string, QueryClient> = {};
+//  Map is used to store the query clients for each tenant
+const browserQueryClients = new Map<string, QueryClient>();
 
-function getQueryClient(tenat: string) {
-  if (isServer) {
+function getQueryClient(tenant: string) {
+  if (isServer || typeof window === "undefined") {
+    // NOTE: This is a workaround for the fact that the QueryClientProvider
+    // doesn't work with SSR in Next.js. 
     // Server: always make a new query client
     return makeQueryClient()
   } else {
@@ -27,8 +30,10 @@ function getQueryClient(tenat: string) {
     // This is very important, so we don't re-make a new client if React
     // suspends during the initial render. This may not be needed if we
     // have a suspense boundary BELOW the creation of the query client
-    if (!browserQueryClients[tenat]) browserQueryClients[tenat] = makeQueryClient()
-    return browserQueryClients[tenat]
+    if (!browserQueryClients.has(tenant)) {
+      browserQueryClients.set(tenant, makeQueryClient());
+    }
+    return browserQueryClients.get(tenant)!;
   }
 }
 
@@ -37,8 +42,14 @@ const QueryProvider = ({ children }: { children: ReactNode }) => {
   //       have a suspense boundary between this and the code that may
   //       suspend because React will throw away the client on the initial
   //       render if it suspends and there is no boundary
-  const { tenat } = useTenat()
-  const queryClient = getQueryClient(tenat)
+  const { tenant } = useTenant()
+  const queryClient = useMemo(() => getQueryClient(tenant), [tenant]);
+
+  useEffect(() => {
+    // Reset the cache when the tenant changes    
+    queryClient.clear()
+  }
+    , [queryClient, tenant])
 
   return (
     <QueryClientProvider client={queryClient}>

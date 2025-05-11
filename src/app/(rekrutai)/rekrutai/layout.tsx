@@ -25,8 +25,8 @@ import localFont from "next/font/local";
 import "../../globals.css";
 import type { Metadata } from "next";
 import { Toaster } from "@/shared/ui/shadcn/toaster";
-import { TenatProvider } from "@/shared/providers/TenatProvider";
-import { getTenat } from "@/app/_actions/getTenat";
+import { TenantProvider } from "@/shared/providers/TenantProvider";
+import { getTenant } from "@/app/_actions/getTenant";
 
 const geistSans = localFont({
   src: "../../fonts/GeistVF.woff",
@@ -55,17 +55,17 @@ export default async function RekrutaiLayout({
   children: React.ReactNode;
 }>) {
   //Determine current tenat and pass it to TenatProvider
-  const tenat = await getTenat()
+  const tenant = await getTenant()
 
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <TenatProvider tenat={tenat}>
+        <TenantProvider tenant={tenant}>
 
           {children}
-        </TenatProvider>
+        </TenantProvider>
         <Toaster />
       </body>
     </html>

@@ -4,7 +4,7 @@ import React from "react";
 import useBreadcrumbs from "../model/useBreadcrumbs";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbSeparator } from "@/shared/ui/shadcn/breadcrumb";
 import { cn } from "@/shared/lib/utils";
-import { useTenat } from "@/shared/providers/TenatProvider";
+import { useTenat } from "@/shared/providers/TenantProvider";
 
 type TProps = {
   className?: string

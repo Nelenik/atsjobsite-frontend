@@ -4,10 +4,10 @@ import "../../globals.css";
 import { Toaster } from "@/shared/ui/shadcn/toaster";
 import { JobsiteHeader } from "@/widgets/jobsite-nav";
 import QueryProvider from "@/shared/providers/QueryProvider";
-import { getTenat } from "@/app/_actions/getTenat";
+import { getTenant } from "@/app/_actions/getTenant";
 import { Breadcrumbs } from "@/widgets/breadcrumbs";
 import { cn } from "@/shared/lib/utils";
-import { TenatProvider } from "@/shared/providers/TenatProvider";
+import { TenantProvider } from "@/shared/providers/TenantProvider";
 
 const geistSans = localFont({
   src: "../../fonts/GeistVF.woff",
@@ -36,14 +36,14 @@ export default async function JobSiteLayout({
   children: React.ReactNode;
 }>) {
 
-  const tenat = await getTenat()
+  const tenant = await getTenant()
 
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <TenatProvider tenat={tenat}>
+        <TenantProvider tenant={tenant}>
           <QueryProvider>
             <JobsiteHeader
               className="mb-6"
@@ -64,7 +64,7 @@ export default async function JobSiteLayout({
               </div>
             </main>
           </QueryProvider>
-        </TenatProvider>
+        </TenantProvider>
         <Toaster />
       </body>
     </html>
