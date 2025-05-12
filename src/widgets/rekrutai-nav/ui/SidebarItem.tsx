@@ -17,6 +17,7 @@ interface ISidebarItemProps {
 // component of a simple sidebar link, without submenu
 export const SidebarLink: FC<ISidebarItemProps> = ({ linkConfig, className, onLinkClick }) => {
   const { routeName, href, icon } = linkConfig
+
   return (
     <NavPanelBtn asChild className={cn("gap-3 justify-start", className)}>
       <Link className="w-full " href={href} onClick={onLinkClick}>

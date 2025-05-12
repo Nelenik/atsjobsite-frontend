@@ -31,6 +31,7 @@ export const VacanciesAside: FC<TProps> = ({ className }) => {
       <Suspense fallback={'loading'}>
 
         <ScrollArea
+          type='always'
           className="lg:h-[clamp(500px,65vh,900px)] h-[400px] px-2"
         >
 

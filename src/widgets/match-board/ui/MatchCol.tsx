@@ -53,6 +53,7 @@ export const MatchCol: FC<TProps> = ({ color, status_id, title, className, isEdi
         className="flex flex-col gap-2 grow"
       >
         <ScrollArea
+          type="always"
           className="h-[clamp(500px,65vh,800px)] px-2"
         >
           {

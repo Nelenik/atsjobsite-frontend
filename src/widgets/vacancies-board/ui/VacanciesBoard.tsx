@@ -64,7 +64,9 @@ export const VacanciesBoard = () => {
                   }}
                   className="flex flex-col gap-2 grow"
                 >
-                  <ScrollArea className="h-[clamp(500px,65vh,800px)] px-2">
+                  <ScrollArea
+                    type="always"
+                    className="h-[clamp(500px,65vh,800px)] px-2">
                     {
                       isLoading
                         ? <BoardListSkeleton count={5} />
