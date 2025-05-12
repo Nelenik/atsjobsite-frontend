@@ -7,7 +7,6 @@ import { useParams } from 'next/navigation';
 import ArchiveIcon from '@/assets/icons/archive.svg?rc';
 import { useVacancies } from '@/entities/vacancy';
 import { cn } from '@/shared/lib/utils';
-import { getTimePartsFromSec } from '@/shared/lib/date_time/getTimePartsFromSec';
 import { VacancyCard } from '@/entities/vacancy/ui/VacancyCard';
 import { AddEntity } from '@/features/mutate-entity';
 import { ScrollArea } from '@/shared/ui/shadcn/scroll-area';
@@ -17,8 +16,8 @@ type TProps = {
 };
 
 export const VacanciesAside: FC<TProps> = ({ className }) => {
-  const params = useParams();
-  const companyId = params?.companyId as string | undefined;
+  const { companyId, vacancyId } = useParams();
+  // const companyId = params?.companyId as string | undefined;
   const vacancies = useVacancies()
   const cleanedPath = `/dashboard/${companyId}/vacancies`
   return (
@@ -37,22 +36,18 @@ export const VacanciesAside: FC<TProps> = ({ className }) => {
 
           <div className="gap-1.5 grid grid-cols-[repeat(auto-fit,_minmax(240px,_1fr))] auto-rows-auto lg:grid-cols-1">
             {vacancies.map((vacancy) => {
-              const vacancyTimestamp = Math.floor(
-                (new Date().getTime() - new Date(vacancy.created_at).getTime()) /
-                1000
-              );
-              const { days } = getTimePartsFromSec(vacancyTimestamp);
-
+              const isActive = vacancy.id === Number(vacancyId)
               return (
                 <Link
+                  ref={isActive ? (el) => el?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }) : null}
                   key={vacancy.id}
                   href={`${cleanedPath}/${vacancy.id}?name=${vacancy.name}`}
                 >
                   <VacancyCard
                     vacancyName={vacancy.name}
-                    daysInProcessing={days}
+                    createdAt={vacancy.created_at}
                     vacancyStatus={vacancy.status_id}
-                    className="h-full"
+                    className={cn("h-full", isActive && 'bg-slate-100 border-primary dark:bg-slate-800')}
                   />
                 </Link>
               );

@@ -4,20 +4,22 @@ import { formatWordEndings } from '@/shared/lib/formatters/formatWordEndings';
 import { cn } from '@/shared/lib/utils';
 import { Card, CardFooter, CardHeader, CardTitle } from '@/shared/ui/shadcn/card';
 import { TVacancy } from '@/shared/api/types';
+import { getDaysSinceCreated } from '@/shared/lib/date_time/getDaysSinceCreated';
 
 
 type TProps = {
   vacancyName: TVacancy['name'];
-  daysInProcessing: number;
+  createdAt: TVacancy['created_at'];
   vacancyStatus: number;
   className?: string;
 };
 
 export const VacancyCard: FC<TProps> = ({
   vacancyName,
-  daysInProcessing,
+  createdAt,
   className,
 }) => {
+  const daysInProcessing = getDaysSinceCreated(createdAt)
   const daysString = `${daysInProcessing} ${formatWordEndings(daysInProcessing, [
     'день',
     'дня',
