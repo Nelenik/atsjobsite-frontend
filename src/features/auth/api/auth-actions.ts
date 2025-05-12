@@ -23,7 +23,11 @@ const setCookie = async (token: string) => {
   });
 };
 
-export const signin = async (_: TMutationState, body: FormData) => {
+export const signin = async (
+  redirectTo: string | null,
+  _: TMutationState,
+  body: FormData
+) => {
   const response = await mutateAction<TAuthData>("/auth/sign-in", {
     body,
     withAuth: false,
@@ -34,7 +38,7 @@ export const signin = async (_: TMutationState, body: FormData) => {
     const token = payload?.token;
     if (token) {
       await setCookie(token);
-      return redirect("/dashboard");
+      return redirect(redirectTo ?? "/dashboard");
     }
   }
   return response;

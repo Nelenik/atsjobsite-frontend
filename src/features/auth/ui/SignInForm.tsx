@@ -4,10 +4,14 @@ import { StartPageButton } from "@/shared/ui/buttons/StartPageButtons";
 import FormItem from "@/shared/ui/FormItem";
 import { Input } from "@/shared/ui/shadcn/input";
 import { signin } from "../api/auth-actions";
+import { useSearchParams } from "next/navigation";
 
 export const SignInForm = () => {
+  //Get redirectTo from URL
+  const serachParams = useSearchParams()
+  // Bind the signin function to the redirectTo parameter
   const { formAction, pending, defaultValues } = useFormMutation({
-    mutationAction: signin,
+    mutationAction: signin.bind(null, serachParams.get('redirectTo') || null),
 
   })
   return (

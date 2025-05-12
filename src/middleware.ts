@@ -64,11 +64,12 @@ const persistOriginHost = (
 };
 
 export async function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+  // const { pathname } = request.nextUrl;
   //get origin host from cookie or headers
   const originHost = getReqOrigin(request);
   // Clone the URL from the request to manipulate it.
   const url = request.nextUrl.clone();
+  const pathname = url.pathname;
 
   /*--------------------------------------------*/
 
@@ -81,10 +82,10 @@ export async function middleware(request: NextRequest) {
     // In development environment, throw an error to notify the developer
     if (process.env.NODE_ENV === "development") {
       throw new Error(
-        `Routing violation: The route prefix "${firstSegment}" cannot be used as a top-level segment in any of the spaces.`
+        `Routing violation: The route prefix "${firstSegment}" cannot be used as a top-level segment in any of the tenants.`
       );
     } else {
-      console.error("prod 404");
+      console.error("Routing violation: ", pathname);
       // In production, return a 404 response if an invalid top-level route is accessed
       return new NextResponse("Page Not Found", { status: 404 });
     }
@@ -95,7 +96,10 @@ export async function middleware(request: NextRequest) {
   // First authentication checking
   if (pathname.includes("/dashboard")) {
     if (!isAuthenticated(request)) {
-      const redirectResponse = NextResponse.redirect(new URL("/", request.url));
+      const redirectUrl = new URL("/", url);
+      redirectUrl.searchParams.set("redirectTo", pathname + url.search);
+      const redirectResponse = NextResponse.redirect(redirectUrl);
+      // const redirectResponse = NextResponse.redirect(new URL("/", request.url));
       persistOriginHost(request, redirectResponse, originHost);
       return redirectResponse;
     }
