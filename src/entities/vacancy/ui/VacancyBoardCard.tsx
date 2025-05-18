@@ -33,7 +33,7 @@ export const VacancyBoardCard: FC<TProps> = ({ id, name, location, salary_from, 
       >
         <StatusBadge
           color={color}
-          className="absolute top-1 right-1 px-1 text-[10px] animate-pulse"
+          className={cn("absolute top-1 right-1 px-1 text-[10px] border-none", isNew && 'animate-pulse text-[12px]')}
         >
           {daysString}
         </StatusBadge>
