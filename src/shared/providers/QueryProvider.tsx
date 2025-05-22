@@ -1,6 +1,6 @@
 'use client'
 import { QueryClientProvider, QueryClient, isServer } from "@tanstack/react-query";
-import { ReactNode, useEffect, useMemo } from "react";
+import { ReactNode, useMemo } from "react";
 import { useTenant } from "./TenantProvider";
 
 function makeQueryClient() {
@@ -44,12 +44,6 @@ const QueryProvider = ({ children }: { children: ReactNode }) => {
   //       render if it suspends and there is no boundary
   const { tenant } = useTenant()
   const queryClient = useMemo(() => getQueryClient(tenant), [tenant]);
-
-  useEffect(() => {
-    // Reset the cache when the tenant changes    
-    queryClient.clear()
-  }
-    , [queryClient, tenant])
 
   return (
     <QueryClientProvider client={queryClient}>
