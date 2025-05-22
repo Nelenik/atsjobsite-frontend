@@ -1,4 +1,5 @@
 'use client'
+import { SignOutForm } from "@/features/auth";
 import { TUser } from "@/shared/api/types";
 import { cn } from "@/shared/lib/utils";
 import NavPanelBtn from "@/shared/ui/buttons/NavPanelBtn";
@@ -12,6 +13,7 @@ type TProps = {
 export const UserMenuContent = ({
   user = { name: 'Соискатель', email: 'user-apply@test.ru' }
 }: TProps) => {
+
   const pathname = usePathname()
   const isProfile = pathname.includes('profile')
   return (
@@ -39,6 +41,13 @@ export const UserMenuContent = ({
           href={'/profile'}
         >Личный кабинет</Link>
       </NavPanelBtn>}
+      <SignOutForm
+        variant={'ghost'}
+        className={cn(
+          "w-full text-muted-foreground justify-start",
+          "hover:bg-accent/10 hover:text-sidebar-foreground"
+        )}
+      />
     </div>
   );
 }

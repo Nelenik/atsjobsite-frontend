@@ -53,7 +53,7 @@ export const VacancyDetails = ({ vacancy }: { vacancy: TVacancy }) => {
   return (
 
     <div className="@container">
-      <h2 className="scroll-m-20 text-3xl font-bold tracking-tight first:mt-0 mb-6 flex items-start gap-4">
+      <h1 className="scroll-m-20 text-3xl font-bold tracking-tight first:mt-0 mb-6 flex items-start gap-4">
         {name || 'Имя не указано'}
         <StatusBadge color={status.color} className={cn(
           'text-xs py-0 px-1'
@@ -61,7 +61,7 @@ export const VacancyDetails = ({ vacancy }: { vacancy: TVacancy }) => {
           {status.name}
         </StatusBadge>
         <EditButton onClick={showForm} isIconView={true} />
-      </h2>
+      </h1>
       <CollapsibleSummary
         title="Саммори по вакансии"
         summary={summary}
@@ -76,9 +76,9 @@ export const VacancyDetails = ({ vacancy }: { vacancy: TVacancy }) => {
           "text-base text-muted-foreground",
           '@2xl:w-1/2'
         )}>
-          <h3 className="scroll-m-20 text-xl font-semibold text-foreground tracking-tight mb-2">
+          <h2 className="scroll-m-20 text-xl font-semibold text-foreground tracking-tight mb-2">
             {`от ${formatPrice(salary_from, "ru-Ru", "RUB")} до ${formatPrice(salary_to, 'ru-Ru', 'RUB')}`}
-          </h3>
+          </h2>
           <p>
             Локация: {location}
           </p>

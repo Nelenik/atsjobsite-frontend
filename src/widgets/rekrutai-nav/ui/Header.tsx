@@ -4,7 +4,6 @@ import { PanelLeftOpen, PanelRightOpen } from 'lucide-react'
 import { createSidebarConfig } from "@/shared/config/rekrutaiSidebarConfig";
 import { useParams } from "next/navigation";
 import { cn } from '@/shared/lib/utils';
-import useSidebarControl from '@/shared/model/hooks/useSidebarControl';
 import LogoImg from '@/assets/logo-short.png';
 import Image from "next/image";
 import { SidebarItem } from './SidebarItem';
@@ -12,6 +11,7 @@ import { useSession } from '@/features/auth';
 import { UserMenuContent } from './UserMenuContent';
 import { UserMenu } from '@/shared/ui/navigation/UserMenu';
 import NavPanelBtn from '@/shared/ui/buttons/NavPanelBtn';
+import { useSidebarControl } from '@/shared/ui/navigation/CollapsibleSidebar';
 
 interface IHeaderProps {
   className?: string

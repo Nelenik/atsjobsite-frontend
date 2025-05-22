@@ -49,7 +49,7 @@ type UseSidebarControl = (options: IMenuOptions) => {
  * );
  */
 
-const useSidebarControl: UseSidebarControl = ({
+export const useSidebarControl: UseSidebarControl = ({
   initial,
   closeOutside = false,
 }) => {
@@ -92,5 +92,3 @@ const useSidebarControl: UseSidebarControl = ({
     sidebarRef,
   };
 };
-
-export default useSidebarControl;

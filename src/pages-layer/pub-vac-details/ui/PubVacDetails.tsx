@@ -43,17 +43,17 @@ export const PubVacDetails = ({
           "text-base text-muted-foreground"
         )}
         >
-          <h2
+          <h1
             className={cn(
               "flex items-start gap-4",
-              "scroll-m-20 text-[40px] font-bold text-foreground tracking-tight first:mt-0 "
+              "scroll-m-20 text-[40px] font-bold text-foreground tracking-tight first:mt-0 leading-[2.8rem]",
             )}
           >
             {name || 'Имя не указано'}
-          </h2>
-          <h3 className="scroll-m-20 text-xl font-semibold text-foreground tracking-tight">
+          </h1>
+          <h2 className="scroll-m-20 text-xl font-semibold text-foreground tracking-tight">
             {`от ${formatPrice(salary_from, "ru-Ru", "RUB")} до ${formatPrice(salary_to, 'ru-Ru', 'RUB')}`}
-          </h3>
+          </h2>
           <div >
             <p>
               Локация: {location}
