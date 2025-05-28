@@ -16,7 +16,7 @@ export const DarkMenuLink = ({
 }: TProps) => {
 
   return (
-    <NavPanelBtn asChild className={cn("gap-3 justify-start text-in", className)}>
+    <NavPanelBtn asChild className={cn("gap-3 text-in", className)}>
       <Link className="w-full" href={href} onClick={onLinkClick}>
         {children}
 

@@ -41,7 +41,7 @@ export const VacanciesBoard = () => {
         )}
       </>}
     >
-      <ScrollArea className="p-2 border-2 rounded-xl">
+      <ScrollArea className="p-2 pb-4 border-2 rounded-lg">
         <div className="flex gap-4 w-full p-2 ">
           {vacanciesDefaultStatuses.map((status) => {
             const colName = status?.name || 'Не задан'
@@ -49,7 +49,7 @@ export const VacanciesBoard = () => {
             return (
               <div
                 key={status.id}
-                className={cn(`flex flex-col gap-6 ring-2 ring-offset-4 rounded-lg ring-border w-1/4 min-w-[250px]`)}
+                className={cn(`flex flex-col gap-6 ring-2 ring-offset-4 rounded-[0.12rem] ring-border w-1/4 min-w-[250px]`)}
               >
                 <FunnelCard
                   color={status.color}

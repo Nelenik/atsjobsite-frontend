@@ -15,7 +15,6 @@ export const NavList = ({
   return (
     <ul
       className={cn(
-        " text-sidebar-foreground",
         className
       )}
     >

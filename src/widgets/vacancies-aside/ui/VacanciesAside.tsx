@@ -14,7 +14,7 @@ import { ScrollArea } from '@/shared/ui/shadcn/scroll-area';
 type TProps = {
   className?: string;
 };
-
+// lg:h-[clamp(500px,65vh,900px)] 
 export const VacanciesAside: FC<TProps> = ({ className }) => {
   const { companyId, vacancyId } = useParams();
   // const companyId = params?.companyId as string | undefined;
@@ -32,10 +32,10 @@ export const VacanciesAside: FC<TProps> = ({ className }) => {
 
         <ScrollArea
           type='always'
-          className="lg:h-[clamp(500px,65vh,900px)] h-[400px] px-2"
+          className="lg:max-h-[70dvh] max-h-[400px] px-2"
         >
 
-          <div className="gap-1.5 grid grid-cols-[repeat(auto-fit,_minmax(240px,_1fr))] auto-rows-auto lg:grid-cols-1">
+          <div className="gap-1.5 grid grid-cols-[repeat(auto-fit,_minmax(240px,_1fr))] auto-rows-auto lg:grid-cols-1 py-1">
             {vacancies.map((vacancy) => {
               const isActive = vacancy.id === Number(vacancyId)
               return (
@@ -50,6 +50,7 @@ export const VacanciesAside: FC<TProps> = ({ className }) => {
                     vacancyStatus={vacancy.status_id}
                     className={cn("h-full", isActive && 'bg-slate-100 border-primary dark:bg-slate-800')}
                   />
+
                 </Link>
               );
             })}

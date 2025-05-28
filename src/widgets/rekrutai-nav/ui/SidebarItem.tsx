@@ -26,6 +26,7 @@ export const SidebarItem: FC<TProps> = ({ linkConfig, onLinkClick }) => {
       <DarkMenuLink
         href={href}
         onLinkClick={onLinkClick}
+        className="justify-start"
       >
         {icon && icon}
         <span className="ml-2 hidden opacity-0 @[150px]:inline @[100px]:opacity-100 transition-opacity duration-200">{routeName}</span>
