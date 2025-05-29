@@ -21,34 +21,34 @@ export const MobileMenu = ({
       )}
       content={
         ({ closeMenu }) => (
-          <ScrollArea className="h-dvh">
+          <ScrollArea className="h-dvh" type="auto">
             <nav className={cn(
-              'flex flex-col gap-2 w-[97%]'
+              ' w-[97%]'
             )}>
               <NavList
                 routes={profileRoutes}
                 className={cn(
                   'text-sidebar-foreground',
-                  'flex flex-col mb-8 [&_a]:justify-start [&_a]:w-full'
+                  'flex flex-col mb-6 [&_a]:justify-start [&_a]:w-full'
                 )}
                 onLinkClick={() => setTimeout(closeMenu, 300)}
               />
-              <Separator className="bg-sidebar-foreground" />
+              <Separator className="bg-sidebar-foreground h-[0.3px]" />
 
               <NavList
                 routes={publicRoutes}
                 className={cn(
-                  'flex flex-col mb-8 [&_a]:justify-start [&_a]:w-full',
+                  'flex flex-col mb-6 [&_a]:justify-start [&_a]:w-full',
                   'text-sidebar-foreground',
                 )}
                 onLinkClick={() => setTimeout(closeMenu, 300)}
               />
-              <Separator className="bg-sidebar-foreground" />
-              <Separator className="bg-sidebar-foreground" />
+              <Separator className="bg-sidebar-foreground mb-0.5 h-[0.3px]" />
+              <Separator className="bg-sidebar-foreground mb-0.5 h-[0.3px]" />
               <SignOutForm
                 variant={'ghost'}
                 className={cn(
-                  "w-full text-muted-foreground justify-start",
+                  "w-full text-sidebar-foreground justify-start",
                   "hover:bg-accent/10 hover:text-sidebar-foreground"
                 )}
               />

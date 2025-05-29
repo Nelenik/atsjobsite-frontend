@@ -44,7 +44,7 @@ export const BurgerMenu = ({
         asChild
       >
         <NavPanelBtn
-          className="w-9 h-9 p-0 "
+          className="w-8 h-8 p-0 "
         >
           <PanelLeftOpen stroke="white" />
         </NavPanelBtn>
@@ -52,13 +52,13 @@ export const BurgerMenu = ({
       <SheetContent
         side={'left'}
         className={cn(
-          'flex flex-col w-[min(100dvw,400px)] py-3',
+          'flex flex-col w-[min(100dvw,400px)] pt-3 pb-6',
           'bg-sidebar border-none'
         )}
         overlayStyles="bg-sidebar/10"
       >
         <SheetClose asChild>
-          <NavPanelBtn className="mb-6 ml-auto w-9 h-9 p-0 " >
+          <NavPanelBtn className="ml-auto w-9 h-9 p-0 " >
             <PanelRightOpen stroke="white" />
           </NavPanelBtn>
         </SheetClose>

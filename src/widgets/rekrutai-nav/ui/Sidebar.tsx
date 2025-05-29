@@ -2,17 +2,20 @@
 
 import Link from "next/link";
 import LogoImg from '@/assets/logo-short.png';
-import { PanelLeftOpen, PanelRightOpen } from 'lucide-react'
+import { LogOut, PanelLeftOpen, PanelRightOpen } from 'lucide-react'
 import { createRekrutaiNavConfig } from "@/shared/config/rekrutaiNavConfig";
 import { useParams } from "next/navigation";
 import { cn } from "@/shared/lib/utils";
 import Image from "next/image";
 import { SidebarItem } from "./SidebarItem";
-import { UserMenuContent } from "./UserMenuContent";
-import { useSession } from "@/features/auth";
-import { UserMenu } from "@/shared/ui/navigation/UserMenu";
+// import { UserMenuContent } from "./UserMenuContent";
+import { SignOutForm, useSession } from "@/features/auth";
+// import { UserMenu } from "@/shared/ui/navigation/UserMenu";
 import NavPanelBtn from "@/shared/ui/buttons/NavPanelBtn";
 import { CollapsibleSidebar } from "@/shared/ui/navigation/CollapsibleSidebar";
+import { Separator } from "@/shared/ui/shadcn/separator";
+import { UserAvatar } from "@/shared/ui/navigation/UserAvatar";
+import { ScrollArea } from "@/shared/ui/shadcn/scroll-area";
 
 interface ISidebarProps {
   className?: string
@@ -29,7 +32,7 @@ export const Sidebar = ({ className }: ISidebarProps) => {
   return (
     <CollapsibleSidebar
       className={cn(
-        'flex flex-col shrink-0 items-center px-4 py-6  bg-sidebar text-sidebar-foreground',
+        'flex flex-col shrink-0  px-4 py-6  bg-sidebar text-sidebar-foreground',
         className
       )}
       render={({ isSidebarOpen, toggle }) => (
@@ -63,32 +66,61 @@ export const Sidebar = ({ className }: ISidebarProps) => {
                 : <PanelLeftOpen stroke="white" />
             }
           </NavPanelBtn>
-          <nav className={cn(
-            "mt-6 w-full",
+          <ScrollArea className="" type="auto">
 
-          )}>
-            <ul className="space-y-0">
-              {sidebarConfig.map((el) => {
-                return (
-                  <li key={el.routeName}>
-                    <SidebarItem linkConfig={el} />
-                  </li>
-                )
-              })}
-            </ul>
-          </nav>
-          <div
+            <nav className={cn(
+              "w-full",
+
+            )}>
+              <ul className="space-y-0">
+                {sidebarConfig.map((el) => {
+                  return (
+                    <li key={el.routeName}>
+                      <SidebarItem isSidebarOpen={isSidebarOpen} linkConfig={el} />
+                    </li>
+                  )
+                })}
+              </ul>
+            </nav>
+          </ScrollArea>
+          {/* User section */}
+
+          <section
             className={cn(
-              "mt-auto flex gap-3 items-start min-h-[46px] self-start translate-x-1",
-              isSidebarOpen && 'translate-x-3 transition-transform duration-75'
+              "flex items-start gap-3 w-full px-2 py-3 mt-auto"
             )}
           >
+            <UserAvatar
+              userName={user.email}
+              profileImage={user.profile_image}
+            />
+            {isSidebarOpen && <p className={cn('flex flex-col gap-0.5', "scroll-m-20 text-md font-semibold tracking-tight max-w-44 text-sidebar-foreground")}>
+              {user.name}
+              <a
+                href={`mailto:${user.email}`}
+                className={cn(
+                  "text-sm text-sidebar-foreground",
+                  "hover:underline hover:underline-offset-2"
+                )}
+              >
+                {user.email}
+              </a>
+            </p>}
+          </section>
 
-            <UserMenu user={user} mode={isSidebarOpen ? 'shown' : 'hidden'}>
-              <UserMenuContent user={user} />
-            </UserMenu>
+          <Separator className="self-center mb-0.5 h-[0.3px] bg-sidebar-foreground" />
+          <Separator className="self-center mb-0.5 h-[0.3px] bg-sidebar-foreground" />
 
-          </div>
+          <SignOutForm
+            variant={'ghost'}
+            className={cn(
+              "w-full text-sidebar-foreground justify-start",
+              "hover:bg-accent/10 hover:text-sidebar-foreground",
+            )}
+          >
+            <LogOut />
+            {isSidebarOpen && 'Выйти'}
+          </SignOutForm>
         </>
       )}
 
@@ -96,81 +128,3 @@ export const Sidebar = ({ className }: ISidebarProps) => {
   )
 }
 
-// export const Sidebar = ({ className }: ISidebarProps) => {
-//   const params = useParams<{ companyId: string }>();
-//   const companyId = params?.companyId || '';
-
-//   const sidebarConfig = createSidebarConfig(companyId)
-
-//   const { sidebarRef, handleToggle, isSidebarOpen } = useSidebarControl({ initial: true })
-
-//   //get user info for the user menu component
-//   const { user } = useSession()
-
-//   return (
-//     <div ref={sidebarRef}
-//       className={
-//         cn(
-//           "flex flex-col shrink-0 items-center px-4 py-6  bg-sidebar text-sidebar-foreground transition-[width] ease-in-out duration-400 @container",
-//           isSidebarOpen ? "w-[14rem]" : "w-[85px]",
-//           className)
-//       }
-//     >
-//       <Link
-//         href={'/'}
-//         className={cn(
-//           "mb-3 self-start",
-//           isSidebarOpen && 'translate-x-3 transition-transform duration-75'
-//         )}
-//       >
-//         <Image
-//           src={LogoImg}
-//           alt="RekrutAi logo"
-//           width={50}
-//           height={50}
-//           priority
-//           className="w-auto"
-//         />
-//       </Link>
-//       <NavPanelBtn
-//         onClick={handleToggle}
-//         size={'icon'}
-//         className={cn(
-//           isSidebarOpen && "self-end",
-//           `transition-transform duration-300 mb-8 justify-center `
-//         )}>
-//         {
-//           isSidebarOpen
-//             ? <PanelRightOpen stroke="white" />
-//             : <PanelLeftOpen stroke="white" />
-//         }
-//       </NavPanelBtn>
-//       <nav className={cn(
-//         "mt-6 w-full",
-
-//       )}>
-//         <ul className="space-y-0">
-//           {sidebarConfig.map((el) => {
-//             return (
-//               <li key={el.routeName}>
-//                 <SidebarItem linkConfig={el} />
-//               </li>
-//             )
-//           })}
-//         </ul>
-//       </nav>
-//       <div
-//         className={cn(
-//           "mt-auto flex gap-3 items-start min-h-[46px] self-start translate-x-1",
-//           isSidebarOpen && 'translate-x-3 transition-transform duration-75'
-//         )}
-//       >
-
-//         <UserMenu user={user} mode={isSidebarOpen ? 'shown' : 'hidden'}>
-//           <UserMenuContent user={user} />
-//         </UserMenu>
-
-//       </div>
-//     </div>
-//   );
-// }

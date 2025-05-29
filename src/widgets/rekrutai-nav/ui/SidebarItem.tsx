@@ -9,6 +9,7 @@ import { FC } from "react";
 
 type TProps = {
   linkConfig: TNavConfig
+  isSidebarOpen?: boolean
   className?: string
   onLinkClick?: () => void
 }
@@ -17,7 +18,7 @@ type TProps = {
  * SidebarItem component renders a single navigation item in the sidebar.
  * It can either be a simple link or a collapsible group with sub-links.
  */
-export const SidebarItem: FC<TProps> = ({ linkConfig, onLinkClick }) => {
+export const SidebarItem: FC<TProps> = ({ linkConfig, onLinkClick, isSidebarOpen = true }) => {
 
   const { routeName, icon, href, subMenu } = linkConfig
   //If the linkConfig does not have a submenu property, it is a simple link (not a group), so return the link element.
@@ -29,18 +30,23 @@ export const SidebarItem: FC<TProps> = ({ linkConfig, onLinkClick }) => {
         className="justify-start"
       >
         {icon && icon}
-        <span className="ml-2 hidden opacity-0 @[150px]:inline @[100px]:opacity-100 transition-opacity duration-200">{routeName}</span>
+        {isSidebarOpen && <span className={cn("ml-2 ",
+        )}>{routeName}</span>}
       </DarkMenuLink>
     )
   }
 
   //Otherwise, return a collapsible element with nested links
   return (
-    <Collapsible defaultOpen={true}>
+    <Collapsible
+      defaultOpen={true}
+    >
       <CollapsibleTrigger asChild>
         <NavPanelBtn className="w-full justify-start">
           {icon && icon}
-          <span className="ml-2 hidden opacity-0 @[150px]:inline @[100px]:opacity-100 transition-opacity duration-200">{routeName}</span>
+          {isSidebarOpen && <span className={cn(
+            "ml-2 ",
+          )}>{routeName}</span>}
           <ChevronDown className="ml-auto" />
         </NavPanelBtn>
       </CollapsibleTrigger>
