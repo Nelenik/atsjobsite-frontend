@@ -1,4 +1,4 @@
-import { TMutationState } from "@/shared/api/common/types"
+import { TMutationState } from "@/shared/api/common/mutate"
 import { storeStatus } from "@/shared/api/postData"
 import { TStatus } from "@/shared/api/types/statuses"
 import { updateStatus } from "@/shared/api/updateData"

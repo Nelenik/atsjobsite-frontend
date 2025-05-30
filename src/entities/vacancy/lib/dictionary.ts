@@ -1,20 +1,9 @@
 import {
   EVacancyEmployment,
   EVacancyExperience,
+  EVacancyPosition,
   EVacancyWorkFormat,
 } from "@/shared/api/types";
-
-enum EVacancyPosition {
-  DEVELOPER = "developer",
-  TEAM_LEAD = "team-lead",
-  TESTER = "qa",
-  PM = "pm",
-  ANALYST = "analyst",
-  DEVOPS = "devops",
-  DESIGNER = "designer",
-  DATA_SCIENTIST = "data-scientist",
-  TECHNICAL_SUPPORT = "technical-support",
-}
 
 export const vacancyPositionsDict: Record<string, string> = {
   [EVacancyPosition.DEVELOPER]: "Разработчик",

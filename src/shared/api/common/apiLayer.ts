@@ -2,7 +2,11 @@
 
 import { cookies } from "next/headers";
 import { API_URL, AUTH_COOKIE_NAME } from "../constants";
-import { extractSyntheticErrorFromApi, getSyntheticError } from "./errors";
+import {
+  extractSyntheticErrorFromApi,
+  getSyntheticError,
+  TError,
+} from "./errors";
 import { prepareBody } from "./utils";
 
 export type TApiSuccessResponse<T> = {
@@ -61,6 +65,7 @@ export const apiGet = async <T = unknown>(
     authCookieName = AUTH_COOKIE_NAME,
     headers,
   } = getOptions;
+
   // Combine custom headers with auth headers if needed
   // and ensure the correct type for headers
   const actualHeaders: HeadersInit = Object.assign(
@@ -88,6 +93,28 @@ export const apiGet = async <T = unknown>(
     throw error;
   }
   return response.json();
+};
+
+/*------------------------------------------------------*/
+
+/**
+ * Represents the result of a mutation (e.g., POST/PUT request).
+ *
+ * @template T - The expected type of the response data (if any).
+ *
+ * `payload` can contain:
+ * - the original request body (FormData or object), when error occurs,
+ * - or the response data of type `T`, when successful and expected.
+ */
+export type TMutationState<T = unknown> = {
+  sent: boolean;
+  error: TError | null;
+  payload?: FormData | Record<string, unknown> | T;
+};
+
+export type TGoodRequest<T> = {
+  success: boolean;
+  data?: T;
 };
 
 /**

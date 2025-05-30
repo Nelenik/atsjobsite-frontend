@@ -1,4 +1,5 @@
 import { EVacancyLevel } from "./vacancies";
+import { z } from "zod/v4";
 
 export enum ECvStatus {
   LOOKING = "looking",
@@ -33,6 +34,24 @@ export type TWorkExperience = {
   // deleted_at: string | null; // ISO 8601 строка или null
   // cv: null | TResume;
 };
+
+export const ResumeRequestSchema = z
+  .object({
+    candy_name: z.string(),
+    name: z.string(),
+    experience_months: z.string(),
+    salary: z.string(),
+    candy_phone: z.string(),
+    candy_tg: z.string(),
+    candy_email: z.string(),
+    candy_location: z.string(),
+    link: z.string(),
+    bio: z.string(),
+    experience_raw: z.string(),
+  })
+  .partial();
+
+export type TResumeMutation = z.infer<typeof ResumeRequestSchema>;
 
 export type TResume = {
   id: number;

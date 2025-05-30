@@ -4,11 +4,17 @@ import { revalidatePath } from "next/cache";
 import { TStatus } from "@/shared/api/types/statuses";
 import { TComment } from "@/shared/api/types/comments";
 import { mutateAction } from "./common/mutate";
-import { TMutationState } from "./common/types";
+import { TMutationState } from "./common/mutate";
 import { DEFAULT_MATCH_STATUSES } from "../constants/default-match-statuses";
 import convertToFormData from "../lib/object_manipulations/convertToFormData";
 import { getSyntheticError } from "./common/errors";
 
+/**
+ *  Store a new company.
+ * @param _   - unused parameter, can be used for state management if needed
+ * @param body  - FormData object containing the company data to be stored.
+ * @returns   A promise that resolves to the result of the mutation action.
+ */
 export const storeCompany = async (_: TMutationState, body: FormData) => {
   const result = await mutateAction("/company", { body });
   if (!result.error) {

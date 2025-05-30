@@ -1,6 +1,68 @@
 import { TCompany } from "./companies";
 import { TMatchStatus } from "./match";
 import { TStatus } from "./statuses";
+import { z } from "zod/v4";
+
+export enum EVacancyPosition {
+  DEVELOPER = "developer",
+  TEAM_LEAD = "team-lead",
+  TESTER = "qa",
+  PM = "pm",
+  ANALYST = "analyst",
+  DEVOPS = "devops",
+  DESIGNER = "designer",
+  DATA_SCIENTIST = "data-scientist",
+  TECHNICAL_SUPPORT = "technical-support",
+}
+
+export enum EVacancyEmployment {
+  FULL = "full",
+  PARTIAL = "partial",
+  PROJECT = "project",
+}
+
+export enum EVacancyWorkFormat {
+  OFFICE = "office",
+  REMOTE = "remote",
+  HYBRID = "hybrid",
+}
+
+export enum EVacancyExperience {
+  LESS_THAN_1 = "less-than-1",
+  FROM_1_TO_3 = "from-1-to-3",
+  FROM_3_TO_5 = "from-3-to-5",
+  MORE_THAN_5 = "more-than-5",
+}
+
+export enum EVacancyLevel {
+  INTERN = "intern",
+  JUNIOR = "junior",
+  MIDDLE = "middle",
+  SENIOR = "senior",
+}
+
+//added schema for future form validation
+export const VacancyRequestSchema = z
+  .object({
+    name: z.string(),
+    company_id: z.string(),
+    status_id: z.string(),
+    position: z.enum(EVacancyPosition),
+    responsibilities: z.string(),
+    conditions: z.string(),
+    description: z.string(),
+    employment: z.enum(EVacancyEmployment),
+    salary_from: 0,
+    salary_to: 0,
+    skills: z.string(),
+    work_format: z.enum(EVacancyWorkFormat),
+    experience: z.enum(EVacancyExperience),
+    location: z.string(),
+    matchStatuses: z.string().array(),
+  })
+  .partial();
+
+export type TVacancyMutation = z.infer<typeof VacancyRequestSchema>;
 
 export type TVacancy = {
   id: number;
@@ -39,44 +101,6 @@ export type TVacancyShort = Pick<
   | "salary_to"
   | "status"
 >;
-
-// export enum EVacancyPosition {
-//   DEVELOPER = "developer",
-//   TEAM_LEAD = "team-lead",
-//   TESTER = "qa",
-//   PM = "pm",
-//   ANALYST = "analyst",
-//   DEVOPS = "devops",
-//   DESIGNER = "designer",
-//   DATA_SCIENTIST = "data-scientist",
-//   TECHNICAL_SUPPORT = "technical-support",
-// }
-
-export enum EVacancyEmployment {
-  FULL = "full",
-  PARTIAL = "partial",
-  PROJECT = "project",
-}
-
-export enum EVacancyWorkFormat {
-  OFFICE = "office",
-  REMOTE = "remote",
-  HYBRID = "hybrid",
-}
-
-export enum EVacancyExperience {
-  LESS_THAN_1 = "less-than-1",
-  FROM_1_TO_3 = "from-1-to-3",
-  FROM_3_TO_5 = "from-3-to-5",
-  MORE_THAN_5 = "more-than-5",
-}
-
-export enum EVacancyLevel {
-  INTERN = "intern",
-  JUNIOR = "junior",
-  MIDDLE = "middle",
-  SENIOR = "senior",
-}
 
 //Jobsite public vacancy data type
 export type TPublicVacancy = Pick<

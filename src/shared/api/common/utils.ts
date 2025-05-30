@@ -13,3 +13,63 @@ export const prepareBody = (
     return JSON.stringify(body);
   }
 };
+
+/**
+ *  Parses a `FormData` object into a plain object.
+ * This function iterates over the entries of the `FormData` object and constructs a new object.
+ * It handles both single values and arrays (indicated by keys ending with `[]`).
+ * It also skips any keys that start with `$ACTION`, which are typically used by Next.js for internal purposes.
+ * @param formData - The `FormData` object to be parsed.
+ * @template T - The type of the object to be returned.
+ * @returns
+ */
+export const parseFormData = <T>(formData: FormData): T => {
+  const resultObject = {} as Record<string, unknown>;
+
+  for (const [key, value] of formData.entries()) {
+    // May be necessary to remove Next.js internal fields from FormData
+    if (key.startsWith("$ACTION")) continue;
+
+    if (key.endsWith("[]")) {
+      const cleanedKey = key.slice(0, -2);
+      resultObject[cleanedKey] = [
+        ...((resultObject[cleanedKey] as unknown[]) || []),
+        value,
+      ];
+    } else {
+      resultObject[key] = value;
+    }
+  }
+
+  return resultObject as T;
+};
+
+/**
+ *  Converts a plain object into a `FormData` object.
+ * This function iterates over the entries of the object and appends each key-value pair to a new `FormData` instance.
+ * It handles arrays by appending each item with a key that ends with `[]`, and converts all values to strings.
+ * * @template T - The type of the object to be converted.
+ * @param data - An object containing key-value pairs where keys are strings and values can be strings, numbers, booleans, null, or arrays of numbers.
+ * @returns   A `FormData` object containing the key-value pairs from the input object.
+ */
+export const convertToFormData = (
+  data: Record<string, string | number | boolean | null | number[]>
+) => {
+  const result = new FormData();
+  for (const [key, value] of Object.entries(data)) {
+    if (value !== undefined && value !== null) {
+      if (Array.isArray(value)) {
+        value.forEach((item) => {
+          result.append(`${key}[]`, String(item));
+        });
+      } else {
+        result.append(key, String(value)); // Преобразуем все значения в строку
+      }
+    }
+  }
+  return result;
+};
+
+export const formDataToJson = (formData: FormData): string => {
+  return JSON.stringify(parseFormData(formData));
+};

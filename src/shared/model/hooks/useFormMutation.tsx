@@ -1,9 +1,9 @@
 import { ChangeEvent, useActionState, useEffect, useState } from "react";
 import { useToast } from "./use-toast";
-import { TMutationState } from "@/shared/api/common/types";
 import { mutationInitialState } from "@/shared/api/constants";
 import { TValidationMappedErrors } from "@/shared/api/common/errors";
 import { parseFormData } from "@/shared/lib/object_manipulations/parseFormData";
+import { TMutationState } from "@/shared/api/common/mutate";
 
 type TFormMutationAction = (_: TMutationState, body: FormData) => Promise<TMutationState>
 

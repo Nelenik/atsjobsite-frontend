@@ -1,4 +1,4 @@
-import { TMutationState } from "./common/types";
+import { TMutationState } from "./common/mutate";
 
 export const mutationInitialState: TMutationState = {
   sent: false,

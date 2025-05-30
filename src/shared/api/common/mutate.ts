@@ -3,13 +3,20 @@ import {
   extractSyntheticErrorFromApi,
   getSyntheticError,
   TBadRequest,
+  TError,
 } from "./errors";
-import { TGoodRequest } from "./success";
 
-// type TGoodRequest<T> = {
-//   success: boolean;
-//   data: T;
-// };
+// By default, `T` is set to `unknown`, allowing flexibility depending on the use case.
+export type TMutationState<T = unknown> = {
+  sent: boolean;
+  error: TError | null;
+  payload?: FormData | T;
+};
+
+export type TGoodRequest<T> = {
+  success: boolean;
+  data?: T;
+};
 
 type TMutateOptions = {
   body?: FormData;

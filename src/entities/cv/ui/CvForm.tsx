@@ -78,11 +78,11 @@ export const CvForm: FC<TProps> = ({
         </FormItem>
 
         <FormItem
-          labelText="Название"
+          labelText="Название позиции"
           error={errors.name}
         >
           <Input
-            placeholder="Название"
+            placeholder="Название позиции"
             name="name"
             defaultValue={defaultValues?.name}
             className={errors?.name && 'ring-2 ring-destructive'}

@@ -1,7 +1,7 @@
 "use server";
 
 import { mutateAction } from "@/shared/api/common/mutate";
-import { TMutationState } from "@/shared/api/common/types";
+import { TMutationState } from "@/shared/api/common/mutate";
 import { AUTH_COOKIE_NAME } from "@/shared/api/constants";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";

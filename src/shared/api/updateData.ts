@@ -1,7 +1,6 @@
 "use server";
 import { revalidatePath } from "next/cache";
-import { mutateAction } from "./common/mutate";
-import { TMutationState } from "./common/types";
+import { mutateAction, TMutationState } from "./common/mutate";
 import { parseFormData } from "../lib/object_manipulations/parseFormData";
 
 export const updateVacancy = async (
@@ -41,7 +40,6 @@ export const updateCV = async (
   _: TMutationState,
   body: FormData
 ) => {
-  console.log("updatevacancy");
   const result = await mutateAction(`/cv/${cvId}`, { body, method: "PUT" });
   if (!result.error) {
     revalidatePath("/dashboard/[companyId]/reserve", "page");
