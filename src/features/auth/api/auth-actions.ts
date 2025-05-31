@@ -1,7 +1,9 @@
 "use server";
 
-import { mutateAction } from "@/shared/api/common/mutate";
-import { TMutationState } from "@/shared/api/common/mutate";
+import { apiMutate, TMutationState } from "@/shared/api/common/apiLayer";
+import { parseFormData } from "@/shared/api/common/utils";
+// import { mutateAction } from "@/shared/api/common/mutate";
+// import { TMutationState } from "@/shared/api/common/mutate";
 import { AUTH_COOKIE_NAME } from "@/shared/api/constants";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -28,10 +30,10 @@ export const signin = async (
   _: TMutationState,
   body: FormData
 ) => {
-  const response = await mutateAction<TAuthData>("/auth/sign-in", {
-    body,
+  const response = await apiMutate<TAuthData>("/auth/sign-in", {
+    body: parseFormData(body),
     withAuth: false,
-    enableResponseData: true,
+    expectResponseData: true,
   });
   if (response.sent && !response.error) {
     const { payload } = response;
