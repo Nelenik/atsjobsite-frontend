@@ -155,10 +155,10 @@ export const storeVacancy = async (_: TMutationState, data: FormData) => {
 export const updateVacancy = async (
   vacancyId: number | string,
   _: TMutationState | null,
-  data: FormData
+  data: FormData | TVacancyMutation
 ): Promise<TMutationState> => {
   const result = await apiMutate(`/vacancy/${vacancyId}`, {
-    body: parseFormData(data),
+    body: data instanceof FormData ? parseFormData(data) : data,
     method: "PUT",
   });
   if (!result.error) {

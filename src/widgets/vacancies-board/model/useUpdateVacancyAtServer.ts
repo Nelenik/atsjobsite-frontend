@@ -1,4 +1,3 @@
-import convertToFormData from "@/shared/lib/object_manipulations/convertToFormData";
 import { useToast } from "@/shared/model/hooks/use-toast";
 import { useOptimistic, useTransition } from "react";
 import { TGroupedVacancies } from "./types";
@@ -68,10 +67,10 @@ export const useUpdateVacancyAtServer = (
 
     startTransition(async () => {
       updateOptimistic(newGroups);
-      const { error } = await updateVacancyWithId(
-        null,
-        convertToFormData({ status_id: newStatusId, name: vacancyName })
-      );
+      const { error } = await updateVacancyWithId(null, {
+        status_id: String(newStatusId),
+        name: vacancyName,
+      });
       if (error) {
         console.log(error);
         toast({

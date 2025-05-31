@@ -1,12 +1,15 @@
 'use client'
 
-import { ScrollUpBtn } from "@/features/scrollup-btn";
 import { useInfiniteScroll } from "../model/useInfiniteScroll";
 import { Loader } from "@/shared/ui/Loader";
 import List from "@/shared/ui/shadcn/list";
 import { CvCard } from "@/entities/cv";
 import { EditEntity } from "@/features/mutate-entity";
 import { CvListSkeleton } from "@/shared/ui/skeletons/CvListSkeleton";
+// import { CV_PER_PAGE } from "@/shared/api/constants";
+// import { ScrollUpBtn } from "@/shared/ui/buttons/ScrollUpBtn";
+import { Button } from "@/shared/ui/shadcn/button";
+import { cn } from "@/shared/lib/utils";
 
 export const CvList = () => {
   const {
@@ -29,7 +32,13 @@ export const CvList = () => {
 
   return (
     <div className="self-start grow pb-10">
-      <ScrollUpBtn onClick={resetToFirstPage} />
+      <Button
+        className={cn(
+          "h-[unset] py-1 bg-muted-foreground/75 text-xs fixed bottom-4 right-4 z-10",
+          'hover:bg-muted-foreground'
+        )}
+        onClick={resetToFirstPage}
+      >на первую</Button>
       <div
         ref={firstElementRef}
         data-id="topBoundary"

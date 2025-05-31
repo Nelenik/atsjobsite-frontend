@@ -9,7 +9,7 @@ import {
   TMutationState,
 } from "../common/api";
 import { parseFormData } from "../common/utils";
-import { TCandidateFull, TCandidateShort } from "../types";
+import { TCandidateFull, TCandidateShort, TMatchUpdate } from "../types";
 
 /**
  * Fetches a list of candidates for a given vacancy and status, sorted by match points in descending order.
@@ -86,10 +86,10 @@ export const getCandidateFull = async (matchId: number) => {
 export const updateMatch = async (
   matchId: number | string,
   _: TMutationState | null,
-  data: FormData
+  data: FormData | TMatchUpdate
 ) => {
   const result = await apiMutate(`/match/${matchId}`, {
-    body: parseFormData(data),
+    body: data instanceof FormData ? parseFormData(data) : data,
     method: "PUT",
   });
   if (!result.error) {

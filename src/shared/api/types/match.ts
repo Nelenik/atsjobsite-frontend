@@ -44,3 +44,9 @@ export type TCandidateFull = {
   cv: TResume;
   status: TStatus;
 };
+
+export type TMatchUpdate = {
+  status_id?: number;
+  status_rank?: number;
+  point?: number;
+};

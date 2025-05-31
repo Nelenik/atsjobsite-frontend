@@ -1,10 +1,8 @@
 'use client'
 
-import { TStatus, TVacancy } from "@/shared/api/types"
-import { createContext, ReactNode, useCallback, useContext, useMemo, useRef, useState, useTransition } from "react"
+import { TStatus } from "@/shared/api/types"
+import { createContext, ReactNode, useCallback, useContext, useRef, useState, useTransition } from "react"
 import { useSingleVacancy } from "./SingleVacancyProvider"
-import convertToFormData from "@/shared/lib/object_manipulations/convertToFormData"
-import { omitFields } from "@/shared/lib/object_manipulations/omitFields"
 import { useToast } from "@/shared/model/hooks/use-toast"
 import { arrayMove } from "@dnd-kit/sortable"
 import { updateVacancy } from "@/shared/api/actions"
@@ -16,11 +14,6 @@ type TVacancyMatchStatusesContext = {
   deleteColumn: (deletingColId: number | string) => void,
   updateColumn: (currentId: number | string, changes: Omit<TStatus, 'id'>) => void
 }
-
-type TVacancyEdit = Omit<
-  TVacancy,
-  "created_at" | "match_hot_count" | "match_count" | "status" | "status_id" | "matchStatuses" | "id"
->
 
 // Context for managing vacancy match statuses
 const VacancyMatchStatusesContext = createContext<TVacancyMatchStatusesContext | null>(null)
@@ -44,12 +37,6 @@ const VacancyMatchStatusesContext = createContext<TVacancyMatchStatusesContext |
 export const VacancyMatchStatusesProvider = ({ children }: { children: ReactNode }) => {
   const { vacancy } = useSingleVacancy()
 
-  // Extract fields necessary for vacancy updating, excluding irrelevant fields
-  const vacancyEditData: TVacancyEdit = useMemo(() =>
-    omitFields(vacancy, ["created_at", "match_hot_count", "match_count", "status", "status_id", "matchStatuses", "id"]),
-    [vacancy]
-  );
-
   const { toast } = useToast();
   //sort match statuses by rank to get right columns order
   const initialColumns = vacancy.matchStatuses
@@ -70,10 +57,10 @@ export const VacancyMatchStatusesProvider = ({ children }: { children: ReactNode
       const { error } = await updateVacancy(
         vacancy.id,
         null,
-        convertToFormData({
-          ...vacancyEditData,
-          matchStatuses: newColumns.map((el) => el.id),
-        })
+        {
+          name: vacancy.name,
+          matchStatuses: newColumns.map((el) => String(el.id)),
+        }
       );
 
       if (error) {
@@ -84,7 +71,7 @@ export const VacancyMatchStatusesProvider = ({ children }: { children: ReactNode
         });
         setColumns(prevColumnsState.current);
       }
-    }), [toast, vacancy.id, vacancyEditData]);
+    }), [toast, vacancy.id, vacancy.name]);
 
   // Update the columns state locally and on the server
   const updateColumns = useCallback((newColumns: TStatus[]) => {

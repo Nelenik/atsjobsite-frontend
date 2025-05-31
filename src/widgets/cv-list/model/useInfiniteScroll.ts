@@ -81,6 +81,7 @@ export const useInfiniteScroll = () => {
   const [direction, setDirection] = useState(false);
   const [indexTo, setIndexTo] = useState(0);
 
+  //Scrolls the specified HTML element into view within a scrollable container
   const scrollToElementRef = useCallback(
     (node: HTMLElement | null) => {
       if (!node || !scrollContainerRef.current) return;
@@ -102,7 +103,6 @@ export const useInfiniteScroll = () => {
   }, [direction, resumeList]);
 
   // Intersection Observer callback to handle when top or bottom of the list is visible.
-
   const handleIntersection = useCallback(
     (entries: IntersectionObserverEntry[]) => {
       const root = scrollContainerRef.current;
