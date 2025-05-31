@@ -1,12 +1,8 @@
 'use client'
 import { PositionSelect } from "./PositionSelect"
-// import { storeVacancy } from "@/shared/api/postData"
 import { EVacancyEmployment, EVacancyExperience, EVacancyWorkFormat, TVacancy } from "@/shared/api/types"
-// import { updateVacancy } from "@/shared/api/updateData"
 import { mutationInitialState } from "@/shared/api/constants"
-// import convertToFormData from "@/shared/lib/object_manipulations/convertToFormData"
 import { NonNullableFields } from "@/shared/lib/object_manipulations/filterFalsyFields"
-// import { omitFields } from "@/shared/lib/object_manipulations/omitFields"
 import { cn } from "@/shared/lib/utils"
 import { useFormMutation } from "@/shared/model/hooks/useFormMutation"
 import FormItem, { ErrorMessage } from "@/shared/ui/FormItem"
@@ -38,10 +34,6 @@ export const VacancyForm = ({
   const action = type === 'edit' && initialData
     ? updateVacancy.bind(null, initialData.id)
     : storeVacancy
-
-  //!!!! remove the fields "status" and "matchStatuses" (should find a better solution, may be made universal convertToFormData function)
-
-  // const cleanedInitialData = initialData && omitFields(initialData, ['status', 'matchStatuses'])
 
   //define initial state
   const initialState = {

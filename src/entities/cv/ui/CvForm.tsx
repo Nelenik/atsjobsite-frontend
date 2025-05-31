@@ -1,12 +1,8 @@
 'use client';
 
-import { storeCv } from '@/shared/api/postData';
 import { TResume } from '@/shared/api/types';
-import { updateCV } from '@/shared/api/updateData';
 import { mutationInitialState } from '@/shared/api/constants';
-import convertToFormData from '@/shared/lib/object_manipulations/convertToFormData';
 import { NonNullableFields } from '@/shared/lib/object_manipulations/filterFalsyFields';
-import { omitFields } from '@/shared/lib/object_manipulations/omitFields';
 import { cn } from '@/shared/lib/utils';
 import { useFormMutation } from '@/shared/model/hooks/useFormMutation';
 import FormItem from '@/shared/ui/FormItem';
@@ -15,6 +11,7 @@ import { Input } from '@/shared/ui/shadcn/input';
 import { Textarea } from '@/shared/ui/shadcn/textarea';
 import { useQueryClient } from '@tanstack/react-query';
 import { FC } from 'react';
+import { storeCv, updateCV } from '@/shared/api/actions';
 
 
 type TProps = {
@@ -38,14 +35,10 @@ export const CvForm: FC<TProps> = ({
     ? updateCV.bind(null, initialData.id)
     : storeCv
 
-  //remove the field "experience" (shoul find a better solution, may be made universal converToFormData function)
-
-  const cleanedInitialData = initialData && omitFields(initialData, ['experience', 'workExperiences'])
-
   //define initial state
   const initialState = {
     ...mutationInitialState,
-    ...(cleanedInitialData && { payload: convertToFormData(cleanedInitialData) })
+    ...(initialData && { payload: initialData })
   }
   //define toast message
   const toastMessage = type === 'edit' ? 'Данные о резюме успешно обновлены' : 'Новое резюме успешно сохранено'
