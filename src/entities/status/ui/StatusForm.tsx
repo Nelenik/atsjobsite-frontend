@@ -3,7 +3,7 @@
 import { TStatus } from "@/shared/api/types/statuses"
 // import { updateStatus } from "@/shared/api/updateData"
 import { mutationInitialState } from "@/shared/api/constants"
-import convertToFormData from "@/shared/lib/object_manipulations/convertToFormData"
+// import convertToFormData from "@/shared/lib/object_manipulations/convertToFormData"
 import { NonNullableFields } from "@/shared/lib/object_manipulations/filterFalsyFields"
 import { useFormMutation } from "@/shared/model/hooks/useFormMutation"
 import FormItem from "@/shared/ui/FormItem"
@@ -38,7 +38,7 @@ export const StatusForm: FC<TProps> = (
   //define initial state
   const initialState = {
     ...mutationInitialState,
-    ...(initialData && { payload: convertToFormData(initialData) })
+    ...(initialData && { payload: initialData })
   }
   //define toast message
   const toastMessage = type === 'edit' ? 'Статус успешно обновлен' : 'Новый статус успешно создан'
