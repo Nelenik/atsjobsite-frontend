@@ -5,7 +5,7 @@ import {
   apiMutate,
   TApiListResponse,
   TMutationState,
-} from "../common/apiLayer";
+} from "../common/api";
 import { parseFormData } from "../common/utils";
 import { TComment } from "../types";
 

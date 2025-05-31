@@ -1,7 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useTransition } from "react";
-import { updateMatch } from "@/shared/api/updateData";
 import { useToast } from "@/shared/model/hooks/use-toast";
+import { updateMatch } from "@/shared/api/actions";
 
 export const useSimpleUpdateMatch = (matchId: number) => {
   const { toast } = useToast();

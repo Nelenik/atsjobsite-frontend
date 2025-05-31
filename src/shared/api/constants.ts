@@ -1,4 +1,4 @@
-import { TMutationState } from "./common/apiLayer";
+import { TMutationState } from "./common/api";
 
 export const mutationInitialState: TMutationState = {
   sent: false,

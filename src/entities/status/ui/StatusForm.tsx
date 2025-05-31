@@ -6,7 +6,7 @@ import FormItem from "@/shared/ui/FormItem"
 import { Button } from "@/shared/ui/shadcn/button"
 import { Input } from "@/shared/ui/shadcn/input"
 import { FC, useCallback } from "react"
-import { TMutationState } from "@/shared/api/common/apiLayer"
+import { TMutationState } from "@/shared/api/common/api"
 import { storeStatus, updateStatus } from "@/shared/api/actions"
 
 type TProps = {

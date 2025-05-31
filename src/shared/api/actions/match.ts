@@ -7,7 +7,7 @@ import {
   TApiListResponse,
   TApiSuccessResponse,
   TMutationState,
-} from "../common/apiLayer";
+} from "../common/api";
 import { parseFormData } from "../common/utils";
 import { TCandidateFull, TCandidateShort } from "../types";
 

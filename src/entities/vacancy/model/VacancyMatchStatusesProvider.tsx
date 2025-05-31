@@ -3,11 +3,11 @@
 import { TStatus, TVacancy } from "@/shared/api/types"
 import { createContext, ReactNode, useCallback, useContext, useMemo, useRef, useState, useTransition } from "react"
 import { useSingleVacancy } from "./SingleVacancyProvider"
-import { updateVacancy } from "@/shared/api/updateData"
 import convertToFormData from "@/shared/lib/object_manipulations/convertToFormData"
 import { omitFields } from "@/shared/lib/object_manipulations/omitFields"
 import { useToast } from "@/shared/model/hooks/use-toast"
 import { arrayMove } from "@dnd-kit/sortable"
+import { updateVacancy } from "@/shared/api/actions"
 
 type TVacancyMatchStatusesContext = {
   columns: TStatus[],

@@ -3,7 +3,7 @@ import { useToast } from "./use-toast";
 import { mutationInitialState } from "@/shared/api/constants";
 import { TValidationMappedErrors } from "@/shared/api/common/errors";
 // import { parseFormData } from "@/shared/lib/object_manipulations/parseFormData";
-import { TMutationState } from "@/shared/api/common/apiLayer";
+import { TMutationState } from "@/shared/api/common/api";
 // import { TMutationState } from "@/shared/api/common/mutate";
 
 type TFormMutationAction = (_: TMutationState, data: FormData) => Promise<TMutationState>

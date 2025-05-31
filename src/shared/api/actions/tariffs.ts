@@ -1,6 +1,6 @@
 "use server";
 
-import { apiGet, TApiListResponse } from "../common/apiLayer";
+import { apiGet, TApiListResponse } from "../common/api";
 import { TTariff } from "../types";
 
 /**

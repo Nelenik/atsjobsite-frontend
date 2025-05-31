@@ -7,7 +7,7 @@ import {
   TApiListResponse,
   TApiSuccessResponse,
   TMutationState,
-} from "../common/apiLayer";
+} from "../common/api";
 import { TCompany } from "../types";
 import { revalidatePath } from "next/cache";
 import { parseFormData } from "../common/utils";

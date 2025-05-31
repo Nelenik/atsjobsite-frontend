@@ -1,9 +1,9 @@
-import { updateMatch } from "@/shared/api/updateData";
 import { useToast } from "@/shared/model/hooks/use-toast";
 import convertToFormData from "@/shared/lib/object_manipulations/convertToFormData";
 import { TCandidateShort } from "@/shared/api/types";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTransition } from "react";
+import { updateMatch } from "@/shared/api/actions";
 
 /**
  * A custom hook for optimistically updating the status of a match.

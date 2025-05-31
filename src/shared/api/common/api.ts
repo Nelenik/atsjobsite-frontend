@@ -1,8 +1,13 @@
 "use server";
 
-import { parseFormData } from "@/shared/lib/object_manipulations/parseFormData";
-import { API_URL, AUTH_COOKIE_NAME } from "../constants";
 import { cookies } from "next/headers";
+import { API_URL, AUTH_COOKIE_NAME } from "../constants";
+import {
+  extractSyntheticErrorFromApi,
+  getSyntheticError,
+  TError,
+} from "./errors";
+import { prepareBody } from "./utils";
 
 export type TApiSuccessResponse<T> = {
   success: boolean;
@@ -17,25 +22,68 @@ export type TApiListResponse<T> = {
   total?: number;
 };
 
-//Get access token from the cookies and form authorization header for secure
-const getAuthHeader = async (): Promise<HeadersInit> => {
+/**
+ * This function retrieves the authentication token from the cookies and constructs an authorization header.
+ * @param authCookieName The name of the authentication cookie to retrieve the token from.
+ * @returns  A promise that resolves to an object containing the Authorization header.
+ */
+const getAuthHeader = async (authCookieName: string): Promise<HeadersInit> => {
   const cookiesStore = await cookies();
-  const token = cookiesStore.get(AUTH_COOKIE_NAME);
+  const token = cookiesStore.get(authCookieName);
   return token ? { Authorization: `Bearer ${token.value}` } : {};
 };
 
+type TRequestOptions = Omit<RequestInit, "body"> & {
+  body?: FormData | Record<string, unknown>;
+  withAuth?: boolean;
+  authCookieName?: string;
+  expectResponseData?: boolean;
+};
+
+/**
+ *
+ * Performs a GET request to the specified URL with optional authentication and custom headers.
+ * Designed to work with typed response handling and error extraction.
+ *
+ * @param url   The API endpoint to send the request to.
+ * @param getOptions  Configuration options for the GET request:
+ * - `withAuth`: Whether to include authentication headers. Defaults to `true`.
+ * - `authCookieName`: The name of the authentication cookie to use. Defaults to `AUTH_COOKIE_NAME`.
+ * - `headers`: Optional custom headers to include in the request.
+ * @returns   A promise that resolves to the parsed JSON response from the API.
+ * @throws   An error if the response status is not OK (i.e., not in the range 200-299).
+ *
+ */
 export const apiGet = async <T = unknown>(
   url: string,
-  withAuth = true
+  getOptions: TRequestOptions = {}
 ): Promise<T> => {
-  const headers: HeadersInit = withAuth ? await getAuthHeader() : {};
+  // Destructure options with defaults
+  // to ensure backward compatibility and flexibility
+  const {
+    withAuth = true,
+    authCookieName = AUTH_COOKIE_NAME,
+    headers,
+  } = getOptions;
+
+  // Combine custom headers with auth headers if needed
+  // and ensure the correct type for headers
+  const actualHeaders: HeadersInit = Object.assign(
+    {},
+    withAuth && (await getAuthHeader(authCookieName)),
+    headers
+  );
+
+  // Perform the GET request with the specified URL and headers
+  // Use `no-store` cache policy to ensure fresh data
   const response = await fetch(API_URL + url, {
     method: "GET",
     cache: "no-store",
-    headers,
-    // cache: "force-cache",
+    headers: actualHeaders,
   });
 
+  // Check if the response is OK (status in the range 200-299)
+  // If not, throw an error with details about the failure
   if (!response.ok) {
     const error = new Error(
       `GET ${url} failed: ${response.status} ${response.statusText}`
@@ -47,57 +95,120 @@ export const apiGet = async <T = unknown>(
   return response.json();
 };
 
-export const apiPost = async <T = unknown>(
-  url: string,
-  body: FormData,
-  withAuth = true
-): Promise<T> => {
-  // Parse a `FormData` object into a structured JavaScript object
-  const parsedFormData = parseFormData(body);
+/*------------------------------------------------------*/
 
-  const headers = {
-    "Content-Type": "application/json",
-    ...(withAuth && (await getAuthHeader())),
-  };
-
-  const response = await fetch(API_URL + url, {
-    method: "POST",
-    cache: "no-store",
-    body: JSON.stringify(parsedFormData),
-    headers,
-  });
-  const data = await response.json();
-  //added this control because on 500 status data is withou "success" field
-  if (response.status === 500) {
-    return { success: false, ...data };
-  }
-  return data;
+/**
+ * Represents the result of a mutation (e.g., POST/PUT request).
+ *
+ * @template T - The expected type of the response data (if any).
+ *
+ * `payload` can contain:
+ * - the original request body (FormData or object), when error occurs,
+ * - or the response data of type `T`, when successful and expected.
+ */
+export type TMutationState<T = unknown> = {
+  sent: boolean;
+  error: TError | null;
+  payload?: FormData | Record<string, unknown> | T;
 };
 
-export const apiPut = async <T = unknown>(
+export type TGoodRequest<T> = {
+  success: boolean;
+  data?: T;
+};
+
+/**
+ *
+ * Performs a mutation (e.g., form submission) to the provided URL using the specified HTTP method.
+ * Designed to work with `FormData`, with support for typed response handling and error extraction.
+ * @param url   The API endpoint to send the request to.
+ * @param mutateOptions   Configuration options for the mutation:
+ * - `body`: Optional `FormData` or plain object to be sent with the request.
+ * - `method`: HTTP method (`POST`, `PUT`, or `PATCH`). Defaults to `"POST"`.
+ * - `expectResponseData`: If `true`, extracts and returns typed data from the response.
+ * - `withAuth`: Whether to include authentication headers. Defaults to `true`.
+ * - `authCookieName`: The name of the authentication cookie to use. Defaults to `AUTH_COOKIE_NAME`.
+ * - `headers`: Optional custom headers to include in the request.
+ *
+ * @returns   A promise that resolves to the result of the mutation, including error info and payload.
+ */
+export const apiMutate = async <T = unknown>(
   url: string,
-  body: FormData,
-  withAuth = true
-): Promise<T> => {
-  // Parse a `FormData` object into a structured JavaScript object
-  const parsedFormData = parseFormData(body);
-
-  const headers = {
-    "Content-Type": "application/json",
-    ...(withAuth && (await getAuthHeader())),
-  };
-
-  const response = await fetch(API_URL + url, {
-    method: "PUT",
-    cache: "no-store",
-    body: JSON.stringify(parsedFormData),
+  mutateOptions: TRequestOptions = {}
+) => {
+  // Destructure options with defaults
+  const {
+    body,
+    method = "POST",
+    expectResponseData = false,
+    withAuth = true,
+    authCookieName = AUTH_COOKIE_NAME,
     headers,
-  });
-  const data = await response.json();
+    ...restOptions
+  } = mutateOptions;
 
-  //added this control because on 500 status data is withou "success" field
-  if (response.status === 500) {
-    return { success: false, ...data };
+  // Combine custom headers with auth headers if needed
+  const actualHeaders: HeadersInit = Object.assign(
+    { "Content-Type": "application/json" }, // Ensure JSON content type,
+    withAuth && (await getAuthHeader(authCookieName)),
+    headers
+  );
+
+  // If body is provided, ensure it is a FormData object or convert it to JSON
+  const preparedBody = prepareBody(body);
+  try {
+    // Perform the mutation request with the specified URL, method, body, and headers
+    const response = await fetch(API_URL + url, {
+      method,
+      cache: "no-store",
+      body: preparedBody,
+      headers: actualHeaders,
+      ...restOptions,
+    });
+
+    let parsedResponse = await response.json();
+    //Added this control because on 500 status - parsedResponse is without "success" field
+    if (response.status === 500) {
+      parsedResponse = { success: false, ...parsedResponse };
+    }
+    // Check if the response indicates an error
+
+    if (
+      parsedResponse &&
+      typeof parsedResponse === "object" &&
+      "errorType" in parsedResponse
+    ) {
+      //Returns in payload previously entered data to prevent form reset.
+      return {
+        sent: true,
+        error: extractSyntheticErrorFromApi(parsedResponse),
+        payload: body,
+      };
+    }
+    // If the response is expected to contain data and it does, return it
+    // Otherwise, return a success state without data
+    if (
+      parsedResponse &&
+      typeof parsedResponse === "object" &&
+      expectResponseData
+    ) {
+      return {
+        sent: true,
+        payload: parsedResponse.data as T,
+        error: null,
+      };
+    }
+
+    return {
+      sent: true,
+      error: null,
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      sent: true,
+      error: getSyntheticError("Ошибка сохранения", 500),
+      payload: body,
+    };
   }
-  return data;
 };

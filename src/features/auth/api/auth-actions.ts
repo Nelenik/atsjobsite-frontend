@@ -1,6 +1,6 @@
 "use server";
 
-import { apiMutate, TMutationState } from "@/shared/api/common/apiLayer";
+import { apiMutate, TMutationState } from "@/shared/api/common/api";
 import { parseFormData } from "@/shared/api/common/utils";
 // import { mutateAction } from "@/shared/api/common/mutate";
 // import { TMutationState } from "@/shared/api/common/mutate";

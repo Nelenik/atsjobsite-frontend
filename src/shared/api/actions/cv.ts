@@ -7,7 +7,7 @@ import {
   TApiListResponse,
   TApiSuccessResponse,
   TMutationState,
-} from "../common/apiLayer";
+} from "../common/api";
 import { TResume } from "../types";
 import { revalidatePath } from "next/cache";
 import { parseFormData } from "../common/utils";

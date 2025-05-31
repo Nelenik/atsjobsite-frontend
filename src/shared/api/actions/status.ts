@@ -1,6 +1,6 @@
 "use server";
 import { DEFAULT_MATCH_STATUSES } from "@/shared/constants/default-match-statuses";
-import { apiMutate, TMutationState } from "../common/apiLayer";
+import { apiMutate, TMutationState } from "../common/api";
 import { parseFormData } from "../common/utils";
 import { TStatus } from "../types";
 

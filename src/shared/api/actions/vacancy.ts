@@ -7,7 +7,7 @@ import {
   TApiListResponse,
   TApiSuccessResponse,
   TMutationState,
-} from "../common/apiLayer";
+} from "../common/api";
 import { TVacancy, TVacancyMutation, TVacancyShort } from "../types";
 import { parseFormData } from "../common/utils";
 import { createVacancyMatchStatuses } from "./status";
