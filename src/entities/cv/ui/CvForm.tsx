@@ -20,7 +20,22 @@ type TProps = {
   onSuccess?: () => void
   onCancel?: () => void
 }
-
+/**
+ * A form component for creating or editing a CV (resume).
+ *
+ * Automatically determines whether to create a new CV or update an existing one,
+ * based on the `type` and presence of `initialData`.
+ *
+ * Uses `useFormMutation` for handling form submission, validation errors, and
+ * feedback notifications.
+ *
+ * @param props.type - Defines the form mode. Use `"edit"` to update an existing CV, or `"add"` to create a new one.
+ * @param props.initialData - The initial form values, used in edit mode to prefill the fields.
+ * @param props.onSuccess - Optional callback executed after a successful submission.
+ * @param props.onCancel - Optional callback triggered when the user clicks the "Cancel" button.
+ *
+ * @returns A form element with input fields for CV data and submit/cancel buttons.
+ */
 export const CvForm: FC<TProps> = ({
   type,
   initialData,
@@ -40,6 +55,7 @@ export const CvForm: FC<TProps> = ({
     ...mutationInitialState,
     ...(initialData && { payload: initialData })
   }
+
   //define toast message
   const toastMessage = type === 'edit' ? 'Данные о резюме успешно обновлены' : 'Новое резюме успешно сохранено'
 

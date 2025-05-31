@@ -2,8 +2,8 @@ import { ChangeEvent, useActionState, useEffect, useState } from "react";
 import { useToast } from "./use-toast";
 import { mutationInitialState } from "@/shared/api/constants";
 import { TValidationMappedErrors } from "@/shared/api/common/errors";
-// import { parseFormData } from "@/shared/lib/object_manipulations/parseFormData";
 import { TMutationState } from "@/shared/api/common/api";
+// import { parseFormData } from "@/shared/lib/object_manipulations/parseFormData";
 // import { TMutationState } from "@/shared/api/common/mutate";
 
 type TFormMutationAction = (_: TMutationState, data: FormData) => Promise<TMutationState>
@@ -64,11 +64,6 @@ export const useFormMutation = (
       onSuccess(state)
     }
   }, [state, onSuccess, isSuccess])
-
-
-  // const defaultValues = state.payload && state.payload instanceof FormData
-  //   ? parseFormData<Record<string, string>>(state.payload)
-  //   : undefined;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const defaultValues = state.payload ? (state.payload as Record<string, any>) : undefined

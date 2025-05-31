@@ -7,6 +7,7 @@ import { Button } from "@/shared/ui/shadcn/button";
 import { CirclePlus } from "lucide-react";
 import { cn } from "@/shared/lib/utils";
 import { useCallback } from "react";
+import { CvFormWithFileParsing } from "@/entities/cv/ui/CvFormWithFileParsing";
 
 type TProps = {
   entityType: 'vacancy' | 'company' | 'cv',
@@ -51,7 +52,18 @@ export const AddEntity = ({
     const forms = {
       vacancy: <VacancyForm type="add" onSuccess={closeSheetModal} onCancel={closeSheetModal} />,
       company: <CompanyForm type="add" onSuccess={closeSheetModal} onCancel={closeSheetModal} />,
-      cv: <CvForm type="add" onSuccess={closeSheetModal} onCancel={closeSheetModal} />,
+      cv: <CvFormWithFileParsing
+        renderCvForm={
+          ({ initialData }) => (
+            <CvForm
+              type="add"
+              initialData={initialData}
+              onSuccess={closeSheetModal}
+              onCancel={closeSheetModal}
+            />
+          )
+        }
+      />,
     }
     return forms[entityType]
   }, [entityType])

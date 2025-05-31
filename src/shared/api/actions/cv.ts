@@ -11,6 +11,7 @@ import {
 import { TResume } from "../types";
 import { revalidatePath } from "next/cache";
 import { parseFormData } from "../common/utils";
+import { wait } from "@/shared/lib/wait";
 
 /**
  * Fetches a list of resumes from the server, applying optional filters.
@@ -125,4 +126,27 @@ export const updateCV = async (
     revalidatePath("/dashboard/[companyId]/reserve", "page");
   }
   return result;
+};
+
+export const parseCvFromFile = async (_: TMutationState, data: FormData) => {
+  //mocked
+  console.log([...data]);
+  return wait(500).then(() => ({
+    sent: true,
+    payload: {
+      candy_name: "Иванов Иван",
+      name: "Frontend Developer",
+      experience_months: "24",
+      salary: "120000",
+      candy_phone: "+79991234567",
+      candy_tg: "@ivanovdev",
+      candy_email: "ivanov@example.com",
+      candy_location: "Москва",
+      link: "https://hh.ru/resume/ivanov",
+      bio: "Разработчик с двухлетним опытом в React/Next.js",
+      experience_raw:
+        "2021-2023: Frontend Developer в XYZ\n2020-2021: Стажёр в ABC",
+    } as unknown as TResume,
+    error: null,
+  }));
 };

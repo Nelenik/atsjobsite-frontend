@@ -20,7 +20,17 @@ type TProps = {
   onSuccess?: () => void
   onCancel?: () => void
 }
-
+/**
+ * A form component for creating or editing vacancy records.
+ * Handles both add and edit modes based on the type prop.
+ * 
+ * @param props - The component properties
+ * @param props.type - Form mode ('add' or 'edit')
+ * @param props.initialData - Initial form data for edit mode
+ * @param props.onSuccess - Success callback
+ * @param props.onCancel - Cancel callback
+ * 
+ */
 export const VacancyForm = ({
   type,
   initialData,
@@ -40,7 +50,6 @@ export const VacancyForm = ({
     ...mutationInitialState,
     ...(initialData && { payload: initialData })
   }
-  console.log(initialState)
   //define toast message
   const toastMessage = type === 'edit' ? 'Вакансия успешно обновлена' : 'Вакансия успешно сохранена'
 
@@ -52,7 +61,6 @@ export const VacancyForm = ({
       toastMessage
     });
 
-  console.log(defaultValues?.status_id)
 
   return (
     <form action={formAction} className="flex flex-col justify-between grow">
