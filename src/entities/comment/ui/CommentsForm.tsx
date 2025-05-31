@@ -3,11 +3,11 @@ import { FC, useCallback, useRef, KeyboardEvent, useState, useEffect } from "rea
 import { Send } from "lucide-react";
 import SentSpinnerSvg from '@/assets/icons/spinner_send-comment.svg?rc'
 import { useQueryClient } from "@tanstack/react-query";
-import { storeMatchComment } from "@/shared/api/postData";
 import { useFormMutation } from "@/shared/model/hooks/useFormMutation";
 import { Button } from "@/shared/ui/shadcn/button";
 import { cn } from "@/shared/lib/utils";
 import { Textarea } from "@/shared/ui/shadcn/textarea";
+import { storeMatchComment } from "@/shared/api/actions";
 
 type TProps = {
   matchId: number | string
