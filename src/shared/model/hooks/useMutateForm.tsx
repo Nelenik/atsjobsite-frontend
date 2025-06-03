@@ -58,6 +58,8 @@ export const useMutateForm = <TPayload,>(
         toast({ description: toastMessage });
       }
       setIsSuccess(true);
+    } else if (!state.sent && state.error?.details) {
+      setErrors((prevErrors) => ({ ...prevErrors, ...state.error?.details }))
     }
 
   }, [state.error, state.sent, toast, toastMessage])

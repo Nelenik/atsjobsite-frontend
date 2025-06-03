@@ -12,6 +12,7 @@ import { TResume } from "../types";
 import { revalidatePath } from "next/cache";
 import { parseFormData } from "../common/utils";
 import { wait } from "@/shared/lib/wait";
+import { getSyntheticError } from "../common/errors";
 
 /**
  * Fetches a list of resumes from the server, applying optional filters.
@@ -130,6 +131,12 @@ export const updateCV = async (
 
 export const parseCvFromFile = async (_: TMutationState, data: FormData) => {
   //mocked
+  if (![...data].length) {
+    return {
+      sent: false,
+      error: getSyntheticError("", 0, { file: "Не выбрано ни одного файла" }),
+    };
+  }
   console.log([...data]);
   return wait(500).then(() => ({
     sent: true,

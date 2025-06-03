@@ -7,6 +7,7 @@ import FormItem from "@/shared/ui/FormItem";
 import { Button } from "@/shared/ui/shadcn/button";
 import { Input } from "@/shared/ui/shadcn/input";
 
+
 type TProps = {
   setInitialData: (data: TResume) => void
 }
@@ -38,3 +39,4 @@ export const FileLoader = ({
     </form>
   );
 }
+

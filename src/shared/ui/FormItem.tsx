@@ -1,24 +1,34 @@
 import { cn } from "@/shared/lib/utils";
+import { HTMLAttributes } from "react";
 
-interface IFormItem {
+type TFormItem = {
   labelText?: string,
   children: React.ReactNode,
   className?: string
   error?: string | null,
 
-}
+} & HTMLAttributes<HTMLDivElement>
 
-export const ErrorMessage = ({ message }: { message: string }) => {
+export const ErrorMessage = ({ message, className }: { message: string, className?: string }) => {
   return (
-    <p className="text-destructive text-xs absolute right-0 top-2">
+    <p className={cn("text-destructive text-xs absolute right-0 top-2", className)}>
       {message}
     </p>
   )
 }
 
-const FormItem = ({ labelText, children, className, error = null }: IFormItem) => {
+const FormItem = ({
+  labelText,
+  children,
+  className,
+  error = null,
+  ...props
+}: TFormItem) => {
   return (
-    <div className={cn("relative flex flex-col gap-2.5", className)}>
+    <div
+      className={cn("relative flex flex-col gap-2.5", className)}
+      {...props}
+    >
       {labelText && <span className="font-medium">
         {labelText}
       </span>}

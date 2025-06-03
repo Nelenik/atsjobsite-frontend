@@ -96,11 +96,17 @@ export default {
             opacity: "0",
           },
         },
+        "move-border": {
+          "100%": {
+            "stroke-dashoffset": "1000",
+          },
+        },
       },
       animation: {
         "slide-up": "slide-up 200ms ease",
         "slide-down": "slide-down 200ms ease",
         "fade-in-out": "2s fade-in-out 200ms ease ",
+        "move-border": "30s move-border linear infinite", //for moving border
       },
     },
   },
