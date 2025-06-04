@@ -2,7 +2,7 @@
 
 import { TResume } from "@/shared/api/types";
 import { cn } from "@/shared/lib/utils";
-import { FileLoader } from "./FileLoader";
+import { FileLoadingForm } from "./FileLoadingForm";
 import { ReactNode, useState } from "react";
 import { filterFalsyFields, NonNullableFields } from "@/shared/lib/object_manipulations/filterFalsyFields";
 
@@ -28,7 +28,7 @@ export const CvFormWithFileParsing = ({
         className
       )}
     >
-      <FileLoader
+      <FileLoadingForm
         setInitialData={setInitialData}
       />
       {renderCvForm({ initialData: clearedInitialData })}

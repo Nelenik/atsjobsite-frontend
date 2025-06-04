@@ -11,7 +11,7 @@ import { CancelButton } from "@/shared/ui/buttons/CancelButton";
 type TProps = {
   setInitialData: (data: TResume) => void
 }
-export const FileLoader = ({
+export const FileLoadingForm = ({
   setInitialData
 }: TProps) => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([])
