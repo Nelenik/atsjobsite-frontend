@@ -35,7 +35,7 @@ const SearchPage = () => {
   console.log(errors)
   return (
     <div>Search page
-
+      <h3>Заполнить из файла</h3>
       <form onSubmit={handleSumbmit} className="flex gap-4 relative">
 
         <FileUploadField

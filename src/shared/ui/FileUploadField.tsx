@@ -1,10 +1,10 @@
 'use client'
 import { ChangeEvent, DragEventHandler, InputHTMLAttributes, Ref, useImperativeHandle, useRef, useState } from "react";
-import FormItem from "./FormItem";
 import { Input } from "./shadcn/input";
 import { cn } from "../lib/utils";
 import UploadIcon from '@/assets/icons/upload-svg.svg?rc'
 import BorderSvg from '@/assets/icons/border-svg.svg?rc'
+import { ErrorMessage } from "./FormItem";
 
 /**
  * Parses the accept attribute string into an array of file types
@@ -50,48 +50,63 @@ export type FileUploadRef = {
 type Props = {
   rootStyles?: string
   inputStyles?: string
-  ref: Ref<FileUploadRef> | null
-} & Omit<InputHTMLAttributes<HTMLInputElement>, 'className'>
+  ref?: Ref<FileUploadRef>
+  error?: string | null
+  onFilesChange?: (files?: File[]) => void
+} & Omit<InputHTMLAttributes<HTMLInputElement>, 'className' | 'onChange'>
 
 /**
- * A drag-and-drop file upload component with visual feedback and imperative API
- * 
+ * A drag-and-drop file upload component with visual feedback and imperative API.
+ *
  * Features:
  * - Drag and drop file upload
  * - Click to select files
  * - File type filtering based on accept attribute
  * - Visual feedback during drag operations
  * - Animated border effects
- * - Imperative API for external control
- * 
+ * - Imperative API for external control (via ref)
+ * - Optional reactive API (via onFilesChange callback)
+ *
  * @param props - Component props extending HTML input attributes
  * @param props.rootStyles - Custom CSS classes for root container
- * @param props.inputStyles - Custom CSS classes for input (reserved)
- * @param props.ref - Reference for imperative API access
+ * @param props.inputStyles - Reserved for custom CSS classes for input
+ * @param props.ref - Reference for imperative API access (getFiles, clearFiles, addFiles)
+ * @param props.error - Error message to display under the field
  * @param props.multiple - Allow multiple file selection
  * @param props.accept - File type restrictions (extensions or MIME types)
- * 
- * @example
+ * @param props.onFilesChange - Optional callback called whenever selected files change
+ *
+ * @example Imperative usage
  * ```tsx
  * const fileUploadRef = useRef<FileUploadRef>(null)
- * 
+ *
  * <FileUploadField
  *   ref={fileUploadRef}
  *   multiple
  *   accept=".pdf,.jpg,.png,image/*"
- *   rootStyles="custom-upload-area"
  * />
- * 
- * // Access files programmatically
+ *
  * const files = fileUploadRef.current?.getFiles()
  * fileUploadRef.current?.clearFiles()
+ * ```
+ *
+ * @example Reactive usage
+ * ```tsx
+ * const [files, setFiles] = useState<File[]>([])
+ *
+ * <FileUploadField
+ *   multiple
+ *   onFilesChange={setFiles}
+ * />
  * ```
  */
 export const FileUploadField = ({
   rootStyles,
   ref,
+  error = null,
   multiple,
   accept,
+  onFilesChange = () => { },
   ...props
 }: Props) => {
   // Ref to the hidden file input element
@@ -109,30 +124,34 @@ export const FileUploadField = ({
     getFiles: () => files,
     clearFiles: () => {
       setFiles([])
+      onFilesChange([])
       if (fileInputRef.current) {
         fileInputRef.current.value = ''
       }
     },
     addFiles: (files: File[]) => {
-      setFiles(prev => [...prev, ...files])
+      setFiles(prev => {
+        const newFiles = [...prev, ...files]
+        onFilesChange(newFiles)
+        return newFiles
+      })
     }
-  }), [files])
+  }), [files, onFilesChange])
 
   /**
    * Update files state - centralized method for consistency
    */
   const updateFiles = (newFiles: File[]) => {
     setFiles(newFiles)
+    onFilesChange(newFiles)
   }
 
   /**
    * Handle file selection via the file input dialog
    */
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.files)
     if (!e.target.files || !e.target.files.length) return
     const newFiles = Array.from(e.target.files)
-    console.log(newFiles)
     updateFiles(newFiles)
   }
 
@@ -142,6 +161,7 @@ export const FileUploadField = ({
    */
   const handleDrop: DragEventHandler<HTMLDivElement> = (e) => {
     e.preventDefault()
+    setIsDragOver(false)
     const files = e.dataTransfer.files
     if (!files) return;
 
@@ -156,7 +176,6 @@ export const FileUploadField = ({
     if (fileInputRef.current) {
       fileInputRef.current.value = ''
     }
-    setIsDragOver(false)
     updateFiles(newFiles)
   }
 
@@ -180,14 +199,15 @@ export const FileUploadField = ({
   const handleDragOver: DragEventHandler<HTMLDivElement> = (e) => {
     e.preventDefault()
   }
+
   return (
-    <FormItem
+    <div
       onDrop={handleDrop}
       onDragOver={handleDragOver}
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
       className={cn(
-        'grow h-20',
+        'h-14 relative',
         'hover:opacity-65 group/file-field',
         isDragOver && 'opacity-65',
         rootStyles
@@ -206,17 +226,24 @@ export const FileUploadField = ({
       />
       <UploadIcon
         className={cn(
-          'h-8 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2',
+          'h-8 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-primary/65',
 
         )}
       />
       <BorderSvg
         className={cn(
-          'w-full h-full',
+          'w-full h-full text-primary/65',
           '[stroke-dasharray:5] group-hover/file-field:animate-move-border',
-          isDragOver && 'animate-move-border'
+          isDragOver && 'animate-move-border',
+          error && 'text-destructive',
         )}
       />
-    </FormItem>
+      {error && <ErrorMessage
+        message={error}
+        className="-top-[1.5rem]"
+      />}
+    </div>
+
+
   )
 }

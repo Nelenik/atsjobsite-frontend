@@ -72,7 +72,7 @@ export const CvForm: FC<TProps> = ({
   //   });
 
 
-  const { formAction, pending, defaultValues, errors, onChange } = useMutateForm({
+  const { formAction, pending, defaultValues, errors, removeError } = useMutateForm({
     mutationAction: action,
     onSuccess: () => {
       onSuccess()
@@ -96,7 +96,7 @@ export const CvForm: FC<TProps> = ({
             name="candy_name"
             defaultValue={defaultValues?.candy_name}
             className={errors?.candy_name && 'ring-2 ring-destructive'}
-            onChange={onChange}
+            onChange={(e) => removeError(e.target.name)}
           />
         </FormItem>
 
@@ -109,7 +109,7 @@ export const CvForm: FC<TProps> = ({
             name="name"
             defaultValue={defaultValues?.name}
             className={errors?.name && 'ring-2 ring-destructive'}
-            onChange={onChange}
+            onChange={(e) => removeError(e.target.name)}
           />
         </FormItem>
 
@@ -124,7 +124,7 @@ export const CvForm: FC<TProps> = ({
             pattern="[0-9]+"
             defaultValue={defaultValues?.experience_months}
             className={errors?.experience_months && 'ring-2 ring-destructive'}
-            onChange={onChange}
+            onChange={(e) => removeError(e.target.name)}
           />
         </FormItem>
 
@@ -139,7 +139,7 @@ export const CvForm: FC<TProps> = ({
             name="salary"
             defaultValue={defaultValues?.salary}
             className={errors?.salary && 'ring-2 ring-destructive'}
-            onChange={onChange}
+            onChange={(e) => removeError(e.target.name)}
           />
         </FormItem>
 
@@ -152,7 +152,7 @@ export const CvForm: FC<TProps> = ({
             name="candy_phone"
             defaultValue={defaultValues?.candy_phone}
             className={errors?.candy_phone && 'ring-2 ring-destructive'}
-            onChange={onChange}
+            onChange={(e) => removeError(e.target.name)}
           />
         </FormItem>
 
@@ -165,7 +165,7 @@ export const CvForm: FC<TProps> = ({
             name="candy_tg"
             defaultValue={defaultValues?.candy_tg}
             className={errors?.candy_tg && 'ring-2 ring-destructive'}
-            onChange={onChange}
+            onChange={(e) => removeError(e.target.name)}
           />
         </FormItem>
 
@@ -178,7 +178,7 @@ export const CvForm: FC<TProps> = ({
             name="candy_email"
             defaultValue={defaultValues?.candy_email}
             className={errors?.candy_email && 'ring-2 ring-destructive'}
-            onChange={onChange}
+            onChange={(e) => removeError(e.target.name)}
           />
         </FormItem>
 
@@ -191,7 +191,7 @@ export const CvForm: FC<TProps> = ({
             name="candy_location"
             defaultValue={defaultValues?.candy_location}
             className={errors?.candy_location && 'ring-2 ring-destructive'}
-            onChange={onChange}
+            onChange={(e) => removeError(e.target.name)}
           />
         </FormItem>
 
@@ -204,7 +204,7 @@ export const CvForm: FC<TProps> = ({
             name="link"
             defaultValue={defaultValues?.link}
             className={errors?.link && 'ring-2 ring-destructive'}
-            onChange={onChange}
+            onChange={(e) => removeError(e.target.name)}
           />
         </FormItem>
 
@@ -219,7 +219,7 @@ export const CvForm: FC<TProps> = ({
             rows={9}
             defaultValue={defaultValues?.bio}
             className={cn("resize-none", errors?.bio && 'ring-2 ring-destructive')}
-            onChange={onChange}
+            onChange={(e) => removeError(e.target.name)}
           />
         </FormItem>
 
@@ -232,7 +232,7 @@ export const CvForm: FC<TProps> = ({
             name="experience_raw"
             defaultValue={defaultValues?.experience_raw}
             className={cn("resize-none", errors?.experience_raw && 'ring-2 ring-destructive')}
-            onChange={onChange}
+            onChange={(e) => removeError(e.target.name)}
             rows={17}
           />
         </FormItem>

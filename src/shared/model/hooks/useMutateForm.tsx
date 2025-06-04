@@ -1,6 +1,6 @@
 import { TMutationState } from "@/shared/api/common/api"
 import { useToast } from "./use-toast";
-import { ChangeEvent, useActionState, useCallback, useEffect, useState } from "react";
+import { useActionState, useCallback, useEffect, useState } from "react";
 import { mutationInitialState } from "@/shared/api/constants";
 import { TValidationMappedErrors } from "@/shared/api/common/errors";
 
@@ -10,8 +10,6 @@ type TMutateFormOptions<TPayload> = {
   initialData?: TPayload,
   toastMessage?: string | null
 }
-
-type TOnChangeEvent = ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
 
 export const useMutateForm = <TPayload,>(
   {
@@ -71,15 +69,22 @@ export const useMutateForm = <TPayload,>(
     }
   }, [state, onSuccess, isSuccess])
 
-  //Removes the error from the errors object when the user starts entering data.
-  const onChange = useCallback((e: TOnChangeEvent) => {
-    const nameAtr = e.target.name;
-    if (!errors.hasOwnProperty(nameAtr)) {
+  /**
+ * Removes a specific validation error from the `errors` state object.
+ * 
+ * Typically used to clear the error for a form field when the user starts modifying its value.
+ *
+ * @param errorName - The key of the error to remove, usually matching the `name` attribute of the form field.
+ *
+ */
+  const removeError = useCallback((errorName: string) => {
+    // const nameAtr = e.target.name;
+    if (!errors.hasOwnProperty(errorName)) {
       return
     }
     setErrors((prevState) => {
       const updatedErrors = { ...prevState }
-      delete updatedErrors[nameAtr]
+      delete updatedErrors[errorName]
       return updatedErrors
     });
   }, [errors])
@@ -90,7 +95,7 @@ export const useMutateForm = <TPayload,>(
     defaultValues,
     errors,
     success: isSuccess,
-    onChange
+    removeError
   }
 
 }
