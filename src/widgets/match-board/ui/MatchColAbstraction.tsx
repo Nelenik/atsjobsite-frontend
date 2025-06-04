@@ -41,11 +41,7 @@ const MatchColAbstraction: FC<TProps> = ({
           {(slicedCandidates || [])?.map((candidate) => (
             <CandidateCard
               key={candidate.id}
-              id={candidate.id}
-              name={candidate.name}
-              city={candidate.city}
-              salary={candidate.salary}
-              rating={candidate.match_point}
+              candidate={candidate}
             />
           ))}
 

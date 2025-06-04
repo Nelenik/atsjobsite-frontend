@@ -16,13 +16,13 @@ export const VacancyBoardCard: FC<TProps> = ({ id, name, location, salary_from, 
   const pathname = usePathname()
 
   const daysInProcessing = getDaysSinceCreated(created_at)
-  const isNew = daysInProcessing <= 1
-  const daysString = isNew ? 'New' : `${daysInProcessing} ${formatWordEndings(daysInProcessing, [
+  const isNew = daysInProcessing < 1
+  const daysString = isNew ? 'Новая' : `${daysInProcessing} ${formatWordEndings(daysInProcessing, [
     'день',
     'дня',
     'дней',
   ])}`;
-  const color = isNew ? '#22c55e' : '#3b82f6'
+  const color = isNew ? '#34d399' : '#3b82f6'
 
   return (
     <Link href={`${pathname}/${id}?name=${name}`}>

@@ -6,24 +6,30 @@ import { splitRatingToArr } from '@/shared/lib/splitRatingToArr';
 import { Star } from '@/shared/ui/Star';
 import { Card } from '@/shared/ui/shadcn/card';
 import { TCandidateShort } from '@/shared/api/types';
+import { getDaysSinceCreated } from '@/shared/lib/date_time/getDaysSinceCreated';
+import { StatusBadge } from '@/shared/ui/StatusBadge';
+import { cn } from '@/shared/lib/utils';
 
 type TProps = {
-  id: TCandidateShort['id'];
-  name: TCandidateShort["name"];
-  city: TCandidateShort["city"];
-  salary: TCandidateShort["salary"]
-  rating: TCandidateShort["match_point"];
+  candidate: TCandidateShort
 }
 
 export const CandidateCard = ({
-  id,
-  name,
-  city,
-  salary,
-  rating,
+  candidate
 }: TProps) => {
+  const { id,
+    name,
+    cv_name,
+    city,
+    salary,
+    match_point: rating,
+    created_at
+  } = candidate
   const params = useParams();
   const companyId = params?.companyId as string | undefined;
+
+  const daysInProcessing = getDaysSinceCreated(created_at)
+  const isNew = daysInProcessing < 1
 
   return (
     <Link
@@ -31,8 +37,14 @@ export const CandidateCard = ({
       href={`/dashboard/${companyId}/matchDetails/${id}?name=${name}`}
     >
       <Card className="w-full min-w-[240px] py-4 pl-8 pr-6 hover:shadow-md transform hover:-translate-y-1 transition-all duration-200">
+        {isNew && <StatusBadge
+          color='#34d399'
+          className={cn("absolute top-1 right-1 px-1 text-[10px] border-none ", isNew && 'animate-pulse text-[12px]')}
+        >
+          Новая
+        </StatusBadge>}
         <h3 className="text-base font-regular">
-          {name || 'Имя отсутствует'}
+          {name || cv_name}
         </h3>
 
         <p className="text-muted-foreground text-base mb-1">{city}</p>

@@ -17,6 +17,7 @@ export enum EMatchType {
 export type TCandidateShort = {
   id: number;
   name: string;
+  cv_name: string;
   city: string;
   salary: number;
   match_point: number;

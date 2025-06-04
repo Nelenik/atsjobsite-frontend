@@ -70,11 +70,7 @@ export const MatchCol: FC<TProps> = ({ color, status_id, title, className, isEdi
                     className="group/card"
                   >
                     <CandidateCard
-                      id={candidate.id}
-                      name={candidate.name}
-                      city={candidate.city}
-                      salary={candidate.salary}
-                      rating={candidate.match_point}
+                      candidate={candidate}
                     />
                   </DndSortable>
                 ))}
