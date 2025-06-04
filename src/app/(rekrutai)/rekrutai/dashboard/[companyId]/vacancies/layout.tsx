@@ -1,5 +1,6 @@
 import { VacanciesProvider } from "@/entities/vacancy";
 import { getVacanciesList } from "@/shared/api/actions";
+import { vacanciesDefaultStatuses } from "@/shared/constants/default-vacancy-statuses";
 import { FC, PropsWithChildren } from "react";
 
 
@@ -13,7 +14,12 @@ interface IVacancyiesLayoutProp extends PropsWithChildren {
 
 const VacanciesLayout: FC<IVacancyiesLayoutProp> = async ({ children, params }) => {
   const { companyId } = await params
-  const vacancies = await getVacanciesList({ companyId });
+
+  //allowed vacancy statuses, now they are hardcoded
+  const allowedStatuses = vacanciesDefaultStatuses.map(el => el.id)
+  //get vacancies list and filter by status_id to make sure that only vacancies with allowedStatuses remain in vacancies list
+  const vacancies = (await getVacanciesList({ companyId })).filter(el => allowedStatuses.includes(el.status_id));
+
 
   return (
     <VacanciesProvider vacancies={vacancies}>

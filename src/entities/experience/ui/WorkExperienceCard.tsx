@@ -4,6 +4,7 @@ import { Dot } from "lucide-react";
 import { formatToMonthYearString } from "@/shared/lib/formatters/formatToMonthYearString";
 import { cn } from "@/shared/lib/utils";
 import { Card } from "@/shared/ui/shadcn/card";
+import { TextFormatter } from "@/shared/ui/TextFormatter";
 
 type TProps = {
   work_experience: TWorkExperience,
@@ -34,9 +35,12 @@ export const WorkExperienceCard: FC<TProps> = ({ work_experience, className }) =
             : <i>(настоящее время)</i>
         }
       </p>
-      <p className='text-muted-foreground'>
+      <TextFormatter
+        text={description || 'Отсутствует'}
+      />
+      {/* <p className='text-muted-foreground'>
         {description}
-      </p>
+      </p> */}
     </Card>
   );
 }

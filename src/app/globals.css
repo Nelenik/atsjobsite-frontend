@@ -114,18 +114,12 @@ body {
   border-radius: 5px;
 }
 
-/* PARSED TEST STYLING */
-
-/* styling for injected html from parsed plain text */
-.parsed a {
-  @apply text-primary
-}
-
 
 /* TOOLTIP AT THE BOARDS*/
 
 /* tooltip for grip button on draggable cards */
-.group\/col:hover:not(:has(.group\/card:hover))>.tooltip::after, .group\/col:hover:not(:has(.group\/card:hover))>.tooltip::before {
+.group\/col:hover:not(:has(.group\/card:hover))>.tooltip::after,
+.group\/col:hover:not(:has(.group\/card:hover))>.tooltip::before {
   @apply animate-fade-in-out
 }
 

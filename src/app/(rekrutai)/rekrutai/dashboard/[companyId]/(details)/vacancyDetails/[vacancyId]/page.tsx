@@ -15,7 +15,7 @@ const VacancyDetailsPage = async ({ params }: { params: Promise<{ vacancyId: str
 
         className="flex items-center mb-6 font-medium text-sm text-primary/80 underline underline-offset-2 decoration-transparent hover:decoration-current transition-colors duration-300"
       >
-        Перейти к мэтчу
+        Перейти к мэтчам
         <LinkIcon className="h-[1cap]" />
       </Link>
       <VacancyDetails vacancy={vacancy} />

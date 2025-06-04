@@ -27,7 +27,7 @@
  */
 export const splitRatingToArr = (
   rating: number,
-  minCountOfStars: number = 8
+  minCountOfStars: number = 10
 ): { fullness: number; id: string }[] => {
   const intPart = Math.floor(rating);
   const decimalPart = parseFloat((rating % 1).toFixed(1));

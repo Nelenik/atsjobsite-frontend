@@ -11,24 +11,54 @@ import sanitize from "sanitize-html";
  * @returns {JSX.Element} A formatted text block with enhanced readability.
  */
 
-const TextFormatter = ({ text, className }: { text: string, className?: string }) => {
-  const cleanedText = sanitize(text).replace(/\r\n/g, '\n')
-  const regexp = /^([A-ZА-ЯЁ][^:\n]+):/g
-  const blocks = cleanedText.split(/\n{2,}/).map((block, id) => {
-    const replaced = block
-      .replace(/\n/g, '<br/>')
-      .replace(regexp, (match) => {
-        return `<span class="text-foreground/85 font-medium">${match}</span>`
-      })
 
+export const TextFormatter = ({ text, className }: { text: string, className?: string }) => {
+  const cleanedText = sanitize(text).replace(/\r\n/g, '\n');
+
+  // const regexp = /([A-ZА-ЯЁ][^:\n]+):\s/g;
+  const h3Regexp = /^\*{2}(.+?)\*{2}/g;
+  const inlineBoldRegexp = /\*\*(.+?)\*\*/g
+  const linkReg = /https?:\/\/[^\s]+/g;
+
+  const blocks = cleanedText.split(/\n{2,}/).map((block, id) => {
+    const lines = block
+      .split('\n')
+      .map((line) => {
+        // Subtitle h3 (bold text **smth**)
+        if (h3Regexp.test(line)) {
+          return line.replace(h3Regexp, (_, title: string) => {
+            return (
+              `<h3 class="mb-2 text-base  font-medium text-foreground/85">${title}</h3>`);
+          });
+        }
+        if (inlineBoldRegexp.test(line)) {
+          line = line.replace(inlineBoldRegexp, (_, title) => {
+            return `<span class=" text-foreground/85 font-medium">${title}</span>`
+          })
+        }
+        // list ➥
+        if (/^(\*[^\*]|-[^-]|\•[^|\•])/.test(line)) {
+          line = line.replace(/^\*|\-|\•?/, ' ➥ ');
+        }
+
+        // links
+        if (linkReg.test(line)) {
+          line = line.replace(linkReg, (match) => {
+            return `<a href="${match}" target="_blank" class="text-primary underline underline-offset-2 decoration-transparent hover:decoration-current transition-colors duration-300">${match}</a>`;
+          });
+        }
+
+        return `<p class="mb-2">${line}</p>`;
+      })
+      .join('');
     return (
-      <p
+      <div
         key={id}
-        className={cn('text-muted-foreground mb-2', className)}
-        dangerouslySetInnerHTML={{ __html: replaced }}
-      ></p>
+        className={cn('text-muted-foreground mb-2 ', className)}
+        dangerouslySetInnerHTML={{ __html: lines }}
+      />
     )
-  })
+  });
 
   return (
     <>
@@ -36,5 +66,3 @@ const TextFormatter = ({ text, className }: { text: string, className?: string }
     </>
   )
 }
-
-export { TextFormatter }
