@@ -17,7 +17,7 @@
 export const splitArrayToColumns = <T>(
   array: T[],
   columnsCount: number = 2,
-  minLenForSplitting: number = 6
+  minLenForSplitting: number = 4
 ): T[][] => {
   if (array.length < minLenForSplitting) {
     return [array];

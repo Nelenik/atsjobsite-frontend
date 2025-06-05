@@ -7,9 +7,13 @@ import { TextFormatter } from "@/shared/ui/TextFormatter";
 import { formatDurationFromMonths } from "@/shared/lib/formatters/formatDurationFromMonths";
 import List from "@/shared/ui/shadcn/list";
 
+import { cvSource } from '../lib/dictionary'
+import { Button } from "@/shared/ui/shadcn/button";
+
 
 type TProps = {
   // role: TResume["name"];
+  external_id: TResume["external_id"]
   work_status: TResume['status'];
   location: TResume["candy_location"];
   phone: TResume["candy_phone"];
@@ -23,6 +27,7 @@ type TProps = {
 
 export const CvInfoBlock: FC<TProps> = ({
   // role,
+  external_id,
   work_status,
   location,
   phone,
@@ -87,6 +92,24 @@ export const CvInfoBlock: FC<TProps> = ({
             skills && skills.map(el => (<li key={el} className='bg-indigo-100 rounded-md py-1 px-3.5 text-sm'>{el}</li>)) || <span className="text-muted-foreground text-sm">не указано</span>
           }
         </List>
+      </div>
+
+      <div>
+        <h2 className='text-lg font-semibold mb-2'>Источник</h2>
+        <Button asChild variant={'ghost'}>
+          <a
+            href={`${cvSource.hh.url}${external_id}`}
+            target="_blank"
+            className={cn(
+              "flex items-center gap-1 w-full justify-start",
+              "hover:bg-indigo-100"
+            )}
+          >
+            {<cvSource.hh.HhIcon
+              className="h-[2cap]"
+            />} hh.ru
+          </a>
+        </Button>
       </div>
     </div>
   );

@@ -47,6 +47,7 @@ export const CvDetails = async ({ cvId }: { cvId: number }) => {
             />
             <CvInfoBlock
               // role={cv.name}
+              external_id={cv.external_id}
               work_status={cv.status}
               location={cv.candy_location}
               phone={cv.candy_phone}

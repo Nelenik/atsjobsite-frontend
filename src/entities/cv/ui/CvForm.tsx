@@ -51,26 +51,9 @@ export const CvForm: FC<TProps> = ({
     ? updateCV.bind(null, initialData.id)
     : storeCv
 
-  //define initial state
-  // const initialState = {
-  //   ...mutationInitialState,
-  //   ...(initialData && { payload: initialData })
-  // }
 
   //define toast message
   const toastMessage = type === 'edit' ? 'Данные о резюме успешно обновлены' : 'Новое резюме успешно сохранено'
-
-  // const { formAction, pending, defaultValues, errors, onChange } =
-  //   useFormMutation({
-  //     mutationAction: action,
-  //     onSuccess: () => {
-  //       onSuccess()
-  //       queryClient.invalidateQueries({ queryKey: ["reserve-infinite-list"] })
-  //     },
-  //     initialState,
-  //     toastMessage
-  //   });
-
 
   const { formAction, pending, defaultValues, errors, removeError } = useMutateForm({
     mutationAction: action,
@@ -81,8 +64,6 @@ export const CvForm: FC<TProps> = ({
     initialData,
     toastMessage
   })
-
-  console.log('cv form render', defaultValues)
 
   return (
     <form action={formAction} className="flex flex-col justify-between grow">

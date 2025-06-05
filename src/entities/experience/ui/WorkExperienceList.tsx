@@ -12,6 +12,7 @@ type TProps = {
 
 export const WorkExperienceList: FC<TProps> = ({ experience, className }) => {
   const sortedExperience = experience.toSorted(sortByDateField('start_at'))
+
   //Since splitting the array into columns with grid, flex, or multicolumn layout did not provide a flexible chronological view, we used the splitArrayToColumns function instead
   const columns = splitArrayToColumns<TWorkExperience>(sortedExperience, 2)
 
