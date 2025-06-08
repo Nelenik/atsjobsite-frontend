@@ -32,7 +32,7 @@ export const Sidebar = ({ className }: ISidebarProps) => {
   return (
     <CollapsibleSidebar
       className={cn(
-        'flex flex-col shrink-0  px-4 py-6  bg-sidebar text-sidebar-foreground sidebar-rekrutai',
+        'flex flex-col shrink-0  px-3 pt-6 pb-4 bg-sidebar text-sidebar-foreground sidebar-rekrutai',
         className
       )}
       render={({ isSidebarOpen, toggle }) => (
@@ -40,7 +40,7 @@ export const Sidebar = ({ className }: ISidebarProps) => {
           <Link
             href={'/'}
             className={cn(
-              "mb-3 self-start translate-x-2 inline-block h-[62px]",
+              "mb-3 self-start inline-block h-[62px]",
             )}
           >
             <Image
@@ -87,7 +87,7 @@ export const Sidebar = ({ className }: ISidebarProps) => {
 
           <section
             className={cn(
-              "flex items-start gap-3 w-full px-2 py-3 pt-6 mt-auto"
+              "flex items-start gap-3 w-full px-2 pb-3 pt-8 mt-auto"
             )}
           >
             <UserAvatar
@@ -107,7 +107,6 @@ export const Sidebar = ({ className }: ISidebarProps) => {
               </a>
             </p>}
           </section>
-
           <Separator className="self-center mb-0.5 h-[0.3px] bg-sidebar-foreground" />
           <Separator className="self-center mb-0.5 h-[0.3px] bg-sidebar-foreground" />
 
@@ -121,6 +120,7 @@ export const Sidebar = ({ className }: ISidebarProps) => {
             <LogOut />
             {isSidebarOpen && 'Выйти'}
           </SignOutForm>
+
         </>
       )}
 
