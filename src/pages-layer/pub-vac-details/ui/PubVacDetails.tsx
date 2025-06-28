@@ -29,6 +29,7 @@ export const PubVacDetails = ({
     conditions,
     description,
     company,
+    link
   } = vacancy
   return (
 
@@ -70,9 +71,19 @@ export const PubVacDetails = ({
               Занятость: {employment ? vacancyEpmpoymentDict[employment] : '-'}
             </p>
           </div>
-          <Button
+          {link && <Button
             className='max-w-[320px]'
-          >Откликнуться</Button>
+            asChild
+          >
+            <a
+              href={link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 w-full h-full">
+
+              Откликнуться
+            </a>
+          </Button>}
         </div>
         {/* company info */}
         <div

@@ -1,4 +1,5 @@
 import { PubVacDetails } from '@/pages-layer/pub-vac-details';
+import { getPubVacancy } from '@/shared/api/actions/public-vacancy';
 
 const JobsiteVacancyDetails = async ({
   params,
@@ -7,9 +8,7 @@ const JobsiteVacancyDetails = async ({
 }) => {
   const { vacancyId } = await params;
 
-  console.log({ vacancyId });
-
-  const vacancy = null;
+  const vacancy = await getPubVacancy(vacancyId)
 
   if (!vacancy) return null;
   return <PubVacDetails vacancy={vacancy} />;

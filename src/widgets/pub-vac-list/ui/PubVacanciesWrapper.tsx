@@ -11,7 +11,8 @@ export const PubVacanciesWrapper = async ({
   filters,
   className = ''
 }: TProps) => {
-  const { data: publicVacancies, total = null } = await getPubVacanciesList(filters)
+  const { data: publicVacancies, total = null, itemsPerPage } = await getPubVacanciesList(filters)
+
   return (
     <div
       className={cn(
@@ -22,7 +23,7 @@ export const PubVacanciesWrapper = async ({
         publicVacanciesList={publicVacancies}
 
       />
-      <Paginate currentPage={Number(filters.page) || 1} totalItems={total} className='mt-6' />
+      <Paginate currentPage={Number(filters.page) || 1} totalItems={total} itemsPerPage={itemsPerPage} className='mt-6' />
     </div>
   );
 }

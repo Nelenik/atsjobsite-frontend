@@ -1,7 +1,7 @@
 "use server";
 
 import { filterFalsyFields } from "@/shared/lib/object_manipulations/filterFalsyFields";
-import { apiGet, TApiListResponse } from "../common/api";
+import { apiGet, TApiListResponse, TApiSuccessResponse } from "../common/api";
 import { TPublicVacancy } from "../types";
 
 /**
@@ -42,12 +42,43 @@ export const getPubVacanciesList = async (
       data: response.data,
       total: response.total,
       currentPage: response.page,
+      itemsPerPage: response.take,
     };
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {
       error.message =
         "Не удалось загрузить список вакансий. Пожалуйста, попробуйте позже.";
+    }
+    throw error;
+  }
+};
+
+/**
+ * Fetches a public vacancy by its ID and account ID.
+ *
+ * Sends a GET request to retrieve a public vacancy from the server.
+ * Defaults to using `accountId = 1` if not provided.
+ *
+ * @param id - The ID of the vacancy to fetch.
+ * @param accountId - The ID of the account associated with the vacancy (default is 1).
+ * @returns A promise that resolves to the public vacancy data.
+ * @throws Will throw an error if the request fails.
+ */
+export const getPubVacancy = async (
+  id: number | string,
+  accountId: number | string = 1
+): Promise<TPublicVacancy> => {
+  try {
+    const response = await apiGet<TApiSuccessResponse<TPublicVacancy>>(
+      `/vacancy/public/${accountId}/${id}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    if (error instanceof Error) {
+      error.message =
+        "Не удалось загрузить вакансию. Пожалуйста, попробуйте позже.";
     }
     throw error;
   }
