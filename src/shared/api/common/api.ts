@@ -143,9 +143,16 @@ export const apiMutate = async <T = unknown>(
   } = mutateOptions;
 
   // Combine custom headers with auth headers if needed
+  //getting auth headers if request is protected
+  const authHeaders = withAuth ? await getAuthHeader(authCookieName) : {};
+  //Determine the content type header based on the body type
+  //If body is a FormData object, no content type is needed
+  const contentTypeHeader =
+    body instanceof FormData ? {} : { "Content-Type": "application/json" };
+
   const actualHeaders: HeadersInit = Object.assign(
-    { "Content-Type": "application/json" }, // Ensure JSON content type,
-    withAuth && (await getAuthHeader(authCookieName)),
+    contentTypeHeader,
+    authHeaders,
     headers
   );
 

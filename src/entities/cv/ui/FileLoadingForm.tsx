@@ -27,12 +27,14 @@ export const FileLoadingForm = ({
     fileUploadRef.current?.clearFiles()
   }, [setInitialData])
 
+  //File parsing action 
   const { formAction, errors, removeError } =
     useMutateForm({
       mutationAction: parseCvFromFile,
       onSuccess: handleSucces
     });
 
+  //Handle parsing file submit
   const handleSumbmit: FormEventHandler = (e) => {
     e.preventDefault()
     const formData = new FormData()

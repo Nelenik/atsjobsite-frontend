@@ -11,8 +11,9 @@ import {
 import { TResume } from "../types";
 import { revalidatePath } from "next/cache";
 import { parseFormData } from "../common/utils";
-import { wait } from "@/shared/lib/wait";
+// import { wait } from "@/shared/lib/wait";
 import { getSyntheticError } from "../common/errors";
+import { API_URL } from "../constants";
 
 /**
  * Fetches a list of resumes from the server, applying optional filters.
@@ -130,29 +131,60 @@ export const updateCV = async (
 };
 
 export const parseCvFromFile = async (_: TMutationState, data: FormData) => {
-  //mocked
-  if (![...data].length) {
+  try {
+    if (!data.has("file")) {
+      return {
+        sent: false,
+        error: getSyntheticError("", 0, { file: "Выберите файл" }),
+      };
+    }
+    const res = await fetch(API_URL + "/cv/parse/hh", {
+      body: data,
+      method: "POST",
+    });
+    const result = await res.json();
     return {
-      sent: false,
-      error: getSyntheticError("", 0, { file: "Выберите файл" }),
+      sent: true,
+      payload: result as TResume,
+      error: null,
+    };
+  } catch (error) {
+    console.error("Error parsing CV from file:", error);
+    return {
+      sent: true,
+      error: getSyntheticError("Ошибка при обработке файла"),
     };
   }
-  return wait(500).then(() => ({
-    sent: true,
-    payload: {
-      candy_name: "Иванов Иван",
-      name: "Frontend Developer",
-      experience_months: "24",
-      salary: "120000",
-      candy_phone: "+79991234567",
-      candy_tg: "@ivanovdev",
-      candy_email: "ivanov@example.com",
-      candy_location: "Москва",
-      link: "https://hh.ru/resume/ivanov",
-      bio: "Разработчик с двухлетним опытом в React/Next.js",
-      experience_raw:
-        "2021-2023: Frontend Developer в XYZ\n2020-2021: Стажёр в ABC",
-    } as unknown as TResume,
-    error: null,
-  }));
+
+  // const result = await apiMutate<TResume>("/cv/parse/hh", {
+  //   body: data,
+  //   expectResponseData: true,
+  // });
+  // console.log("parsed cv from file", result);
+  // return result;
+  //mocked
+  // if (![...data].length) {
+  //   return {
+  //     sent: false,
+  //     error: getSyntheticError("", 0, { file: "Выберите файл" }),
+  //   };
+  // }
+  // return wait(500).then(() => ({
+  //   sent: true,
+  //   payload: {
+  //     candy_name: "Иванов Иван",
+  //     name: "Frontend Developer",
+  //     experience_months: "24",
+  //     salary: "120000",
+  //     candy_phone: "+79991234567",
+  //     candy_tg: "@ivanovdev",
+  //     candy_email: "ivanov@example.com",
+  //     candy_location: "Москва",
+  //     link: "https://hh.ru/resume/ivanov",
+  //     bio: "Разработчик с двухлетним опытом в React/Next.js",
+  //     experience_raw:
+  //       "2021-2023: Frontend Developer в XYZ\n2020-2021: Стажёр в ABC",
+  //   } as unknown as TResume,
+  //   error: null,
+  // }));
 };
