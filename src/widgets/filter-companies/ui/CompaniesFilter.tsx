@@ -1,12 +1,12 @@
 'use client'
 
-import { UrlFilterManager } from "@/features/manage-url-filters";
+import { QueryFilterManager } from "@/features/manage-url-filters";
 import { Input } from "@/shared/ui/shadcn/input";
 
 
 export const CompaniesFilter = () => {
   return (
-    <UrlFilterManager
+    <QueryFilterManager
       render={({ filters, updateFilter }) => (
         <Input
           value={filters['name'] || ''}

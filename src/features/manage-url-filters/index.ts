@@ -1,1 +1,1 @@
-export { UrlFilterManager } from "./UrlFilterManager";
+export { QueryFilterManager } from "./ui/QueryFilterManager";

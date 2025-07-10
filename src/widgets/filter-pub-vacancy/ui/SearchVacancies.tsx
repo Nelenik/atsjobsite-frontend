@@ -1,5 +1,5 @@
 'use client';
-import { UrlFilterManager } from "@/features/manage-url-filters";
+import { QueryFilterManager } from "@/features/manage-url-filters";
 import { cn } from "@/shared/lib/utils";
 import { Input } from "@/shared/ui/shadcn/input";
 import { Search, X } from "lucide-react";
@@ -11,7 +11,7 @@ export const SearchVacancies = ({
   className
 }: TProps) => {
   return (
-    <UrlFilterManager
+    <QueryFilterManager
       className={cn(
         'relative',
         className

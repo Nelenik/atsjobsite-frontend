@@ -10,7 +10,7 @@ const CvDetailsPage = async ({ params }: { params: Promise<{ cvKeys: string[], c
 
   const cvSlug = encodeURIComponent(cv.name)
   if (!cvName || cvName !== cvSlug) {
-    redirect(`/dashboard/${companyId}/matchDetails/${cvId}/${cvSlug}`)
+    redirect(`/dashboard/${companyId}/cvDetails/${cvId}/${cvSlug}`)
   }
   return (
     <div>

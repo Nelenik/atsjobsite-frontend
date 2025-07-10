@@ -3,9 +3,11 @@
 import { PositionSelect } from "@/entities/vacancy";
 import { CancelButton } from "@/shared/ui/buttons/CancelButton";
 import FormItem from "@/shared/ui/FormItem";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 
 export const PathSegmentFilters = () => {
+  const searchParams = useSearchParams()
+  console.log('searchparams', searchParams.toString())
   const router = useRouter()
   const params = useParams()
   const { filters = [] } = params
