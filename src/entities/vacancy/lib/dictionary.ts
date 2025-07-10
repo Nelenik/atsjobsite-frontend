@@ -7,7 +7,7 @@ import {
 
 export const vacancyPositionsDict: Record<string, string> = {
   [EVacancyPosition.DEVELOPER]: "Разработчик",
-  [EVacancyPosition.TEAM_LEAD]: "Тим лид(рук. команды разработки)",
+  [EVacancyPosition.TEAM_LEAD]: "Тим лид",
   [EVacancyPosition.TESTER]: "Тестировщик",
   [EVacancyPosition.PM]: "Продакт/Проджект менеджер",
   [EVacancyPosition.ANALYST]: "Аналитик",

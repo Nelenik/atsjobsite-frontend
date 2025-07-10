@@ -8,7 +8,7 @@ type TProps = {
   className?: string;
 } & DropdownMenuRadioGroupProps
 
-export const SortingVacancies = ({
+export const SortingVacanciesField = ({
   className, ...props
 }: TProps) => {
   return (

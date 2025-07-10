@@ -6,12 +6,10 @@ import { Input } from "@/shared/ui/shadcn/input";
 import { Button } from "@/shared/ui/shadcn/button";
 import { cn } from "@/shared/lib/utils";
 import FormItem from "@/shared/ui/FormItem";
-// import { PositionSelect } from "@/entities/vacancy";
-import { SortingVacancies } from "./SortingVacancies";
+import { SortingVacanciesField } from "./SortingVacanciesField";
 import { PositionFilterField } from "./PositionFilterField";
 
 const defaultState = {
-  position: '',
   salary_from: '',
   salary_to: '',
   location: '',
@@ -33,18 +31,8 @@ export const PubVacanciesFilter = ({
         return (
           <>
             <div className="flex flex-wrap @3xl:flex-col gap-6">
+
               <PositionFilterField className="grow min-w-[250px]" />
-              {/* <FormItem labelText="Специализация" className="grow min-w-[250px]">
-                <CancelButton
-                  onClick={() => updateFilter({ position: '' })}
-                  className="absolute right-0 top-0 z-10"
-                />
-                <PositionSelect
-                  value={filters.position || ''}
-                  onValueChange={(value: string) => updateFilter({ 'position': value })}
-                  className="bg-white"
-                />
-              </FormItem> */}
 
               <FormItem labelText="Зарплата от" className="grow min-w-[250px]">
                 <CancelButton
@@ -91,7 +79,7 @@ export const PubVacanciesFilter = ({
                   onClick={() => updateFilter({ sort: '' })}
                   className="absolute right-0 top-0 z-10"
                 />
-                <SortingVacancies
+                <SortingVacanciesField
                   value={filters.sort || ''}
                   onValueChange={(value: string) => updateFilter({ 'sort': value })}
                   className=""
