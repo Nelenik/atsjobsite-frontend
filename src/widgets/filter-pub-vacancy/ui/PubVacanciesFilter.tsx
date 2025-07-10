@@ -8,7 +8,7 @@ import { cn } from "@/shared/lib/utils";
 import FormItem from "@/shared/ui/FormItem";
 // import { PositionSelect } from "@/entities/vacancy";
 import { SortingVacancies } from "./SortingVacancies";
-import { PathSegmentFilters } from "./PathSegmentFilters";
+import { PositionFilterField } from "./PositionFilterField";
 
 const defaultState = {
   position: '',
@@ -33,7 +33,7 @@ export const PubVacanciesFilter = ({
         return (
           <>
             <div className="flex flex-wrap @3xl:flex-col gap-6">
-              <PathSegmentFilters />
+              <PositionFilterField className="grow min-w-[250px]" />
               {/* <FormItem labelText="Специализация" className="grow min-w-[250px]">
                 <CancelButton
                   onClick={() => updateFilter({ position: '' })}
