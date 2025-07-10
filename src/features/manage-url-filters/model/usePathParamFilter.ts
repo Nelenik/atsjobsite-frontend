@@ -1,5 +1,32 @@
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-
+/**
+ * A custom React hook for managing a single dynamic path segment (filter) in a Next.js route.
+ *
+ * ⚠️ This hook is designed to work specifically with catch-all route segments (e.g., `[...filters]`)
+ * where each filter is located at a known and fixed position in the URL path.
+ *
+ * Useful for cases where part of the filter state is encoded directly in the pathname,
+ * such as `/vacancies/:position/:company`, and you want to update a specific segment programmatically.
+ *
+ * @param baseUrl - The static base URL (e.g., `/vacancies`) that precedes the dynamic segments.
+ * @param paramIndex - The index of the segment to control in the catch-all path array (e.g., 0 for position, 1 for company).
+ *
+ * @returns An object containing:
+ * - `value`: The current decoded value of the path segment at the specified index.
+ * - `updatePathParam`: A function to update that path segment and push a new route, preserving existing query parameters.
+ *
+ * @example
+ * ```tsx
+ * const { value: position, updatePathParam: updatePosition } = usePathParamFilter('/vacancies', 0);
+ *
+ * return (
+ *   <PositionSelect
+ *     value={position}
+ *     onValueChange={updatePosition}
+ *   />
+ * );
+ * ```
+ */
 export const usePathParamFilter = (baseUrl: string, paramIndex: number) => {
   const router = useRouter();
   const params = useParams();

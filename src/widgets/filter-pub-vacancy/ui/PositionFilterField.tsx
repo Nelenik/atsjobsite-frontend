@@ -9,16 +9,18 @@ type TProps = {
 }
 
 export const PositionFilterField = ({ className }: TProps) => {
-  const { value, updatePathParam } = usePathParamFilter('/vacancies', 0)
+  const { value: position, updatePathParam: updatePosition } = usePathParamFilter('/vacancies', 0)
+  console.log(position)
+  const parsedPosition = position === 'all' ? '' : position
   return (
     <FormItem labelText="Специализация" className={cn(className)}>
       <CancelButton
-        onClick={() => updatePathParam('')}
+        onClick={() => updatePosition('')}
         className="absolute right-0 top-0 z-10"
       />
       <PositionSelect
-        value={value}
-        onValueChange={updatePathParam}
+        value={parsedPosition}
+        onValueChange={updatePosition}
         className="bg-white"
       />
     </FormItem>

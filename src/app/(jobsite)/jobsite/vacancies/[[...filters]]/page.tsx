@@ -81,13 +81,16 @@ export default async function JobsiteVacanciesPage({ searchParams, params }: TPr
     notFound()
   }
 
-  const [position = '', company = ''] = pathParams
-  console.log('pathparams', pathParams)
+  // eslint-disable-next-line prefer-const
+  let [position = '', company = ''] = pathParams
 
   //if first params is not available position consider it as company and redirect to all/{compnay}
   if (pathParams.length === 1) {
     if (!isSegmentPosition(position) && position !== 'all') {
       redirect(`/vacancies/all/${position}`)
+    }
+    if (position === 'all') {
+      position = ''
     }
   }
 
