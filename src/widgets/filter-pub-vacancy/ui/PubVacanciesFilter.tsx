@@ -8,12 +8,15 @@ import { cn } from "@/shared/lib/utils";
 import FormItem from "@/shared/ui/FormItem";
 import { SortingVacanciesField } from "./SortingVacanciesField";
 import { PositionFilterField } from "./PositionFilterField";
+import { useRouter, useSearchParams } from "next/navigation";
+import { removeEmptyValues } from "@/shared/lib/object_manipulations/filterFalsyFields";
 
 const defaultState = {
   salary_from: '',
   salary_to: '',
   location: '',
-  sort: ''
+  sort: '',
+  page: ''
 }
 
 type TProps = {
@@ -24,6 +27,17 @@ export const PubVacanciesFilter = ({
   className
 }: TProps) => {
 
+  const router = useRouter()
+  const searchParams = useSearchParams()
+
+  const handleReset = () => {
+    const currentFilters = Object.fromEntries(searchParams.entries());
+    const merged = { ...currentFilters, ...defaultState };
+    const cleaned = removeEmptyValues(merged);
+    const query = new URLSearchParams(cleaned).toString();
+
+    router.push(`/vacancies${query ? `?${query}` : ''}`);
+  }
   return (
     <QueryFilterManager
       className={cn(className, "flex flex-col gap-6")}
@@ -88,9 +102,10 @@ export const PubVacanciesFilter = ({
             </div>
 
             <Button
-              onClick={() => {
-                updateFilter(defaultState)
-              }}
+              // onClick={() => {
+              //   updateFilter(defaultState)
+              // }}
+              onClick={handleReset}
               variant={'outline'}
               className={cn(
                 'self-start ring-2 ring-input ring-offset-1 border-none',

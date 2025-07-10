@@ -1,6 +1,6 @@
 "use server";
 
-import { filterFalsyFields } from "@/shared/lib/object_manipulations/filterFalsyFields";
+import { removeEmptyValues } from "@/shared/lib/object_manipulations/filterFalsyFields";
 import { apiGet, TApiListResponse, TApiSuccessResponse } from "../common/api";
 import { TPublicVacancy } from "../types";
 
@@ -27,7 +27,7 @@ export const getPubVacanciesList = async (
 ) => {
   try {
     const filterString = new URLSearchParams(
-      filterFalsyFields(filters)
+      removeEmptyValues(filters)
     ).toString();
     const response = await apiGet<TApiListResponse<TPublicVacancy>>(
       `/vacancy/public/${accountId}?` + filterString,

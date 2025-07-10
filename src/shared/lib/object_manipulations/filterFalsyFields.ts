@@ -23,3 +23,9 @@ export function filterFalsyFields<T extends object>(
     )
   ) as NonNullableFields<T>;
 }
+
+export function removeEmptyValues<T extends Record<string, string>>(obj: T): T {
+  return Object.fromEntries(
+    Object.entries(obj).filter(([, value]) => value !== "")
+  ) as T;
+}
