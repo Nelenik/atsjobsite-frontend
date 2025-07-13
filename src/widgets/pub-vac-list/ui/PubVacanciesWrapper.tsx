@@ -16,14 +16,20 @@ export const PubVacanciesWrapper = async ({
   return (
     <div
       className={cn(
+        'flex flex-col gap-6',
         className
       )}
     >
+      <div className="w-max ml-auto">
+        <p className="font-semibold">
+          Найдено вакансий: {total ?? 0}
+        </p>
+      </div>
       <PubVacancyList
         publicVacanciesList={publicVacancies}
 
       />
-      <Paginate currentPage={Number(filters.page) || 1} totalItems={total} itemsPerPage={itemsPerPage} className='mt-6' />
+      <Paginate currentPage={Number(filters.page) || 1} totalItems={total} itemsPerPage={itemsPerPage} />
     </div>
   );
 }

@@ -10,7 +10,6 @@ export default async function JobSiteVacanciesLayout({
   children: React.ReactNode;
 }>) {
   const vacancyPositions = await getVacancyPositions()
-  console.log(vacancyPositions)
   return (
     <PositionsProvider positionsList={vacancyPositions}>
       <div
