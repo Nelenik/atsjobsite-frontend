@@ -11,7 +11,7 @@ export const ExperienceTab = ({
   experience_raw
 }: Props) => {
 
-  if (workExperiences) {
+  if (workExperiences && workExperiences.length) {
     return <WorkExperienceList experience={workExperiences} />
   }
   return (
