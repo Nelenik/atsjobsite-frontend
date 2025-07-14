@@ -60,7 +60,7 @@ export const CvDetails = async ({ cv }: TProps) => {
               link={cv.link}
               bio={cv.bio}
               experience_duration={cv.experience_months}
-              skills={null}
+              skills={cv.skills}
               className="shrink-0"
             />
             <div className="grow @container">
@@ -68,7 +68,7 @@ export const CvDetails = async ({ cv }: TProps) => {
                 Опыт работы
               </h2>
               {
-                cv.workExperiences
+                cv.workExperiences && cv.workExperiences.length
                   ? <WorkExperienceList experience={cv.workExperiences} />
                   : <TextFormatter text={cv.experience_raw || 'Данные об опыте отсутствуют'} />
               }

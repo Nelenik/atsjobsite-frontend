@@ -68,6 +68,7 @@ export type TResume = {
   candy_tg: string;
   candy_phone: string;
   candy_location: string;
+  skills: [];
   // candy_lang: unknown;
   candy_birthday: string; //iso
   candy_gender: ECvCandyGender;

@@ -38,7 +38,6 @@ export const CvInfoBlock: FC<TProps> = ({
   skills,
   className
 }) => {
-
   return (
     <div className={cn(" flex flex-col gap-6 ", className)}>
 
@@ -87,9 +86,18 @@ export const CvInfoBlock: FC<TProps> = ({
 
       <div>
         <h2 className='text-lg font-semibold mb-2'>Навыки</h2>
-        <List className='flex gap-3'>
+        <List className='grid grid-cols-[repeat(auto-fit,_minmax(150px,1fr))] gap-2'>
           {
-            skills && skills.map(el => (<li key={el} className='bg-indigo-100 rounded-md py-1 px-3.5 text-sm'>{el}</li>)) || <span className="text-muted-foreground text-sm">не указано</span>
+            (skills
+              && skills.map(el => (
+                <li
+                  key={el}
+                  className='bg-indigo-100 rounded-md py-1 px-3.5 text-sm hyphens-auto'
+                >
+                  {el}
+                </li>
+              )))
+            || <span className="text-muted-foreground text-sm">не указано</span>
           }
         </List>
       </div>
