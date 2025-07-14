@@ -11,7 +11,7 @@ type TProps = {
   text: string
 }
 export const GoBackLink = ({ className, text }: TProps) => {
-  const [isPossibleBack, setIsPossibleBack] = useState(true)
+  const [isPossibleBack, setIsPossibleBack] = useState(false)
 
   useEffect(() => {
     const isPossible = window.history.length > 1
