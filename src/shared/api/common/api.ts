@@ -10,7 +10,7 @@ import {
 import { prepareBody } from "./utils";
 
 export type TApiSuccessResponse<T> = {
-  success: boolean;
+  success?: boolean;
   data: T;
   [key: string]: unknown;
 };
@@ -169,22 +169,22 @@ export const apiMutate = async <T = unknown>(
       ...restOptions,
     });
 
-    let parsedResponse = await response.json();
+    const parsedResponse = await response.json();
 
-    //Added this control because on 500 status - parsedResponse is without "success" field and it is not compatible with TApiSuccessResponse type
-    if (response.status === 500) {
-      parsedResponse = { success: false, ...parsedResponse };
+    // Check if the parsedResponse corresponds to the expected format
+    if (
+      !parsedResponse ||
+      typeof parsedResponse !== "object" ||
+      Array.isArray(parsedResponse)
+    ) {
+      throw new Error("Неожиданный формат ответа");
     }
-    // Check if the response indicates an error
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { success, data, ...rest } = parsedResponse; //used this destructurization to get ...rest fields
+    const { success, errorType, message, data, ...rest } = parsedResponse;
 
-    if (
-      parsedResponse &&
-      typeof parsedResponse === "object" &&
-      "errorType" in parsedResponse
-    ) {
+    //if the reponse contains error
+    if (errorType && message) {
       //Returns in payload previously entered data to prevent form reset.
       return {
         sent: true,
@@ -194,11 +194,7 @@ export const apiMutate = async <T = unknown>(
     }
     // If the response is expected to contain data and it does, return it
     // Otherwise, return a success state without data
-    if (
-      parsedResponse &&
-      typeof parsedResponse === "object" &&
-      expectResponseData
-    ) {
+    if (expectResponseData) {
       return {
         sent: true,
         payload: data as T,

@@ -9,7 +9,7 @@ type TBadRequestMessage = {
 export type TBadRequest = {
   errorType: string;
   message: TBadRequestMessage[];
-  success: boolean;
+  success?: boolean;
 };
 
 export type TError = {
