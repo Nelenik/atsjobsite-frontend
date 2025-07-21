@@ -116,7 +116,10 @@ export const getFilterCompanies = async (): Promise<TFilterCompanies[]> => {
   try {
     const response = await apiGet<TApiListResponse<TFilterCompanies>>(
       "/company/stat",
-      { withAuth: false }
+      {
+        withAuth: false,
+        next: { revalidate: 900 },
+      }
     );
     return response.data;
   } catch (error) {

@@ -66,6 +66,9 @@ export const apiGet = async <T = unknown>(
     withAuth = true,
     authCookieName = AUTH_COOKIE_NAME,
     headers,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    body,
+    ...restOptions
   } = getOptions;
 
   // Combine custom headers with auth headers if needed
@@ -82,6 +85,7 @@ export const apiGet = async <T = unknown>(
     method: "GET",
     cache: "no-store",
     headers: actualHeaders,
+    ...restOptions,
   });
 
   // Check if the response is OK (status in the range 200-299)

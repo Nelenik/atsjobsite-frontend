@@ -1,5 +1,7 @@
 import { vacancyPositionsDict } from "@/entities/vacancy";
 import { isSegmentPosition } from "@/entities/vacancy";
+import { getFilterCompanies } from "@/shared/api/actions";
+import { encodeSegment } from "@/shared/lib/encodeSegments";
 import { capitalizeSentences } from "@/shared/lib/formatters/capitalizeSentence";
 import { CvListSkeleton } from "@/shared/ui/skeletons/CvListSkeleton";
 import { PubVacanciesWrapper } from "@/widgets/pub-vac-list";
@@ -69,6 +71,8 @@ export async function generateMetadata({ params }: TProps): Promise<Metadata> {
 
 export default async function JobsiteVacanciesPage({ searchParams, params }: TProps) {
 
+  const filterCompaniesList = await getFilterCompanies()
+
   const getParams = (await searchParams)
   const pathParams = (await params).filters || []
 
@@ -88,7 +92,11 @@ export default async function JobsiteVacanciesPage({ searchParams, params }: TPr
 
   const normPosition = position === 'all' ? '' : position
 
-  const filters = { ...getParams, position: normPosition, company }
+  //find choosen company id to make request
+  const companyData = filterCompaniesList.find((item) => encodeSegment(item.name) === company)
+  const companyId = companyData ? String(companyData.id) : ''
+
+  const filters = { ...getParams, position: normPosition, company: companyId }
 
   return (
     <Suspense fallback={<CvListSkeleton />}>

@@ -5,6 +5,7 @@ import { usePathFilters } from "../model/PathFiltersProvider"
 import FormItem from "@/shared/ui/FormItem"
 import { CancelButton } from "@/shared/ui/buttons/CancelButton"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/ui/shadcn/select"
+import { encodeSegment } from "@/shared/lib/encodeSegments"
 
 type TProps = {
   className?: string
@@ -32,7 +33,7 @@ export const CompanyFilterFiled = ({ className }: TProps) => {
           {filterCompanies.map((item) => (
             <SelectItem
               key={item.id}
-              value={String(item.id)}
+              value={encodeSegment(item.name.toLocaleLowerCase())}
             >
               <span className="flex gap-3 items-center ">
                 <span className="hyphens-auto">
