@@ -10,6 +10,7 @@ import { cn } from "@/shared/lib/utils";
 import { TenantProvider } from "@/shared/providers/TenantProvider";
 import { NavigationConfigProvider } from "@/widgets/jobsite-nav/model/NavigationConfigProvider";
 import { JobsiteFooter } from "@/widgets/jobsite-footer";
+import { Analytics } from "@/widgets/analytics";
 
 const geistSans = localFont({
   src: "../../fonts/GeistVF.woff",
@@ -40,6 +41,7 @@ export default async function JobSiteLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased `}
       >
+        <Analytics />
         <TenantProvider tenant={tenant}>
           <QueryProvider>
             {/* Header */}
@@ -70,6 +72,7 @@ export default async function JobSiteLayout({
           </QueryProvider>
         </TenantProvider>
         <Toaster />
+
       </body>
     </html>
   );
