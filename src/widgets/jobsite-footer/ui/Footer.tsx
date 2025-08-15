@@ -11,13 +11,15 @@ export const Footer = ({ className }: TProps) => {
   return (
     <footer className={cn("py-6 shadow-[0px_-1px_8px_0px_rgba(0,_0,_0,_0.1)] shadow-sidebar-foreground/50", className)}>
       <div className={cn("jobsite-container", "flex gap-14 ")}>
-        <Image
-          src={LogoFullImg}
-          alt="Rekru.ru logo"
-          width={198}
-          height={177}
-          className="w-20 self-center"
-        />
+        <Link href={'/vacancies'}>
+          <Image
+            src={LogoFullImg}
+            alt="Rekru.ru logo"
+            width={198}
+            height={177}
+            className="w-20 self-center"
+          />
+        </Link>
 
         <Separator
           orientation="vertical"
