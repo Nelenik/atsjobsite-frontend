@@ -3,8 +3,8 @@
 import { TCompany } from '@/shared/api/types';
 import { NonNullableFields } from '@/shared/lib/object_manipulations/filterFalsyFields';
 import { cn } from '@/shared/lib/utils';
-import DatePicker from '@/shared/ui/DatePicker';
-import FormItem from '@/shared/ui/FormItem';
+import DatePicker from '@/shared/ui/form-elements/DatePicker';
+import FormItem from '@/shared/ui/form-elements/FormItem';
 import { Button } from '@/shared/ui/shadcn/button';
 import { Input } from '@/shared/ui/shadcn/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/shared/ui/shadcn/select';

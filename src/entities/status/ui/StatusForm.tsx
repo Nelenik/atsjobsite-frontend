@@ -1,6 +1,6 @@
 import { TStatus } from "@/shared/api/types/statuses"
 import { NonNullableFields } from "@/shared/lib/object_manipulations/filterFalsyFields"
-import FormItem from "@/shared/ui/FormItem"
+import FormItem from "@/shared/ui/form-elements/FormItem"
 import { Button } from "@/shared/ui/shadcn/button"
 import { Input } from "@/shared/ui/shadcn/input"
 import { FC, useCallback } from "react"

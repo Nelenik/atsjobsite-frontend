@@ -2,7 +2,7 @@
 import { vacancyPositionsDict } from "@/entities/vacancy";
 import { cn } from "@/shared/lib/utils";
 import { CancelButton } from "@/shared/ui/buttons/CancelButton";
-import FormItem from "@/shared/ui/FormItem";
+import FormItem from "@/shared/ui/form-elements/FormItem";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/ui/shadcn/select";
 import { usePathFilters } from "../model/PathFiltersProvider";
 

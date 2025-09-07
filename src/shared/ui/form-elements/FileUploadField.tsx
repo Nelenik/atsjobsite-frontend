@@ -1,7 +1,7 @@
 'use client'
 import { ChangeEvent, DragEventHandler, InputHTMLAttributes, Ref, useImperativeHandle, useRef, useState } from "react";
-import { Input } from "./shadcn/input";
-import { cn } from "../lib/utils";
+import { Input } from "../shadcn/input";
+import { cn } from "../../lib/utils";
 import UploadIcon from '@/assets/icons/upload-svg.svg?rc'
 import BorderSvg from '@/assets/icons/border-svg.svg?rc'
 import { ErrorMessage } from "./FormItem";

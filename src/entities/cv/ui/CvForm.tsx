@@ -5,7 +5,7 @@ import { TResume } from '@/shared/api/types';
 import { NonNullableFields } from '@/shared/lib/object_manipulations/filterFalsyFields';
 import { cn } from '@/shared/lib/utils';
 // import { useFormMutation } from '@/shared/model/hooks/useFormMutation';
-import FormItem from '@/shared/ui/FormItem';
+import FormItem from '@/shared/ui/form-elements/FormItem';
 import { Button } from '@/shared/ui/shadcn/button';
 import { Input } from '@/shared/ui/shadcn/input';
 import { Textarea } from '@/shared/ui/shadcn/textarea';
@@ -90,6 +90,19 @@ export const CvForm: FC<TProps> = ({
             name="name"
             defaultValue={defaultValues?.name}
             className={errors?.name && 'ring-2 ring-destructive'}
+            onChange={(e) => removeError(e.target.name)}
+          />
+        </FormItem>
+
+        <FormItem
+          labelText="ID внешней системы"
+          error={errors.external_id}
+        >
+          <Input
+            placeholder="ID"
+            name="external_id"
+            defaultValue={defaultValues?.external_id}
+            className={errors?.external_id && 'ring-2 ring-destructive'}
             onChange={(e) => removeError(e.target.name)}
           />
         </FormItem>

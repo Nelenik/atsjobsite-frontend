@@ -1,7 +1,7 @@
 'use client'
 // import { useFormMutation } from "@/shared/model/hooks/useFormMutation";
 import { StartPageButton } from "@/shared/ui/buttons/StartPageButtons";
-import FormItem from "@/shared/ui/FormItem";
+import FormItem from "@/shared/ui/form-elements/FormItem";
 import { Input } from "@/shared/ui/shadcn/input";
 import { signin } from "../api/auth-actions";
 import { useSearchParams } from "next/navigation";

@@ -2,7 +2,7 @@
 
 import { cn } from "@/shared/lib/utils"
 import { usePathFilters } from "../model/PathFiltersProvider"
-import FormItem from "@/shared/ui/FormItem"
+import FormItem from "@/shared/ui/form-elements/FormItem"
 import { CancelButton } from "@/shared/ui/buttons/CancelButton"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/ui/shadcn/select"
 import { decodeSegment } from "@/shared/lib/encodeSegments"

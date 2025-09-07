@@ -1,9 +1,8 @@
 'use client'
 import { FunnelPlus, PanelRightClose } from "lucide-react";
-import { Button } from "./shadcn/button";
-// import { Popover, PopoverContent, PopoverTrigger } from "./shadcn/popover";
-import { cn } from "../lib/utils";
-import { Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "./shadcn/sheet";
+import { Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "../shadcn/sheet";
+import { cn } from "@/shared/lib/utils";
+import { Button } from "../shadcn/button";
 
 type TProps = {
   children?: React.ReactNode;

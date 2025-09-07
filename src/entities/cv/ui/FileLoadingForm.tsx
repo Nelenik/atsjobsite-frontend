@@ -3,7 +3,7 @@ import { FormEventHandler, useCallback, useRef, useState, useTransition } from "
 import { parseCvFromFile } from "@/shared/api/actions";
 import { TResume } from "@/shared/api/types";
 import { useMutateForm } from "@/shared/model/hooks/useMutateForm";
-import { FileUploadField, FileUploadRef } from "@/shared/ui/FileUploadField";
+import { FileUploadField, FileUploadRef } from "@/shared/ui/form-elements/FileUploadField";
 import { Button } from "@/shared/ui/shadcn/button";
 import { CancelButton } from "@/shared/ui/buttons/CancelButton";
 import { toast } from "@/shared/model/hooks/use-toast";

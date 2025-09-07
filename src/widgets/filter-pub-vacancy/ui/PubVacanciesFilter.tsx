@@ -5,7 +5,7 @@ import { CancelButton } from "@/shared/ui/buttons/CancelButton";
 import { Input } from "@/shared/ui/shadcn/input";
 import { Button } from "@/shared/ui/shadcn/button";
 import { cn } from "@/shared/lib/utils";
-import FormItem from "@/shared/ui/FormItem";
+import FormItem from "@/shared/ui/form-elements/FormItem";
 // import { SortingVacanciesField } from "./SortingVacanciesField";
 import { PositionFilterField } from "./PositionFilterField";
 import { useRouter, useSearchParams } from "next/navigation";
