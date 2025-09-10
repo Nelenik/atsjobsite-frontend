@@ -1,7 +1,7 @@
 import { vacancyPositionsDict } from "@/entities/vacancy";
 import { isSegmentPosition } from "@/entities/vacancy";
 import { getFilterCompanies } from "@/shared/api/actions";
-import { encodeSegment } from "@/shared/lib/encodeSegments";
+import { decodeSegment } from "@/shared/lib/encodeSegments";
 import { capitalizeSentences } from "@/shared/lib/formatters/capitalizeSentence";
 import { CvListSkeleton } from "@/shared/ui/skeletons/CvListSkeleton";
 import { PubVacanciesWrapper } from "@/widgets/pub-vac-list";
@@ -93,7 +93,7 @@ export default async function JobsiteVacanciesPage({ searchParams, params }: TPr
   const normPosition = position === 'all' ? '' : position
 
   //find choosen company id to make request
-  const companyData = filterCompaniesList.find((item) => encodeSegment(item.name) === company)
+  const companyData = filterCompaniesList.find((item) => decodeSegment(company) === item.name.toLowerCase())
   const companyId = companyData ? String(companyData.id) : ''
 
   const filters = { ...getParams, position: normPosition, company: companyId }
