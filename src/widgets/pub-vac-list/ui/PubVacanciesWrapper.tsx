@@ -13,7 +13,6 @@ export const PubVacanciesWrapper = async ({
   className = ''
 }: TProps) => {
   const { data: publicVacancies, total = null, itemsPerPage } = await getPubVacanciesList(filters)
-  console.log(publicVacancies)
 
   return (
     <div

@@ -1,4 +1,4 @@
-import { vacancyExperienceDict, vacancyWorkFormatDict } from "@/entities/vacancy";
+import { experienceAliases, vacancyExperienceDict, vacancyWorkFormatDict } from "@/entities/vacancy";
 import { EVacancyWorkFormat, TPublicVacancy } from "@/shared/api/types";
 import { encodeSegment } from "@/shared/lib/encodeSegments";
 import { formatSalaryRange } from "@/shared/lib/formatters/formatSalaryRange";
@@ -16,7 +16,28 @@ const badgeColors = {
   [EVacancyWorkFormat.HYBRID]: 'ring-yellow-400 text-yellow-400 hover:text-white hover:bg-yellow-400/70',
   [EVacancyWorkFormat.OFFICE]: 'ring-sky-500 text-sky-500 hover:text-white hover:bg-sky-500/70',
   [EVacancyWorkFormat.REMOTE]: 'ring-emerald-400 text-emerald-400 hover:text-white hover:bg-emerald-400/70',
-  default: 'ring-gray-300 text-gray-300 hover:text-white hover:bg-gray-300/70'
+  default: 'ring-orange-300 text-orange-300 hover:text-white hover:bg-orange-300/70'
+}
+//this function checks non-canonical work formats 
+const checkWorkFormat = (workFormat: string | null) => {
+  const remoteReg = /удал[ёе]н/i
+  const hybridReg = /гибрид/i
+  const officeReg = /офис/i
+  if (!workFormat) return null
+  if (workFormat in badgeColors) return workFormat
+  if (remoteReg.test(workFormat)) return 'remote'
+  if (hybridReg.test(workFormat)) return 'hybrid'
+  if (officeReg.test(workFormat)) return 'office'
+  return null
+}
+//this function checks non-canonical experience formats
+export function checkExperienceFormat(raw: string | null) {
+  if (!raw) return null
+  if (raw in vacancyExperienceDict) {
+    return raw
+  }
+  const normalized = experienceAliases[raw.toLowerCase()]
+  return normalized || null
 }
 
 type Props = {
@@ -29,6 +50,15 @@ export const PubVacancyCard = ({
 
   //get avatar fallback color
   const avatarBgColor = generateRgbFromString(vacancy.name)
+
+  //workFormat
+  const workFormat = checkWorkFormat(vacancy.work_format)
+  const badgeColor = badgeColors[workFormat as EVacancyWorkFormat] || badgeColors.default
+  const normalizedWorkFormat = vacancyWorkFormatDict[workFormat || ''] || vacancy.work_format || 'Не указан'
+  //check experience
+  const experienceFormat = checkExperienceFormat(vacancy.experience)
+  const normalizedExperience = vacancyExperienceDict[experienceFormat || ''] || vacancy.experience || '-'
+
   return (
     <Link
       scroll={false}
@@ -47,12 +77,12 @@ export const PubVacancyCard = ({
             className="text-white "
             style={{ background: avatarBgColor }}
           >
-            {(vacancy.company.name || '').at(0)?.toUpperCase()}
+            {(vacancy.name || '').at(0)?.toUpperCase()}
           </AvatarFallback>
         </Avatar>
         <div className="w-[200px] ">
           <p className=" hyphens-auto [overflow-wrap:anywhere]">
-            {vacancy.company.name || 'Компания неизвестна'}
+            {vacancy.company.name || null}
           </p>
           <p className="font-semibold hyphens-auto [overflow-wrap:anywhere]">
             {vacancy.name}
@@ -64,14 +94,14 @@ export const PubVacancyCard = ({
         </div>
         <div className="w-max min-w-[140px] mr-auto">
           <p className="mb-3">
-            <span className="font-medium">Опыт: </span>{vacancyExperienceDict[vacancy.experience]}
+            <span className="font-medium">Опыт: </span>{normalizedExperience}
           </p>
           <Badge
             className={cn(
               "py-0.5 bg-transparent ring-1 min-w-[75px] justify-center items-center ",
-              badgeColors[vacancy.work_format as EVacancyWorkFormat || 'default']
+              badgeColor
             )}>
-            {vacancyWorkFormatDict[vacancy.work_format] || 'Не указан'}
+            {normalizedWorkFormat}
           </Badge>
         </div>
         <div className="w-max min-w-[140px] grow">

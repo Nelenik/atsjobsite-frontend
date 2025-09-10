@@ -35,3 +35,11 @@ export const vacancyExperienceDict: Record<string, string> = {
   [EVacancyExperience.FROM_3_TO_5]: "3-5 лет",
   [EVacancyExperience.MORE_THAN_5]: "более 5 лет",
 };
+
+export const experienceAliases: Record<string, EVacancyExperience> = {
+  "от 1 года до 3 лет": EVacancyExperience.FROM_1_TO_3,
+  "1-3 лет": EVacancyExperience.FROM_1_TO_3,
+  "от 3 до 5 лет": EVacancyExperience.FROM_3_TO_5,
+  "более 6 лет": EVacancyExperience.MORE_THAN_5,
+  "нет опыта": EVacancyExperience.LESS_THAN_1,
+};
