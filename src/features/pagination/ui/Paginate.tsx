@@ -3,10 +3,11 @@
 import { DEFAULT_PER_PAGE } from "@/shared/api/constants";
 import { updateQueryString } from "@/shared/lib/updateQueryString";
 import { cn } from "@/shared/lib/utils";
-import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/shared/ui/shadcn/pagination";
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/shared/ui/shadcn/pagination";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
+
 
 interface IPaginateProps {
   currentPage: number,
@@ -14,13 +15,22 @@ interface IPaginateProps {
   itemsPerPage?: number,
   className?: string
 }
+
+
 export const Paginate = ({ currentPage, totalItems, itemsPerPage = DEFAULT_PER_PAGE, className }: IPaginateProps) => {
   const searchParams = useSearchParams()
   const pagesCount = totalItems ? Math.ceil(totalItems / itemsPerPage) : 1
-  let prev = currentPage - 1
-  let next = currentPage + 1;
-  if (prev < 1) prev = 1
-  if (next > pagesCount) next -= 1
+
+  //find prev and next pages
+  const prev = Math.max(currentPage - 1, 1)
+  const next = Math.min(currentPage + 1, pagesCount)
+
+  //Show two pages on each side of the current button.
+  const visibleBtnsCount = 2;
+  const leftVisible = Math.max(currentPage - visibleBtnsCount, 1)
+  const rightVisible = Math.min(currentPage + visibleBtnsCount, pagesCount)
+
+
 
   const getHref = (pageNum: number): string => {
     return pageNum === 1
@@ -40,8 +50,14 @@ export const Paginate = ({ currentPage, totalItems, itemsPerPage = DEFAULT_PER_P
               <PaginationPrevious className="[&_span]:hidden" />
             </Link>
           </PaginationItem>
-          {Array.from({ length: pagesCount }, (_, i) => {
-            const pageNum = i + 1
+          {
+            leftVisible > 1
+            && <PaginationItem className="hidden sm:block">
+              <PaginationEllipsis />
+            </PaginationItem>
+          }
+          {Array.from({ length: rightVisible - leftVisible + 1 }, (_, i) => {
+            const pageNum = i + leftVisible
             const isActive = currentPage === pageNum
             return (<PaginationItem key={pageNum}>
               <Link href={`?${getHref(pageNum)}`} passHref legacyBehavior >
@@ -54,6 +70,12 @@ export const Paginate = ({ currentPage, totalItems, itemsPerPage = DEFAULT_PER_P
               </Link>
             </PaginationItem>)
           })}
+          {
+            rightVisible < pagesCount
+            && <PaginationItem className="hidden sm:block">
+              <PaginationEllipsis />
+            </PaginationItem>
+          }
           <PaginationItem>
             <Link href={`?${getHref(next)}`} passHref legacyBehavior>
               <PaginationNext className="[&_span]:hidden" />
