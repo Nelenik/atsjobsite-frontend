@@ -13,6 +13,8 @@ import { useQueryClient } from '@tanstack/react-query';
 import { FC } from 'react';
 import { storeCv, updateCV } from '@/shared/api/actions';
 import { useMutateForm } from '@/shared/model/hooks/useMutateForm';
+import { TagSelect } from '@/shared/ui/form-elements/TagSelect';
+import { skills } from '../lib/dictionary';
 
 
 type TProps = {
@@ -230,7 +232,14 @@ export const CvForm: FC<TProps> = ({
             rows={17}
           />
         </FormItem>
+        <FormItem
+          labelText='Навыки'
+          error={errors.skills}
+        >
+          <TagSelect name="skills[]" defaultValue={defaultValues?.skills} suggestionsList={skills} />
+        </FormItem>
       </div>
+
 
       <div className="self-end">
         <Button type="button" variant="ghost" className="mr-2" onClick={onCancel}>

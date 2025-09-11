@@ -88,7 +88,6 @@ function useTagSelect(defaultValue: string[], suggestionsList: string[]) {
   }
 
   const updateTags = (value: string) => {
-    console.log('udate tags')
     //split skills by comma or line breaks
     const newSkills = value
       .split(/,|\n/)
@@ -186,7 +185,9 @@ export const TagSelect = ({ name, defaultValue = [], suggestionsList = [] }: TPr
           <Badge
             key={item}
             onClick={() => removeTag(item)}
-            className=" w-max py-1 px-3 cursor-pointer"
+            className={cn(
+              " w-max py-1 px-3 cursor-pointer relative",
+            )}
             role="button"
           >
             {item}
@@ -216,18 +217,18 @@ export const TagSelect = ({ name, defaultValue = [], suggestionsList = [] }: TPr
         </PopoverAnchor>
 
         <PopoverContent
-          className="w-full p-0"
+          className="p-0 "
           onOpenAutoFocus={(e) => e.preventDefault()}
           onEscapeKeyDown={() => { setOpen(false) }}
           onPointerDownOutside={() => { setOpen(false) }}
         >
-          <Command shouldFilter={false}>
+          <Command shouldFilter={false} >
             <CommandList>
               {suggestions.map((item, idx) => (
                 <CommandItem
                   key={item}
                   value={item}
-                  className={idx === activeIndex ? "bg-accent text-accent-foreground" : ""}
+                  className={cn(idx === activeIndex ? "bg-accent text-accent-foreground" : "")}
                   onSelect={(value) => {
                     handleSelect(value)
                     inputRef.current?.focus()
