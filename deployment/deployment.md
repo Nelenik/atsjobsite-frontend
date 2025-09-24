@@ -45,18 +45,26 @@ sudo systemctl enable docker
 sudo systemctl start docker
 ```
 
-### 3. Установка Docker Compose
+### 3. Установка Docker Compose Plugin
+
+Docker Compose v2 устанавливается как плагин для Docker CLI и обычно идет в комплекте с современными версиями Docker:
 
 ```bash
-sudo curl -L "https://github.com/docker/compose/releases/download/v2.20.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
+# Установка Docker Compose plugin (если не установлен автоматически)
+sudo apt install docker-compose-plugin
+
+# Альтернативно, установка вручную:
+# DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
+# mkdir -p $DOCKER_CONFIG/cli-plugins
+# curl -SL https://github.com/docker/compose/releases/download/v2.24.0/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose
+# chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose
 ```
 
 ### 4. Проверка установки
 
 ```bash
 docker --version
-docker-compose --version
+docker compose version  # Обратите внимание: без дефиса!
 ```
 
 ## Подготовка проекта
@@ -128,27 +136,27 @@ http {
 ### 1. Сборка образа
 
 ```bash
-docker-compose build
+docker compose build
 ```
 
 ### 2. Запуск приложения
 
 ```bash
 # Запуск только frontend приложения
-docker-compose up -d rekrutai-fe
+docker compose up -d rekrutai-fe
 
-# Или запуск с Nginx
-docker-compose up -d
+# Или запуск с Nginx (если настроен)
+docker compose up -d
 ```
 
 ### 3. Проверка работы
 
 ```bash
 # Проверка статуса контейнеров
-docker-compose ps
+docker compose ps
 
 # Просмотр логов
-docker-compose logs -f rekrutai-fe
+docker compose logs -f rekrutai-fe
 
 # Проверка доступности приложения
 curl http://localhost:3000
@@ -159,37 +167,37 @@ curl http://localhost:3000
 ### Остановка приложения
 
 ```bash
-docker-compose down
+docker compose down
 ```
 
 ### Перезапуск приложения
 
 ```bash
-docker-compose restart
+docker compose restart
 ```
 
 ### Обновление приложения
 
 ```bash
 # Остановка контейнеров
-docker-compose down
+docker compose down
 
 # Получение последних изменений
 git pull
 
 # Пересборка и запуск
-docker-compose build
-docker-compose up -d
+docker compose build
+docker compose up -d
 ```
 
 ### Просмотр логов
 
 ```bash
 # Логи всех сервисов
-docker-compose logs -f
+docker compose logs -f
 
 # Логи конкретного сервиса
-docker-compose logs -f rekrutai-fe
+docker compose logs -f rekrutai-fe
 ```
 
 ## Настройка файрвола (UFW)
@@ -229,8 +237,8 @@ After=docker.service
 Type=oneshot
 RemainAfterExit=yes
 WorkingDirectory=/path/to/rekrutai-fe
-ExecStart=/usr/local/bin/docker-compose up -d
-ExecStop=/usr/local/bin/docker-compose down
+ExecStart=/usr/bin/docker compose up -d
+ExecStop=/usr/bin/docker compose down
 TimeoutStartSec=0
 
 [Install]
@@ -330,13 +338,13 @@ sudo chown -R $USER:$USER /path/to/rekrutai-fe
 
 ```bash
 # Проверка конфигурации
-docker-compose config
+docker compose config
 
 # Принудительная пересборка
-docker-compose build --no-cache
+docker compose build --no-cache
 
 # Просмотр подробных логов
-docker-compose logs --no-color rekrutai-fe > debug.log
+docker compose logs --no-color rekrutai-fe > debug.log
 ```
 
 ## Полезные команды
@@ -349,8 +357,8 @@ docker exec -it rekrutai-frontend /bin/sh
 docker cp rekrutai-frontend:/app/file.txt ./
 
 # Обновление образа без потери данных
-docker-compose pull
-docker-compose up -d --no-deps rekrutai-fe
+docker compose pull
+docker compose up -d --no-deps rekrutai-fe
 ```
 
 ## Поддержка и обслуживание
