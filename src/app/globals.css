@@ -6,9 +6,9 @@ html {
   box-sizing: border-box;
 }
 
-body {
+/* body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+} */
 
 @layer utilities {
   .text-balance {
@@ -19,13 +19,13 @@ body {
 @layer base {
   :root {
     /* tailwind vars */
-    --background: 220 14% 96%;
-    --foreground: 219 40% 11%;
+    --background: 0 0% 100%;
+    --foreground: 218 32% 12%;
     --card: 0 0% 100%;
     --card-foreground: 0 0% 20%;
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 3.9%;
-    --primary: 224 76% 48%;
+    --primary: 218 89% 54%;
     --primary-foreground: 0 0% 98%;
     --secondary: 0 0% 96.1%;
     --secondary-foreground: 0 0% 9%;
@@ -43,8 +43,8 @@ body {
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --sidebar-background: 219 40% 11%;
-    --sidebar-foreground: 217 7% 56%;
+    --sidebar-background: 218 33% 25%;
+    --sidebar-foreground: 225 33% 98%;
     --radius: 0.5rem;
 
   }

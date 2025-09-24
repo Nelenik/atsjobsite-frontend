@@ -1,27 +1,26 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { Inter } from 'next/font/google'
 import "../../globals.css";
+
 import { Toaster } from "@/shared/ui/shadcn/toaster";
 import { JobsiteHeader } from "@/widgets/jobsite-nav";
 import QueryProvider from "@/shared/providers/QueryProvider";
 import { getTenant } from "@/app/_actions/getTenant";
 import { Breadcrumbs } from "@/widgets/breadcrumbs";
+import { JobsiteFooter } from "@/widgets/jobsite-footer";
+
 import { cn } from "@/shared/lib/utils";
 import { TenantProvider } from "@/shared/providers/TenantProvider";
 import { NavigationConfigProvider } from "@/widgets/jobsite-nav/model/NavigationConfigProvider";
-import { JobsiteFooter } from "@/widgets/jobsite-footer";
+
 import { Analytics } from "@/widgets/analytics";
 
-const geistSans = localFont({
-  src: "../../fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "../../fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+})
 
 export const metadata: Metadata = {
   title: "Rekru.ru - доска вакансий",
@@ -37,9 +36,9 @@ export default async function JobSiteLayout({
   const tenant = await getTenant()
 
   return (
-    <html lang="ru">
+    <html lang="ru" className={`${inter.variable}`}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased [scrollbar-gutter:stable]`}
+        className={`font-inter antialiased [scrollbar-gutter:stable]`}
       >
         <Analytics />
         <TenantProvider tenant={tenant}>

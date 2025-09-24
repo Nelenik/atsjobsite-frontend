@@ -1,43 +1,16 @@
-// import type { Metadata } from "next";
-// import "../globals.css";
-// import { Toaster } from "@/shared/ui/shadcn/toaster";
-
-// export const metadata: Metadata = {
-//   title: "RekrutAI - AI рекрутинг",
-//   description: "Новый подход к подбору персонала. Используя передовые технологии AI, мы автоматизируем процесс поиска и отбора кандидатов. Теперь вы можете найти идеального сотрудника всего за несколько часов.",
-// };
-
-// export default async function RekrutaiLayout({
-//   children,
-// }: Readonly<{
-//   children: React.ReactNode;
-// }>) {
-
-//   return (
-//     <>
-//       {children}
-//       <Toaster />
-//     </>
-//   );
-// }
-
-import localFont from "next/font/local";
+import { Inter } from 'next/font/google'
 import "../../globals.css";
 import type { Metadata } from "next";
 import { Toaster } from "@/shared/ui/shadcn/toaster";
 import { TenantProvider } from "@/shared/providers/TenantProvider";
 import { getTenant } from "@/app/_actions/getTenant";
 
-const geistSans = localFont({
-  src: "../../fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "../../fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+})
 
 export const metadata: Metadata = {
   title: "RekrutAI - AI рекрутинг",
@@ -58,9 +31,9 @@ export default async function RekrutaiLayout({
   const tenant = await getTenant()
 
   return (
-    <html lang="ru">
+    <html lang="ru" className={`${inter.variable}`}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`font-inter antialiased`}
       >
         <TenantProvider tenant={tenant}>
 

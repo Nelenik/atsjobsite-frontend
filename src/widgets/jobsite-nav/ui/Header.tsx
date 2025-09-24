@@ -6,7 +6,7 @@ import { MobileMenu } from "./MobileMenu";
 import { useNavConfig } from "../model/NavigationConfigProvider";
 import { NavList } from "./NavList";
 import { Logo } from "@/shared/ui/navigation/Logo";
-import LogoImg from '@/assets/rekru-logo-short.svg'
+import LogoImg from '@/assets/logo-short.png'
 
 
 type TProps = {

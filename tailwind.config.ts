@@ -11,6 +11,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        inter: ["var(--font-inter)", "sans-serif"],
+      },
       screens: {
         "md-lg": "992px",
       },

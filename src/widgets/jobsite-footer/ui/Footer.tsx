@@ -1,7 +1,8 @@
 import { cn } from "@/shared/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
-import LogoFullImg from '@/assets/rekru-logo-full.svg'
+import LogoFullImg from '@/assets/logo-short.png'
+import QrSample from '@/assets/qr-sample.png'
 import { Separator } from "@/shared/ui/shadcn/separator";
 
 type TProps = {
@@ -9,36 +10,33 @@ type TProps = {
 }
 export const Footer = ({ className }: TProps) => {
   return (
-    <footer className={cn("py-6 shadow-[0px_-1px_8px_0px_rgba(0,_0,_0,_0.1)] shadow-sidebar-foreground/50", className)}>
-      <div className={cn("jobsite-container", "flex gap-14 ")}>
-        <Link href={'/vacancies'}>
-          <Image
-            src={LogoFullImg}
-            alt="Rekru.ru logo"
-            width={198}
-            height={177}
-            className="w-20 self-center"
-          />
-        </Link>
-
-        <Separator
-          orientation="vertical"
-          className="shadow-[5px_0px_5px_-3px_rgba(0,_0,_0,_0.1)] shadow-sidebar-foreground/50 h-auto"
-        />
-
-        <ul className="flex flex-col gap-1 self-center text-sidebar-foreground ">
-          <li>
-            <Link href={"/pages/About"}>
-              О нас
+    <footer className={cn("py-12 bg-sidebar", className)}>
+      <div className={cn("jobsite-container", "flex gap-8 ")}>
+        <div>
+          <div className="flex flex-col gap-10">
+            <Link href={'/vacancies'}>
+              <Image
+                src={LogoFullImg}
+                alt="Rekru.ru logo"
+                width={64}
+                height={64}
+                className="w-16 self-center"
+              />
             </Link>
+            <div className="flex flex-col gap-5 ">
+              <h3 className="text-lg font-semibold text-sidebar-foreground">Мобильное приложение</h3>
+              <Image
+                src={QrSample}
+                alt="QR code"
+                width={160}
+                height={160}
+                className="w-40 aspect-square"
+              />
+            </div>
+          </div>
+        </div>
+        <div></div>
 
-          </li>
-          <li>
-            <Link href={"/pages/Contacts"}>
-              Контакты
-            </Link>
-          </li>
-        </ul>
       </div>
     </footer>
   );
