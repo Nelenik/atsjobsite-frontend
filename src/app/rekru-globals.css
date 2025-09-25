@@ -18,14 +18,14 @@ html {
     --primary: 218 89% 54%;
     --primary-foreground: 0 0% 98%;
     --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
+    --secondary-foreground: 219 33% 33%;
+    --muted: 217 35% 93%;
     --muted-foreground: 218 11% 65%;
     --accent: 0 0% 96.1%;
     --accent-foreground: 0 0% 9%;
     --destructive: 0 81% 62%/70%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
+    --border: 217 35% 93%;
     --input: 213 21% 90%;
     --ring: 224 76% 48%;
     --chart-1: 12 76% 61%;
@@ -69,11 +69,18 @@ html {
   }
 }
 
-.rekru-container {
-  @apply container max-w-[1162px] px-4 mx-auto;
+@layer base {
+  a {
+    @apply text-inherit;
+  }
 }
 
+
 @layer utilities {
+  .rekru-container {
+    @apply container max-w-[1152px] px-4 mx-auto;
+  }
+
   .heading-footer {
     @apply text-lg font-semibold text-sidebar-foreground;
   }

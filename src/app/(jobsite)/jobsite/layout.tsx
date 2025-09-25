@@ -6,10 +6,8 @@ import { Toaster } from "@/shared/ui/shadcn/toaster";
 import { NavigationConfigProvider, RekruHeader } from "@/widgets/rekru-nav";
 import QueryProvider from "@/shared/providers/QueryProvider";
 import { getTenant } from "@/app/_actions/getTenant";
-import { Breadcrumbs } from "@/widgets/breadcrumbs";
 import { JobsiteFooter } from "@/widgets/rekru-footer";
 
-import { cn } from "@/shared/lib/utils";
 import { TenantProvider } from "@/shared/providers/TenantProvider";
 
 import { Analytics } from "@/widgets/analytics";
@@ -37,7 +35,7 @@ export default async function JobSiteLayout({
   return (
     <html lang="ru" className={`${inter.variable}`}>
       <body
-        className={`font-inter text-sm antialiased [scrollbar-gutter:stable]`}
+        className={`font-inter text-sm antialiased [scrollbar-gutter:stable] bg-background text-foreground`}
       >
         <Analytics />
         <TenantProvider tenant={tenant}>
@@ -45,22 +43,10 @@ export default async function JobSiteLayout({
             {/* Header */}
             <NavigationConfigProvider>
               <RekruHeader
-                className="mb-6"
               />
             </NavigationConfigProvider>
-            {/* Breadcrumbs */}
-            <div className="rekru-container">
-              <div className="flex justify-between items-center p-5 rounded-md bg-card">
-
-                <Breadcrumbs
-                  className={cn(
-                    "[&_li:not(:last-child)]:text-foreground [&_a:hover]:text-muted-foreground transition-colors delay-300"
-                  )}
-                />
-              </div>
-            </div>
             {/* Main content */}
-            <main className='@container py-12'>
+            <main className='@container py-10'>
               <div className="rekru-container">
                 {children}
               </div>

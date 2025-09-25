@@ -1,13 +1,25 @@
 'use client'
 import { cn } from "@/shared/lib/utils";
-// import { UserMenu } from "@/shared/ui/navigation/UserMenu";
-// import { UserMenuContent } from "./UserMenuContent";
-import { MobileMenu } from "./MobileMenu";
+import { Plus } from "lucide-react";
+import Link from "next/link";
+
 import { useNavConfig } from "../model/NavigationConfigProvider";
 import { NavList } from "./NavList";
 import { Logo } from "@/shared/ui/navigation/Logo";
-import LogoImg from '@/assets/logo-short.png'
+import { RekruCTA } from "@/shared/ui/buttons/RekruCTA";
 
+import LogoImg from '@/assets/logo-short.png';
+import profileSampleImg from '@/assets/profile-sample.png'
+import { UserPreview } from "@/shared/ui/navigation/UserPreview";
+
+
+
+const userSample = {
+  id: 1,
+  name: 'Феодосия Абрассимова',
+  email: 'feodosia.abra@yandex.ru',
+  profile_image: profileSampleImg.src
+}
 
 type TProps = {
   className?: string
@@ -28,7 +40,7 @@ export const Header = ({
 
     <header
       className={cn(
-        'py-1 bg-sidebar ',
+        'py-1',
         'md:py-4',
         className
       )}
@@ -40,56 +52,48 @@ export const Header = ({
         )}
       >
 
-        {/* mobile menu is shown under 768px */}
-        <MobileMenu
-          className="md:hidden md:invisible"
-        />
-
         {/* Logo */}
         {/* Logo is always shown */}
         <Logo
-          width={44}
-          height={44}
+          width={64}
+          height={64}
           alt="Rekruru - jobsite logo"
           href="/vacancies"
           image={LogoImg}
           className={cn(
             'm-auto shrink-0',
-            'md:w-[48px] md:m-0'
+            'md:w-[64px] md:m-0'
           )}
         />
 
         {/* show nav on screen from md screen = 768px */}
         <nav
           className={cn(
-            'hidden invisible w-[55%] grow-0 mx-auto',
+            'hidden invisible w-max grow-0 mx-auto',
             // show on md screen
             'md:flex md:visible '
           )}>
           <NavList
             routes={publicRoutes}
             className={cn(
-              'flex gap-4 items-center w-full justify-center',
-              'text-sidebar-foreground',
-              '[&_a]:max-w-[120px]'
+              'flex gap-10 items-center w-full justify-center',
+              'text-secondary-foreground',
             )}
           />
         </nav>
 
-        {/* PROFILE NAVIGATION, TEMPORAR DISCONNECTED */}
-        {/* user menu is shown from 768px and up */}
+        <div className="flex gap-10 items-center">
+          <RekruCTA>
+            <Plus />
+            Добавить вакансию
+          </RekruCTA>
 
-        {/* <UserMenu
-          user={{ name: 'Соискатель' }}
-          mode="shown"
-          className={cn(
-            "hidden invisible",
-            "md:visible md:flex",
-            "[&_p]:hidden [&_p]:md-lg:flex"
-          )}
-        >
-          <UserMenuContent />
-        </UserMenu> */}
+          <Link
+            href='/profile'
+          >
+            <UserPreview user={userSample} className="w-56" />
+          </Link>
+        </div>
       </div>
     </header >
   );

@@ -1,8 +1,10 @@
+'use client'
 import { TNavConfig } from "@/shared/config/types";
 import { cn } from "@/shared/lib/utils";
-import { DarkMenuLink } from "@/shared/ui/navigation/DarkMenuLink";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-type Props = {
+type TProps = {
   routes: TNavConfig[]
   className?: string;
   onLinkClick?: () => void
@@ -11,24 +13,33 @@ export const NavList = ({
   routes,
   className,
   onLinkClick = () => { },
-}: Props) => {
+}: TProps) => {
+  const pathname = usePathname()
   return (
     <ul
       className={cn(
         className
       )}
     >
-      {routes.map(route => (
-        <li key={route.routeName}>
-          <DarkMenuLink
-            href={route.href}
-            className="w-full justify-start"
-            onLinkClick={onLinkClick}
-          >
-            {route.icon && route.icon}
-            <span className="ml-2">{route.routeName}</span>
-          </DarkMenuLink>
-        </li>)
+      {routes.map(route => {
+        const isAcitve = pathname === route.href
+        return (
+          <li key={route.routeName}>
+            <Link
+              className={cn(
+                "w-max inline-block py-2 transition-colors",
+                "border-b-2 border-transparent",
+                "text-secondary-foreground font-semibold text-center",
+                "hover:text-primary hover:border-primary",
+                isAcitve && 'text-primary border-primary'
+              )}
+              href={route.href}
+              onClick={onLinkClick}
+            >
+              {route.routeName}
+            </Link>
+          </li>)
+      }
       )}
     </ul>
   );

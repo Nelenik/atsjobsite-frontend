@@ -42,33 +42,13 @@ export const jobsitePathMapping: IBreadcrumbPattern[] = [
     isLink: true
   },
   {
-    pattern: "/internships",
-    handler: () => "Стажировки",
-    isLink: true
-  },
-  {
-    pattern: "/startups",
-    handler: () => "Стартапы",
-    isLink: true
-  },
-  {
-    pattern: "/cofounders",
-    handler: () => "Кофаундеры",
+    pattern: "/companies",
+    handler: () => "Компании",
     isLink: true
   },
   {
     pattern: "/profile",
     handler: () => "Кабинет",
-    isLink: true
-  },
-  {
-    pattern: "/pages/About",
-    handler: () => "О нас",
-    isLink: true
-  },
-  {
-    pattern: "/pages/Contacts",
-    handler: () => "Контакты",
     isLink: true
   }
 ]

@@ -93,6 +93,7 @@ export const Sidebar = ({ className }: ISidebarProps) => {
             <UserAvatar
               userName={user.email}
               profileImage={user.profile_image}
+              className="w-[35px] h-[35px] md:w-[44px] md:h-[44px]"
             />
             {isSidebarOpen && <p className={cn('flex flex-col gap-0.5', "scroll-m-20 text-md font-semibold tracking-tight max-w-44 text-sidebar-foreground")}>
               {user.name}

@@ -37,8 +37,8 @@ export const UserAvatar = ({
   return (
     <Avatar
       className={cn(
-        'w-[35px] h-[35px] border border-transparent  transition duration-300',
-        ' md:w-[44px] md:h-[44px]',
+        'border border-transparent  transition duration-300',
+
         className
       )}
 

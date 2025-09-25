@@ -16,17 +16,10 @@ export const createJobsitePublicNavConfig = (): TNavConfig[] => [
     href: '/vacancies'
   },
   {
-    routeName: 'Стажировки',
-    href: '/internships'
+    routeName: 'Компании',
+    href: '/companies'
   },
-  {
-    routeName: 'Стартапы',
-    href: '/startups'
-  },
-  {
-    routeName: 'Кофаундеры',
-    href: '/cofounders'
-  }
+
 ]
 /**
  * Generates the navigation configuration for the Jobsite user profile section.
