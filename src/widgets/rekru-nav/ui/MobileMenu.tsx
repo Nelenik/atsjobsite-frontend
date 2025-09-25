@@ -2,9 +2,9 @@ import { cn } from "@/shared/lib/utils";
 import { BurgerMenu } from "@/shared/ui/navigation/BurgerMenu";
 import { NavList } from "../../../shared/ui/navigation/NavList";
 import { SignOutForm } from "@/features/auth";
-import { useNavConfig } from "../model/NavigationConfigProvider";
 import { Separator } from "@/shared/ui/shadcn/separator";
 import { ScrollArea } from "@/shared/ui/shadcn/scroll-area";
+import { createJobsitePublicNavConfig } from "@/shared/config/jobsiteNavConfig";
 
 type TProps = {
   className?: string;
@@ -12,8 +12,7 @@ type TProps = {
 export const MobileMenu = ({
   className
 }: TProps) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { publicRoutes, profileRoutes } = useNavConfig()
+  const publicRoutes = createJobsitePublicNavConfig()
   return (
     <BurgerMenu
       className={cn(

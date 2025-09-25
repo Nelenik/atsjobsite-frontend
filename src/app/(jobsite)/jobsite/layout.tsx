@@ -7,7 +7,7 @@ import Image from "next/image";
 
 import { Toaster } from "@/shared/ui/shadcn/toaster";
 import { Separator } from "@/shared/ui/shadcn/separator";
-import { NavigationConfigProvider, RekruHeader, RekruProfileMenu } from "@/widgets/rekru-nav";
+import { RekruHeader, RekruProfileMenu } from "@/widgets/rekru-nav";
 
 import { Analytics } from "@/widgets/analytics";
 import QueryProvider from "@/shared/providers/QueryProvider";
@@ -51,10 +51,8 @@ export default async function JobSiteLayout({
         <TenantProvider tenant={tenant}>
           <QueryProvider>
             {/* Header */}
-            <NavigationConfigProvider>
-              <RekruHeader
-              />
-            </NavigationConfigProvider>
+            <RekruHeader
+            />
             {/* Main content */}
             <main className='@container py-10'>
               <div className="rekru-container">

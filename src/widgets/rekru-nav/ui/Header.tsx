@@ -3,7 +3,6 @@ import { cn } from "@/shared/lib/utils";
 import { Plus } from "lucide-react";
 import Link from "next/link";
 
-import { useNavConfig } from "../model/NavigationConfigProvider";
 import { NavList } from "@/shared/ui/navigation/NavList";
 import { Logo } from "@/shared/ui/navigation/Logo";
 import { RekruCTA } from "@/shared/ui/buttons/RekruCTA";
@@ -11,6 +10,8 @@ import { RekruCTA } from "@/shared/ui/buttons/RekruCTA";
 import LogoImg from '@/assets/logo-short.png';
 import profileSampleImg from '@/assets/profile-sample.png'
 import { UserPreview } from "@/entities/profile";
+import { useMemo } from "react";
+import { createJobsitePublicNavConfig } from "@/shared/config/jobsiteNavConfig";
 
 
 
@@ -34,7 +35,7 @@ type TProps = {
 export const Header = ({
   className
 }: TProps) => {
-  const { publicRoutes } = useNavConfig()
+  const publicRoutes = useMemo(() => createJobsitePublicNavConfig(), [])
 
   return (
 
