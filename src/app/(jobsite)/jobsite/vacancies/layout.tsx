@@ -2,8 +2,7 @@ import { getFilterCompanies } from "@/shared/api/actions";
 import { getPubVacancyPositions } from "@/shared/api/actions/public-vacancy";
 import { cn } from "@/shared/lib/utils";
 import { FiltersSheet } from "@/shared/ui/modals/FiltersSheet";
-import { PathFiltersProvider, SearchVacancies, PubVacanciesFilter } from "@/widgets/filter-pub-vacancy";
-import { PositionsFilterToggle } from "@/widgets/filter-pub-vacancy/ui/PositionsFilterToggle";
+import { PathFiltersProvider, PositionsFilterToggle, PubVacanciesFilter, SearchVacancies } from "@/widgets/rekru-vacancy-filter";
 
 export default async function JobSiteVacanciesLayout({
   children,

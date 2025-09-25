@@ -3,15 +3,14 @@ import { Inter } from 'next/font/google'
 import "../../rekru-globals.css";
 
 import { Toaster } from "@/shared/ui/shadcn/toaster";
-import { JobsiteHeader } from "@/widgets/jobsite-nav";
+import { NavigationConfigProvider, RekruHeader } from "@/widgets/rekru-nav";
 import QueryProvider from "@/shared/providers/QueryProvider";
 import { getTenant } from "@/app/_actions/getTenant";
 import { Breadcrumbs } from "@/widgets/breadcrumbs";
-import { JobsiteFooter } from "@/widgets/jobsite-footer";
+import { JobsiteFooter } from "@/widgets/rekru-footer";
 
 import { cn } from "@/shared/lib/utils";
 import { TenantProvider } from "@/shared/providers/TenantProvider";
-import { NavigationConfigProvider } from "@/widgets/jobsite-nav/model/NavigationConfigProvider";
 
 import { Analytics } from "@/widgets/analytics";
 
@@ -45,7 +44,7 @@ export default async function JobSiteLayout({
           <QueryProvider>
             {/* Header */}
             <NavigationConfigProvider>
-              <JobsiteHeader
+              <RekruHeader
                 className="mb-6"
               />
             </NavigationConfigProvider>

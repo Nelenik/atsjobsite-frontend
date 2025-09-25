@@ -4,7 +4,7 @@ import { getFilterCompanies } from "@/shared/api/actions";
 import { decodeSegment } from "@/shared/lib/encodeSegments";
 import { capitalizeSentences } from "@/shared/lib/formatters/capitalizeSentence";
 import { CvListSkeleton } from "@/shared/ui/skeletons/CvListSkeleton";
-import { PubVacanciesWrapper } from "@/widgets/pub-vac-list";
+import { PubVacanciesWrapper } from "@/widgets/rekru-vac-list";
 import { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { Suspense } from "react";
