@@ -1,7 +1,7 @@
+import { NothingYet } from "@/shared/ui/NothingYet";
+
 export default async function ProfileAnalyticsPage() {
   return (
-    <div>
-      Profile
-    </div>
+    <NothingYet />
   );
 }
