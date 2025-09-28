@@ -49,7 +49,7 @@ export default async function JobSiteLayout({
             <RekruHeader
             />
             {/* Main content */}
-            <main className='@container py-8'>
+            <main className='@container'>
               {/* <div className="rekru-container"> */}
               {children}
               {/* </div> */}

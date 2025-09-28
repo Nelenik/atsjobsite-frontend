@@ -33,42 +33,49 @@ export const PubVacDetails = ({
 
   return (
     <>
-      <div className="rekru-container pb-8 flex items-center justify-between gap-20">
-        <GoBackLink
-          className='p-0'
-          text='Назад к списку вакансий'
-        />
-        <MobileMenu
-          className="md-lg:hidden md-lg:invisible"
-        />
-      </div>
-      <div className="rekru-container grid gap-8 grid-cols-12">
-        <div className={cn("col-span-7 w-full flex flex-col gap-10")} >
-          <VacancyParams
-            level={level}
-            name={name}
-            link={link}
-            salary_from={salary_from}
-            salary_to={salary_to}
-            location={location}
-            work_format={work_format}
-            experience={experience}
-            employment={employment}
+      <section className={cn(
+        "py-4 bg-background sticky top-0 z-[100]",
+        'md-lg:static md-lg:py-8'
+      )}>
+        <div className="rekru-container flex items-center justify-between gap-20 ">
+          <GoBackLink
+            className='p-0'
+            text='Назад к списку вакансий'
           />
-          <VacancyDescription
-            description={description}
-            skills={skills}
-            responsibilities={responsibilities}
-            conditions={conditions}
-            addition={addition}
+          <MobileMenu
+            className="md-lg:hidden md-lg:invisible"
           />
         </div>
-        <CompanyInfoCard
-          {...company.name && { company: company }}
-          sourceLink={link}
-          className='col-span-5 self-start'
-        />
-      </div>
+      </section>
+      <section className="py-5 md-lg:pb-8 md-lg:pt-0">
+        <div className="rekru-container grid gap-8 grid-cols-12">
+          <div className={cn("col-span-7 w-full flex flex-col gap-10")} >
+            <VacancyParams
+              level={level}
+              name={name}
+              link={link}
+              salary_from={salary_from}
+              salary_to={salary_to}
+              location={location}
+              work_format={work_format}
+              experience={experience}
+              employment={employment}
+            />
+            <VacancyDescription
+              description={description}
+              skills={skills}
+              responsibilities={responsibilities}
+              conditions={conditions}
+              addition={addition}
+            />
+          </div>
+          <CompanyInfoCard
+            {...company.name && { company: company }}
+            sourceLink={link}
+            className='col-span-5 self-start'
+          />
+        </div>
+      </section>
     </>
 
 

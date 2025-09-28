@@ -17,49 +17,56 @@ export default async function JobSiteVacanciesLayout({
 
   return (
     <PathFiltersProvider positionsList={vacancyPositions} filterCompanies={filterCompanies}>
-      <div className="rekru-container pb-8 flex items-center justify-between gap-20 md-lg:hidden md-lg:invisible">
-        <GoBackLink
-          className='p-0'
-          text='Назад'
-        />
-        <MobileMenu />
-      </div>
-      <div
-        className={cn(
-          'rekru-container flex flex-col justify-between  gap-8 ',
-          'md:grid md:grid-cols-[250px_minmax(0,1fr)] md:gap-x-6 md:gap-y-4',
-        )}
-      >
-        <div
-          className="flex gap-4  md:col-span-2"
-        >
-
-
-          <SearchVacancies
-            className="grow"
+      <section className={cn(
+        "py-4 bg-background sticky top-0 z-[100]",
+        ' md-lg:hidden md-lg:invisible'
+      )}>
+        <div className="rekru-container flex items-center justify-between gap-20 ">
+          <GoBackLink
+            className='p-0'
+            text='Назад'
           />
-
-          <FiltersSheet
-            className="md:hidden"
-          >
-            <PubVacanciesFilter />
-          </FiltersSheet>
+          <MobileMenu />
         </div>
-
-        <PositionsFilterToggle className="hidden md:flex md:col-span-2 md:mb-8" />
-
-        <aside
+      </section>
+      <section className="pt-2 pb-6 md-lg:py-8">
+        <div
           className={cn(
-            "hidden md:block",
-            "relative")}
+            'rekru-container flex flex-col justify-between  gap-8 ',
+            'md:grid md:grid-cols-[250px_minmax(0,1fr)] md:gap-x-6 md:gap-y-4',
+          )}
         >
+          <div
+            className="flex gap-4  md:col-span-2"
+          >
 
-          <PubVacanciesFilter
-            className="sticky top-0"
-          />
-        </aside>
-        {children}
-      </div>
+
+            <SearchVacancies
+              className="grow"
+            />
+
+            <FiltersSheet
+              className="md:hidden"
+            >
+              <PubVacanciesFilter />
+            </FiltersSheet>
+          </div>
+
+          <PositionsFilterToggle className="hidden md:flex md:col-span-2 md:mb-8" />
+
+          <aside
+            className={cn(
+              "hidden md:block",
+              "relative")}
+          >
+
+            <PubVacanciesFilter
+              className="sticky top-0"
+            />
+          </aside>
+          {children}
+        </div>
+      </section>
     </PathFiltersProvider>
   )
 }

@@ -3,7 +3,7 @@ import StartupSvg from '@/assets/startup.svg?rc';
 export const NothingYet = () => {
   return (
     <div
-      className='flex flex-col items-center justify center gap-20 py-8'
+      className='flex flex-col items-center justify center gap-20'
     >
       <StartupSvg
         className='w-[50%]'
