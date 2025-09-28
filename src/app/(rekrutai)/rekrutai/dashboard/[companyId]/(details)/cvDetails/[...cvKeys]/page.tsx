@@ -1,7 +1,7 @@
 import { CvDetails } from "@/pages-layer/cv-details";
 import { getResumeById } from "@/shared/api/actions";
 import { encodeSegment } from "@/shared/lib/encodeSegments";
-import { GoBackLink } from "@/shared/ui/GoBackLink";
+import { GoBackLink } from "@/shared/ui/navigation/GoBackLink";
 import { redirect } from "next/navigation";
 
 const CvDetailsPage = async ({ params }: { params: Promise<{ cvKeys: string[], companyId: string }> }) => {

@@ -1,7 +1,7 @@
 import { MatchDetails } from "@/pages-layer/match-details";
 import { getCandidateFull } from "@/shared/api/actions";
 import { encodeSegment } from "@/shared/lib/encodeSegments";
-import { GoBackLink } from "@/shared/ui/GoBackLink";
+import { GoBackLink } from "@/shared/ui/navigation/GoBackLink";
 import { redirect } from "next/navigation";
 
 const MatchDetailsPage = async ({ params }: { params: Promise<{ matchKeys: string[], companyId: string }> }) => {

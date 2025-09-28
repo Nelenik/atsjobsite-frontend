@@ -1,8 +1,8 @@
 import { VacancyDetails } from "@/pages-layer/vacancy-details";
 import { getVacancy } from "@/shared/api/actions";
 import { redirect } from "next/navigation";
-import { GoBackLink } from "@/shared/ui/GoBackLink";
 import { encodeSegment } from "@/shared/lib/encodeSegments";
+import { GoBackLink } from "@/shared/ui/navigation/GoBackLink";
 
 const VacancyDetailsPage = async ({ params }: { params: Promise<{ vacancyKeys: string[], companyId: string }> }) => {
   const { vacancyKeys, companyId } = await params;

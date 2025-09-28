@@ -1,1 +1,1 @@
-export { FixedCTA } from "./ui/FixedCTA";
+export { ScrollCTA } from "./ui/ScrollCTA";
