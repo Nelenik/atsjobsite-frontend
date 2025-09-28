@@ -40,7 +40,7 @@ export const ScrollCTA = ({ ctaLink = '#!' }: TProps) => {
     >
       <PopoverTrigger
         className={cn(
-          'fixed bottom-8 -left-[10px] p-2 bg-background ring ring-secondary-foreground/70 rounded-lg', 'md-lg:hidden md-lg:invisible', open && 'invisible'
+          'fixed bottom-8 -left-[10px] p-2 bg-background shadow-[0_2px_2px_rgba(35,112,242,4%),0_4px_6px_rgba(35,112,242,4%),0_12px_16px_rgba(35,112,242,8%)] rounded-lg', 'md-lg:hidden md:invisible', open && 'invisible'
         )}
       >
         <ChevronsRight />
@@ -51,7 +51,7 @@ export const ScrollCTA = ({ ctaLink = '#!' }: TProps) => {
         onOpenAutoFocus={(e) => e.preventDefault()}
         onInteractOutside={(e) => e.preventDefault()}
         className={cn(
-          'flex items-center gap-12 justify-center py-3 px-5 rounded-3xl w-[calc(100vw_-_40px)]'
+          'flex items-center gap-12 justify-center py-3 px-5 rounded-3xl shadow-[0_2px_2px_rgba(35,112,242,4%),0_4px_6px_rgba(35,112,242,4%),0_12px_16px_rgba(35,112,242,8%)] w-[calc(100vw_-_40px)]'
         )}
       >
         <Button

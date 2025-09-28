@@ -16,6 +16,8 @@ import { TenantProvider } from "@/shared/providers/TenantProvider";
 
 import QrSample from '@/assets/qr-sample.png'
 import LogoFullImg from '@/assets/logo-short.png'
+import { RekruCTA } from "@/shared/ui/buttons/RekruCTA";
+import { Download } from "lucide-react";
 
 const inter = Inter({
   subsets: ['latin', 'cyrillic'],
@@ -56,8 +58,19 @@ export default async function JobSiteLayout({
             </main>
             {/* Footer */}
             <footer className={cn("py-12 bg-sidebar flex flex-col gap-10")}>
-              <div className={cn("rekru-container", "flex gap-8 ")}>
-                <div className="flex flex-col gap-10 w-1/4">
+              <div className={cn(
+                "rekru-container",
+                'grid gap-8 grid-cols-4  px-10',
+                'sm:grid-cols-6 px-5',
+                'md-lg:grid-cols-12'
+              )}>
+                {/* logo */}
+                <div className={cn(
+                  "flex flex-col gap-10 ",
+                  'col-span-4 px-5',
+                  'sm:order-1 sm:col-span-3 sm:px-0',
+                  'md-lg:order-1'
+                )}>
                   <Link href={'/vacancies'}>
                     <Image
                       src={LogoFullImg}
@@ -69,17 +82,34 @@ export default async function JobSiteLayout({
                   </Link>
                   <div className="flex flex-col gap-5 ">
                     <h2 className="heading-footer">Мобильное приложение</h2>
+                    <RekruCTA
+                      className="md:hidden"
+                    >
+                      <Download />
+                      Установить на телефон
+                    </RekruCTA>
                     <Image
                       src={QrSample}
                       alt="QR code"
                       width={160}
                       height={160}
-                      className="w-40 aspect-square"
+                      className="w-40 aspect-square hidden md:block"
                     />
                   </div>
                 </div>
+                <Separator className={cn(
+                  "w-[calc(100%_-_40px)] h-px bg-[#394d71] ",
+                  'col-span-4 order-2 justify-self-center',
+                  'sm:order-3 sm:col-span-3',
+                  'md-lg:hidden'
+                )} />
+
                 {/* about rekru */}
-                <div className="w-1/4">
+                <div className={cn(
+                  'col-span-4 order-5 px-5',
+                  'sm:order-5 sm:col-span-3 sm:px-0',
+                  'md-lg:order-2'
+                )}>
                   <h2 className="heading-footer mb-5">
                     Rekru
                   </h2>
@@ -111,8 +141,13 @@ export default async function JobSiteLayout({
                     </li>
                   </ul>
                 </div>
+
                 {/* for employers and candidates */}
-                <div className="w-1/4">
+                <div className={cn(
+                  'col-span-4 order-7 px-5',
+                  'sm:order-6 sm:col-span-3 sm:px-0',
+                  'md-lg:order-3'
+                )}>
                   <h2 className="heading-footer mb-5">
                     Соискателям
                   </h2>
@@ -152,11 +187,34 @@ export default async function JobSiteLayout({
                     </li>
                   </ul>
                 </div>
+
+                <Separator className={cn(
+                  "w-[calc(100%_-_40px)] h-px bg-[#394d71] ",
+                  'col-span-4 order-8 justify-self-center',
+                  'sm:hidden'
+                )} />
+
                 {/* profile */}
-                <RekruProfileMenu className="w-1/4 text-sidebar-foreground" />
+                <RekruProfileMenu
+                  className={cn(
+                    " text-sidebar-foreground",
+                    'col-span-4 order-3 px-5',
+                    'sm:order-2 sm:col-span-3 sm:px-0',
+                    'md-lg:order-4'
+                  )}
+                />
+                <Separator className={cn(
+                  "w-[calc(100%_-_40px)] h-px bg-[#394d71] ",
+                  'col-span-4 order-4 justify-self-center',
+                  'sm:order-4 sm:col-span-3',
+                  'md-lg:hidden'
+                )} />
               </div>
-              <Separator className="rekru-container h-px bg-[#394d71]" />
-              <div className="rekru-container flex gap-8 items-center">
+              <Separator className="rekru-container h-px bg-[#394d71] hidden sm:block" />
+              <div className={cn(
+                "rekru-container flex flex-col gap-8 items-center",
+                'md:flex-row'
+              )}>
                 <div className="w-1/2">
                   <h2 className="heading-footer mb-5" >Социальные сети и боты</h2>
                   <ul className="flex items-center gap-6">
@@ -212,6 +270,7 @@ export default async function JobSiteLayout({
                     </li>
                   </ul>
                 </div>
+                <Separator className="w-[calc(100%_-_40px)] h-px bg-[#394d71] md:hidden" />
                 <p className="w-1/2 text-xs text-sidebar-foreground leading-5">
                   На информационном ресурсе rekru.ru <span className="underline">применяются рекомендательные технологии</span> (информационные технологии предоставления информации на основе сбора, систематизации и анализа сведений, относящихся к предпочтениям пользователей сети «Интернет», находящихся на территории Российской Федерации)
                 </p>
