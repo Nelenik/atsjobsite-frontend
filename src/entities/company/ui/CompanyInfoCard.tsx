@@ -42,7 +42,7 @@ export const CompanyInfoCard = ({
         className="absolute top-8 right-8 w-[72px] h-[72px]"
       />
       <div>
-        <CardTitle className="mb-2">{company.name || 'Не указана'}</CardTitle>
+        <CardTitle className="text-lg md:text-xl mb-2">{company.name || 'Не указана'}</CardTitle>
         <a
           href={getCompanyLinkByName(company.name || '') || '!#'}
           target="_blank"

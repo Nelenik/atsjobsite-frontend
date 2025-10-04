@@ -54,7 +54,7 @@ export const VacancyParams = ({
     >
       <div>
         <h1
-          className="mb-3 text-[32px] leading-10 font-bold hyphens-auto [overflow-wrap:anywhere]"
+          className="mb-3 text-xl  md:text-[32px] md:leading-10 font-bold hyphens-auto [overflow-wrap:anywhere]"
         >{name}</h1>
         <StatusBadge
           color="#17499d"
@@ -73,7 +73,7 @@ export const VacancyParams = ({
           </span>
           <span>•</span>
           <span>
-            {normalizedEmployment}
+            Занятость: {normalizedEmployment}
           </span>
           <span>•</span>
           <span>

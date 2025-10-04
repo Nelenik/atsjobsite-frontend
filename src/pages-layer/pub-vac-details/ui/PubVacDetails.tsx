@@ -38,18 +38,21 @@ export const PubVacDetails = ({
         "py-4 bg-background sticky top-0 z-[10]",
         'md-lg:static md-lg:py-8'
       )}>
-        <div className="rekru-container flex items-center justify-between gap-20 ">
+        <div className="rekru-container flex items-center justify-between gap-5 ">
           <GoBackLink
             className='p-0'
             text='Назад к списку вакансий'
           />
           <MobileMenu
-            className="md-lg:hidden md-lg:invisible"
+            className="md-lg:hidden md-lg:invisible shrink-0"
           />
         </div>
       </section>
       <section className="pt-5 pb-8 md-lg:pt-0">
-        <div className="rekru-container grid gap-8 grid-cols-12 grid-row-2">
+        <div className={cn(
+          "rekru-container gap-8 flex flex-col",
+          "md-lg:grid md-lg:grid-cols-12 md-lg:grid-row-2"
+        )}>
           <VacancyParams
             level={level}
             name={name}
@@ -61,16 +64,16 @@ export const PubVacDetails = ({
             experience={experience}
             employment={employment}
             className={cn(
-              'col-span-12 max-w-[550px]',
-              'md-lg:col-span-7 md-lg:max-w-unset'
+              'max-w-[550px]',
+              'md-lg:col-span-7 md-lg:max-w-none'
             )}
           />
           <CompanyInfoCard
             {...company.name && { company: company }}
             sourceLink={link}
             className={cn(
-              'col-span-12 max-w-[500px]',
-              'md-lg:col-span-5 md-lg:row-span-2 md-lg:self-start md-lg:w-full md-lg:max-w-unset'
+              'max-w-[500px]',
+              'md-lg:col-span-5 md-lg:row-span-2 md-lg:self-start md-lg:w-full md-lg:max-w-none'
             )}
           />
           <VacancyDescription
@@ -80,7 +83,7 @@ export const PubVacDetails = ({
             conditions={conditions}
             addition={addition}
             className={cn(
-              'col-span-12',
+
               'md-lg:col-span-7'
             )}
           />

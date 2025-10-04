@@ -1,6 +1,7 @@
 'use client'
 
 import { cn } from "@/shared/lib/utils";
+import { useMatchMedia } from "@/shared/model/hooks/useMatchMedia";
 import { RekruCTA } from "@/shared/ui/buttons/RekruCTA";
 import { Button } from "@/shared/ui/shadcn/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/shadcn/popover";
@@ -13,6 +14,8 @@ type TProps = {
 export const ScrollCTA = ({ ctaLink = '#!' }: TProps) => {
   const [shown, setShow] = useState(false)
   const [open, setOpen] = useState(true)
+
+  const isDesktop = useMatchMedia('(min-width: 992px)')
 
   useEffect(() => {
 
@@ -30,7 +33,7 @@ export const ScrollCTA = ({ ctaLink = '#!' }: TProps) => {
 
   }, [])
 
-  if (!shown) return null
+  if (isDesktop || !shown) return null
 
   return (
     <Popover
@@ -40,18 +43,18 @@ export const ScrollCTA = ({ ctaLink = '#!' }: TProps) => {
     >
       <PopoverTrigger
         className={cn(
-          'fixed bottom-8 -left-[10px] p-2 bg-background shadow-[0_2px_2px_rgba(35,112,242,4%),0_4px_6px_rgba(35,112,242,4%),0_12px_16px_rgba(35,112,242,8%)] rounded-lg', 'md-lg:hidden md:invisible', open && 'invisible'
+          'fixed bottom-8 -left-[10px] p-2 bg-background shadow-[0_2px_2px_rgba(35,112,242,4%),0_4px_6px_rgba(35,112,242,4%),0_12px_16px_rgba(35,112,242,8%)] rounded-lg', open && 'invisible'
         )}
       >
         <ChevronsRight />
       </PopoverTrigger>
       <PopoverContent
         side="right"
-        sideOffset={-20}
+        sideOffset={-10}
         onOpenAutoFocus={(e) => e.preventDefault()}
         onInteractOutside={(e) => e.preventDefault()}
         className={cn(
-          'flex items-center gap-12 justify-center py-3 px-5 rounded-3xl shadow-[0_2px_2px_rgba(35,112,242,4%),0_4px_6px_rgba(35,112,242,4%),0_12px_16px_rgba(35,112,242,8%)] w-[calc(100vw_-_40px)]'
+          'flex items-center gap-12 justify-center py-3 px-5 rounded-2xl shadow-[0_2px_2px_rgba(35,112,242,4%),0_4px_6px_rgba(35,112,242,4%),0_12px_16px_rgba(35,112,242,8%)] w-[calc(100vw_-_50px)]'
         )}
       >
         <Button

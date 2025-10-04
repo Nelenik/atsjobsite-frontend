@@ -44,7 +44,7 @@ export const VacancyDescription = ({
           'py-6 px-8 rounded-3xl border-secondary'
         )}
       >
-        <h3 className="text-xl text-foreground font-semibold mb-5">
+        <h3 className="text-lg md:text-xl text-foreground font-semibold mb-5">
           Описание вакансии
         </h3>
         <TextFormatter text={description} className="text-foreground text-sm" />
@@ -56,7 +56,7 @@ export const VacancyDescription = ({
               'py-6 px-8 rounded-3xl border-secondary'
             )}
           >
-            <h3 className="text-xl text-foreground font-semibold mb-5">
+            <h3 className="text-lg md:text-xl text-foreground font-semibold mb-5">
               {item.title}
             </h3>
             <TextFormatter text={item.content} className="text-foreground text-sm" />

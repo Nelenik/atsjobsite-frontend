@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
  *   // Execute logic for desktop view
  * }
  */
-export const useMathcMedia = (
+export const useMatchMedia = (
   mediaQueryString: string
 ): boolean | undefined => {
   const [match, setMatch] = useState<boolean | undefined>();

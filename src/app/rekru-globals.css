@@ -6,6 +6,10 @@ html {
   box-sizing: border-box;
 }
 
+/* html * {
+  outline: 1px solid red;
+} */
+
 @layer base {
   :root {
     /* tailwind vars */
