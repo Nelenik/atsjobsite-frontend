@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from 'next/font/google'
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
 import "../../rekru-globals.css";
+
 import { cn } from "@/shared/lib/utils";
 import Link from "next/link";
 import Image from "next/image";

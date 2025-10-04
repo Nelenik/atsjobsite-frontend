@@ -59,7 +59,7 @@ export const Header = ({
           width={64}
           height={64}
           alt="Rekruru - jobsite logo"
-          href="/vacancies"
+          href="/"
           image={LogoImg}
           className={cn(
             'm-auto shrink-0',

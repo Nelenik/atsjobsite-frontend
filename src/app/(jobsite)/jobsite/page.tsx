@@ -1,5 +1,5 @@
-import { redirect } from "next/navigation";
+import { RekruHome } from "@/pages-layer/rekru-home";
 
-export default async function JobsiteHome() {
-  redirect('/vacancies')
+export default function RekruHomePage() {
+  return <RekruHome />
 }

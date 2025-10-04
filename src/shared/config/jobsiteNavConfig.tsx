@@ -12,14 +12,21 @@ import { TNavConfig } from "./types";
  */
 export const createJobsitePublicNavConfig = (): TNavConfig[] => [
   {
-    routeName: ' Вакансии',
+    routeName: 'Главная',
+    href: '/'
+  },
+  {
+    routeName: 'Вакансии',
     href: '/vacancies'
   },
   {
     routeName: 'Компании',
     href: '/companies'
   },
-
+  {
+    routeName: 'О проекте',
+    href: '/pages/about'
+  },
 ]
 /**
  * Generates the navigation configuration for the Jobsite user profile section.
