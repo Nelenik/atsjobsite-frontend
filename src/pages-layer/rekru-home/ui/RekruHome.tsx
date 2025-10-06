@@ -1,6 +1,7 @@
 import { cn } from "@/shared/lib/utils";
 import { Hero } from "./Hero";
 import { MobileMenu } from "@/widgets/rekru-nav";
+import { SearchBar } from "@/features/search-bar/ui/SearchBar";
 
 type TProps = {
 
@@ -17,6 +18,7 @@ export const RekruHome = ({ }: TProps) => {
         </div>
       </section>
       <Hero />
+      <SearchBar />
     </>
   );
 }
