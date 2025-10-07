@@ -16,6 +16,7 @@ export default {
         roboto: ["var(--font-roboto)", "sans-serif"],
       },
       screens: {
+        xs: "576px",
         "md-lg": "992px",
       },
       backgroundImage: {
