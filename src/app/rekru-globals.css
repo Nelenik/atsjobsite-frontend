@@ -98,16 +98,16 @@ html {
 
 /* SWIPER */
 
-.swiper {
+/* .hero-swiper {
   height: 100%;
   width: 100%;
-}
+} */
 
 .swiper,
 .swiper * {
   box-sizing: border-box;
 }
 
-.swiper-slide {
+/* .hero-swiper .swiper-slide {
   min-height: 495px;
-}
+} */

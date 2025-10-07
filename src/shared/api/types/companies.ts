@@ -11,7 +11,7 @@ export type TCompany = {
 
 export type TFilterCompanies = {
   id: number;
-  name: "string";
-  full_name: "string";
+  name: string;
+  full_name: string;
   count: number;
 };

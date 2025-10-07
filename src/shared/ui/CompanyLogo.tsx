@@ -14,9 +14,9 @@ export const CompanyLogo = ({
       <Image
         src={imageUrl}
         alt='company logo'
-        width={56}
-        height={56}
-        className="object-contain "
+        width={100}
+        height={100}
+        className="object-contain w-full h-full"
       />
     </div>
   );
