@@ -1,0 +1,18 @@
+export async function fetchJson<T>(url: string): Promise<T> {
+  try {
+    const res = await fetch(url, { next: { revalidate: 3600 } });
+    if (!res.ok) {
+      throw new Error(`Ошибка запроса: ${res.status} ${res.statusText}`);
+    }
+    const data: T = await res.json();
+    return data;
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error("Ошибка при загрузке JSON:", err.message);
+      throw err;
+    } else {
+      console.error("Неизвестная ошибка при загрузке JSON", err);
+      throw new Error("Неизвестная ошибка при загрузке JSON");
+    }
+  }
+}
