@@ -1,3 +1,7 @@
+"use server";
+/**
+ * get country and areas from json files in public folder
+ */
 import { fetchJson } from "@/shared/api/common/fetchJson";
 import { TLocation } from "./types";
 

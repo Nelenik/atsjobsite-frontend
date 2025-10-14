@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   env: {
     API_URL: process.env.API_URL,
   },
-  allowedDevOrigins: ["jobsite.local", "admin.localhost"],
+  allowedDevOrigins: ["jobsite.local", "admin.localhost", "localhost"],
   output: "standalone",
   // svgr setting
   webpack(config) {

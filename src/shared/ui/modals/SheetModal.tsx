@@ -3,13 +3,15 @@
 import { ReactNode, useCallback, useState } from "react"
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "../shadcn/sheet"
 import { X } from "lucide-react"
+import { cn } from "@/shared/lib/utils"
 
 type TProps = {
   children: {
     trigger: ReactNode
     title: ReactNode
     description: ReactNode
-  }
+  },
+  className?: string,
   renderContent: (props: { closeSheetModal: () => void }) => ReactNode
 }
 
@@ -58,7 +60,8 @@ type TProps = {
 
 export const SheetModal = ({
   children,
-  renderContent
+  renderContent,
+  className
 }: TProps) => {
   const [open, setOpen] = useState<boolean>(false)
   const closeSheetModal = useCallback(() => setOpen(false), [])
@@ -68,7 +71,7 @@ export const SheetModal = ({
       <SheetTrigger asChild onClick={(e) => e.stopPropagation()}>
         {children.trigger}
       </SheetTrigger>
-      <SheetContent className="w-[min(100%,800px)] h-full bg-white max-w-none flex flex-col sm:max-w-none overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+      <SheetContent className={cn("w-[min(100%,800px)] h-full bg-white max-w-none flex flex-col sm:max-w-none overflow-y-auto", className)} onClick={(e) => e.stopPropagation()}>
         <SheetClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
           <X className="h-4 w-4" />
           <span className="sr-only">Close</span>

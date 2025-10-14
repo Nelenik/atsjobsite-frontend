@@ -1,10 +1,14 @@
+"use server";
 import { fetchJson } from "@/shared/api/common/fetchJson";
 import { TCategory } from "./types";
 
-export const getCategories = async () => {
-  const result = await fetchJson<TCategory[]>("/data/roles/categories.json");
+/***
+ * get categories and subcategories from json files in public folder
+ */
 
-  return result;
+export const getCategories = async () => {
+  const res = await fetchJson<TCategory[]>(`/data/roles/categories.json`);
+  return res;
 };
 
 export const getGroup = async (groupId: string) => {

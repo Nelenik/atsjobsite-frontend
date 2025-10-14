@@ -1,23 +1,17 @@
-export enum EHhExperience {
-  NO_EXPERIENCE = "noExperience",
-  BETWEEN_1_AND_3 = "between1And3",
-  BETWEEN_3_AND_6 = "between3And6",
-  MORE_THAN_6 = "moreThan6",
-}
+export type THhExperience =
+  | "noExperience"
+  | "between1And3"
+  | "between3And6"
+  | "moreThan6";
 
-export enum EHhGender {
-  MALE = "male",
-  FEMALE = "female",
-  UNKNOWN = "unknown",
-}
+export type THhGender = "male" | "female" | "unknown";
 
-export enum EHhEmployment {
-  FULL = "full",
-  PART = "part",
-  PROJECT = "project",
-  VOLUNTEER = "volunteer",
-  PROBATION = "probation",
-}
+export type THhEmployment =
+  | "full"
+  | "part"
+  | "project"
+  | "volunteer"
+  | "probation";
 
 export type THhMatchRequest = {
   vacancy_id: number | string;
@@ -27,10 +21,10 @@ export type THhMatchRequest = {
   search_period: number;
   age_from: number;
   age_to: number;
-  experience: EHhExperience;
-  gender: EHhGender;
+  experience: THhExperience;
+  gender: THhGender;
   salary: number;
-  employent: EHhEmployment[];
+  employent: THhEmployment[];
 };
 
 export type TLocation = {
@@ -42,4 +36,5 @@ export type TLocation = {
 export type TCategory = {
   id: number;
   name: string;
+  hasChildren: boolean;
 };

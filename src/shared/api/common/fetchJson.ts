@@ -1,6 +1,14 @@
+"use server";
+import { headers } from "next/headers";
+
 export async function fetchJson<T>(url: string): Promise<T> {
+  const host = (await headers()).get("host");
+  const isDev = process.env.NODE_ENV === "development";
+  const protocol = isDev ? "http" : "https";
+  const baseUrl = `${protocol}://${host}`;
+
   try {
-    const res = await fetch(url, { next: { revalidate: 3600 } });
+    const res = await fetch(`${baseUrl}${url}`, { next: { revalidate: 3600 } });
     if (!res.ok) {
       throw new Error(`Ошибка запроса: ${res.status} ${res.statusText}`);
     }

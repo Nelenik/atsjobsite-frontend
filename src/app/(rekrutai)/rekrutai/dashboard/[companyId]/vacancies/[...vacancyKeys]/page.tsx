@@ -9,6 +9,7 @@ import { AddMatchesForm } from '@/features/add-matches/ui/AddMatchesForm';
 import { getVacancy } from '@/shared/api/actions';
 import { redirect } from 'next/navigation';
 import { encodeSegment } from '@/shared/lib/encodeSegments';
+import { AddHhMatches } from '@/features/add-hh-matches/ui/AddHhMatches';
 
 
 type TProps = {
@@ -50,8 +51,15 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
             >
               <VacancySummaryCard />
             </Link>
-            <AddMatchesForm vacancyId={vacancyId} />
+
+            <div className='flex gap-3 items-center'>
+
+              <AddMatchesForm vacancyId={vacancyId} />
+              <AddHhMatches vacancyId={vacancyId} vacancyName={vacancy.name} />
+            </div>
+
             <MatchBoard />
+
           </div>
         </VacancyMatchStatusesProvider>
 
