@@ -127,6 +127,13 @@ export type TMutationState<T = unknown> = {
  * - `body`: Optional `FormData` or plain object to be sent with the request.
  * - `method`: HTTP method (`POST`, `PUT`, or `PATCH`). Defaults to `"POST"`.
  * - `expectResponseData`: If `true`, extracts and returns typed data from the response.
+ * - `isRaw` : * When true, disables all response normalization and returns the raw parsed JSON. Useful when the backend doesn’t follow the canonical `{ data, success, message }` structure or when you want to manually inspect the full response.
+ *
+ * Example:
+ *   Response: { success: true, data: { id: 1 } }
+ *   - isRaw: false → payload = response.data  // returns { id: 1 }
+ *   - isRaw: true  → payload = response        // returns { success: true, data: {...} }
+ *
  * - `withAuth`: Whether to include authentication headers. Defaults to `true`.
  * - `authCookieName`: The name of the authentication cookie to use. Defaults to `AUTH_COOKIE_NAME`.
  * - `headers`: Optional custom headers to include in the request.

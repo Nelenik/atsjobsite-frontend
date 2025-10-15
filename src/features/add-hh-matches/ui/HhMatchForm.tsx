@@ -6,6 +6,9 @@ import { HH_FIELDS_DICT } from "../lib/dictionary";
 import { capitalizeSentences } from "@/shared/lib/formatters/capitalizeSentence";
 import { Button } from "@/shared/ui/shadcn/button";
 import { RefObject } from "react";
+import { useMutateForm } from "@/shared/model/hooks/useMutateForm";
+import { launchMatchFromHh } from "@/shared/api/actions";
+import { THhEmployment, THhMatchRequest } from "../api/types";
 
 type TProps = {
   className?: string,
@@ -22,20 +25,23 @@ export const HhMatchForm = ({
   onSuccess = () => { }
 }: TProps) => {
 
+  const { formAction, pending, defaultValues, errors, removeError } = useMutateForm<THhMatchRequest>({
+    mutationAction: launchMatchFromHh,
+    toastMessage: 'Создание мэтчей с hh.ru запущено',
+    onSuccess
+
+  })
+
   return (
     <form
+      action={formAction}
       ref={ref}
       className={cn(
         'flex flex-col gap-4 px-2',
         'h-full overflow-y-auto pb-16 text-lg',
         className
       )}
-      onSubmit={(e) => {
-        e.preventDefault()
-        if (!ref) return
-        const data = new FormData(ref?.current ?? undefined)
-        console.log([...data])
-      }}
+
     >
       {/* Hidden inputs vacancyId and search text = vacancy name */}
       <input type="hidden" name="vacancy_id" defaultValue={vacancyId} />
@@ -45,12 +51,15 @@ export const HhMatchForm = ({
       <FormItem
         labelText="Период поиска (в днях)"
         className="max-w-[300px]"
+        error={errors.search_period}
       >
         <Input
           placeholder="Количество дней"
           title="Введите только цифры"
           pattern="[0-9]+"
           name="search_period"
+          defaultValue={defaultValues?.search_period}
+          onChange={(e) => removeError(e.target.name)}
         />
       </FormItem>
 
@@ -58,9 +67,10 @@ export const HhMatchForm = ({
       <FormItem
         labelText="Опыт работы"
         className="gap-1"
+        error={errors.experience}
       >
         {HH_FIELDS_DICT.experience.map((variant) => {
-          const isChecked = variant.id === 'noExperience'
+          const isChecked = variant.id === defaultValues?.experience
           return (
             <label
               key={variant.id}
@@ -71,7 +81,8 @@ export const HhMatchForm = ({
                 name="experience"
                 value={variant.id}
                 className="inline w-5 h-5 accent-primary"
-                {...isChecked && { defaultChecked: true }}
+                defaultChecked={isChecked}
+                onChange={(e) => removeError(e.target.name)}
               />
               <span>{capitalizeSentences(variant.name)}</span>
             </label>
@@ -84,24 +95,30 @@ export const HhMatchForm = ({
       <div >
         <p className="mb-[10px] font-medium">Возраст</p>
         <div className="flex gap-4">
-          <FormItem>
+          <FormItem
+            error={errors.age_from}
+          >
             <Input
               type="number"
               placeholder="от"
               name="age_from"
-              defaultValue={18}
               min={14}
               max={99}
+              defaultValue={defaultValues?.age_from}
+              onChange={(e) => removeError(e.target.name)}
             />
           </FormItem>
-          <FormItem>
+          <FormItem
+            error={errors.age_to}
+          >
             <Input
               type="number"
               placeholder="до"
-              name="salary_to"
-              defaultValue={20}
+              name="age_to"
+              defaultValue={defaultValues?.age_to}
               min={14}
               max={99}
+              onChange={(e) => removeError(e.target.name)}
             />
           </FormItem>
         </div>
@@ -111,9 +128,10 @@ export const HhMatchForm = ({
       <FormItem
         labelText="Пол"
         className="gap-1"
+        error={errors.gender}
       >
         {HH_FIELDS_DICT.gender.map((variant) => {
-          const isChecked = variant.id === 'unknown'
+          const isChecked = variant.id === defaultValues?.gender
           return (
             <label
               key={variant.id}
@@ -124,7 +142,8 @@ export const HhMatchForm = ({
                 name="gender"
                 value={variant.id}
                 className="inline w-5 h-5 accent-primary"
-                {...isChecked && { defaultChecked: true }}
+                defaultChecked={isChecked}
+                onChange={(e) => removeError(e.target.name)}
               />
               <span>{capitalizeSentences(variant.name)}</span>
             </label>
@@ -133,12 +152,18 @@ export const HhMatchForm = ({
       </FormItem>
 
       {/* Salary */}
-      <FormItem labelText="Зарплата" className="max-w-[300px]">
+      <FormItem
+        labelText="Зарплата"
+        className="max-w-[300px]"
+        error={errors.salary}
+      >
         <Input
           placeholder="Зарплата"
           name="salary"
           pattern="[0-9]+"
           title="Введите только цифры"
+          onChange={(e) => removeError(e.target.name)}
+          defaultValue={defaultValues?.salary}
         />
       </FormItem>
       {/* Employment */}
@@ -146,8 +171,10 @@ export const HhMatchForm = ({
       <FormItem
         labelText="Тип занятости"
         className="gap-1"
+        error={errors.employment}
       >
         {HH_FIELDS_DICT.employment.map((variant) => {
+          const isChecked = (defaultValues?.employment || []).includes(variant.id as THhEmployment)
           return (
             <label
               key={variant.id}
@@ -155,9 +182,11 @@ export const HhMatchForm = ({
             >
               <Input
                 type="checkbox"
-                name="[]employment"
+                name="employment[]"
                 value={variant.id}
                 className="inline w-5 h-5 accent-primary"
+                onChange={(e) => removeError(e.target.name)}
+                defaultChecked={isChecked}
               />
               <span>{capitalizeSentences(variant.name)}</span>
             </label>
@@ -170,8 +199,8 @@ export const HhMatchForm = ({
           Сбросить
         </Button>
         <Button type="submit">
-          {/* {pending ? 'Сохранение...' : 'Сохранить'} */}
-          Запросить
+          {pending ? 'Обработка...' : 'Запросить'}
+
         </Button>
       </div>
     </form>

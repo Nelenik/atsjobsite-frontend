@@ -24,7 +24,7 @@ export type THhMatchRequest = {
   experience: THhExperience;
   gender: THhGender;
   salary: number;
-  employent: THhEmployment[];
+  employment: THhEmployment[];
 };
 
 export type TLocation = {

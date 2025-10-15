@@ -100,3 +100,18 @@ export const updateMatch = async (
   }
   return result;
 };
+
+/**
+ * Makes matches for vacancy from hh.ru
+ *
+ * @param _ -the current mutation state (unused)
+ * @param data - Filter for hh.ru
+ * @returns
+ */
+export const launchMatchFromHh = async (_: TMutationState, data: FormData) => {
+  const result = await apiMutate("/match/search-h", {
+    body: parseFormData(data),
+    method: "POST",
+  });
+  return result;
+};

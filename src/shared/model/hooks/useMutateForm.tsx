@@ -58,14 +58,17 @@ export const useMutateForm = <TPayload,>(
       setIsSuccess(true);
     } else if (!state.sent && state.error?.details) {
       setErrors((prevErrors) => ({ ...prevErrors, ...state.error?.details }))
+      setIsSuccess(false)
     }
 
   }, [state.error, state.sent, toast, toastMessage])
 
   useEffect(() => {
     if (isSuccess) {
-      setDefaultValues(state.payload as TPayload | undefined)
       onSuccess(state)
+    } else {
+      setDefaultValues(state.payload as TPayload | undefined)
+
     }
   }, [state, onSuccess, isSuccess])
 
