@@ -27,14 +27,10 @@ export type THhMatchRequest = {
   employment: THhEmployment[];
 };
 
-export type TLocation = {
-  id: number;
-  parent_id: number | null;
-  name: string;
-};
-
-export type TCategory = {
+export type THhCheckboxGroupItem = {
   id: number;
   name: string;
-  hasChildren: boolean;
+  hasChildren?: boolean;
+  parent_id?: number | null;
+  url?: string;
 };
