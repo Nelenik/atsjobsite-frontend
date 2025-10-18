@@ -25,11 +25,25 @@ export const CheckboxNode = memo(function CheckboxNode({
     includeParent
   } = useCheckbox()
 
+  console.log('selectedIds', selectedIds)
+
   const [isOpen, setIsOpen] = useState(false);
   const [children, setChildren] = useState<TCheckboxItem[]>(item.staticChildren || []);
 
   const hasChildren = !!item.childrenUrl || !!item.staticChildren?.length;
   const checkboxRef = useRef<HTMLInputElement>(null);
+
+
+
+  // вычисляем состояния на основе selectedIds
+  const childIds = children.map(c => c.id);
+  const allChildrenSelected = childIds.length > 0 && childIds.every(id => selectedIds.has(id));
+  const someChildrenSelected = childIds.some(id => selectedIds.has(id));
+
+  // verify if is parent checkbox checked
+  const isParentChecked = allChildrenSelected
+    || (!hasChildren && selectedIds.has(item.id))
+    || (!includeParent && hasChildren && selectedIds.has(`__virtual__${item.id}`));
 
   // загрузка детей
   const { data, isLoading, isSuccess } = useQuery({
@@ -39,17 +53,18 @@ export const CheckboxNode = memo(function CheckboxNode({
   });
 
   useEffect(() => {
-    if (isSuccess) setChildren(data);
+    if (isSuccess) {
+      setChildren(data)
+    };
   }, [isSuccess, data]);
 
-  // вычисляем состояния на основе selectedIds
-  const childIds = children.map(c => c.id);
-  const allChildrenSelected = childIds.length > 0 && childIds.every(id => selectedIds.has(id));
-  const someChildrenSelected = childIds.some(id => selectedIds.has(id));
-
-  const isChecked = hasChildren
-    ? allChildrenSelected
-    : selectedIds.has(item.id);
+  // useEffect(() => {
+  //   if (children.length && isParentChecked) {
+  //     const dataSet = new Set(children.map(item => item.id))
+  //     const union = selectedIds.union(dataSet)
+  //     onSelectionChange(union)
+  //   }
+  // }, [children, isParentChecked, onSelectionChange, selectedIds])
 
   // indeterminate для промежуточного состояния
   useEffect(() => {
@@ -61,24 +76,27 @@ export const CheckboxNode = memo(function CheckboxNode({
   // обработчик клика
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const checked = e.target.checked;
-    console.log('checked', checked)
     const newSelected = new Set(selectedIds);
+
+    const virtualId = `__virtual__${item.id}`
 
     const toggleIds = (items: TCheckboxItem[]) => {
       for (const checkboxItem of items) {
         if (checked) newSelected.add(checkboxItem.id);
         else newSelected.delete(checkboxItem.id);
-        // if (checkboxItem.staticChildren) toggleIds(checkboxItem.staticChildren);
       }
     };
 
-    if (hasChildren) {
-      if (includeParent && checked) newSelected.add(item.id);
-      if (includeParent && !checked) newSelected.delete(item.id);
-      toggleIds(children);
-    } else {
+    if (children.length) {
+      toggleIds(children)
+    }
+
+    if ((hasChildren && includeParent) || !hasChildren) {
       if (checked) newSelected.add(item.id);
       else newSelected.delete(item.id);
+    } else if (hasChildren && !includeParent) {
+      if (checked) newSelected.add(virtualId);
+      else newSelected.delete(virtualId)
     }
 
     onSelectionChange(newSelected);
@@ -105,7 +123,7 @@ export const CheckboxNode = memo(function CheckboxNode({
           <Input
             type="checkbox"
             value={item.id}
-            checked={isChecked}
+            checked={isParentChecked}
             onChange={handleChange}
             ref={checkboxRef}
             className="inline w-5 h-5 accent-primary"

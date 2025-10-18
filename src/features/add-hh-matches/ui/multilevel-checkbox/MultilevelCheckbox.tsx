@@ -49,14 +49,16 @@ export const MultilevelCheckbox = ({
         </div>
 
         {/* hidden inputs for FormData */}
-        {Array.from(selectedIds).map(id =>
-          <input
-            key={id}
-            type="hidden"
-            name={name}
-            value={id}
-          />
-        )}
+        {Array.from(selectedIds)
+          .filter(id => !id.startsWith("__virtual__"))
+          .map(id =>
+            <input
+              key={id}
+              type="hidden"
+              name={name}
+              value={id}
+            />
+          )}
       </div>
 
     </CheckboxProvider>
