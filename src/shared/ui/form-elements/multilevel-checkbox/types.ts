@@ -3,7 +3,7 @@ export type TMultilevelCheckbox<T = TCheckboxItem> = {
    * The name attribute for the hidden form inputs.
    * Used when submitting the form to identify selected values.
    */
-  name: string;
+  name?: string;
   /**
    * Array of hierarchical items to display as checkboxes.
    * Each item should have at minimum an `id` and `label` property.

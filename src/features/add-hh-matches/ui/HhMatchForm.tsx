@@ -8,7 +8,7 @@ import { Button } from "@/shared/ui/shadcn/button";
 import { RefObject } from "react";
 import { useMutateForm } from "@/shared/model/hooks/useMutateForm";
 import { launchMatchFromHh } from "@/shared/api/actions";
-import { THhCheckboxGroupItem, THhEmployment, THhMatchRequest, THhStatus } from "../api/types";
+import { THhEmployment, THhMatchRequest, THhStatus } from "../api/types";
 
 type TProps = {
   className?: string,
@@ -64,7 +64,7 @@ export const HhMatchForm = ({
         className="gap-1"
         error={errors.area}
       >
-        {HH_FIELDS_DICT.area.map((area: THhCheckboxGroupItem) => {
+        {HH_FIELDS_DICT.area.map((area: { id: number, name: string }) => {
 
           const isChecked = (defaultValues?.area || []).includes(String(area.id))
           return (
@@ -94,7 +94,7 @@ export const HhMatchForm = ({
       >
         <div className="sm:columns-2">
 
-          {HH_FIELDS_DICT.professional_role.map((role: THhCheckboxGroupItem) => {
+          {HH_FIELDS_DICT.professional_role.map((role: { id: number, name: string }) => {
             const isChecked = (defaultValues?.professional_role || []).includes(String(role.id))
             return (
               <label
@@ -295,7 +295,7 @@ export const HhMatchForm = ({
         />
       </FormItem>
 
-      <div className={cn("absolute left-0 right-0 bottom-0 ", "px-12 py-2.5 bg-white shadow-[0px_-2px_5px_-2px_rgba(0,_0,_0,_0.35)] flex justify-end gap-4")}>
+      <div className={cn("absolute left-0 right-0 bottom-0 ", "px-12 py-2.5 bg-white shadow-[0px_-2px_3px_-2px_rgba(0,_0,_0,_0.35)] flex justify-end gap-4")}>
         <Button type="button" variant="ghost" className="mr-2" onClick={() => ref?.current?.reset()}>
           Сбросить
         </Button>

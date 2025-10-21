@@ -5,9 +5,12 @@ import { TCheckboxItem } from "../../../shared/ui/form-elements/multilevel-check
 export const mapHhRolesToCheckboxItems = (
   raw: THhRoleGroup[]
 ): TCheckboxItem[] => {
-  return raw.map((item: THhRoleGroup) => ({
-    id: item.id,
-    label: item.name,
-    children: item.roles.map((item) => ({ id: item.id, label: item.name })),
+  return raw.map((group: THhRoleGroup) => ({
+    id: String(group.id),
+    label: group.name,
+    children: group.roles.map((role) => ({
+      id: String(role.id),
+      label: role.name,
+    })),
   }));
 };

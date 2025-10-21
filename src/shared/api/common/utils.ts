@@ -20,6 +20,7 @@ export const prepareBody = (
  * It handles both single values and arrays (indicated by keys ending with `[]`).
  * It also skips any keys that start with `$ACTION`, which are typically used by Next.js for internal purposes.
  * @param formData - The `FormData` object to be parsed.
+ * @param enableCastToNumber - Enables converting string numeric values to numbers
  * @template T - The type of the object to be returned.
  * @returns
  */
