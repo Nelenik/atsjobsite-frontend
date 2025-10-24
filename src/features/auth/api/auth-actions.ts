@@ -30,7 +30,7 @@ export const signin = async (
   _: TMutationState,
   body: FormData
 ) => {
-  const response = await apiMutate<TAuthData>("/auth/sign-in", {
+  const response = await apiMutate<TAuthData>("/api/v1/auth/sign-in", {
     body: parseFormData(body),
     withAuth: false,
     expectResponseData: true,

@@ -29,7 +29,7 @@ export const getBasicCandidatesByStatus = async (
 ): Promise<TCandidateShort[]> => {
   try {
     const response = await apiGet<TApiListResponse<TCandidateShort>>(
-      `/match/candidates?vacancy_id=${vacId}&status_id=${statusId}`
+      `/api/v1/match/candidates?vacancy_id=${vacId}&status_id=${statusId}`
     );
     return response.data.toSorted((a, b) => b.match_point - a.match_point);
   } catch (error) {
@@ -56,7 +56,7 @@ export const getBasicCandidatesByStatus = async (
 export const getCandidateFull = async (matchId: number) => {
   try {
     const response = await apiGet<TApiSuccessResponse<TCandidateFull>>(
-      `/match/${matchId}`
+      `/api/v1/match/${matchId}`
     );
 
     return response.data;
@@ -88,7 +88,7 @@ export const updateMatch = async (
   _: TMutationState | null,
   data: FormData | TMatchUpdate
 ) => {
-  const result = await apiMutate(`/match/${matchId}`, {
+  const result = await apiMutate(`/api/v1/match/${matchId}`, {
     body: data instanceof FormData ? parseFormData(data) : data,
     method: "PUT",
   });
@@ -110,7 +110,7 @@ export const updateMatch = async (
  */
 export const launchMatchFromHh = async (_: TMutationState, data: FormData) => {
   console.log(parseFormData(data, true));
-  const result = await apiMutate("/match/search-hh-resumes", {
+  const result = await apiMutate("/api/v1/match/search-hh-resumes", {
     body: parseFormData(data, true),
     method: "POST",
   });
@@ -127,7 +127,7 @@ export const parseVacancyResponses = async (
   _: TMutationState,
   data: FormData
 ) => {
-  const result = await apiMutate("/match/parse-vacancy-responses", {
+  const result = await apiMutate("/api/v1/match/parse-vacancy-responses", {
     body: parseFormData(data, true),
     method: "POST",
   });

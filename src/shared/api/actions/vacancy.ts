@@ -40,7 +40,7 @@ export const getVacanciesList = async ({
       qs.append("company", String(companyId));
     }
     const response = await apiGet<TApiListResponse<TVacancyShort>>(
-      "/vacancy?" + qs.toString()
+      "/api/v1/vacancy?" + qs.toString()
     );
     return response.data;
     // return SVacancyList.parse(response.data);
@@ -66,7 +66,7 @@ export const getVacanciesList = async ({
 export const getVacancy = async (id: number | string): Promise<TVacancy> => {
   try {
     const response = await apiGet<TApiSuccessResponse<TVacancy>>(
-      `/vacancy/${id}`
+      `/api/v1/vacancy/${id}`
     );
     return response.data;
     // return SVacancy.parse(response.data);
@@ -91,7 +91,7 @@ export const getVacancy = async (id: number | string): Promise<TVacancy> => {
 export const getVacancyPositions = async (): Promise<TVacancyPosition[]> => {
   try {
     const response = await apiGet<TApiListResponse<TVacancyPosition>>(
-      "/vacancy/positions"
+      "/api/v1/vacancy/positions"
     );
     return response.data || [];
   } catch (error) {
@@ -131,7 +131,7 @@ export const storeVacancy = async (_: TMutationState, data: FormData) => {
     };
   }
 
-  const result = await apiMutate("/vacancy", {
+  const result = await apiMutate("/api/v1/vacancy", {
     body: Object.assign(parsedData, { matchStatuses }),
   });
 
@@ -162,7 +162,7 @@ export const updateVacancy = async (
   _: TMutationState | null,
   data: FormData | TVacancyMutation
 ): Promise<TMutationState> => {
-  const result = await apiMutate(`/vacancy/${vacancyId}`, {
+  const result = await apiMutate(`/api/v1/vacancy/${vacancyId}`, {
     body: data instanceof FormData ? parseFormData(data) : data,
     method: "PUT",
   });

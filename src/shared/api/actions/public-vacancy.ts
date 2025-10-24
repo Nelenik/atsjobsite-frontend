@@ -30,7 +30,7 @@ export const getPubVacanciesList = async (
     ).toString();
     const query = filterString ? `?${filterString}` : "";
     const response = await apiGet<TApiListResponse<TPublicVacancy>>(
-      `/vacancy/public/crawled` + `${query}`,
+      `/api/v1/vacancy/public/crawled` + `${query}`,
       {
         withAuth: false,
         cache: "force-cache",
@@ -71,7 +71,7 @@ export const getPubVacancy = async (
 ): Promise<TPublicVacancy> => {
   try {
     const response = await apiGet<TApiSuccessResponse<TPublicVacancy>>(
-      `/vacancy/crawled/${id}`,
+      `/api/v1/vacancy/crawled/${id}`,
       { withAuth: false }
     );
     return response.data;
@@ -96,7 +96,7 @@ export const getPubVacancy = async (
 export const getPubVacancyPositions = async (): Promise<TVacancyPosition[]> => {
   try {
     const response = await apiGet<TApiListResponse<TVacancyPosition>>(
-      "/vacancy/positions/crawled"
+      "/api/v1/vacancy/positions/crawled"
     );
     return response.data || [];
   } catch (error) {

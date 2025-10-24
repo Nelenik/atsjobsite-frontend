@@ -29,7 +29,7 @@ export const getMatchCommentList = async (
 ) => {
   try {
     const response = await apiGet<TApiListResponse<TComment>>(
-      `/match/${matchId}/comment?page=${page}`
+      `/api/v1/match/${matchId}/comment?page=${page}`
     );
     return {
       data: response.data,
@@ -63,7 +63,7 @@ export const storeMatchComment = async (
   _: TMutationState | null,
   data: FormData
 ): Promise<TMutationState> => {
-  const result = await apiMutate(`/match/${matchId}/comment`, {
+  const result = await apiMutate(`/api/v1/match/${matchId}/comment`, {
     body: parseFormData(data),
   });
   return result;

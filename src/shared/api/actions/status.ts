@@ -22,7 +22,7 @@ export const storeStatus = async (
   _: TMutationState | null,
   data: FormData | Record<string, unknown>
 ) => {
-  const result = await apiMutate<TStatus>("/status", {
+  const result = await apiMutate<TStatus>("/api/v1/status", {
     body: data instanceof FormData ? parseFormData(data) : data,
     expectResponseData: true,
   });
@@ -47,7 +47,7 @@ export const updateStatus = async (
   _: TMutationState | null,
   data: FormData
 ) => {
-  const result = await apiMutate<TStatus>(`/status/${statusId}`, {
+  const result = await apiMutate<TStatus>(`/api/v1/status/${statusId}`, {
     body: parseFormData(data),
     method: "PUT",
     expectResponseData: true,

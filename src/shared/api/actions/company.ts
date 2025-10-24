@@ -27,7 +27,7 @@ export const getCompaniesList = async (
       filterFalsyFields(filters)
     ).toString();
     const response = await apiGet<TApiListResponse<TCompany>>(
-      "/company?" + filterString
+      "/api/v1/company?" + filterString
     );
     return {
       data: response.data,
@@ -55,7 +55,7 @@ export const getCompaniesList = async (
 export const getCompany = async (id: number | string): Promise<TCompany> => {
   try {
     const response = await apiGet<TApiSuccessResponse<TCompany>>(
-      `/company/${id}`
+      `/api/v1/company/${id}`
     );
     return response.data;
   } catch (error) {
@@ -75,7 +75,7 @@ export const getCompany = async (id: number | string): Promise<TCompany> => {
  * @returns   A promise that resolves to the result of the mutation action.
  */
 export const storeCompany = async (_: TMutationState, data: FormData) => {
-  const result = await apiMutate("/company", {
+  const result = await apiMutate("/api/v1/company", {
     body: parseFormData(data),
   });
   if (!result.error) {
@@ -98,7 +98,7 @@ export const updateCompany = async (
   _: TMutationState,
   data: FormData
 ) => {
-  const result = await apiMutate(`/company/${companyId}`, {
+  const result = await apiMutate(`/api/v1/company/${companyId}`, {
     body: parseFormData(data),
     method: "PUT",
   });
@@ -115,7 +115,7 @@ export const updateCompany = async (
 export const getFilterCompanies = async (): Promise<TFilterCompanies[]> => {
   try {
     const response = await apiGet<TApiListResponse<TFilterCompanies>>(
-      "/company/stat/crawled",
+      "/api/v1/company/stat/crawled",
       {
         withAuth: false,
         cache: "force-cache",

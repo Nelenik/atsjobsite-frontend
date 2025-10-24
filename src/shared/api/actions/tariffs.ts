@@ -15,7 +15,7 @@ import { TTariff } from "../types";
  */
 export const getTariffs = async (): Promise<TTariff[]> => {
   try {
-    const response = await apiGet<TApiListResponse<TTariff>>("/tariffs");
+    const response = await apiGet<TApiListResponse<TTariff>>("/api/v1/tariffs");
 
     return response.data;
   } catch (error) {

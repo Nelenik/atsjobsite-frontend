@@ -34,7 +34,7 @@ export const getResumeList = async (filters: Record<string, string> = {}) => {
     ).toString();
 
     const response = await apiGet<TApiListResponse<TResume>>(
-      "/cv?" + filterString
+      "/api/v1/cv?" + filterString
     );
     return {
       data: response.data,
@@ -65,7 +65,9 @@ export const getResumeList = async (filters: Record<string, string> = {}) => {
  */
 export const getResumeById = async (id: number | string): Promise<TResume> => {
   try {
-    const response = await apiGet<TApiSuccessResponse<TResume>>(`/cv/${id}`);
+    const response = await apiGet<TApiSuccessResponse<TResume>>(
+      `/api/v1/cv/${id}`
+    );
     return response.data;
   } catch (error) {
     console.error(error);
@@ -93,7 +95,7 @@ export const storeCv = async (
   _: TMutationState,
   data: FormData
 ): Promise<TMutationState> => {
-  const result = await apiMutate("/cv", { body: parseFormData(data) });
+  const result = await apiMutate("/api/v1/cv", { body: parseFormData(data) });
   if (!result.error) {
     revalidatePath("/dashboard/[companyId]/reserve", "page");
   }
@@ -118,7 +120,7 @@ export const updateCV = async (
   _: TMutationState,
   data: FormData
 ): Promise<TMutationState> => {
-  const result = await apiMutate(`/cv/${cvId}`, {
+  const result = await apiMutate(`/api/v1/cv/${cvId}`, {
     body: parseFormData(data),
     method: "PUT",
   });
@@ -135,7 +137,7 @@ export const parseCvFromFile = async (_: TMutationState, data: FormData) => {
       error: getSyntheticError("", 0, { file: "Выберите файл" }),
     };
   }
-  const result = await apiMutate("/cv/parse/hh", {
+  const result = await apiMutate("/api/v1/cv/parse/hh", {
     expectResponseData: true,
     isRaw: true,
     body: data,
