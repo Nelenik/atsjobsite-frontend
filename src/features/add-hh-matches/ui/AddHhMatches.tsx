@@ -20,13 +20,15 @@ export const AddHhMatches = ({
 
   return (
     <SheetModal
-      className="overflow-visible w-[min(100%,600px)]"
+      className="overflow-visible w-[min(100%,600px)] pb-16"
       renderContent={({ closeSheetModal }) => (
+
         <HhMatchForm
           // ref={formRef}
           vacancyId={vacancyId}
           vacancyName={vacancyName}
           onSuccess={closeSheetModal}
+          className="text-base"
         />
 
       )}
