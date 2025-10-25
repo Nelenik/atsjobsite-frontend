@@ -39,6 +39,7 @@ const VacancyMatchPage: FC<TProps> = async ({ params }) => {
 
       <SingleVacancyProvider vacancy={vacancy}>
         <VacancyMatchStatusesProvider>
+
           <div className="flex gap-6 flex-col relative">
             <EditEntity<TVacancy>
               className='absolute top-0 right-0 z-10' triggerView='icon'

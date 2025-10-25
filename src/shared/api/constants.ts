@@ -1,5 +1,7 @@
 import { TMutationState } from "./common/api";
 
+const isDev = process.env.NODE_ENV === "development";
+
 export const mutationInitialState: TMutationState = {
   sent: false,
   error: null,
@@ -8,6 +10,8 @@ export const mutationInitialState: TMutationState = {
 export const API_URL = process.env.API_URL;
 
 export const BASE_URL = "https://rekrut.ing";
+
+export const INTERNAL_BASE_URL = isDev ? "http://localhost:3000" : BASE_URL;
 
 // export const FILE_STORE_BASE_URL = "https://admin.rekrutai.ru";
 export const FILE_STORE_BASE_URL = "https://rekrut.ing";
