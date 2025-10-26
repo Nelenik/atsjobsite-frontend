@@ -8,12 +8,14 @@ import { useQuery } from "@tanstack/react-query";
 type TProps = {
   defaultValues?: string[],
   name?: string,
-  className?: string
+  className?: string,
+  formRef?: React.RefObject<HTMLFormElement | null>
 }
 export const LocationField = ({
   defaultValues,
   name,
-  className
+  className,
+  formRef
 }: TProps) => {
 
 
@@ -31,6 +33,17 @@ export const LocationField = ({
     }
   }, [data])
 
+  //Sync form reset event with this component
+  useEffect(() => {
+    const form = formRef?.current;
+    if (!form) return;
+    const handleReset = () => setSelectedLocations([]);
+
+    form.addEventListener('reset', handleReset);
+    return () => {
+      form.removeEventListener('reset', handleReset);
+    };
+  }, [formRef])
 
   return (
     <>

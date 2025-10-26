@@ -156,6 +156,19 @@ export const SpecializationField = ({
     const fd = new FormData(formRef.current)
     return fd.getAll(name).map(String)
   }
+
+  //Sync form reset event with this component
+  useEffect(() => {
+    const form = formRef?.current;
+    if (!form) return;
+    const handleReset = () => setValues([]);
+
+    form.addEventListener('reset', handleReset);
+    return () => {
+      form.removeEventListener('reset', handleReset);
+    };
+  }, [formRef])
+
   return (
     <>
       {selectedItems.map((role: TCheckboxItem) => {

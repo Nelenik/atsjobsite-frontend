@@ -76,6 +76,7 @@ export const HhMatchForm = ({
             <LocationField
               name='area[]'
               defaultValues={defaultValues?.area?.map(String)}
+              formRef={formRef}
             />
           </FormItem>
 
