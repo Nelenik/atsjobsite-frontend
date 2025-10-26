@@ -13,6 +13,7 @@ import { useRef } from "react";
 import { SpecializationField } from "./SpecializationField";
 import { ScrollArea } from "@/shared/ui/shadcn/scroll-area";
 import { Scrollbar } from "@radix-ui/react-scroll-area";
+import { LocationField } from "./LocationField";
 
 type TProps = {
   className?: string,
@@ -72,25 +73,10 @@ export const HhMatchForm = ({
             className="gap-1"
             error={errors.area}
           >
-            {HH_FIELDS_DICT.area.map((area: { id: number, name: string }) => {
-              const isChecked = (defaultValues?.area || []).includes(area.id)
-              return (
-                <label
-                  key={area.id}
-                  className="flex items-center gap-2"
-                >
-                  <Input
-                    type="checkbox"
-                    name="area[]"
-                    value={area.id}
-                    className="inline w-5 h-5 accent-primary"
-                    onChange={(e) => removeError(e.target.name)}
-                    defaultChecked={isChecked}
-                  />
-                  <span>{capitalizeSentences(area.name)}</span>
-                </label>
-              )
-            })}
+            <LocationField
+              name='area[]'
+              defaultValues={defaultValues?.area?.map(String)}
+            />
           </FormItem>
 
           {/* Professional_role */}

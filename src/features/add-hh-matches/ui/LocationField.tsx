@@ -6,10 +6,14 @@ import { getAreasByIdsList } from "../api/areasActions";
 import { useQuery } from "@tanstack/react-query";
 
 type TProps = {
-  defaultValues?: string[]
+  defaultValues?: string[],
+  name?: string,
+  className?: string
 }
 export const LocationField = ({
-  defaultValues
+  defaultValues,
+  name,
+  className
 }: TProps) => {
 
 
@@ -31,10 +35,10 @@ export const LocationField = ({
   return (
     <>
       {selectedLocations.map(location => (
-        <input type="hidden" value={location.id} key={location.id} />
+        <input type="hidden" value={location.id} key={location.id} name={name} />
       ))}
       <LocationModal
-        // areasMap={areasMap}
+        className={className}
         selectedLocations={selectedLocations}
         updateSelectedLocations={setSelectedLocations}
       />

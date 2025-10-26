@@ -86,6 +86,7 @@ export const LocationModal = ({
   // Areas list calculated from queries excluding already selected locations
   const actualList = useMemo(() => (areaQueries || []).filter(area => !selectedLocations.some(selected => selected.id === area.id)), [areaQueries, selectedLocations])
 
+  //Search areas list excluding already selected locations
   const searchList = useMemo(() => (searchAreas || []).filter(area => !selectedLocations.some(selected => selected.id === area.id)), [searchAreas, selectedLocations])
 
   //Visible list based on search or on actual list
@@ -96,14 +97,23 @@ export const LocationModal = ({
     return acc ? acc + ', ' + item.name : item.name
   }, '') : 'Все регионы'
 
+  const handleOpneChange = (isOpen: boolean) => {
+    if (!isOpen) {
+      setSearchText('')
+    }
+    setOpen(isOpen)
+  }
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={handleOpneChange}>
       <DialogTrigger asChild>
         <Button
           variant="outline"
-          className={cn('flex gap-3 items-center w-full justify-start [&_svg]:size-6', className)}
+          className={cn(
+            'flex gap-3 items-center w-full h-max text-start justify-start [&_svg]:size-6 ',
+            'text-base font-normal hyphens-auto [overflow-wrap:anywhere] whitespace-normal bg-transparent',
+            className)}
         >
-          <MapPinPlus />
+          <MapPinPlus className="text-primary" />
           {triggerText}
         </Button>
       </DialogTrigger>
