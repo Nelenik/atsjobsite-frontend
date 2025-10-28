@@ -1,8 +1,8 @@
 'use client';
 import { QueryFilterManager } from "@/features/manage-url-filters";
+import { SearchBar } from "@/features/search-bar";
 import { cn } from "@/shared/lib/utils";
-import { Input } from "@/shared/ui/shadcn/input";
-import { Search, X } from "lucide-react";
+import { Search } from "lucide-react";
 
 type TProps = {
   className?: string
@@ -17,34 +17,23 @@ export const SearchVacancies = ({
         className
       )}
       render={({ filters, updateFilter }) => (
-        <>
+        <div className="relative">
           <Search
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
-            size={28}
+            className="absolute top-1/2 -translate-y-1/2 left-4 stroke-accent2"
           />
-          <Input
-            value={filters['search'] || ''}
-            onChange={(e) => {
-              updateFilter({ 'search': e.target.value })
+          <SearchBar
+            inputStyles="pl-12"
+            initialValue={filters['search'] || ''}
+            onConfirm={(value: string) => {
+              updateFilter({ 'search': value })
             }}
-            placeholder="Поиск вакансий"
-            className="w-full px-12 py-6" />
-
-          <button
-            type="button"
-            aria-label="Очистить поиск"
-            disabled={!filters['search']}
-            className={cn(
-              "absolute right-0 top-0 z-10 h-full aspect-square inline-block cursor-pointer",
-            )}
-            onClick={() => updateFilter({ 'search': '' })}
-          >
-            <X
-              className="text-muted-foreground hover:text-foreground transition-colors duration-200"
-              size={28}
-            />
-          </button>
-        </>
+            onChange={(e) => {
+              if (e.target.value.length === 0) {
+                updateFilter({ 'search': '' })
+              }
+            }}
+          />
+        </div>
       )}
     />
   );

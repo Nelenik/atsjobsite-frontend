@@ -31,7 +31,7 @@ export const useQueryFilters = () => {
         const newQS = updateQueryString(searchParams, filters);
         router.replace(`${pathname}?${newQS}`, { scroll: false });
       }
-    }, 500);
+    }, 300);
 
     return () => clearTimeout(handler);
   }, [filters, initialFilters, pathname, router, searchParams]);

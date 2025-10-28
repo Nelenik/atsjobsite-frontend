@@ -3,38 +3,43 @@ import { cn } from "@/shared/lib/utils";
 import { AutocompleteField } from "@/shared/ui/form-elements/AutocompleteField";
 import { JOB_SUGGESTIONS } from "../lib/dictionary";
 import { RekruCTA } from "@/shared/ui/buttons/RekruCTA";
-import { useRouter } from "next/navigation";
-import { useRef } from "react";
+import { ChangeEvent, useRef } from "react";
 import { Search } from "lucide-react";
 
 type TProps = {
   className?: string
+  onConfirm?: (value: string) => void
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void
+  initialValue?: string
+  inputStyles?: string
 }
 export const SearchBar = ({
-  className
+  className,
+  onConfirm = () => { },
+  onChange = () => { },
+  initialValue,
+  inputStyles
 }: TProps) => {
-  const router = useRouter();
+
   const ref = useRef<HTMLInputElement>(null)
 
-  const handleConfirm = (value: string) => {
-    if (!value) return
-    router.push(`/vacancies?search=${encodeURIComponent(value)}`);
-  }
   return (
     <div className={cn('flex items-center gap-2 xs:gap-5', '@container/search', className)}>
       <AutocompleteField
+        defaultValue={initialValue}
         suggestionsList={JOB_SUGGESTIONS}
-        className="px-5 py-3 rounded-lg placeholder:text-base [&:not(.ring-destructive)]:focus-visible:ring-accent2"
+        className={cn("px-5 py-3 rounded-lg placeholder:text-base [&:not(.ring-destructive)]:focus-visible:ring-accent2", inputStyles)}
         placeholder="Поиск вакансии"
         ref={ref}
         onEnterConfirm={(value, e) => {
           e.preventDefault();
           console.log('onEnter')
-          handleConfirm(value)
+          onConfirm(value)
         }}
+        onChange={onChange}
       />
       <RekruCTA
-        onClick={() => { handleConfirm(ref.current?.value || '') }}
+        onClick={() => { onConfirm(ref.current?.value || '') }}
         type="submit"
         view="dark"
         className="text-lg w-max @3xl/search:min-w-[234px]"

@@ -1,6 +1,5 @@
 import { cn } from "@/shared/lib/utils";
 import { HeroSwiper } from "./HeroSwiper";
-import { SearchBar } from "@/features/search-bar/ui/SearchBar";
 import { CompaniesSwiper } from "./CompaniesSwiper";
 import { getFilterCompanies } from "@/shared/api/actions";
 
@@ -8,6 +7,7 @@ import { TrustSection } from "./TrustSection";
 import { StepsSection } from "./StepsSection";
 import { getPubVacanciesList } from "@/shared/api/actions/public-vacancy";
 import { TopVacancies } from "./TopVacanices";
+import { SearchSection } from "./SearchSection";
 
 
 
@@ -27,7 +27,7 @@ export const RekruHome = async () => {
 
       <section className="py-10">
         <div className="rekru-container">
-          <SearchBar className="py-5 md:p-10" />
+          <SearchSection className="py-5 md:p-10" />
         </div>
       </section>
 
