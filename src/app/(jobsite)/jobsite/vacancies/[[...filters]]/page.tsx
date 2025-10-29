@@ -101,7 +101,7 @@ export default async function JobsiteVacanciesPage({ searchParams, params }: TPr
   return (
     <Suspense fallback={<CvListSkeleton />}>
       <PubVacanciesWrapper
-        className="w-full max-w-[782px] grow justify-self-end"
+        className="w-full"
         filters={filters}
       />
     </Suspense>

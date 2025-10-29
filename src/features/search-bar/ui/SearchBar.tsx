@@ -33,7 +33,6 @@ export const SearchBar = ({
         ref={ref}
         onEnterConfirm={(value, e) => {
           e.preventDefault();
-          console.log('onEnter')
           onConfirm(value)
         }}
         onChange={onChange}

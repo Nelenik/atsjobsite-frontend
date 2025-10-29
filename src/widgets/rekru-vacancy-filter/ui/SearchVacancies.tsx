@@ -19,10 +19,10 @@ export const SearchVacancies = ({
       render={({ filters, updateFilter }) => (
         <div className="relative">
           <Search
-            className="absolute top-1/2 -translate-y-1/2 left-4 stroke-accent2"
+            className="hidden sm:block absolute top-1/2 -translate-y-1/2 left-4 stroke-accent2"
           />
           <SearchBar
-            inputStyles="pl-12"
+            inputStyles="sm:pl-12"
             initialValue={filters['search'] || ''}
             onConfirm={(value: string) => {
               updateFilter({ 'search': value })
