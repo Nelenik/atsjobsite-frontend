@@ -21,6 +21,8 @@ export const RekruVacancyCard = ({
 }: TProps) => {
   const { id, company, name, salary_from, salary_to, location, employment, work_format, experience, level, description, publication_at } = vacancy
 
+  console.log(company)
+
   const normalizedDate = publication_at ? format(new Date(publication_at), "d MMMM yyyy", { locale: ru }) : 'Дата публикации неизвестна';
 
   const normalizedWorkFormat = capitalizeSentences(

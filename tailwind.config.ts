@@ -124,8 +124,9 @@ export default {
         },
       },
       animation: {
-        "slide-fade-up": "slide-up 150ms ease, fade-up 150ms ease 10ms",
-        "slide-fade-down": "slide-down 150ms ease , fade-down 150ms ease",
+        "slide-fade-up": "slide-up 150ms linear 30ms, fade-up 100ms linear",
+        "slide-fade-down":
+          "slide-down 100ms linear , fade-down 150ms linear 0s",
         "slide-up": "slide-up 150ms ease",
         "slide-down": "slide-down 150ms ease",
         "fade-in-out": "2s fade-in-out 200ms ease ",

@@ -21,11 +21,11 @@ export const PubVacanciesWrapper = async ({
         className
       )}
     >
-      <div className="flex items-center justify-between gap-4 px-6">
-        <p className="font-medium">
+      <div className="flex items-center flex-wrap justify-between gap-2 px-6">
+        <p className="font-medium shrink-0 mr-6">
           Найдено вакансий: {total ?? 0}
         </p>
-        <SortingVacancies />
+        <SortingVacancies className="shrink-0" />
       </div>
       <PubVacancyList
         publicVacanciesList={publicVacancies}

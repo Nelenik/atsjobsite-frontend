@@ -11,6 +11,7 @@ export const companiesMap: Record<string, string> = {
   "Т-Банк": "tbank",
   Яндекс: "yandex",
   Озон: "ozon",
+  Россельхозбанк: "rshb",
 };
 
 export const getCompanyLogoByName = (companyName: string): string => {
@@ -28,6 +29,8 @@ const companiesSiteDict: Record<string, string> = {
   Магнит: "https://magnit.tech/vacancies",
   МТС: "https://job.mts.ru/vacancies",
   РСХБ: "https://svoevagro.ru/vacancies/region-russia/kompaniya-rosselkhozbank",
+  Россельхозбанк:
+    "https://svoevagro.ru/vacancies/region-russia/kompaniya-rosselkhozbank",
   Сбер: "https://rabota.sber.ru/",
   "Т-1": "https://career.t1.ru/",
   "Т-Банк": "https://www.tbank.ru/career/",

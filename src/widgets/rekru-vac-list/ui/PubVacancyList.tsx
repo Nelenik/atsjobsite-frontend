@@ -1,7 +1,7 @@
 import { cn } from "@/shared/lib/utils";
 import List from "@/shared/ui/shadcn/list";
-import { PubVacancyCard } from "./PubVacancyCard";
 import { TPublicVacancy } from "@/shared/api/types";
+import { RekruVacancyCard } from "@/entities/vacancy";
 
 type TProps = {
   className?: string
@@ -15,13 +15,13 @@ export const PubVacancyList = ({
   return (
     <List
       className={cn(
-        'w-full flex flex-col gap-4',
+        'w-full flex flex-col gap-5',
         className
       )}
     >
       {publicVacanciesList.map(vacEl => (
         <li key={vacEl.id}>
-          <PubVacancyCard vacancy={vacEl} />
+          <RekruVacancyCard vacancy={vacEl} />
         </li>
       ))}
     </List>

@@ -14,10 +14,11 @@ interface IPaginateProps {
   totalItems: number | null,
   itemsPerPage?: number,
   className?: string
+  paginationButtonStyles?: string
 }
 
 
-export const Paginate = ({ currentPage, totalItems, itemsPerPage = DEFAULT_PER_PAGE, className }: IPaginateProps) => {
+export const Paginate = ({ currentPage, totalItems, itemsPerPage = DEFAULT_PER_PAGE, className, paginationButtonStyles }: IPaginateProps) => {
   const searchParams = useSearchParams()
   const pagesCount = totalItems ? Math.ceil(totalItems / itemsPerPage) : 1
 
@@ -63,7 +64,7 @@ export const Paginate = ({ currentPage, totalItems, itemsPerPage = DEFAULT_PER_P
               <Link href={`?${getHref(pageNum)}`} passHref legacyBehavior >
                 <PaginationLink
                   isActive={isActive}
-                  className={cn(isActive ? 'border-primary' : 'border')}
+                  className={cn('border-2', isActive ? 'border-ring' : ' border-accent2/10', paginationButtonStyles)}
                 >
                   {pageNum}
                 </PaginationLink>

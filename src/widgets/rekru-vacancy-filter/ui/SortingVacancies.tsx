@@ -57,7 +57,7 @@ const SortingVacanciesField = ({
       <PopoverTrigger asChild>
         <Button variant="ghost"
           className={cn(
-            'justify-start w-max px-2 text--foreground font-normal',
+            'justify-start text-base w-max px-0 text--foreground font-normal',
             className,
             'hover:bg-white',
           )}

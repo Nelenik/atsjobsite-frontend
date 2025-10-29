@@ -3,8 +3,8 @@ import { isSegmentPosition } from "@/entities/vacancy";
 import { getFilterCompanies } from "@/shared/api/actions";
 import { decodeSegment } from "@/shared/lib/encodeSegments";
 import { capitalizeSentences } from "@/shared/lib/formatters/capitalizeSentence";
-import { CvListSkeleton } from "@/shared/ui/skeletons/CvListSkeleton";
 import { PubVacanciesWrapper } from "@/widgets/rekru-vac-list";
+import { PubVacancyListSkeleton } from "@/widgets/rekru-vac-list/ui/Skeleton";
 import { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { Suspense } from "react";
@@ -99,7 +99,7 @@ export default async function JobsiteVacanciesPage({ searchParams, params }: TPr
   const filters = { ...getParams, position: normPosition, company: companyId }
 
   return (
-    <Suspense fallback={<CvListSkeleton />}>
+    <Suspense fallback={<PubVacancyListSkeleton />}>
       <PubVacanciesWrapper
         className="w-full"
         filters={filters}
