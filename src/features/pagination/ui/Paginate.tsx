@@ -36,7 +36,7 @@ export const Paginate = ({ currentPage, totalItems, itemsPerPage = DEFAULT_PER_P
   const getHref = (pageNum: number): string => {
     return pageNum === 1
       ? `${searchParams ? updateQueryString(searchParams, { 'page': '' }) : ''}`
-      : `${searchParams ? updateQueryString(searchParams, { 'page': pageNum }) : ''}`
+      : `${searchParams ? updateQueryString(searchParams, { 'page': String(pageNum) }) : ''}`
   }
 
   if (pagesCount === 1) {

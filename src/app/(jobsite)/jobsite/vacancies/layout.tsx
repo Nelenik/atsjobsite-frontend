@@ -27,7 +27,7 @@ export default async function JobSiteVacanciesLayout({
           <PositionsFilterToggle className="hidden md:flex" />
 
           <div
-            className="flex gap-4  md:col-span-2"
+            className="flex gap-2 md:gap-4"
           >
 
 
@@ -36,24 +36,10 @@ export default async function JobSiteVacanciesLayout({
             />
 
             <FiltersSheet
-              className="md:hidden"
             >
               <PubVacanciesFilter />
             </FiltersSheet>
           </div>
-
-
-
-          {/* <aside
-            className={cn(
-              "hidden md:block",
-              "relative")}
-          >
-
-            <PubVacanciesFilter
-              className="sticky top-0"
-            />
-          </aside> */}
           {children}
         </div>
       </section>

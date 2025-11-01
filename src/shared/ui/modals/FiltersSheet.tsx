@@ -16,9 +16,8 @@ export const FiltersSheet = ({
     <Sheet >
       <SheetTrigger asChild >
         <Button
-          variant="outline"
           className={cn(
-            "h-auto w-[50px] [&_svg]:size-6  text-muted-foreground",
+            "h-auto w-[40px] [&_svg]:size-5  text-primary-foreground bg-accent2",
             className
           )}
           aria-label="Открыть фильтры"

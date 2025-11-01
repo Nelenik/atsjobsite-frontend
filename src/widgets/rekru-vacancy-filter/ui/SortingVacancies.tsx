@@ -122,7 +122,7 @@ export const SortingVacancies = ({ className }: TProps) => {
           className
         )}>
           <SortingVacanciesField
-            value={filters.sort || ''}
+            value={filters.sort as string || ''}
             onValueChange={(value: string) => updateFilter({ 'sort': value })}
             className=""
           />

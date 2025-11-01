@@ -102,3 +102,9 @@ html {
 .swiper * {
   box-sizing: border-box;
 }
+
+.visually-hidden {
+  position: fixed;
+  transform: scale(0);
+  top: -100%;
+}

@@ -35,7 +35,7 @@ export const ReserveFilter = ({
                   className="absolute right-0 top-0 z-10"
                 />
                 <PositionSelect
-                  value={filters.position || ''}
+                  value={filters.position as string || ''}
                   onValueChange={(value: string) => updateFilter({ 'position': value })}
                   className="bg-white"
                 />

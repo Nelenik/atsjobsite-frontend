@@ -24,7 +24,7 @@ export const SearchBar = ({
   const ref = useRef<HTMLInputElement>(null)
 
   return (
-    <div className={cn('flex items-center gap-2 xs:gap-5', '@container/search', className)}>
+    <div className={cn('flex items-center gap-2 md:gap-5', '@container/search', className)}>
       <AutocompleteField
         defaultValue={initialValue}
         suggestionsList={JOB_SUGGESTIONS}
@@ -41,7 +41,7 @@ export const SearchBar = ({
         onClick={() => { onConfirm(ref.current?.value || '') }}
         type="submit"
         view="dark"
-        className="text-lg w-max @3xl/search:min-w-[234px]"
+        className="text-lg px-3 @3xl/search:w-max @3xl/search:min-w-[234px]"
       >
         <Search className="@3xl/search:hidden" />
         <span className="hidden @3xl/search:inline">Найти вакансию</span>
