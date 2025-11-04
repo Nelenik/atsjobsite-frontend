@@ -148,7 +148,7 @@ export const useAutocompleteCore = ({
         onEnterConfirm(value, e);
       }
     },
-    [activeIndex, handleSelect, value, onEnterConfirm, open, suggestions]
+    [activeIndex, handleSelect, onEnterConfirm, open, suggestions, value]
   );
 
   return {
