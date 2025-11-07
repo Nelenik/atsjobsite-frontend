@@ -27,7 +27,7 @@ type TProps = {
   suggestionList: string[]
   className?: string
   popoverStyles?: string
-  shouldFilter?: boolean
+  shouldFilter: boolean
   isFetching?: boolean //for async suggestions
   filterCallback?: (inputValue: string) => (item: string) => boolean
 } & Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'defaultValue' | 'onChange' | 'onSelect'>
@@ -88,7 +88,7 @@ export const AutocompleteField = ({
   suggestionList,
   className,
   popoverStyles,
-  shouldFilter = true,
+  shouldFilter,
   filterCallback = inSuggestions,
   isFetching = false,
   ...props
@@ -117,7 +117,7 @@ export const AutocompleteField = ({
     if (!isControlled) setInternalValue(updater)
     onChange?.(updater)
 
-    setPendingOpen(updater.trim().length >= 2)
+    setPendingOpen(updater.trim().length >= 1)
   }, [isControlled, onChange])
 
   // Manage suggestions, if is enabled "shouldFilter" flag, is used filterCallback built-in or custom

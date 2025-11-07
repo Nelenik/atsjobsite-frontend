@@ -1,10 +1,11 @@
 'use client'
 
 import { Input } from "@/shared/ui/shadcn/input"
-import { ChangeEvent, useState } from "react"
+import { ChangeEvent, useEffect, useState } from "react"
 import { FilterBase } from "./FilterBase"
 import { capitalizeSentences } from "@/shared/lib/formatters/capitalizeSentence"
 import { vacancyWorkFormatDict } from "@/entities/vacancy"
+import { cn } from "@/shared/lib/utils"
 
 type TProps = {
   defaultValues?: string[]
@@ -15,6 +16,10 @@ export const WorkFormatFilterField = ({
   updateCb = () => { }
 }: TProps) => {
   const [workFormat, setWorkFormat] = useState(new Set(defaultValues || []))
+
+  useEffect(() => {
+    setWorkFormat(new Set(defaultValues))
+  }, [defaultValues])
 
   const handleToggleLevels = (value: string) => {
     setWorkFormat(prev => {
@@ -32,7 +37,7 @@ export const WorkFormatFilterField = ({
       triggerText="Формат"
       onSave={() => updateCb({ work_format: Array.from(workFormat) })}
       onCancel={() => updateCb({ work_format: [] })}
-      disableSave={workFormat.size === 0}
+      className={cn(defaultValues?.length && 'ring-2 ring-primary ring-offset-1')}
     >
       <div className="columns-2">
         {['office', 'remote', 'hybrid'].map((item: string) => {

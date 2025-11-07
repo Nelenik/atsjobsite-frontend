@@ -27,6 +27,7 @@ export const SearchBar = ({
     <div className={cn('flex items-center gap-2 md:gap-5', '@container/search', className)}>
       <AutocompleteField
         defaultValue={initialValue}
+        shouldFilter
         suggestionList={JOB_SUGGESTIONS}
         className={cn("px-5 py-3 rounded-lg placeholder:text-base [&:not(.ring-destructive)]:focus-visible:ring-accent2", inputStyles)}
         placeholder="Поиск вакансии"

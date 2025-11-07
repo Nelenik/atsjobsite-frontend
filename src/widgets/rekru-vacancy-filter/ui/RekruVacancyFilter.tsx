@@ -5,16 +5,8 @@ import { SalaryFilterField } from "./SalaryFilterField";
 import { LocationFilterField } from "./LocationFilterField";
 import { LevelFilterField } from "./LevelFilterField";
 import { WorkFormatFilterField } from "./WorkFormatFilterField";
+import { CompaniesFilterField } from "./CompaniesFilterField";
 
-
-// const defaultState = {
-//   salary_from: '',
-//   salary_to: '',
-//   location: '',
-//   page: '',
-//   work_format: [],
-//   level: []
-// }
 
 type TProps = {
   className?: string
@@ -49,6 +41,8 @@ export const RekruVacancyFilter = ({
               <WorkFormatFilterField
                 defaultValues={filters.work_format as string[]}
                 updateCb={updateFilter}
+              />
+              <CompaniesFilterField
               />
             </>
 

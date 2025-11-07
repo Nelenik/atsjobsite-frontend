@@ -2,7 +2,8 @@
 import { Input } from "@/shared/ui/shadcn/input";
 import { FilterBase } from "./FilterBase";
 import { capitalizeSentences } from "@/shared/lib/formatters/capitalizeSentence";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
+import { cn } from "@/shared/lib/utils";
 
 type TProps = {
   defaultValues?: string[]
@@ -14,6 +15,10 @@ export const LevelFilterField = ({
   updateCb = () => { }
 }: TProps) => {
   const [levels, setLevels] = useState(new Set(defaultValues || []))
+
+  useEffect(() => {
+    setLevels(new Set(defaultValues))
+  }, [defaultValues])
 
   const handleToggleLevels = (value: string) => {
     setLevels(prev => {
@@ -32,7 +37,7 @@ export const LevelFilterField = ({
       triggerText="Грейд"
       onSave={() => updateCb({ level: Array.from(levels) })}
       onCancel={() => updateCb({ level: [] })}
-      disableSave={levels.size === 0}
+      className={cn(defaultValues?.length && 'ring-2 ring-primary ring-offset-1')}
     >
       <div className="columns-2">
         {['intern', 'junior', 'middle', 'senior', 'lead', 'head'].map((item: string) => {

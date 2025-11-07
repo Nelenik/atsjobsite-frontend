@@ -7,6 +7,7 @@ import { useEffect, useState } from "react"
 import { useDebounce } from "@/shared/model/hooks/useDebounce"
 import { Search } from "lucide-react"
 import { AutocompleteField } from "@/shared/ui/form-elements/AutocompleteField"
+import { cn } from "@/shared/lib/utils"
 
 type TProps = {
   defaultValue?: string
@@ -36,6 +37,7 @@ export const LocationFilterField = ({
       triggerText="Город"
       onSave={() => updateCb({ location: searchText })}
       onCancel={() => updateCb({ location: '' })}
+      className={cn(defaultValue && 'ring-2 ring-primary ring-offset-1')}
     >
 
       <div className="relative">
@@ -47,7 +49,7 @@ export const LocationFilterField = ({
           suggestionList={searchLocations.map(item => item.name)}
           onChange={setSearchText}
           onSelect={setSearchText}
-          shouldFilter
+          shouldFilter={false}
           isFetching={isFetching}
           placeholder="Введите город, область или страну"
           className='pl-10'
