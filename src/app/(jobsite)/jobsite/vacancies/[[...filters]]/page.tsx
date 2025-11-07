@@ -1,12 +1,10 @@
-import { vacancyPositionsDict } from "@/entities/vacancy";
-import { isSegmentPosition } from "@/entities/vacancy";
+import { vacancyPositionsDict, normalizeVacanciesFilterPath } from "@/entities/vacancy";
 import { getFilterCompanies } from "@/shared/api/actions";
 import { decodeSegment } from "@/shared/lib/encodeSegments";
 import { capitalizeSentences } from "@/shared/lib/formatters/capitalizeSentence";
-import { buildQueryString } from "@/shared/lib/updateQueryString";
 import { PubVacanciesWrapper, PubVacancyListSkeleton } from "@/pages-layer/rekru-vac-list";
 import { Metadata } from "next";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 type TProps = {
@@ -16,7 +14,8 @@ type TProps = {
 
 export async function generateMetadata({ params }: TProps): Promise<Metadata> {
   const { filters = [] } = await params;
-  const [position, company] = filters;
+  const { position, company } = normalizeVacanciesFilterPath(filters)
+  // const [position, company] = filters;
 
   const baseUrl = 'https://rekru.ru/vacancies';
   const metadata: Metadata = {};
@@ -24,10 +23,12 @@ export async function generateMetadata({ params }: TProps): Promise<Metadata> {
   const positionName = vacancyPositionsDict[position] || position;
   const companyName = company ? capitalizeSentences(company) : '';
 
-  const isAll = !filters.length || (filters.length === 1 && position === 'all');
+
+
+  // const isAll = !filters.length || (filters.length === 1 && position === 'all');
 
   // --- 1. Все вакансии ---
-  if (isAll) {
+  if (!filters.length) {
     metadata.title = "Все вакансии на Rekru.ru";
     metadata.description = "Найдите работу мечты среди актуальных вакансий";
     metadata.alternates = {
@@ -36,12 +37,12 @@ export async function generateMetadata({ params }: TProps): Promise<Metadata> {
     return metadata;
   }
 
-  // --- 2. Все вакансии в компании (all/company) ---
-  if (position === 'all' && company) {
+  // --- 2. Все вакансии в компании (vacancies/company) ---
+  if (!position && company) {
     metadata.title = `Все вакансии в компании ${companyName}`;
     metadata.description = `Откройте актуальные вакансии компании ${companyName} на Rekru.ru`;
     metadata.alternates = {
-      canonical: `${baseUrl}/all/${company}`,
+      canonical: `${baseUrl}/${company}`,
     };
     return metadata;
   }
@@ -76,27 +77,31 @@ export default async function JobsiteVacanciesPage({ searchParams, params }: TPr
   const queryParams = (await searchParams)
   const pathParams = (await params).filters || []
 
+  console.log('pathparams from page', pathParams.map(item => decodeSegment(item)))
+
   //if there more than 2 catch-all segments then redirect to the 404 page
   if (pathParams.length > 2) {
     notFound()
   }
 
-  const [position = '', company = ''] = pathParams
+  const { company, position } = normalizeVacanciesFilterPath(pathParams)
+
+  // const [position = '', company = ''] = pathParams
 
   //if first params is not available position consider it as company and redirect to all/{compnay}
-  if (pathParams.length === 1) {
-    if (!isSegmentPosition(position) && position !== 'all') {
-      redirect(`/vacancies/all/${position}?${buildQueryString(queryParams)}`)
-    }
-  }
+  // if (pathParams.length === 1) {
+  //   if (!isSegmentPosition(position) && position !== 'all') {
+  //     redirect(`/vacancies/all/${position}?${buildQueryString(queryParams)}`)
+  //   }
+  // }
 
-  const normPosition = position === 'all' ? '' : position
+  // const normPosition = position === 'all' ? '' : position
 
   //find choosen company id to make request
-  const companyData = filterCompaniesList.find((item) => decodeSegment(company).toLowerCase() === item.name.toLowerCase())
+  const companyData = filterCompaniesList.find((item) => decodeSegment(company || '').toLowerCase() === item.name.toLowerCase())
   const companyId = companyData ? String(companyData.id) : ''
 
-  const filters = { ...queryParams, position: normPosition, company: companyId }
+  const filters = { ...queryParams, position, company: companyId }
 
   return (
     <Suspense fallback={<PubVacancyListSkeleton />}>

@@ -8,7 +8,7 @@ import { cn } from "@/shared/lib/utils";
 
 export const CompaniesFilterField = ({
 }) => {
-  const { filterCompanies, activeFilters, updateFilter } = usePathFilters()
+  const { filterCompanies, activeFilters, updatePathParams } = usePathFilters()
 
   const [, startTransition] = useTransition()
 
@@ -30,13 +30,13 @@ export const CompaniesFilterField = ({
 
   const handleSave = () => {
     startTransition(() => {
-      updateFilter(1)(company)
+      updatePathParams([company, activeFilters.position])
     })
   }
 
   const handleCancel = () => {
     startTransition(() => {
-      updateFilter(1)('')
+      updatePathParams([activeFilters.position])
     })
   }
 

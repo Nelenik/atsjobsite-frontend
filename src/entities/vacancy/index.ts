@@ -11,3 +11,4 @@ export * from "./model/VacanciesProvider";
 export * from "./model/VacancyMatchStatusesProvider";
 export * from "./lib/dictionary";
 export * from "./lib/isSegmentPosition";
+export * from "./lib/normalizeVacanciesFilterPath";

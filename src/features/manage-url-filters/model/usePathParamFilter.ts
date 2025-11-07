@@ -66,5 +66,16 @@ export const usePathParamFilter = (baseUrl: string) => {
     const cleanedParams = newFilters.filter(Boolean).join("/");
     router.push(`${baseUrl}/${cleanedParams}${query}`);
   };
-  return { pathFilters: filters, updatePathParam };
+
+  /**
+   * Creates a function that updates a all the prescribed path segments in the URL
+   * and navigates to the new route.
+   * @param newValues array of new path segment values
+   */
+  const updatePathParams = (newValues: string[]) => {
+    const newFilters = newValues.map((item) => encodeSegment(item));
+    const cleanedParams = newFilters.filter(Boolean).join("/");
+    router.push(`${baseUrl}/${cleanedParams}${query}`);
+  };
+  return { pathFilters: filters, updatePathParam, updatePathParams };
 };

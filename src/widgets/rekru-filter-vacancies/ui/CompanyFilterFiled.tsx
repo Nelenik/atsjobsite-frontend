@@ -12,19 +12,19 @@ type TProps = {
   className?: string
 }
 export const CompanyFilterFiled = ({ className }: TProps) => {
-  const { filterCompanies, activeFilters, updateFilter } = usePathFilters()
+  const { filterCompanies, activeFilters, updatePathParams } = usePathFilters()
 
   if (!filterCompanies.length) return null
 
   return (
     <FormItem labelText="Компания" className={cn(className)}>
       <CancelButton
-        onClick={() => updateFilter(1)('')}
+        onClick={() => updatePathParams([activeFilters.position])}
         className="absolute right-0 top-0 z-10"
       />
       <Select
         value={decodeSegment(activeFilters.company) || ''}
-        onValueChange={updateFilter(1)}
+        onValueChange={(value) => updatePathParams([value, activeFilters.position])}
 
       >
         <SelectTrigger

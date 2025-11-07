@@ -1,14 +1,14 @@
 'use client'
+import { normalizeVacanciesFilterPath } from "@/entities/vacancy"
 import { usePathParamFilter } from "@/features/manage-url-filters"
 import { TFilterCompanies, TVacancyPosition } from "@/shared/api/types"
-import { decodeSegment } from "@/shared/lib/encodeSegments"
 import { createContext, ReactNode, useContext } from "react"
 
 type TPositionsContext = {
   positionsList: TVacancyPosition[],
   filterCompanies: TFilterCompanies[]
   activeFilters: { position: string, company: string };
-  updateFilter: (paramIndex: number) => (newValue: string) => void
+  updatePathParams: (newValues: string[]) => void
 }
 export const PathFiltersContext = createContext<TPositionsContext | null>(null)
 
@@ -26,16 +26,19 @@ type TProps = {
 
 export const PathFiltersProvider = ({ children, positionsList, filterCompanies }: TProps) => {
 
-  const { pathFilters, updatePathParam: updateFilter } = usePathParamFilter('/vacancies')
-  const [position = '', company = ''] = pathFilters
-  const parsedPosition = position === 'all' ? '' : position
+  const { pathFilters, updatePathParams } = usePathParamFilter('/vacancies')
+  // console.log('pathfilters from provider', pathFilters)
+  // const [position = '', company = ''] = pathFilters
+  // const parsedPosition = position === 'all' ? '' : position
 
-  const activeFilters = {
-    position: decodeSegment(parsedPosition),
-    company: decodeSegment(company)
-  }
+  // const activeFilters = {
+  //   position: decodeSegment(parsedPosition),
+  //   company: decodeSegment(company)
+  // }
 
-  return (<PathFiltersContext value={{ positionsList, filterCompanies, activeFilters, updateFilter }}>
+  const activeFilters = normalizeVacanciesFilterPath(pathFilters as string[])
+
+  return (<PathFiltersContext value={{ positionsList, filterCompanies, activeFilters, updatePathParams }}>
     {children}
   </PathFiltersContext>)
 }

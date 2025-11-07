@@ -41,7 +41,7 @@ type TProps = {
 export const PositionsFilterToggle = ({
   className
 }: TProps) => {
-  const { positionsList, activeFilters, updateFilter } = usePathFilters()
+  const { positionsList, activeFilters, updatePathParams } = usePathFilters()
 
   return (
     <ToggleGroup
@@ -49,7 +49,7 @@ export const PositionsFilterToggle = ({
       variant={'outline'}
       value={activeFilters.position || ''}
       className={cn('flex flex-wrap gap-6 justify-start', className)}
-      onValueChange={updateFilter(0)}
+      onValueChange={(value) => updatePathParams([activeFilters.company, value])}
     >
       {positionsList.map((item) => (
         <PositionToggleItem
