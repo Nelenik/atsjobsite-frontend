@@ -8,7 +8,7 @@ import { ReactElement } from "react";
 
 type TProps = {
   className?: string,
-  company: TCompany,
+  company: Pick<TCompany, "name" | "description"> & Partial<TCompany>,
   ResponseButton?: ReactElement
 }
 export const CompanyInfoCard = ({
@@ -26,12 +26,12 @@ export const CompanyInfoCard = ({
       )}
     >
       <div className={cn(
-        "flex flex-col gap-5 w-full",
-        'md:w-1/3'
+        "flex flex-col gap-5 w-[220px]",
+        'md:w-[282px]'
       )}>
 
         <CompanyShortInfo
-          className="aspect-square max-w-[220px] md:max-w-[282px] min-w-[220px] justify-center"
+          className="aspect-square justify-center"
           name={company.name}
           rating={company.rating}
           logo={company.logo}
@@ -41,7 +41,7 @@ export const CompanyInfoCard = ({
         {ResponseButton}
       </div>
 
-      <div className="grow w-full md:w-2/3 ">
+      <div className="w-full md:w-[calc(100%-282px)]">
         <ul className="flex flex-col gap-3 xs:gap-8 xs:justify-between  xs:flex-row mb-6 md:mb-10">
           <li className="flex flex-col gap-2">
             <span className="text-accent2/40">Сайт компании</span>

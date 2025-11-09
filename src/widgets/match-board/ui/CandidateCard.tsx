@@ -44,7 +44,7 @@ export const CandidateCard = ({
         >
           Новая
         </StatusBadge>}
-        <h3 className="text-base font-regular hyphens-auto">
+        <h3 className="text-base font-regular hyphens-auto [overflow-wrap:anywhere]">
           {name || cv_name}
         </h3>
 

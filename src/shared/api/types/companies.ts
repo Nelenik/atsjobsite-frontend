@@ -11,7 +11,7 @@ export type TCompany = {
   it_accreditation: boolean;
   logo: string;
   site: string;
-  rating: number;
+  rating?: number;
 };
 
 export type TShortCompany = {

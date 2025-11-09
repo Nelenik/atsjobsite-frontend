@@ -1,6 +1,7 @@
 import * as cheerio from 'cheerio';
 import { DynamicCraftumHtml } from './_DynamicCraftumHtml';
-import { notFound } from 'next/navigation';
+// import { notFound } from 'next/navigation';
+import { NothingYet } from '@/shared/ui/NothingYet';
 
 
 interface PageProps {
@@ -22,9 +23,10 @@ const fetchPage = async (path: string) => {
 
   //check the page's title, if it contains "страница не найдена" redirect to notFound page
   const titleText = $('title').text().trim()
-  if (titleText.toLowerCase().includes('страница не найдена')) {
-    notFound()
-  }
+  const pageIsNotFound = titleText.toLowerCase().includes('страница не найдена')
+  // if (titleText.toLowerCase().includes('страница не найдена')) {
+  //   notFound()
+  // }
 
   // get styles
   const styles = $('link[rel="stylesheet"]')
@@ -41,6 +43,7 @@ const fetchPage = async (path: string) => {
   return {
     css: staticCss,
     html: cleanContent,
+    pageIsNotFound
   }
 }
 
@@ -48,7 +51,10 @@ export default async function CraftumPage({ params }: PageProps) {
   const segments = await params
   const path = segments.craftum.join('/')
 
-  const { css, html } = await fetchPage(path)
+  const { css, html, pageIsNotFound } = await fetchPage(path)
+  if (pageIsNotFound) {
+    return <NothingYet className='py-10' />
+  }
   return (
     < >
       {css.map((css, i) => (

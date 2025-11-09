@@ -1,9 +1,12 @@
-import { vacancyEpmpoymentDict } from '@/entities/vacancy';
-import { PubVacDetails } from '@/pages-layer/pub-vac-details';
+import { CompanyInfoCard } from '@/entities/company/ui/CompanyInfoCard';
+import { RekruVacancyDescription, RekruVacancyParams, vacancyEpmpoymentDict } from '@/entities/vacancy';
 import { getPubVacancy } from '@/shared/api/actions/public-vacancy';
 import { TPublicVacancy } from '@/shared/api/types';
 import { encodeSegment } from '@/shared/lib/encodeSegments';
+import { cn } from '@/shared/lib/utils';
+import { RekruCTA } from '@/shared/ui/buttons/RekruCTA';
 import { addMonths, format } from 'date-fns';
+import { Check } from 'lucide-react';
 import { redirect } from 'next/navigation';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -58,7 +61,7 @@ const JobsiteVacancyDetails = async ({
   }
 
   return (
-    <>
+    <div className='pt-2 pb-10 md-lg:py-10 flex flex-col gap-10'>
       {/* UNCOMMENT WHEN GET DATA FOR REAL VACANCY */}
       {/* JSON-LD google for job markup */}
       {/* <script
@@ -67,8 +70,58 @@ const JobsiteVacancyDetails = async ({
           __html: JSON.stringify(generateJsonLd(vacancy)).replace(/</g, '\\u003c'),
         }}
       /> */}
-      <PubVacDetails vacancy={vacancy} />
-    </ >
+      <section>
+        <div className='rekru-container'>
+          <CompanyInfoCard
+            company={vacancy.company}
+            ResponseButton={<RekruCTA
+              view="dark"
+              className="self-start w-full"
+              asChild
+            >
+              <a
+                href={vacancy.link || '#!'}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Check />
+                Откликнуться
+              </a>
+
+
+            </RekruCTA>}
+          />
+        </div>
+      </section>
+      <section>
+        <div className='rekru-container flex flex-col gap-10'>
+          <RekruVacancyParams
+            vacancy={vacancy}
+            className='w-full'
+          />
+          <RekruVacancyDescription
+            vacancy={vacancy}
+            className={cn(
+              'w-full'
+            )}
+          />
+          <RekruCTA
+            view="dark"
+            className="self-center w-full max-w-[350px]"
+            asChild
+          >
+            <a
+              href={vacancy.link || '#!'}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Check />
+              Откликнуться
+            </a>
+          </RekruCTA>
+        </div>
+      </section>
+    </ div>
   )
 };
 

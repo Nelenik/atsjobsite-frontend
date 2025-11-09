@@ -5,6 +5,8 @@ export { VacancyForm } from "./ui/VacancyForm";
 export { PositionSelect } from "./ui/PositionSelect";
 
 export { RekruVacancyCard } from "./ui/RekruVacancyCard";
+export { RekruVacancyParams } from "./ui/RekruVacancyParams";
+export { RekruVacancyDescription } from "./ui/RekruVacancyDescription";
 
 export * from "./model/SingleVacancyProvider";
 export * from "./model/VacanciesProvider";

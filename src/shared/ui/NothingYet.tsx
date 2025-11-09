@@ -1,9 +1,10 @@
 import StartupSvg from '@/assets/startup.svg?rc';
+import { cn } from '../lib/utils';
 
-export const NothingYet = () => {
+export const NothingYet = ({ className }: { className?: string }) => {
   return (
     <div
-      className='flex flex-col items-center justify center gap-20'
+      className={cn('flex flex-col items-center justify center gap-20', className)}
     >
       <StartupSvg
         className='w-[50%]'

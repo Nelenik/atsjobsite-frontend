@@ -23,7 +23,7 @@ export const CompanyShortInfo = ({
   count,
   logo,
   rating,
-  it_accreditation,
+  it_accreditation = true,
   className,
   enableLinkToCompaniesPage = true
 }: TProps) => {

@@ -146,10 +146,6 @@ export const getPublicCompany = async (companyId: string) => {
     return response.data;
   } catch (error) {
     console.error(error);
-    if (error instanceof Error) {
-      error.message =
-        "Не удалось загрузить компанию. Пожалуйста, попробуйте позже.";
-    }
-    throw error;
+    return null;
   }
 };
