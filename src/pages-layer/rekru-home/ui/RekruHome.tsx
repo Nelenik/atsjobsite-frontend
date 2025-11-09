@@ -54,7 +54,7 @@ export const RekruHome = async () => {
       <section className="my-10">
         <div className="rekru-container">
           <TopVacancies
-            topList={topList.data.slice(0, 10)}
+            topList={topList.data.slice(0, 5)}
           />
         </div>
       </section>

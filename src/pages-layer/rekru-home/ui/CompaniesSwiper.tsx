@@ -76,7 +76,7 @@ export const CompaniesSwiper = ({
             </span>
             <Separator />
             <Link
-              href={`/vacancies/all/${company.name ? encodeSegment(company.name.toLocaleLowerCase()) : ''}`}
+              href={`/vacancies/${company.name ? encodeSegment(company.name.toLocaleLowerCase()) : ''}`}
               className="text-base font-medium -tracking-[1px] hover:text-primary transition-colors"
               target="_blank"
             >

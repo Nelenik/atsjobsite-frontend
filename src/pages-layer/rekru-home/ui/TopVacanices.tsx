@@ -1,11 +1,9 @@
-'use client'
-
 import { RekruVacancyCard } from "@/entities/vacancy";
 import { TPublicVacancy } from "@/shared/api/types";
 import { cn } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/shadcn/button";
-import { ChevronDown } from "lucide-react";
-import { useState } from "react";
+import { ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 type TProps = {
   topList: TPublicVacancy[]
@@ -13,12 +11,6 @@ type TProps = {
 export const TopVacancies = ({
   topList
 }: TProps) => {
-  const [visibleCount, setVisibleCount] = useState(3)
-  const visibleItems = topList.slice(0, visibleCount)
-
-  const handleShowMore = () => {
-    setVisibleCount(prev => prev + 3)
-  }
   return (
     <>
       <h2 className={cn(
@@ -30,20 +22,27 @@ export const TopVacancies = ({
 
       <div className="flex flex-col gap-5">
         <ul className="flex flex-col gap-5">
-          {visibleItems.map(vacancy => (
+          {topList.map(vacancy => (
             <li key={vacancy.id}>
               <RekruVacancyCard vacancy={vacancy} />
             </li>
           ))}
         </ul>
-        {(visibleCount < topList.length) && (<Button
+        <Button
           variant={'ghost'}
-          className="flex gap-3 items-center text-base font-medium leading-tight"
-          onClick={handleShowMore}
+          asChild
         >
-          Смотреть еще вакансии
-          <ChevronDown />
-        </Button>)}
+          <Link
+            href={`/vacancies`}
+            className={cn(
+              "flex gap-3 items-center text-base font-medium leading-tight",
+              "[&:hover_svg]:translate-x-3"
+            )}
+          >
+            Смотреть все вакансии
+            <ChevronRight className="transition-transform" />
+          </Link>
+        </Button>
       </div>
 
     </>
