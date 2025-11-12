@@ -23,20 +23,21 @@ export const RekruVacancyParams = ({
   const normalizedWorkFormat = capitalizeSentences(
     work_format
       ? vacancyWorkFormatDict[work_format || ''] || work_format
-      : 'Не указан'
+      : 'Формат работы'
   )
 
   const normalizedExperience = capitalizeSentences(
     experience
       ? vacancyExperienceDict[experience || ''] || experience
-      : "не указан"
+      : "Опыт"
   )
-  const normalizedEmployment = capitalizeSentences(employment ? vacancyEpmpoymentDict[employment || ''] || employment : "не указана")
+  const normalizedEmployment = capitalizeSentences(employment ? vacancyEpmpoymentDict[employment || ''] || employment : "Занятость")
 
   const normalizedSalary = (Number.isFinite(salary_from) || Number.isFinite(salary_to))
     ? `${formatSalaryRange(salary_from || 0, salary_to || 0)} ₽ за месяц`
     : 'По договоренности';
-  const normalizedLocation = capitalizeSentences(location ? location : 'не указан')
+  const normalizedLocation = capitalizeSentences(location ? location : 'Город')
+  const normalizedGrade = capitalizeSentences(level || 'no grade')
   return (
     <Card className={cn('flex flex-col gap-4 p-8 rounded-3xl border border-border', className)}>
       <div
@@ -77,7 +78,7 @@ export const RekruVacancyParams = ({
           <span>•</span>
           <span>{normalizedExperience}</span>
           <span>•</span>
-          <span>{capitalizeSentences(level || 'no grade')}</span>
+          <span>{normalizedGrade}</span>
         </p>
       </div>
 
