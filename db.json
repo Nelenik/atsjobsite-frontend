@@ -1,0 +1,1155 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "email": "admin@ats.ru",
+      "password": "admin",
+      "name": "Администратор",
+      "profile_image": ""
+    },
+    {
+      "id": 2,
+      "username": "hr",
+      "email": "hr@ats.ru",
+      "password": "hr123",
+      "name": "HR-менеджер",
+      "profile_image": ""
+    }
+  ],
+  "companies": [
+    {
+      "id": 1,
+      "name": "ТехноКорп",
+      "full_name": "ООО «ТехноКорп»",
+      "description": "Крупная IT-компания, специализирующаяся на разработке корпоративного ПО",
+      "inn": "7701234567",
+      "rate": "A",
+      "rate_at": "2025-01-15T00:00:00.000Z",
+      "created_at": "2024-01-10T08:00:00.000Z",
+      "partner": true,
+      "it_accreditation": true,
+      "logo": "",
+      "site": "https://technocorp.ru",
+      "rating": 4.8
+    },
+    {
+      "id": 2,
+      "name": "ДатаСофт",
+      "full_name": "АО «ДатаСофт»",
+      "description": "Компания-разработчик аналитических платформ и систем обработки данных",
+      "inn": "7709876543",
+      "rate": "B",
+      "rate_at": "2025-02-01T00:00:00.000Z",
+      "created_at": "2024-03-05T08:00:00.000Z",
+      "partner": false,
+      "it_accreditation": true,
+      "logo": "",
+      "site": "https://datasoft.ru",
+      "rating": 4.5
+    },
+    {
+      "id": 3,
+      "name": "ДевИнновации",
+      "full_name": "ООО «ДевИнновации»",
+      "description": "Стартап в области DevOps-инструментов и облачных решений",
+      "inn": "7705551234",
+      "rate": "A",
+      "rate_at": "2025-03-01T00:00:00.000Z",
+      "created_at": "2024-06-20T08:00:00.000Z",
+      "partner": true,
+      "it_accreditation": false,
+      "logo": "",
+      "site": "https://devinnovations.ru",
+      "rating": 4.2
+    }
+  ],
+  "statuses": [
+    {
+      "id": 1,
+      "name": "Активная",
+      "color": "#22c55e",
+      "rank": 1
+    },
+    {
+      "id": 2,
+      "name": "Закрытая",
+      "color": "#6b7280",
+      "rank": 2
+    },
+    {
+      "id": 3,
+      "name": "Скрининг",
+      "color": "#fb923c",
+      "rank": 1
+    },
+    {
+      "id": 4,
+      "name": "Скоринг",
+      "color": "#facc15",
+      "rank": 2
+    },
+    {
+      "id": 5,
+      "name": "Собеседование",
+      "color": "#60a5fa",
+      "rank": 3
+    },
+    {
+      "id": 6,
+      "name": "Отказ",
+      "color": "#fb7185",
+      "rank": 4
+    },
+    {
+      "id": 7,
+      "name": "Оффер",
+      "color": "#34d399",
+      "rank": 5
+    },
+    {
+      "id": 8,
+      "name": "Скрининг",
+      "color": "#fb923c",
+      "rank": 1
+    },
+    {
+      "id": 9,
+      "name": "Скоринг",
+      "color": "#facc15",
+      "rank": 2
+    },
+    {
+      "id": 10,
+      "name": "Собеседование",
+      "color": "#60a5fa",
+      "rank": 3
+    },
+    {
+      "id": 11,
+      "name": "Отказ",
+      "color": "#fb7185",
+      "rank": 4
+    },
+    {
+      "id": 12,
+      "name": "Оффер",
+      "color": "#34d399",
+      "rank": 5
+    },
+    {
+      "id": 13,
+      "name": "Скрининг",
+      "color": "#fb923c",
+      "rank": 1
+    },
+    {
+      "id": 14,
+      "name": "Скоринг",
+      "color": "#facc15",
+      "rank": 2
+    },
+    {
+      "id": 15,
+      "name": "Собеседование",
+      "color": "#60a5fa",
+      "rank": 3
+    },
+    {
+      "id": 16,
+      "name": "Отказ",
+      "color": "#fb7185",
+      "rank": 4
+    },
+    {
+      "id": 17,
+      "name": "Оффер",
+      "color": "#34d399",
+      "rank": 5
+    },
+    {
+      "id": 191,
+      "name": "Черновик",
+      "color": "#A9A9A9",
+      "rank": 1
+    },
+    {
+      "id": 192,
+      "name": "В работе",
+      "color": "#FFA500",
+      "rank": 2
+    },
+    {
+      "id": 193,
+      "name": "Ожидание",
+      "color": "#ADD8E6",
+      "rank": 3
+    },
+    {
+      "id": 194,
+      "name": "На паузе",
+      "color": "#4682B4",
+      "rank": 4
+    }
+  ],
+  "vacancies": [
+    {
+      "id": 1,
+      "company_id": 1,
+      "status_id": 191,
+      "name": "Senior Frontend Developer",
+      "position": "developer",
+      "responsibilities": "Разработка и поддержка фронтенд-части корпоративных приложений на React/TypeScript",
+      "conditions": "Официальное трудоустройство, ДМС, гибкий график, бесплатные обеды",
+      "employment": "full",
+      "skills": "React, TypeScript, Redux, GraphQL, Jest",
+      "work_format": "hybrid",
+      "experience": "from-3-to-5",
+      "description": "Ищем опытного frontend-разработчика для работы над ключевыми продуктами компании. Вы будете работать в команде из 5 разработчиков над внутренними и внешними приложениями.",
+      "location": "Москва",
+      "summary": "Senior разработчик для работы над корпоративными приложениями",
+      "salary_from": 180000,
+      "salary_to": 250000,
+      "salary_candy": 200000,
+      "salary_market": 220000,
+      "level": "senior",
+      "created_at": "2025-01-15T10:00:00.000Z",
+      "external_id": "vac-001"
+    },
+    {
+      "id": 2,
+      "company_id": 2,
+      "status_id": 191,
+      "name": "Data Engineer",
+      "position": "data-scientist",
+      "responsibilities": "Проектирование и разработка ETL-пайплайнов, работа с большими данными, оптимизация запросов",
+      "conditions": "Удалённая работа, конкурентная зарплата, обучение за счёт компании, гибкий график",
+      "employment": "full",
+      "skills": "Python, Apache Spark, Airflow, PostgreSQL, Kafka, dbt",
+      "work_format": "remote",
+      "experience": "from-1-to-3",
+      "description": "Требуется Data Engineer для работы с аналитической платформой обработки больших данных в реальном времени.",
+      "location": "Санкт-Петербург",
+      "summary": "Data Engineer для разработки аналитической платформы",
+      "salary_from": 150000,
+      "salary_to": 200000,
+      "salary_candy": 170000,
+      "salary_market": 185000,
+      "level": "middle",
+      "created_at": "2025-02-01T10:00:00.000Z",
+      "external_id": "vac-002"
+    },
+    {
+      "id": 3,
+      "company_id": 3,
+      "status_id": 192,
+      "name": "DevOps инженер",
+      "position": "devops",
+      "responsibilities": "Настройка и поддержка CI/CD, управление Kubernetes-кластерами, мониторинг производительности",
+      "conditions": "Полная занятость, офис/удалённо на выбор, ДМС, корпоративные мероприятия",
+      "employment": "full",
+      "skills": "Kubernetes, Docker, Terraform, GitLab CI, Prometheus, Grafana",
+      "work_format": "office",
+      "experience": "from-3-to-5",
+      "description": "Ищем DevOps-инженера для построения и поддержки облачной инфраструктуры растущего стартапа.",
+      "location": "Москва",
+      "summary": "DevOps инженер для построения облачной инфраструктуры",
+      "salary_from": 200000,
+      "salary_to": 280000,
+      "salary_candy": 240000,
+      "salary_market": 250000,
+      "level": "senior",
+      "created_at": "2025-03-01T10:00:00.000Z",
+      "external_id": "vac-003"
+    },
+    {
+      "id": 4,
+      "company_id": 1,
+      "status_id": 193,
+      "name": "QA Engineer",
+      "position": "qa",
+      "responsibilities": "Ручное и автоматизированное тестирование, написание тест-кейсов, взаимодействие с командой разработки",
+      "conditions": "Официальное оформление, ДМС, обучение и сертификация",
+      "employment": "full",
+      "skills": "Selenium, Cypress, Jest, Postman, SQL",
+      "work_format": "hybrid",
+      "experience": "from-1-to-3",
+      "description": "Ищем QA-инженера для обеспечения качества корпоративных приложений.",
+      "location": "Москва",
+      "summary": "QA Engineer для тестирования корпоративного ПО",
+      "salary_from": 100000,
+      "salary_to": 150000,
+      "salary_candy": 120000,
+      "salary_market": 130000,
+      "level": "middle",
+      "created_at": "2025-03-10T10:00:00.000Z",
+      "external_id": "vac-004"
+    },
+    {
+      "id": 5,
+      "company_id": 1,
+      "status_id": 192,
+      "name": "Backend Node.js Developer",
+      "position": "developer",
+      "responsibilities": "Разработка REST API и микросервисов на Node.js/NestJS, проектирование схем БД, код-ревью",
+      "conditions": "ДМС, гибкий график, удалённая работа, корпоративное обучение, бонусы по итогам квартала",
+      "employment": "full",
+      "skills": "Node.js, NestJS, TypeScript, PostgreSQL, Redis, Docker, RabbitMQ",
+      "work_format": "remote",
+      "experience": "from-3-to-5",
+      "description": "Ищем backend-разработчика для развития платформы корпоративной автоматизации. Работаете в команде из 8 человек, тесно сотрудничаете с командой iOS/Android.",
+      "location": "Москва",
+      "summary": "Разработка микросервисов для корпоративной платформы",
+      "salary_from": 160000,
+      "salary_to": 220000,
+      "salary_candy": 185000,
+      "salary_market": 200000,
+      "level": "senior",
+      "created_at": "2025-01-20T10:00:00.000Z",
+      "external_id": "vac-005"
+    },
+    {
+      "id": 6,
+      "company_id": 2,
+      "status_id": 191,
+      "name": "Product Manager",
+      "position": "pm",
+      "responsibilities": "Управление продуктовым бэклогом, проведение custdev-интервью, формирование roadmap, взаимодействие с командами разработки и дизайна",
+      "conditions": "Официальное трудоустройство, ДМС, MacBook, гибкий старт, 5 дней выезда в офис",
+      "employment": "full",
+      "skills": "Agile, Scrum, Jira, Figma, SQL, A/B тестирование, аналитика продукта",
+      "work_format": "hybrid",
+      "experience": "from-3-to-5",
+      "description": "Продакт-менеджер для развития B2B аналитической платформы. Вы строите продукт от идеи до релиза и несёте ответственность за ключевые метрики.",
+      "location": "Санкт-Петербург",
+      "summary": "PM для B2B аналитической платформы",
+      "salary_from": 170000,
+      "salary_to": 240000,
+      "salary_candy": 200000,
+      "salary_market": 210000,
+      "level": "senior",
+      "created_at": "2025-02-10T10:00:00.000Z",
+      "external_id": "vac-006"
+    },
+    {
+      "id": 7,
+      "company_id": 3,
+      "status_id": 193,
+      "name": "UI/UX Designer",
+      "position": "designer",
+      "responsibilities": "Проектирование интерфейсов в Figma, создание дизайн-системы, UX-исследования, прототипирование",
+      "conditions": "Удалённая работа, гибкий график, бюджет на инструменты и обучение, equity",
+      "employment": "full",
+      "skills": "Figma, Adobe Illustrator, UX-research, Prototyping, Design Systems, Motion Design",
+      "work_format": "remote",
+      "experience": "from-1-to-3",
+      "description": "Ищем дизайнера для создания единой дизайн-системы и улучшения UX наших DevOps-инструментов. Вы единственный дизайнер в продукте — полная свобода решений.",
+      "location": "Удалённо",
+      "summary": "Дизайнер для создания дизайн-системы DevOps-продукта",
+      "salary_from": 120000,
+      "salary_to": 170000,
+      "salary_candy": 140000,
+      "salary_market": 150000,
+      "level": "middle",
+      "created_at": "2025-02-20T10:00:00.000Z",
+      "external_id": "vac-007"
+    },
+    {
+      "id": 8,
+      "company_id": 1,
+      "status_id": 194,
+      "name": "Mobile Developer (React Native)",
+      "position": "developer",
+      "responsibilities": "Разработка кросс-платформенного мобильного приложения на React Native, интеграция с REST API и push-уведомлениями",
+      "conditions": "ДМС, гибкий график, техника Apple/Android на выбор, обучение",
+      "employment": "full",
+      "skills": "React Native, TypeScript, Redux Toolkit, Expo, iOS, Android, REST API",
+      "work_format": "hybrid",
+      "experience": "from-1-to-3",
+      "description": "Разрабатываем мобильное приложение для HR-платформы. Ищем разработчика с опытом React Native для создания iOS и Android приложения с нуля.",
+      "location": "Москва",
+      "summary": "Мобильный разработчик для HR-приложения",
+      "salary_from": 140000,
+      "salary_to": 200000,
+      "salary_candy": 165000,
+      "salary_market": 175000,
+      "level": "middle",
+      "created_at": "2025-03-05T10:00:00.000Z",
+      "external_id": "vac-008"
+    },
+    {
+      "id": 9,
+      "company_id": 2,
+      "status_id": 192,
+      "name": "Системный аналитик",
+      "position": "analyst",
+      "responsibilities": "Сбор и формализация требований, составление технических заданий, взаимодействие с разработчиками и заказчиками, описание бизнес-процессов",
+      "conditions": "Официальное трудоустройство, ДМС, обучение за счёт компании, гибридный формат",
+      "employment": "full",
+      "skills": "UML, BPMN, SQL, Confluence, Jira, REST API, требования к ПО",
+      "work_format": "hybrid",
+      "experience": "from-3-to-5",
+      "description": "Системный аналитик для проекта миграции корпоративной ERP-системы. Работа в команде из 12 человек, прямое взаимодействие с заказчиком.",
+      "location": "Санкт-Петербург",
+      "summary": "Аналитик для проекта миграции ERP",
+      "salary_from": 130000,
+      "salary_to": 180000,
+      "salary_candy": 150000,
+      "salary_market": 160000,
+      "level": "middle",
+      "created_at": "2025-03-15T10:00:00.000Z",
+      "external_id": "vac-009"
+    },
+    {
+      "id": 10,
+      "company_id": 1,
+      "status_id": 191,
+      "name": "Team Lead Frontend",
+      "position": "team-lead",
+      "responsibilities": "Руководство командой из 5 frontend-разработчиков, архитектурные решения, код-ревью, декомпозиция задач, взаимодействие с PM",
+      "conditions": "Конкурентная зарплата, ДМС на всю семью, опционная программа, гибридный формат",
+      "employment": "full",
+      "skills": "React, TypeScript, Architecture, Team Management, Code Review, Webpack, Testing",
+      "work_format": "hybrid",
+      "experience": "more-than-5",
+      "description": "Ищем Tech Lead для руководства frontend-командой и построения архитектуры нового поколения нашего флагманского продукта.",
+      "location": "Москва",
+      "summary": "Тимлид для руководства командой frontend-разработки",
+      "salary_from": 280000,
+      "salary_to": 380000,
+      "salary_candy": 320000,
+      "salary_market": 340000,
+      "level": "senior",
+      "created_at": "2025-03-20T10:00:00.000Z",
+      "external_id": "vac-010"
+    },
+    {
+      "id": 11,
+      "company_id": 3,
+      "status_id": 192,
+      "name": "Python Backend Developer",
+      "position": "developer",
+      "responsibilities": "Разработка backend сервисов на Python/FastAPI, интеграция с облачными сервисами AWS, тестирование, документирование API",
+      "conditions": "Полностью удалённая работа, гибкий график, конкурентная зарплата, ноутбук в подарок",
+      "employment": "full",
+      "skills": "Python, FastAPI, PostgreSQL, Redis, Docker, Kubernetes, AWS, pytest",
+      "work_format": "remote",
+      "experience": "from-1-to-3",
+      "description": "Разрабатываем облачную платформу для DevOps-автоматизации. Ищем Python-разработчика, который будет строить надёжные микросервисы.",
+      "location": "Удалённо",
+      "summary": "Python-разработчик для облачной DevOps-платформы",
+      "salary_from": 140000,
+      "salary_to": 190000,
+      "salary_candy": 160000,
+      "salary_market": 170000,
+      "level": "middle",
+      "created_at": "2025-03-22T10:00:00.000Z",
+      "external_id": "vac-011"
+    },
+    {
+      "id": 12,
+      "company_id": 2,
+      "status_id": 193,
+      "name": "ML Engineer",
+      "position": "data-scientist",
+      "responsibilities": "Разработка и деплой ML-моделей, построение feature engineering пайплайнов, A/B тестирование моделей, мониторинг качества предсказаний",
+      "conditions": "Офис/удалёнка на выбор, ДМС, конференции и обучение за счёт компании, опцион",
+      "employment": "full",
+      "skills": "Python, scikit-learn, PyTorch, MLflow, Apache Spark, SQL, Docker",
+      "work_format": "hybrid",
+      "experience": "from-3-to-5",
+      "description": "Ищем ML Engineer для развития рекомендательной системы аналитической платформы. Вы работаете с реальными данными миллионов пользователей.",
+      "location": "Санкт-Петербург",
+      "summary": "ML Engineer для рекомендательной системы",
+      "salary_from": 200000,
+      "salary_to": 300000,
+      "salary_candy": 250000,
+      "salary_market": 260000,
+      "level": "senior",
+      "created_at": "2025-03-25T10:00:00.000Z",
+      "external_id": "vac-012"
+    }
+  ],
+  "match_statuses": [
+    {
+      "vacancy_id": 1,
+      "status_id": 3,
+      "rank": 1
+    },
+    {
+      "vacancy_id": 1,
+      "status_id": 4,
+      "rank": 2
+    },
+    {
+      "vacancy_id": 1,
+      "status_id": 5,
+      "rank": 3
+    },
+    {
+      "vacancy_id": 1,
+      "status_id": 6,
+      "rank": 4
+    },
+    {
+      "vacancy_id": 1,
+      "status_id": 7,
+      "rank": 5
+    },
+    {
+      "vacancy_id": 2,
+      "status_id": 8,
+      "rank": 1
+    },
+    {
+      "vacancy_id": 2,
+      "status_id": 9,
+      "rank": 2
+    },
+    {
+      "vacancy_id": 2,
+      "status_id": 10,
+      "rank": 3
+    },
+    {
+      "vacancy_id": 2,
+      "status_id": 11,
+      "rank": 4
+    },
+    {
+      "vacancy_id": 2,
+      "status_id": 12,
+      "rank": 5
+    },
+    {
+      "vacancy_id": 3,
+      "status_id": 13,
+      "rank": 1
+    },
+    {
+      "vacancy_id": 3,
+      "status_id": 14,
+      "rank": 2
+    },
+    {
+      "vacancy_id": 3,
+      "status_id": 15,
+      "rank": 3
+    },
+    {
+      "vacancy_id": 3,
+      "status_id": 16,
+      "rank": 4
+    },
+    {
+      "vacancy_id": 3,
+      "status_id": 17,
+      "rank": 5
+    },
+    {
+      "vacancy_id": 5,
+      "status_id": 3,
+      "rank": 1
+    },
+    {
+      "vacancy_id": 5,
+      "status_id": 4,
+      "rank": 2
+    },
+    {
+      "vacancy_id": 5,
+      "status_id": 5,
+      "rank": 3
+    },
+    {
+      "vacancy_id": 5,
+      "status_id": 6,
+      "rank": 4
+    },
+    {
+      "vacancy_id": 5,
+      "status_id": 7,
+      "rank": 5
+    },
+    {
+      "vacancy_id": 6,
+      "status_id": 3,
+      "rank": 1
+    },
+    {
+      "vacancy_id": 6,
+      "status_id": 4,
+      "rank": 2
+    },
+    {
+      "vacancy_id": 6,
+      "status_id": 5,
+      "rank": 3
+    },
+    {
+      "vacancy_id": 6,
+      "status_id": 6,
+      "rank": 4
+    },
+    {
+      "vacancy_id": 6,
+      "status_id": 7,
+      "rank": 5
+    },
+    {
+      "vacancy_id": 7,
+      "status_id": 3,
+      "rank": 1
+    },
+    {
+      "vacancy_id": 7,
+      "status_id": 4,
+      "rank": 2
+    },
+    {
+      "vacancy_id": 7,
+      "status_id": 5,
+      "rank": 3
+    },
+    {
+      "vacancy_id": 7,
+      "status_id": 6,
+      "rank": 4
+    },
+    {
+      "vacancy_id": 7,
+      "status_id": 7,
+      "rank": 5
+    },
+    {
+      "vacancy_id": 8,
+      "status_id": 3,
+      "rank": 1
+    },
+    {
+      "vacancy_id": 8,
+      "status_id": 4,
+      "rank": 2
+    },
+    {
+      "vacancy_id": 8,
+      "status_id": 5,
+      "rank": 3
+    },
+    {
+      "vacancy_id": 8,
+      "status_id": 6,
+      "rank": 4
+    },
+    {
+      "vacancy_id": 8,
+      "status_id": 7,
+      "rank": 5
+    },
+    {
+      "vacancy_id": 9,
+      "status_id": 3,
+      "rank": 1
+    },
+    {
+      "vacancy_id": 9,
+      "status_id": 4,
+      "rank": 2
+    },
+    {
+      "vacancy_id": 9,
+      "status_id": 5,
+      "rank": 3
+    },
+    {
+      "vacancy_id": 9,
+      "status_id": 6,
+      "rank": 4
+    },
+    {
+      "vacancy_id": 9,
+      "status_id": 7,
+      "rank": 5
+    },
+    {
+      "vacancy_id": 10,
+      "status_id": 3,
+      "rank": 1
+    },
+    {
+      "vacancy_id": 10,
+      "status_id": 4,
+      "rank": 2
+    },
+    {
+      "vacancy_id": 10,
+      "status_id": 5,
+      "rank": 3
+    },
+    {
+      "vacancy_id": 10,
+      "status_id": 6,
+      "rank": 4
+    },
+    {
+      "vacancy_id": 10,
+      "status_id": 7,
+      "rank": 5
+    },
+    {
+      "vacancy_id": 11,
+      "status_id": 3,
+      "rank": 1
+    },
+    {
+      "vacancy_id": 11,
+      "status_id": 4,
+      "rank": 2
+    },
+    {
+      "vacancy_id": 11,
+      "status_id": 5,
+      "rank": 3
+    },
+    {
+      "vacancy_id": 11,
+      "status_id": 6,
+      "rank": 4
+    },
+    {
+      "vacancy_id": 11,
+      "status_id": 7,
+      "rank": 5
+    },
+    {
+      "vacancy_id": 12,
+      "status_id": 3,
+      "rank": 1
+    },
+    {
+      "vacancy_id": 12,
+      "status_id": 4,
+      "rank": 2
+    },
+    {
+      "vacancy_id": 12,
+      "status_id": 5,
+      "rank": 3
+    },
+    {
+      "vacancy_id": 12,
+      "status_id": 6,
+      "rank": 4
+    },
+    {
+      "vacancy_id": 12,
+      "status_id": 7,
+      "rank": 5
+    }
+  ],
+  "cvs": [
+    {
+      "id": 1,
+      "external_id": "cv-001",
+      "name": "Frontend Developer",
+      "salary": 180000,
+      "summary": "Опытный frontend-разработчик с 5-летним стажем в React/TypeScript",
+      "experience_months": 60,
+      "experience_raw": "5 лет опыта разработки — ПАО Сбертех (2020–2025)",
+      "experience": null,
+      "candy_name": "Алексей Петров",
+      "candy_photo": "",
+      "candy_email": "aleksey.petrov@mail.ru",
+      "candy_tg": "@aleksey_dev",
+      "candy_phone": "+7 916 111 2233",
+      "candy_location": "Москва",
+      "skills": [
+        "React",
+        "TypeScript",
+        "Redux",
+        "GraphQL",
+        "Jest"
+      ],
+      "candy_birthday": "1993-05-14T00:00:00.000Z",
+      "candy_gender": "male",
+      "schedule": "full",
+      "bio": "Специализируюсь на разработке масштабируемых SPA-приложений с чистой архитектурой",
+      "link": "https://hh.ru/resume/cv-001",
+      "from": "hh",
+      "status": "looking",
+      "level": "senior",
+      "is_remote": true,
+      "can_relocate": false,
+      "created_at": "2025-01-20T10:00:00.000Z",
+      "published_at": "2025-01-20T10:00:00.000Z",
+      "workExperiences": [
+        {
+          "id": 1,
+          "cv_id": 1,
+          "title": "Senior Frontend Developer",
+          "company": "Сбертех",
+          "city": "Москва",
+          "post": "Senior Developer",
+          "description": "Разработка финтех-приложений на React, TypeScript. Ведение команды из 3 разработчиков.",
+          "start_at": "2020-01-01T00:00:00.000Z",
+          "end_at": null
+        },
+        {
+          "id": 2,
+          "cv_id": 1,
+          "title": "Frontend Developer",
+          "company": "Яндекс",
+          "city": "Москва",
+          "post": "Middle Developer",
+          "description": "Разработка UX-компонентов для Яндекс.Маркет",
+          "start_at": "2017-06-01T00:00:00.000Z",
+          "end_at": "2019-12-31T00:00:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "external_id": "cv-002",
+      "name": "Data Engineer",
+      "salary": 160000,
+      "summary": "Data Engineer с опытом построения BigData-пайплайнов и аналитических систем",
+      "experience_months": 36,
+      "experience_raw": "3 года разработки ETL-пайплайнов — ООО ДатаБridge (2022–2025)",
+      "experience": null,
+      "candy_name": "Мария Сидорова",
+      "candy_photo": "",
+      "candy_email": "maria.sidorova@gmail.com",
+      "candy_tg": "@maria_data",
+      "candy_phone": "+7 921 234 5678",
+      "candy_location": "Санкт-Петербург",
+      "skills": [
+        "Python",
+        "Apache Spark",
+        "Airflow",
+        "PostgreSQL",
+        "Kafka",
+        "dbt"
+      ],
+      "candy_birthday": "1995-08-22T00:00:00.000Z",
+      "candy_gender": "female",
+      "schedule": "full",
+      "bio": "Строю аналитические платформы и потоковые системы обработки данных",
+      "link": "https://hh.ru/resume/cv-002",
+      "from": "hh",
+      "status": "considering",
+      "level": "middle",
+      "is_remote": true,
+      "can_relocate": true,
+      "created_at": "2025-02-05T10:00:00.000Z",
+      "published_at": "2025-02-05T10:00:00.000Z",
+      "workExperiences": [
+        {
+          "id": 3,
+          "cv_id": 2,
+          "title": "Data Engineer",
+          "company": "ДатаBridge",
+          "city": "Санкт-Петербург",
+          "post": "Data Engineer",
+          "description": "Проектирование ETL, работа с Spark и Kafka, разработка аналитических дашбордов",
+          "start_at": "2022-01-01T00:00:00.000Z",
+          "end_at": null
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "external_id": "cv-003",
+      "name": "DevOps Engineer",
+      "salary": 220000,
+      "summary": "DevOps-инженер с 6-летним опытом, специализация — Kubernetes и облачная инфраструктура",
+      "experience_months": 72,
+      "experience_raw": "6 лет DevOps/SRE — Авито (2019–2025)",
+      "experience": null,
+      "candy_name": "Дмитрий Козлов",
+      "candy_photo": "",
+      "candy_email": "dmitry.kozlov@yandex.ru",
+      "candy_tg": "@dmitry_ops",
+      "candy_phone": "+7 903 345 6789",
+      "candy_location": "Москва",
+      "skills": [
+        "Kubernetes",
+        "Docker",
+        "Terraform",
+        "AWS",
+        "GitLab CI",
+        "Prometheus",
+        "Grafana"
+      ],
+      "candy_birthday": "1990-11-30T00:00:00.000Z",
+      "candy_gender": "male",
+      "schedule": "full",
+      "bio": "SRE / DevOps специалист, опыт построения и поддержки highload-инфраструктур",
+      "link": "https://hh.ru/resume/cv-003",
+      "from": "hh",
+      "status": "looking",
+      "level": "senior",
+      "is_remote": false,
+      "can_relocate": false,
+      "created_at": "2025-03-10T10:00:00.000Z",
+      "published_at": "2025-03-10T10:00:00.000Z",
+      "workExperiences": [
+        {
+          "id": 4,
+          "cv_id": 3,
+          "title": "Senior DevOps Engineer",
+          "company": "Авито",
+          "city": "Москва",
+          "post": "SRE Lead",
+          "description": "Управление Kubernetes-кластерами, CI/CD, мониторинг и алертинг",
+          "start_at": "2019-07-01T00:00:00.000Z",
+          "end_at": null
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "external_id": "cv-004",
+      "name": "TypeScript Backend Developer",
+      "salary": 140000,
+      "summary": "Backend-разработчик с опытом на TypeScript/Node.js и микросервисной архитектуре",
+      "experience_months": 24,
+      "experience_raw": "2 года backend-разработки — ООО Медиафокус (2023–2025)",
+      "experience": null,
+      "candy_name": "Анна Новикова",
+      "candy_photo": "",
+      "candy_email": "anna.novikova@mail.ru",
+      "candy_tg": "@anna_ts",
+      "candy_phone": "+7 915 456 7890",
+      "candy_location": "Казань",
+      "skills": [
+        "TypeScript",
+        "Node.js",
+        "NestJS",
+        "PostgreSQL",
+        "Redis"
+      ],
+      "candy_birthday": "1997-03-18T00:00:00.000Z",
+      "candy_gender": "female",
+      "schedule": "full",
+      "bio": "Разрабатываю REST API и микросервисы, уделяю особое внимание качеству кода",
+      "link": "https://hh.ru/resume/cv-004",
+      "from": "manual",
+      "status": "looking",
+      "level": "middle",
+      "is_remote": true,
+      "can_relocate": false,
+      "created_at": "2025-02-15T10:00:00.000Z",
+      "published_at": "2025-02-15T10:00:00.000Z",
+      "workExperiences": []
+    },
+    {
+      "id": 5,
+      "external_id": "cv-005",
+      "name": "Junior Frontend Developer",
+      "salary": 80000,
+      "summary": "Начинающий frontend-разработчик с базовыми знаниями React и желанием развиваться",
+      "experience_months": 12,
+      "experience_raw": "1 год коммерческого опыта — ООО Веб-студия Горизонт",
+      "experience": null,
+      "candy_name": "Иван Смирнов",
+      "candy_photo": "",
+      "candy_email": "ivan.smirnov@gmail.com",
+      "candy_tg": "@ivan_front",
+      "candy_phone": "+7 925 567 8901",
+      "candy_location": "Новосибирск",
+      "skills": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "React",
+        "Git"
+      ],
+      "candy_birthday": "2000-07-05T00:00:00.000Z",
+      "candy_gender": "male",
+      "schedule": "full",
+      "bio": "Активно развиваюсь как frontend-разработчик, изучаю TypeScript и тестирование",
+      "link": "https://hh.ru/resume/cv-005",
+      "from": "hh",
+      "status": "considering",
+      "level": "junior",
+      "is_remote": true,
+      "can_relocate": true,
+      "created_at": "2025-03-01T10:00:00.000Z",
+      "published_at": "2025-03-01T10:00:00.000Z",
+      "workExperiences": []
+    },
+    {
+      "id": 6,
+      "external_id": "cv-006",
+      "name": "Python Developer",
+      "salary": 170000,
+      "summary": "Python-разработчик с фокусом на ML-пайплайны и data science",
+      "experience_months": 48,
+      "experience_raw": "4 года разработки на Python — Сбер AI (2021–2025)",
+      "experience": null,
+      "candy_name": "Екатерина Лебедева",
+      "candy_photo": "",
+      "candy_email": "ekaterina@sber.ru",
+      "candy_tg": "@kate_ml",
+      "candy_phone": "+7 910 678 9012",
+      "candy_location": "Москва",
+      "skills": [
+        "Python",
+        "scikit-learn",
+        "pandas",
+        "FastAPI",
+        "PostgreSQL",
+        "Docker"
+      ],
+      "candy_birthday": "1994-12-01T00:00:00.000Z",
+      "candy_gender": "female",
+      "schedule": "full",
+      "bio": "Разрабатываю ML-модели и REST API для data science продуктов",
+      "link": "https://hh.ru/resume/cv-006",
+      "from": "hh",
+      "status": "looking",
+      "level": "middle",
+      "is_remote": false,
+      "can_relocate": false,
+      "created_at": "2025-03-20T10:00:00.000Z",
+      "published_at": "2025-03-20T10:00:00.000Z",
+      "workExperiences": []
+    }
+  ],
+  "matches": [
+    {
+      "id": 1,
+      "vacancy_id": 1,
+      "cv_id": 1,
+      "status_id": 5,
+      "status_rank": 3,
+      "type": "sourcing",
+      "point": 92,
+      "summary": "Отличное совпадение: 5 лет опыта React, TypeScript. Работал над аналогичными enterprise-проектами.",
+      "created_at": "2025-01-22T10:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "vacancy_id": 1,
+      "cv_id": 4,
+      "status_id": 4,
+      "status_rank": 1,
+      "type": "response",
+      "point": 65,
+      "summary": "Частичное совпадение: знает TypeScript и NestJS, но основной стек backend. Опыта React 1 год.",
+      "created_at": "2025-01-25T10:00:00.000Z"
+    },
+    {
+      "id": 3,
+      "vacancy_id": 1,
+      "cv_id": 5,
+      "status_id": 6,
+      "status_rank": 4,
+      "type": "sourcing",
+      "point": 38,
+      "summary": "Слабое совпадение: Junior-уровень, недостаточно опыта для Senior-позиции.",
+      "created_at": "2025-01-28T10:00:00.000Z"
+    },
+    {
+      "id": 4,
+      "vacancy_id": 2,
+      "cv_id": 2,
+      "status_id": 10,
+      "status_rank": 3,
+      "type": "response",
+      "point": 88,
+      "summary": "Хорошее совпадение: Python, Spark, Airflow есть. Опыт ETL-разработки соответствует требованиям.",
+      "created_at": "2025-02-08T10:00:00.000Z"
+    },
+    {
+      "id": 5,
+      "vacancy_id": 2,
+      "cv_id": 6,
+      "status_id": 8,
+      "status_rank": 1,
+      "type": "sourcing",
+      "point": 71,
+      "summary": "Хорошее совпадение: Python и PostgreSQL есть, опыт в data science близкий к Data Engineering.",
+      "created_at": "2025-02-10T10:00:00.000Z"
+    },
+    {
+      "id": 6,
+      "vacancy_id": 3,
+      "cv_id": 3,
+      "status_id": 15,
+      "status_rank": 3,
+      "type": "sourcing",
+      "point": 95,
+      "summary": "Идеальное совпадение: Kubernetes, Terraform, Docker — всё есть. 6 лет DevOps опыта.",
+      "created_at": "2025-03-12T10:00:00.000Z"
+    },
+    {
+      "id": 7,
+      "vacancy_id": 3,
+      "cv_id": 1,
+      "status_id": 13,
+      "status_rank": 1,
+      "type": "sourcing",
+      "point": 34,
+      "summary": "Слабое совпадение: нет опыта DevOps, знает только Docker на базовом уровне.",
+      "created_at": "2025-03-15T10:00:00.000Z"
+    },
+    {
+      "id": 8,
+      "vacancy_id": 1,
+      "cv_id": 1,
+      "status_id": 7,
+      "status_rank": 5,
+      "type": "sourcing",
+      "point": 91,
+      "summary": "Повторный мэтч после успешного интервью. Кандидат получил оффер.",
+      "created_at": "2025-02-01T10:00:00.000Z"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "entity_id": 1,
+      "content": "Кандидат прошёл первый этап скрининга. Сильное резюме, назначаем техническое интервью.",
+      "created_at": "2025-01-23T11:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "entity_id": 1,
+      "content": "Техническое интервью прошло отлично. Отличные знания React, TypeScript и архитектуры. Рекомендую к найму.",
+      "created_at": "2025-01-30T14:00:00.000Z"
+    },
+    {
+      "id": 3,
+      "entity_id": 4,
+      "content": "Кандидат откликнулся на вакансию через HH. Опыт соответствует требованиям, назначаем скрининг.",
+      "created_at": "2025-02-09T09:00:00.000Z"
+    },
+    {
+      "id": 4,
+      "entity_id": 4,
+      "content": "Скрининг прошёл успешно. Знает Python, Spark и Airflow. Переводим на этап собеседования.",
+      "created_at": "2025-02-12T15:00:00.000Z"
+    },
+    {
+      "id": 5,
+      "entity_id": 6,
+      "content": "Идеальный кандидат. Приглашаем на финальное интервью с техническим директором.",
+      "created_at": "2025-03-13T10:00:00.000Z"
+    }
+  ],
+  "tariffs": [
+    {
+      "id": "basic",
+      "name": "Базовый"
+    },
+    {
+      "id": "pro",
+      "name": "Профессиональный"
+    },
+    {
+      "id": "enterprise",
+      "name": "Корпоративный"
+    }
+  ]
+}
