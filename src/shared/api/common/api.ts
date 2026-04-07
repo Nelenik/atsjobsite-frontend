@@ -1,7 +1,7 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { BASE_URL, AUTH_COOKIE_NAME } from "../constants";
+import { AUTH_COOKIE_NAME, BASE_URL } from "../constants";
 import {
   extractSyntheticErrorFromApi,
   getSyntheticError,
@@ -58,7 +58,7 @@ type TRequestOptions = Omit<RequestInit, "body"> & {
  */
 export const apiGet = async <T = unknown>(
   url: string,
-  getOptions: TRequestOptions = {}
+  getOptions: TRequestOptions = {},
 ): Promise<T> => {
   // Destructure options with defaults
   // to ensure backward compatibility and flexibility
@@ -76,7 +76,7 @@ export const apiGet = async <T = unknown>(
   const actualHeaders: HeadersInit = Object.assign(
     {},
     withAuth && (await getAuthHeader(authCookieName)),
-    headers
+    headers,
   );
 
   // Perform the GET request with the specified URL and headers
@@ -92,7 +92,7 @@ export const apiGet = async <T = unknown>(
   // If not, throw an error with details about the failure
   if (!response.ok) {
     const error = new Error(
-      `GET ${url} failed: ${response.status} ${response.statusText}`
+      `GET ${url} failed: ${response.status} ${response.statusText}`,
     );
     error.name = "APIError";
     error.cause = response.status;
@@ -142,7 +142,7 @@ export type TMutationState<T = unknown> = {
  */
 export const apiMutate = async <T = unknown>(
   url: string,
-  mutateOptions: TRequestOptions = {}
+  mutateOptions: TRequestOptions = {},
 ) => {
   // Destructure options with defaults
   const {
@@ -167,7 +167,7 @@ export const apiMutate = async <T = unknown>(
   const actualHeaders: HeadersInit = Object.assign(
     contentTypeHeader,
     authHeaders,
-    headers
+    headers,
   );
 
   // If body is provided, ensure it is a FormData object or convert it to JSON

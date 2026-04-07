@@ -50,7 +50,7 @@ const getReqOrigin = (request: NextRequest): string | undefined => {
 const persistOriginHost = (
   request: NextRequest,
   response: NextResponse,
-  headerValue: string | undefined
+  headerValue: string | undefined,
 ): void => {
   if (!request.cookies.has("origin-host") && headerValue) {
     response.cookies.set({
@@ -81,7 +81,7 @@ export async function middleware(request: NextRequest) {
     // In development environment, throw an error to notify the developer
     if (process.env.NODE_ENV === "development") {
       throw new Error(
-        `Routing violation: The route prefix "${firstSegment}" cannot be used as a top-level segment in any of the tenants.`
+        `Routing violation: The route prefix "${firstSegment}" cannot be used as a top-level segment in any of the tenants.`,
       );
     } else {
       console.error("Routing violation: ", pathname);

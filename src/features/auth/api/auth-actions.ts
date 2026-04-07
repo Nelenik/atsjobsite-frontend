@@ -28,7 +28,7 @@ const setCookie = async (token: string) => {
 export const signin = async (
   redirectTo: string | null,
   _: TMutationState,
-  body: FormData
+  body: FormData,
 ) => {
   const response = await apiMutate<TAuthData>("/api/v1/auth/sign-in", {
     body: parseFormData(body),
@@ -47,6 +47,9 @@ export const signin = async (
 };
 
 export const signout = async (redirectTo: string) => {
+  await apiMutate("/api/v1/auth/sign-out", {
+    method: "POST",
+  });
   (await cookies()).delete(AUTH_COOKIE_NAME);
   return redirect(redirectTo);
 };

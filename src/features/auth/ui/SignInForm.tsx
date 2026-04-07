@@ -26,7 +26,7 @@ export const SignInForm = () => {
         <Input
           placeholder="example@mail.com"
           type="email"
-          required
+          // required
           name="email"
           defaultValue={defaultValues?.email}
         // className={errors?.name && 'ring-2 ring-destructive'}
@@ -41,7 +41,7 @@ export const SignInForm = () => {
         <Input
           placeholder="Введите пароль"
           type='password'
-          required
+          // required
           name="password"
           defaultValue={defaultValues?.password}
         // className={cn(errors?.inn && 'ring-2 ring-destructive')}
