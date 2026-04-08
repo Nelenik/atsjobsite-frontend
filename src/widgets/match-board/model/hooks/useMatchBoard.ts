@@ -24,6 +24,7 @@ import { useVacancyMatchStatuses } from "@/entities/vacancy";
 
 export const useMatchBoard = () => {
   const { columns, moveColumn } = useVacancyMatchStatuses();
+  console.log("Columns in useMatchBoard:", columns);
 
   // Extract only the column IDs for SortableContext
   const columnsIds = useMemo(() => columns.map((col) => col.id), [columns]);

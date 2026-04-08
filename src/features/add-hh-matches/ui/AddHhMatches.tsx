@@ -3,8 +3,8 @@
 import { SheetModal } from "@/shared/ui/modals/SheetModal";
 import { HhMatchForm } from "./HhMatchForm";
 import { Button } from "@/shared/ui/shadcn/button";
-import HhSvg from '@/assets/sources/hh.ru.svg?rc'
 import { cn } from "@/shared/lib/utils";
+import { cvSource } from "@/entities/cv/lib/dictionary";
 
 type TProps = {
   className?: string
@@ -37,8 +37,12 @@ export const AddHhMatches = ({
         trigger: <Button
           className={cn('[&_svg]:size-6', className)}
         >
-          <HhSvg />
-          Мэтчи c hh.ru
+          {<cvSource.hh.HunterIcon
+            className="h-[2cap]"
+          />}
+          {`Мэтчи c ${cvSource.hh.name}`}
+          {/* <HunterSvg />
+          Мэтчи c hh.ru */}
         </Button>,
         title: 'Фильтры на hh.ru',
         description: 'Фильтры для поиска резюме на hh.ru'
