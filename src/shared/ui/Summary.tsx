@@ -47,7 +47,7 @@ export const CollapsibleSummary = ({
         </h2>
       </CollapsibleTrigger>
       <CollapsibleContent>
-        <TextFormatter text={summary || 'Отсутствует'} className="text-muted-foreground text-sm" />
+        <TextFormatter text={summary || 'Not provided'} className="text-muted-foreground text-sm" />
       </CollapsibleContent>
     </Collapsible>
   )
@@ -63,7 +63,7 @@ export const Summary = ({
       <h2 className="scroll-m-20 mb-3 text-lg font-semibold tracking-tight">
         {title}
       </h2>
-      <TextFormatter text={summary || 'Отсутствует'} className="text-muted-foreground text-sm" />
+      <TextFormatter text={summary || 'Not provided'} className="text-muted-foreground text-sm" />
     </div>
   )
 }

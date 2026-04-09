@@ -3,3 +3,7 @@ declare module "*.svg?rc" {
   const content: FC<SVGProps<SVGElement>>;
   export default content;
 }
+
+declare module "*.css" {}
+declare module "swiper/css" {}
+declare module "swiper/css/*" {}

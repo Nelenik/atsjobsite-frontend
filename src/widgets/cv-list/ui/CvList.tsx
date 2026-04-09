@@ -38,7 +38,7 @@ export const CvList = () => {
           'hover:bg-muted-foreground'
         )}
         onClick={resetToFirstPage}
-      >на первую</Button>
+      >to first page</Button>
       <div
         ref={firstElementRef}
         data-id="topBoundary"

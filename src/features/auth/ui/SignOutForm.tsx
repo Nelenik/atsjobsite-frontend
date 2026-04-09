@@ -44,7 +44,7 @@ export const SignOutForm = ({
         {children || (
           <>
             <LogOut />
-            Выйти
+            Sign out
           </>
         )}
       </Button>

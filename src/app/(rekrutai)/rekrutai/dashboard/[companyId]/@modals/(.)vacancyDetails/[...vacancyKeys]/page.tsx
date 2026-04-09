@@ -9,8 +9,8 @@ const VacancyDetailsModal = async ({ params }: { params: Promise<{ vacancyKeys: 
 
   return (
     <InterceptingModal
-      dialogTitle="Название вакансии"
-      dialogDescription="Подробная информация о вакансии"
+      dialogTitle="Vacancy name"
+      dialogDescription="Detailed vacancy information"
     >
       <VacancyDetails vacancy={vacancy} />
 

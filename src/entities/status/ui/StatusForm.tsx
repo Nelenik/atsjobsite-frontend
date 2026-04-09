@@ -31,7 +31,7 @@ export const StatusForm: FC<TProps> = (
 
 
   //define toast message
-  const toastMessage = type === 'edit' ? 'Статус успешно обновлен' : 'Новый статус успешно создан'
+  const toastMessage = type === 'edit' ? 'Status updated successfully' : 'New status created successfully'
 
   //memoize onSuccess callback to avoid calls exceed
   const memoizedOnSuccess = useCallback((state: TMutationState) => {
@@ -50,12 +50,12 @@ export const StatusForm: FC<TProps> = (
   return (
     <form action={formAction} className="p-3 flex flex-col gap-6">
       <FormItem
-        labelText="Имя статуса"
+        labelText="Status name"
         error={errors.name}
       >
         <Input
-          placeholder="Имя статуса"
-          title="Только пробельные символы недопустимы"
+          placeholder="Status name"
+          title="Whitespace-only values are not allowed"
           required
           pattern="^(?!\s*$).+"
           name="name"
@@ -66,7 +66,7 @@ export const StatusForm: FC<TProps> = (
       </FormItem>
 
       <FormItem
-        labelText="Цвет статуса"
+        labelText="Status color"
         error={errors.color}
       >
         <Input
@@ -80,10 +80,10 @@ export const StatusForm: FC<TProps> = (
       <input type="hidden" name="rank" defaultValue={defaultValues?.rank || 0} />
       <div className="self-end">
         <Button type="button" variant="ghost" className="mr-2 border border-transparent hover:border-background" onClick={onCancel}>
-          Отмена
+          Cancel
         </Button>
         <Button type="submit" variant={'outline'} className="bg-transparent border-primary/50 hover:bg-primary/70 hover:text-white">
-          {pending ? 'Сохранение...' : 'Сохранить'}
+          {pending ? 'Saving...' : 'Save'}
         </Button>
       </div>
     </form>

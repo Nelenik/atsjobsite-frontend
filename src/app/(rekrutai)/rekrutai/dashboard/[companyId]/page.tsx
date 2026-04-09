@@ -11,15 +11,15 @@ const DashboardMainPage = async ({ params }: {
 
   const sections = [
     {
-      title: 'Вакансии',
+      title: 'Vacancies',
       link: `/dashboard/${companyId}/vacancies`,
     },
     {
-      title: 'Резерв',
+      title: 'Reserve',
       link: `/dashboard/${companyId}/reserve`,
     },
     {
-      title: 'Компании',
+      title: 'Companies',
       link: `/dashboard/${companyId}/companies`,
     }
   ]

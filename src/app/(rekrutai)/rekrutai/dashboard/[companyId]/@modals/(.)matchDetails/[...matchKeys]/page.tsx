@@ -7,8 +7,8 @@ const MatchDetailsModal = async ({ params }: { params: Promise<{ matchKeys: stri
   const candidate = await getCandidateFull(Number(matchKeys[0]))
   return (
     <InterceptingModal
-      dialogTitle="Резюме"
-      dialogDescription="Подробная информация о кандидате"
+      dialogTitle="Resume"
+      dialogDescription="Detailed candidate information"
     >
       <MatchDetails candidate={candidate} />
     </InterceptingModal>

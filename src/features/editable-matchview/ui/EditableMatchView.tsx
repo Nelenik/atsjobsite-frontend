@@ -70,19 +70,19 @@ export const EditableMatchView = ({
       </span>
 
       <h2 className="scroll-m-20 text-lg font-semibold tracking-tight">
-        Мэтч
+        Match
       </h2>
       <form onSubmit={handleSubmit} ref={formRef}>
         <table className=" text-sm text-muted-foreground table-auto">
           <tbody>
             <tr>
-              <td >Тип:</td>
+              <td >Type:</td>
               <td className="px-4 py-1">
                 {matchTypeDict[type]}
               </td>
             </tr>
             <tr>
-              <td >Статус:</td>
+              <td >Status:</td>
               <td className="px-4 py-1">
                 {isEditing
                   ? <Select
@@ -90,7 +90,7 @@ export const EditableMatchView = ({
                     defaultValue={initStatusId}
                   >
                     <SelectTrigger className="w-[180px] focus:ring-0 focus:ring-offset-0 h-7" >
-                      <SelectValue placeholder="Статус" />
+                      <SelectValue placeholder="Status" />
                     </SelectTrigger>
                     <SelectContent>
                       {match_statuses.map((status) => (
@@ -113,7 +113,7 @@ export const EditableMatchView = ({
               </td>
             </tr>
             <tr>
-              <td >Балл:</td>
+              <td >Score:</td>
               <td className="px-4 py-1">
                 {isEditing ?
                   <Input

@@ -13,7 +13,7 @@ import { cn } from "@/shared/lib/utils";
 
 const userSample = {
   id: 1,
-  name: 'Феодосия Абрассимова',
+  name: 'Theodosia Abrassimova',
   email: 'feodosia.abra@yandex.ru',
   profile_image: profileSampleImg.src
 }
@@ -35,7 +35,7 @@ export const RekruProfileMenu = ({ className }: TProps) => {
         </Link>
         <RekruCTA view='dark'>
           <Plus />
-          Добавить вакансию
+          Post a vacancy
         </RekruCTA>
       </div>
       {/* <NavList
@@ -53,7 +53,7 @@ export const RekruProfileMenu = ({ className }: TProps) => {
         )}
       >
         <LogOut className="w-5 h-20" />
-        Выйти из аккаунта
+        Sign out
       </SignOutForm> */}
     </div>
   );

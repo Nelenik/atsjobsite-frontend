@@ -8,16 +8,16 @@ export const TableSkeleton = () => {
         <TableHeader className="bg-background">
           <TableRow>
             <TableHead className="w-[30%]">
-              Название
+              Name
             </TableHead>
             <TableHead>
-              ИНН
+              Tax ID
             </TableHead>
             <TableHead>
-              Тариф
+              Plan
             </TableHead>
             <TableHead>
-              Дата подключения
+              Connection date
             </TableHead>
             <TableHead>
             </TableHead>

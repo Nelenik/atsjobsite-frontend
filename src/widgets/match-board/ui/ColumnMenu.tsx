@@ -85,20 +85,20 @@ export const ColumnMenu: FC<TProps> = memo(function ColActionMenu({ columnId, cl
             <li>
               <Button variant="ghost" className="w-full justify-start" onClick={() => setSelectedAction('add-left')}>
                 <MoveLeft />
-                Добавить слева
+                Add to left
               </Button>
             </li>
             <li>
               <Button variant="ghost" className="w-full justify-start" onClick={() => setSelectedAction('add-right')}>
                 <MoveRight />
-                Добавить справа
+                Add to right
               </Button>
             </li>
             <li>
-              <Button variant="ghost" className="w-full justify-start" onClick={() => setSelectedAction('edit')}>Редактировать</Button>
+              <Button variant="ghost" className="w-full justify-start" onClick={() => setSelectedAction('edit')}>Edit</Button>
             </li>
             <li>
-              <Button variant="ghost" className="w-full justify-start" onClick={handleDeleteColumn}>Удалить</Button>
+              <Button variant="ghost" className="w-full justify-start" onClick={handleDeleteColumn}>Delete</Button>
             </li>
           </ul>
         )

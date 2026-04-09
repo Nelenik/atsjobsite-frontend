@@ -20,14 +20,14 @@ import { parseFormData } from "../common/utils";
  * @throws An error if the request fails or if the list cannot be retrieved.
  */
 export const getCompaniesList = async (
-  filters: Record<string, string> = {}
+  filters: Record<string, string> = {},
 ) => {
   try {
     const filterString = new URLSearchParams(
-      filterFalsyFields(filters)
+      filterFalsyFields(filters),
     ).toString();
     const response = await apiGet<TApiListResponse<TCompany>>(
-      "/api/v1/company?" + filterString
+      "/api/v1/company?" + filterString,
     );
     return {
       data: response.data,
@@ -37,8 +37,7 @@ export const getCompaniesList = async (
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {
-      error.message =
-        "Не удалось загрузить список компаний. Пожалуйста, попробуйте позже.";
+      error.message = "Failed to load company list. Please try again later.";
     }
     throw error;
   }
@@ -55,14 +54,13 @@ export const getCompaniesList = async (
 export const getCompany = async (id: number | string): Promise<TCompany> => {
   try {
     const response = await apiGet<TApiSuccessResponse<TCompany>>(
-      `/api/v1/company/${id}`
+      `/api/v1/company/${id}`,
     );
     return response.data;
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {
-      error.message =
-        "Не удалось загрузить компанию. Пожалуйста, попробуйте позже.";
+      error.message = "Failed to load company. Please try again later.";
     }
     throw error;
   }
@@ -96,7 +94,7 @@ export const storeCompany = async (_: TMutationState, data: FormData) => {
 export const updateCompany = async (
   companyId: number | string,
   _: TMutationState,
-  data: FormData
+  data: FormData,
 ) => {
   const result = await apiMutate(`/api/v1/company/${companyId}`, {
     body: parseFormData(data),
@@ -120,7 +118,7 @@ export const getFilterCompanies = async (): Promise<TShortCompany[]> => {
         withAuth: false,
         cache: "force-cache",
         next: { revalidate: 900 },
-      }
+      },
     );
     return response.data;
   } catch (error) {
@@ -141,7 +139,7 @@ export const getPublicCompany = async (companyId: string) => {
         withAuth: false,
         cache: "force-cache",
         next: { revalidate: 900 },
-      }
+      },
     );
     return response.data;
   } catch (error) {

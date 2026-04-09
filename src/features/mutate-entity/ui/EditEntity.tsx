@@ -15,9 +15,9 @@ type TProps = {
   entityType: 'vacancy' | 'company' | 'cv'
 }
 const labels = {
-  vacancy: { title: 'Изменить вакансию', descr: 'Форма редактирования ваканси' },
-  company: { title: 'Редактировать компанию', descr: 'Форма редактирования компании' },
-  cv: { title: 'Редактировать резюме', descr: 'Форма редактирования резюме' },
+  vacancy: { title: 'Edit vacancy', descr: 'Edit vacancy form' },
+  company: { title: 'Edit company', descr: 'Edit company form' },
+  cv: { title: 'Edit resume', descr: 'Edit resume form' },
 }
 
 /**

@@ -95,7 +95,7 @@ export const LocationModal = ({
   //Trigger text based on selected locations names
   const triggerText = selectedLocations.length ? selectedLocations.reduce((acc, item) => {
     return acc ? acc + ', ' + item.name : item.name
-  }, '') : 'Все регионы'
+  }, '') : 'All regions'
 
   const handleOpneChange = (isOpen: boolean) => {
     if (!isOpen) {
@@ -123,12 +123,12 @@ export const LocationModal = ({
         className="flex flex-col h-[82vh] rounded-4xl bg-card pb-16"
       >
         <DialogTitle className="text-2xl ">
-          Где искать
+          Where to look
         </DialogTitle>
 
         {/* Search field */}
         <Input
-          placeholder="Страна, регион, город"
+          placeholder="Country, region, city"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
         />

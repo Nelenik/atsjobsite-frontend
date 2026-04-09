@@ -14,11 +14,11 @@ export default function Error(
   console.log(error)
   return (
     <div>
-      <h2>Что-то пошло не так!</h2>
+      <h2>Something went wrong!</h2>
       <Button
         onClick={() => window.location.href = pathname || '/'}
       >
-        Вернуться
+        Back
       </Button>
     </div>
   )

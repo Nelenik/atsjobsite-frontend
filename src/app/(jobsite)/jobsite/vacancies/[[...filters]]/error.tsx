@@ -23,7 +23,7 @@ export default function Error({
               router.push(redirectTo)
             }}
           >
-            Вернуться на главную
+            Back to home
           </Button>
           <Button
             onClick={
@@ -31,7 +31,7 @@ export default function Error({
               () => reset()
             }
           >
-            Попробовать снова
+            Try again
           </Button>
 
         </div>

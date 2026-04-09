@@ -24,7 +24,7 @@ export const CompanySwitcher = () => {
       </PopoverTrigger>
       <PopoverContent className="p-0 w-max">
         <Command shouldFilter={false}>
-          <CommandInput placeholder="Компании клиента" onValueChange={handleInput} />
+          <CommandInput placeholder="Client companies" onValueChange={handleInput} />
           <ScrollArea>
             <CommandList className="max-h-[150px] overflow-visible">
               {isFetching && <CommandItem className="text-muted-foreground px-4 text-sm">Loading...</CommandItem>}

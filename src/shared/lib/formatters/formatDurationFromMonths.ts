@@ -1,5 +1,5 @@
 import { formatDuration } from "date-fns";
-import { ru } from "date-fns/locale";
+import { enUS } from "date-fns/locale";
 import { getYYFromMM } from "../date_time/getYYFromMM";
 
 /**
@@ -24,7 +24,7 @@ export const formatDurationFromMonths = (months: number): string => {
   return months
     ? `${formatDuration(getYYFromMM(months), {
         format: ["years", "months"],
-        locale: ru,
-      })} опыта`
-    : "опыт не указан";
+        locale: enUS,
+      })} of experience`
+    : "experience not specified";
 };

@@ -4,5 +4,5 @@ import { getAuthUserId } from "@/app/api/v1/_lib/auth";
 
 export async function POST(req: NextRequest) {
   if (!getAuthUserId(req)) return unauthorized();
-  return ok({ message: "Поиск резюме на HH запущен" });
+  return ok({ message: "Resume search on HH started" });
 }

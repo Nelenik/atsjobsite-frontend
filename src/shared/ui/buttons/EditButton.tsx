@@ -10,7 +10,7 @@ export const EditButton = ({ isIconView = false, className, ...props }: IEditBut
   if (!isIconView) {
     return (
       <Button {...props} className={cn('w-max lg:w-full py-6 text-base', className)}>
-        Изменить
+        Edit
       </Button>
     )
   }

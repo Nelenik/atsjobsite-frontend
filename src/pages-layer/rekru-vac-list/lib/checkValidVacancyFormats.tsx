@@ -3,9 +3,9 @@ import { EVacancyWorkFormat } from "@/shared/api/types"
 
 //this function checks non-canonical work formats 
 export const checkWorkFormat = (workFormat: string | null) => {
-  const remoteReg = /удал[ёе]н/i
-  const hybridReg = /гибрид/i
-  const officeReg = /офис/i
+  const remoteReg = /remote|удал[ёе]н/i
+  const hybridReg = /hybrid|гибрид/i
+  const officeReg = /office|офис/i
   if (!workFormat) return null
   const isVacancyWorkFormat = Object.values(EVacancyWorkFormat).includes(workFormat as EVacancyWorkFormat)
   if (isVacancyWorkFormat) return workFormat

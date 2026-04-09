@@ -43,17 +43,17 @@ export const CvInfoBlock: FC<TProps> = ({
 
       <div className='bg-indigo-100 py-3 px-6 rounded-lg flex flex-col gap-1'>
         <h3 className='font-semibold text-base mb-2'>
-          Основная информация
+          Basic information
         </h3>
         <p className='text-sm'>
           <span className='text-muted-foreground'>
-            Статус работы:&nbsp;
+            Work status:&nbsp;
           </span>
           <span>{workStatusDict[work_status]}</span>
         </p>
         <p className='text-sm'>
-          <span className='text-muted-foreground'>Локация: </span>
-          <span>г. {location || '-'}</span>
+          <span className='text-muted-foreground'>Location: </span>
+          <span>{location || '-'}</span>
         </p>
         <a href={`tel:${phone}`} className='text-muted-foreground inline-flex gap-2 items-center text-sm'>
           <PhoneCall width={16} height={16} />
@@ -65,27 +65,27 @@ export const CvInfoBlock: FC<TProps> = ({
         </a>
         <a href={`${link || "javascript:void(0)"}`} target="_blank" className='text-blue-700 inline-flex gap-2 items-center underline underline-offset-2 text-sm'>
           <FileUser width={16} height={16} />
-          Резюме</a>
+          Resume</a>
       </div>
 
       <div>
-        <h2 className='font-semibold mb-2 text-lg'>Обо мне</h2>
-        <TextFormatter text={bio || 'Отсутствует'} className="parsed text-muted-foreground text-sm" />
+        <h2 className='font-semibold mb-2 text-lg'>About me</h2>
+        <TextFormatter text={bio || 'Not provided'} className="parsed text-muted-foreground text-sm" />
       </div>
 
       <div className='bg-indigo-100 py-3 px-6 rounded-lg '>
-        <h2 className='text-lg font-semibold mb-2'>Стаж</h2>
+        <h2 className='text-lg font-semibold mb-2'>Experience</h2>
         <p className="text-muted-foreground text-sm">
           {
             experience_duration
               ? formatDurationFromMonths(experience_duration)
-              : 'Не указан'
+              : 'Not specified'
           }
         </p>
       </div>
 
       <div>
-        <h2 className='text-lg font-semibold mb-2'>Навыки</h2>
+        <h2 className='text-lg font-semibold mb-2'>Skills</h2>
         <List className='flex flex-wrap gap-2'>
           {
             (skills
@@ -97,13 +97,13 @@ export const CvInfoBlock: FC<TProps> = ({
                   {el}
                 </li>
               )))
-            || <span className="text-muted-foreground text-sm">не указано</span>
+            || <span className="text-muted-foreground text-sm">not specified</span>
           }
         </List>
       </div>
 
       <div>
-        <h2 className='text-lg font-semibold mb-2'>Источник</h2>
+        <h2 className='text-lg font-semibold mb-2'>Source</h2>
         <Button asChild variant={'ghost'} className="justify-start">
           <a
             href={`${cvSource.hh.url}${external_id}`}
@@ -115,7 +115,7 @@ export const CvInfoBlock: FC<TProps> = ({
           >
             {<cvSource.hh.HunterIcon
               className="h-[2cap]"
-            />} {cvSource.hh.name || 'Источник не указан'}
+            />} {cvSource.hh.name || 'Source not specified'}
           </a>
         </Button>
       </div>

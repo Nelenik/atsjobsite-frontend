@@ -85,7 +85,7 @@ const JobsiteVacancyDetails = async ({
                 rel="noopener noreferrer"
               >
                 <Check />
-                Откликнуться
+                Apply
               </a>
 
 
@@ -116,7 +116,7 @@ const JobsiteVacancyDetails = async ({
               rel="noopener noreferrer"
             >
               <Check />
-              Откликнуться
+              Apply
             </a>
           </RekruCTA>
         </div>

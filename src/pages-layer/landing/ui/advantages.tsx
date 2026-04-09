@@ -5,7 +5,7 @@ export default function Advantages() {
     <section className="py-16 bg-gradient-to-r from-blue-50 via-gray-100 to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <div className="container mx-auto px-6 max-w-7xl">
         <h2 className="text-4xl font-bold text-center text-gray-800 dark:text-white mb-12">
-          Наши преимущества
+          Our advantages
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
           {advantages.map((advantage, index) => (
@@ -22,23 +22,23 @@ export default function Advantages() {
 }
 
 const advantages = [
-  { value: "10X", description: "Ускоряем time to hire до 10 раз" },
-  { value: "50%", description: "Экономим до 50% бюджета на найм" },
+  { value: "10X", description: "We reduce time to hire by up to 10x" },
+  { value: "50%", description: "We save up to 50% of your hiring budget" },
   {
     value: "300%",
-    description: "Увеличиваем конверсию кандидатов в сотрудников до 300%",
+    description: "We increase candidate-to-employee conversion by up to 300%",
   },
   {
     value: "1000+",
-    description: "Совершаем тысячи звонков и отправляем десятки тысяч сообщений в день",
+    description: "We make thousands of calls and send tens of thousands of messages per day",
   },
   {
-    value: "100ч.",
-    description: "Экономим до 100 часов рекрутера на одну вакансию",
+    value: "100h",
+    description: "We save up to 100 recruiter hours per vacancy",
   },
   {
     value: "98%",
-    description: "Оценка кандидатов с точностью отбора 98%",
+    description: "Candidate evaluation with 98% selection accuracy",
   },
 ];
 

@@ -5,14 +5,14 @@ import MapIcon from '@/assets/HugeGlobal.svg?rc';
 const GlobalNetworkSection = () => {
   return (
     <section className="flex flex-col items-center justify-center py-10 px-6 text-center bg-gray-50 dark:bg-gray-900">
-      {/* Заголовок */}
+      {/* Heading */}
       <h2 className="text-3xl font-bold text-gray-800 dark:text-white">
-        Глобальная сеть для подбора вакансий и кандидатов
+        Global network for vacancy and candidate search
       </h2>
 
-      {/* Подзаголовок */}
+      {/* Subtitle */}
       <p className="mt-4 text-lg text-gray-600 dark:text-gray-300 max-w-lg">
-        Найдите подходящие вакансии или кандидатов по всему миру, где бы вы ни находились.
+        Find suitable vacancies or candidates worldwide, wherever you are.
       </p>
 
       {/* Карта */}

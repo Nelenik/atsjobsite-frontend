@@ -55,7 +55,7 @@ export const CvForm: FC<TProps> = ({
 
 
   //define toast message
-  const toastMessage = type === 'edit' ? 'Данные о резюме успешно обновлены' : 'Новое резюме успешно сохранено'
+  const toastMessage = type === 'edit' ? 'Resume data updated successfully' : 'New resume saved successfully'
 
   const handleSuccess = useCallback(() => {
     onSuccess()
@@ -74,11 +74,11 @@ export const CvForm: FC<TProps> = ({
     <form action={formAction} className="flex flex-col justify-between grow">
       <div className="sm:columns-2 sm:gap-6 [&>*:not(:last-child)]:mb-6 mb-6">
         <FormItem
-          labelText="ФИО"
+          labelText="Full name"
           error={errors.candy_name}
         >
           <Input
-            placeholder="ФИО"
+            placeholder="Full name"
             name="candy_name"
             defaultValue={defaultValues?.candy_name}
             className={errors?.candy_name && 'ring-2 ring-destructive'}
@@ -87,11 +87,11 @@ export const CvForm: FC<TProps> = ({
         </FormItem>
 
         <FormItem
-          labelText="Название позиции"
+          labelText="Position title"
           error={errors.name}
         >
           <Input
-            placeholder="Название позиции"
+            placeholder="Position title"
             name="name"
             defaultValue={defaultValues?.name}
             className={errors?.name && 'ring-2 ring-destructive'}
@@ -100,7 +100,7 @@ export const CvForm: FC<TProps> = ({
         </FormItem>
 
         <FormItem
-          labelText="ID внешней системы"
+          labelText="External system ID"
           error={errors.external_id}
         >
           <Input
@@ -113,13 +113,13 @@ export const CvForm: FC<TProps> = ({
         </FormItem>
 
         <FormItem
-          labelText="Стаж (в месяцах)"
+          labelText="Experience (in months)"
           error={errors.experience_months}
         >
           <Input
-            placeholder="Стаж"
+            placeholder="Experience"
             name="experience_months"
-            title="Введите только цифры"
+            title="Enter numbers only"
             pattern="[0-9]+"
             defaultValue={defaultValues?.experience_months}
             className={errors?.experience_months && 'ring-2 ring-destructive'}
@@ -128,12 +128,12 @@ export const CvForm: FC<TProps> = ({
         </FormItem>
 
         <FormItem
-          labelText="Зарплата"
+          labelText="Salary"
           error={errors.salary}
         >
           <Input
-            placeholder="Зарплата"
-            title="Введите только цифры"
+            placeholder="Salary"
+            title="Enter numbers only"
             pattern="[0-9]+"
             name="salary"
             defaultValue={defaultValues?.salary}
@@ -143,11 +143,11 @@ export const CvForm: FC<TProps> = ({
         </FormItem>
 
         <FormItem
-          labelText="Телефон"
+          labelText="Phone"
           error={errors.candy_phone}
         >
           <Input
-            placeholder="Телефон"
+            placeholder="Phone"
             name="candy_phone"
             defaultValue={defaultValues?.candy_phone}
             className={errors?.candy_phone && 'ring-2 ring-destructive'}
@@ -156,11 +156,11 @@ export const CvForm: FC<TProps> = ({
         </FormItem>
 
         <FormItem
-          labelText="Телеграмм"
+          labelText="Telegram"
           error={errors.candy_tg}
         >
           <Input
-            placeholder="Телеграмм"
+            placeholder="Telegram"
             name="candy_tg"
             defaultValue={defaultValues?.candy_tg}
             className={errors?.candy_tg && 'ring-2 ring-destructive'}
@@ -169,11 +169,11 @@ export const CvForm: FC<TProps> = ({
         </FormItem>
 
         <FormItem
-          labelText="Почта"
+          labelText="Email"
           error={errors.candy_email}
         >
           <Input
-            placeholder="Почта"
+            placeholder="Email"
             name="candy_email"
             defaultValue={defaultValues?.candy_email}
             className={errors?.candy_email && 'ring-2 ring-destructive'}
@@ -182,11 +182,11 @@ export const CvForm: FC<TProps> = ({
         </FormItem>
 
         <FormItem
-          labelText="Локация"
+          labelText="Location"
           error={errors.candy_location}
         >
           <Input
-            placeholder="Локация"
+            placeholder="Location"
             name="candy_location"
             defaultValue={defaultValues?.candy_location}
             className={errors?.candy_location && 'ring-2 ring-destructive'}
@@ -195,11 +195,11 @@ export const CvForm: FC<TProps> = ({
         </FormItem>
 
         <FormItem
-          labelText="Ссылка на резюме"
+          labelText="Resume link"
           error={errors.link}
         >
           <Input
-            placeholder="Ссылка на резюме"
+            placeholder="Resume link"
             name="link"
             defaultValue={defaultValues?.link}
             className={errors?.link && 'ring-2 ring-destructive'}
@@ -208,12 +208,12 @@ export const CvForm: FC<TProps> = ({
         </FormItem>
 
         <FormItem
-          labelText="Био"
+          labelText="Bio"
           className="break-before-column"
           error={errors.bio}
         >
           <Textarea
-            placeholder="Био"
+            placeholder="Bio"
             name="bio"
             rows={9}
             defaultValue={defaultValues?.bio}
@@ -223,11 +223,11 @@ export const CvForm: FC<TProps> = ({
         </FormItem>
 
         <FormItem
-          labelText="Опыт"
+          labelText="Experience"
           error={errors.experience_raw}
         >
           <Textarea
-            placeholder="Опыт"
+            placeholder="Experience"
             name="experience_raw"
             defaultValue={defaultValues?.experience_raw}
             className={cn("resize-none", errors?.experience_raw && 'ring-2 ring-destructive')}
@@ -236,7 +236,7 @@ export const CvForm: FC<TProps> = ({
           />
         </FormItem>
         <FormItem
-          labelText='Навыки'
+          labelText='Skills'
           error={errors.skills}
         >
           <TagSelect name="skills[]" defaultValue={defaultValues?.skills} suggestionsList={skills} />
@@ -246,10 +246,10 @@ export const CvForm: FC<TProps> = ({
 
       <div className="self-end">
         <Button type="button" variant="ghost" className="mr-2" onClick={onCancel}>
-          Отмена
+          Cancel
         </Button>
         <Button type="submit">
-          {pending ? 'Сохранение...' : 'Сохранить'}
+          {pending ? 'Saving...' : 'Save'}
         </Button>
       </div>
     </form>

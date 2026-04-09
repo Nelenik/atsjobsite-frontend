@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
       message: [
         {
           property: "email",
-          constraints: { credentials: "Неверный логин или пароль" },
+          constraints: { credentials: "Invalid login or password" },
           children: [],
         },
       ],

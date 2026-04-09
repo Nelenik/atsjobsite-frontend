@@ -60,7 +60,7 @@ export const VacanciesAside: FC<TProps> = ({ className }) => {
       <Link href="/#" className="absolute top-3 right-0 lg:static">
         <ArchiveIcon className="inline mr-2 text-blue-500" />{' '}
         <span className="underline underline-offset-2 text-blue-500">
-          Архив
+          Archive
         </span>
       </Link>
     </aside>

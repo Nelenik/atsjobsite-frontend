@@ -44,16 +44,16 @@ export const CompanyInfoCard = ({
       <div className="w-full md:w-[calc(100%-282px)]">
         <ul className="flex flex-col gap-3 xs:gap-8 xs:justify-between  xs:flex-row mb-6 md:mb-10">
           <li className="flex flex-col gap-2">
-            <span className="text-accent2/40">Сайт компании</span>
+            <span className="text-accent2/40">Company website</span>
             <span>{company.site || '-'}</span>
           </li>
           <li className="flex flex-col gap-2">
-            <span className="text-accent2/40">Город</span>
+            <span className="text-accent2/40">City</span>
             <span> -</span>
 
           </li>
           <li className="flex flex-col gap-2">
-            <span className="text-accent2/40">Количество сотрудников</span>
+            <span className="text-accent2/40">Number of employees</span>
             <span>-</span>
           </li>
         </ul>

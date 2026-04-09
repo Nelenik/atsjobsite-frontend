@@ -119,7 +119,7 @@ export const Sidebar = ({ className }: ISidebarProps) => {
             )}
           >
             <LogOut />
-            {isSidebarOpen && 'Выйти'}
+            {isSidebarOpen && 'Sign out'}
           </SignOutForm>
 
         </>

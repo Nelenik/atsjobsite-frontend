@@ -28,7 +28,7 @@ const DatePicker = ({
   }, [defaultValue]);
 
   const dateValue =
-    date ? format(date, 'dd.MM.yyyy') : "ДД.ММ.ГГГГ";
+    date ? format(date, 'dd.MM.yyyy') : "DD.MM.YYYY";
 
   return (
     <Popover>

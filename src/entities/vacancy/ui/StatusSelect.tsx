@@ -12,7 +12,7 @@ export const StatusSelect: FC<TProps> = ({ className, ...props }) => {
       <SelectTrigger
         className={className}
       >
-        <SelectValue placeholder={"Статус вакансии"} />
+        <SelectValue placeholder={"Vacancy status"} />
       </SelectTrigger>
       <SelectContent>
         {vacanciesDefaultStatuses &&

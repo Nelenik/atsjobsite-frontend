@@ -21,7 +21,7 @@ export const useSimpleUpdateMatch = (matchId: number) => {
       if (error) {
         toast({
           variant: "destructive",
-          description: "Ошибка при обновлении мэтча",
+          description: "Error updating match",
         });
         return;
       }

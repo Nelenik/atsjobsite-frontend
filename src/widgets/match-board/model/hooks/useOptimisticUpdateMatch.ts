@@ -56,21 +56,21 @@ export const useOptimisticUpdateMatch = (matchId?: number) => {
       if (!shouldUpdateOptimistic) return;
 
       const movedCandidate = oldStatusMatches.find(
-        (match) => match.id === matchId
+        (match) => match.id === matchId,
       );
       //Optimistic update of the cache
       queryClient.setQueryData(
         ["matchByStatus", initialStatusId],
         (prevData: TCandidateShort[]) =>
-          prevData.filter((match) => match.id !== matchId)
+          prevData.filter((match) => match.id !== matchId),
       );
       if (movedCandidate) {
         queryClient.setQueryData(
           ["matchByStatus", newStatusId],
           (prevData: TCandidateShort[]) =>
             [...prevData, movedCandidate].sort(
-              (a, b) => b.match_point - a.match_point
-            )
+              (a, b) => b.match_point - a.match_point,
+            ),
         );
       }
 
@@ -80,15 +80,15 @@ export const useOptimisticUpdateMatch = (matchId?: number) => {
       if (error && shouldUpdateOptimistic) {
         toast({
           variant: "destructive",
-          description: "Ошибка при обновлении статуса мэтча",
+          description: "Error updating match status",
         });
         queryClient.setQueryData(
           ["matchByStatus", initialStatusId],
-          oldStatusMatches
+          oldStatusMatches,
         );
         queryClient.setQueryData(
           ["matchByStatus", newStatusId],
-          targetStatusMatches
+          targetStatusMatches,
         );
         return;
       }

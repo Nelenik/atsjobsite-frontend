@@ -1,6 +1,6 @@
 'use client'
 import Link from "next/link";
-import { ru } from "date-fns/locale";
+import { enUS } from "date-fns/locale";
 import { MapPin, UserRound } from "lucide-react";
 import { ECvStatus, TResume } from "@/shared/api/types/resume";
 import { FC } from "react";
@@ -54,14 +54,14 @@ export const CvCard: FC<TProps> = ({
         </Avatar>
         <div className="w-[35%] min-w-[200px] grow">
           <p className="hyphens-auto">
-            {resume.candy_name || 'Имя не указано'}
+            {resume.candy_name || 'Name not specified'}
           </p>
           <p className="font-semibold hyphens-auto">
             {resume.name}
           </p>
           <p className="text-muted-foreground flex items-center gap-2">
             <MapPin size={16} />
-            {resume.candy_location || 'Не указан'}
+            {resume.candy_location || 'Not specified'}
           </p>
         </div>
         <div className="w-max min-w-[140px] grow">
@@ -73,15 +73,15 @@ export const CvCard: FC<TProps> = ({
               "py-1 bg-transparent ring-1",
               badgeColors[resume.status || 'default']
             )}>
-            {workStatusDict[resume.status] || 'не установлен'}
+            {workStatusDict[resume.status] || 'not set'}
           </Badge>
         </div>
         <div className="w-max min-w-[140px] grow">
           <p className="font-medium">
-            {formatPrice(resume.salary || 0, 'ru-Ru', 'RUB')}
+            {formatPrice(resume.salary || 0, 'en-US', 'USD')}
           </p>
           <p>
-            {format(new Date(resume.created_at), "d MMMM yyyy", { locale: ru })}
+            {format(new Date(resume.created_at), "d MMMM yyyy", { locale: enUS })}
           </p>
         </div>
       </Card>

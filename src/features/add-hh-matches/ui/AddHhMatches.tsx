@@ -40,12 +40,12 @@ export const AddHhMatches = ({
           {<cvSource.hh.HunterIcon
             className="h-[2cap]"
           />}
-          {`Мэтчи c ${cvSource.hh.name}`}
+          {`Matches from ${cvSource.hh.name}`}
           {/* <HunterSvg />
           Мэтчи c hh.ru */}
         </Button>,
-        title: 'Фильтры на hh.ru',
-        description: 'Фильтры для поиска резюме на hh.ru'
+        title: 'Filters on hh.ru',
+        description: 'Filters for searching resumes on hh.ru'
       }}
     </SheetModal>
   );

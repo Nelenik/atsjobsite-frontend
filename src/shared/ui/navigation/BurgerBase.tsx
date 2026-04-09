@@ -70,10 +70,10 @@ export const BurgerBase = ({
           {children.closeButton}
         </SheetClose>
         <SheetTitle className="sr-only">
-          Бургер меню
+          Burger menu
         </SheetTitle>
         <SheetDescription className="sr-only">
-          Бургер меню
+          Burger menu
         </SheetDescription>
         {content({ closeMenu })}
       </SheetContent>

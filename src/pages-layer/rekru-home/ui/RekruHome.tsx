@@ -37,7 +37,7 @@ export const RekruHome = async () => {
             'mb-10 text-3xl font-semibold tracking-tighter text-center',
             'lg:text-5xl'
           )}>
-            Вакансии лучших компаний
+            Vacancies from top companies
           </h2>
           <CompaniesSwiper
             companiesList={companies}

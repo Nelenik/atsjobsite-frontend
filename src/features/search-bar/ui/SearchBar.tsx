@@ -30,7 +30,7 @@ export const SearchBar = ({
         shouldFilter
         suggestionList={JOB_SUGGESTIONS}
         className={cn("px-5 py-3 rounded-lg placeholder:text-base [&:not(.ring-destructive)]:focus-visible:ring-accent2", inputStyles)}
-        placeholder="Поиск вакансии"
+        placeholder="Search vacancy"
         ref={ref}
         onEnterConfirm={(value, e) => {
           e.preventDefault();
@@ -46,7 +46,7 @@ export const SearchBar = ({
         className="text-lg px-3 @3xl/search:w-max @3xl/search:min-w-[234px]"
       >
         <Search className="@3xl/search:hidden" />
-        <span className="hidden @3xl/search:inline">Найти вакансию</span>
+        <span className="hidden @3xl/search:inline">Find vacancy</span>
       </RekruCTA>
     </div>
   );

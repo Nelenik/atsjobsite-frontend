@@ -19,6 +19,11 @@ export const getAreasCached = cache(async (): Promise<Map<string, Area>> => {
   const data: Area[] = await res.json();
 
   const map = new Map<string, Area>();
+  /**
+   * this function traverses the areas tree and adds areas to the map. For the first 2 levels of the tree, it also keeps the nested areas in the map to avoid additional lookups when fetching child areas. For deeper levels, it only adds the area itself to the map without nested areas to save memory, as we won't need to fetch child areas for those levels.
+   * @param nodes
+   * @param level
+   */
   const traverse = (nodes: Area[], level = 0) => {
     nodes.forEach((node) => {
       const { areas, ...nodeRest } = node;

@@ -5,7 +5,7 @@ import { cn } from "@/shared/lib/utils";
 import { Card } from "@/shared/ui/shadcn/card";
 
 import { format } from "date-fns";
-import { ru } from "date-fns/locale";
+import { enUS } from "date-fns/locale";
 import { vacancyEpmpoymentDict, vacancyExperienceDict, vacancyWorkFormatDict } from "../lib/dictionary";
 import { formatSalaryRange } from "@/shared/lib/formatters/formatSalaryRange";
 import { CollapsibleDescription } from "./CollapsibleDescription";
@@ -21,26 +21,26 @@ export const RekruVacancyCard = ({
 }: TProps) => {
   const { id, company, name, salary_from, salary_to, location, employment, work_format, experience, level, description, publication_at } = vacancy
 
-  const normalizedDate = publication_at ? format(new Date(publication_at), "d MMMM yyyy", { locale: ru }) : 'Дата публикации неизвестна';
+  const normalizedDate = publication_at ? format(new Date(publication_at), "d MMMM yyyy", { locale: enUS }) : 'Publication date unknown';
 
   const normalizedWorkFormat = capitalizeSentences(
     work_format
       ? vacancyWorkFormatDict[work_format || ''] || work_format
-      : 'Формат работы'
+      : 'Work format'
   )
 
   const normalizedExperience = capitalizeSentences(
     experience
       ? vacancyExperienceDict[experience || ''] || experience
-      : "Опыт"
+      : "Experience"
   )
-  const normalizedEmployment = capitalizeSentences(employment ? vacancyEpmpoymentDict[employment || ''] || employment : "Занятость")
+  const normalizedEmployment = capitalizeSentences(employment ? vacancyEpmpoymentDict[employment || ''] || employment : "Employment")
 
   const normalizedSalary = (Number.isFinite(salary_from) || Number.isFinite(salary_to))
-    ? `${formatSalaryRange(salary_from || 0, salary_to || 0)} ₽ за месяц`
-    : 'По договоренности';
+    ? `${formatSalaryRange(salary_from || 0, salary_to || 0)} / month`
+    : 'By agreement';
 
-  const normalizedLocation = capitalizeSentences(location ? location : 'Город')
+  const normalizedLocation = capitalizeSentences(location ? location : 'City')
   const normalizedGrade = capitalizeSentences(level || 'no grade')
 
   return (
@@ -53,7 +53,7 @@ export const RekruVacancyCard = ({
         <p
           className="text-base font-medium leading-tight tracking-tight"
         >
-          {company.name || 'Компания'}
+          {company.name || 'Company'}
         </p>
         <span
           className="text-accent2/40 text-base leading-tight tracking-tight"

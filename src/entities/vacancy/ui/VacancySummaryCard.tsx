@@ -25,15 +25,11 @@ export const VacancySummaryCard = () => {
   } = vacancy
 
   const daysInProcessing = getDaysSinceCreated(created_at)
-  const daysString = `${daysInProcessing} ${formatWordEndings(daysInProcessing, [
-    'день',
-    'дня',
-    'дней',
-  ])}`;
+  const daysString = `${daysInProcessing} ${daysInProcessing === 1 ? 'day' : 'days'}`;
 
   const salaryOfferString = formatSalaryRange(salary_from || 0, salary_to || 0);
-  const salaryMiddleString = formatPrice(salary_market || 0, 'ru-Ru', 'RUB');
-  const salaryCandidateString = formatPrice(salary_candy || 0, 'ru-Ru', 'RUB');
+  const salaryMiddleString = formatPrice(salary_market || 0, 'en-US', 'USD');
+  const salaryCandidateString = formatPrice(salary_candy || 0, 'en-US', 'USD');
 
   return (
     <Card className="w-full py-4 px-6 flex gap-6 relative">
@@ -46,7 +42,7 @@ export const VacancySummaryCard = () => {
         <CardTitle className=" typography-h2 mb-2 flex items-start justify-between gap-4 w-[90%] ">
           <span className='inline-block hyphens-auto [overflow-wrap:anywhere]'>
 
-            {vacancyName ?? 'Имя неизвестно'}
+            {vacancyName ?? 'Unknown name'}
           </span>
           <StatusBadge
             color={vacancyStatus.color}
@@ -75,32 +71,32 @@ export const VacancySummaryCard = () => {
             [&>li:not(:first-child):after]:-translate-y-1/2"
         >
           <li>
-            <CardDescription>в работе</CardDescription>
+            <CardDescription>in progress</CardDescription>
             <p>{daysString}</p>
           </li>
 
           <li>
-            <CardDescription>оплата</CardDescription>
+            <CardDescription>salary range</CardDescription>
             <p>{salaryOfferString}</p>
           </li>
 
           <li>
-            <CardDescription>средняя по рынку</CardDescription>
+            <CardDescription>market rate</CardDescription>
             <p>{salaryMiddleString}</p>
           </li>
 
           <li>
-            <CardDescription>запросы кандидатов</CardDescription>
+            <CardDescription>candidate expectations</CardDescription>
             <p>{salaryCandidateString}</p>
           </li>
 
           <li>
-            <CardDescription>кандидатов в воронке</CardDescription>
+            <CardDescription>candidates in pipeline</CardDescription>
             <p>{match_count}</p>
           </li>
 
           <li>
-            <CardDescription>отклики</CardDescription>
+            <CardDescription>responses</CardDescription>
             <p>{match_hot_count}</p>
           </li>
         </ul>

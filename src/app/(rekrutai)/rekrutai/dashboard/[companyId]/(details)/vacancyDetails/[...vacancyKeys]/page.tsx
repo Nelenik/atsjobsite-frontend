@@ -22,7 +22,7 @@ const VacancyDetailsPage = async ({ params }: { params: Promise<{ vacancyKeys: s
   return (
     <div>
       <GoBackLink
-        text='Назад к мэтчам'
+        text='Back to matches'
       />
       <VacancyDetails vacancy={vacancy} />
     </div>

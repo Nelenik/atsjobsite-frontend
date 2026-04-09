@@ -44,7 +44,7 @@ export const VacanciesBoard = () => {
       <ScrollArea className="p-2 pb-4 border-2 rounded-lg">
         <div className="flex gap-4 w-full p-2 ">
           {vacanciesDefaultStatuses.map((status) => {
-            const colName = status?.name || 'Не задан'
+            const colName = status?.name || 'Not set'
             const items = groups?.[status.id] || []
             return (
               <div

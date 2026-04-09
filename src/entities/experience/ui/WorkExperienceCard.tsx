@@ -32,11 +32,11 @@ export const WorkExperienceCard: FC<TProps> = ({ work_experience, className }) =
         {
           end_at
             ? formatToMonthYearString(end_at)
-            : <i>(настоящее время)</i>
+            : <i>(present)</i>
         }
       </p>
       <TextFormatter
-        text={description || 'Отсутствует'}
+        text={description || 'Not provided'}
       />
       {/* <p className='text-muted-foreground'>
         {description}

@@ -20,19 +20,19 @@ export const RekruVacancyDescription = ({
   } = vacancy
   const vacancyCharacteristics: { title: string, content: string }[] = [
     {
-      title: 'Задачи',
+      title: 'Tasks',
       content: responsibilities,
     },
     {
-      title: 'Требования',
+      title: 'Requirements',
       content: skills,
     },
     {
-      title: 'Условия',
+      title: 'Conditions',
       content: conditions,
     },
     {
-      title: 'Дополнительно',
+      title: 'Additional',
       content: addition,
     }
   ]

@@ -35,11 +35,11 @@ export const SignInForm = () => {
       </FormItem>
 
       <FormItem
-        labelText="Пароль *"
+        labelText="Password *"
       // error={errors?.inn}
       >
         <Input
-          placeholder="Введите пароль"
+          placeholder="Enter password"
           type='password'
           // required
           name="password"
@@ -53,7 +53,7 @@ export const SignInForm = () => {
       <StartPageButton
         type="submit"
       >
-        {pending ? "Авторизация..." : "Войти в систему"}
+        {pending ? "Signing in..." : "Sign in"}
       </StartPageButton>
     </form>
   );

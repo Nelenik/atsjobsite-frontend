@@ -15,9 +15,9 @@ type TProps = {
 }
 
 const labels = {
-  vacancy: { title: 'Создать вакансию', descr: 'Заполните информацию по новой вакансии', triggerText: 'вакансию' },
-  company: { title: 'Создать компанию', descr: 'Заполните информацию по новой компании', triggerText: 'организацию' },
-  cv: { title: 'Сoздать резюме', descr: 'Заполните информацию по новому резюме', triggerText: 'резюме' },
+  vacancy: { title: 'Create vacancy', descr: 'Fill in the details for a new vacancy', triggerText: 'vacancy' },
+  company: { title: 'Create company', descr: 'Fill in the details for a new company', triggerText: 'company' },
+  cv: { title: 'Create resume', descr: 'Fill in the details for a new resume', triggerText: 'resume' },
 }
 
 /**
@@ -78,7 +78,7 @@ export const AddEntity = ({
       {{
         trigger: <Button className={cn('w-max lg:w-full py-6 text-base flex', className)}>
           <CirclePlus />
-          Добавить <span className="hidden sm:inline">{labels[entityType].triggerText}</span>
+          Add <span className="hidden sm:inline">{labels[entityType].triggerText}</span>
         </Button>,
         title: labels[entityType].title,
         description: labels[entityType].descr

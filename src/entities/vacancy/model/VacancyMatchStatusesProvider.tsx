@@ -67,7 +67,7 @@ export const VacancyMatchStatusesProvider = ({ children }: { children: ReactNode
         toast({
           variant: "destructive",
           description:
-            "Произошла ошибка при обновлении колонок. Попробуйте снова.",
+            "An error occurred while updating columns. Please try again.",
         });
         setColumns(prevColumnsState.current);
       }

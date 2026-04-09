@@ -14,7 +14,7 @@ const Footer: FC = () => {
           <div>
             {/* <Logo className="text-white text-3xl font-bold mb-4" /> */}
             <p className="text-gray-400 text-sm">
-              Ваш партнер в сфере эффективных решений. Мы помогаем вам быстро находить релеватных кандидатов.
+              Your partner for effective hiring solutions. We help you quickly find relevant candidates.
             </p>
           </div>
 
@@ -24,22 +24,22 @@ const Footer: FC = () => {
             <ul className="space-y-2">
               <li>
                 <a href="/about" className="text-gray-400 hover:text-white">
-                  О нас
+                  About us
                 </a>
               </li>
               <li>
                 <a href="/services" className="text-gray-400 hover:text-white">
-                  Услуги
+                  Services
                 </a>
               </li>
               <li>
                 <a href="/contact" className="text-gray-400 hover:text-white">
-                  Контакты
+                  Contacts
                 </a>
               </li>
               <li>
                 <a href="/privacy" className="text-gray-400 hover:text-white">
-                  Политика конфиденциальности
+                  Privacy Policy
                 </a>
               </li>
             </ul>
@@ -47,7 +47,7 @@ const Footer: FC = () => {
 
           {/* Социальные сети */}
           <div>
-            <h3 className="text-lg font-semibold text-white mb-4">Следите за нами</h3>
+            <h3 className="text-lg font-semibold text-white mb-4">Follow us</h3>
             <div className="flex space-x-4">
               <a
                 href="https://twitter.com"
@@ -86,7 +86,7 @@ const Footer: FC = () => {
 
           {/* Кнопка для связи */}
           <div>
-            <h3 className="text-lg font-semibold text-white mb-4">Свяжитесь с нами</h3>
+            <h3 className="text-lg font-semibold text-white mb-4">Contact us</h3>
             {/* <Button variant="outline" className="text-white border-white hover:bg-white hover:text-gray-800">
               Написать нам
             </Button> */}
@@ -94,7 +94,7 @@ const Footer: FC = () => {
               variant="destructive"
               className="px-6 py-3 mt-4 sm:mt-6 font-medium tracking-wide sm:px-8 border border-red-500 text-white bg-red-500 outline-none rounded-l-full rounded-r-full capitalize hover:bg-red-500 hover:text-white transition-all hover:shadow-lg hover:shadow-red-500/50"
             >
-              Оставить заявку
+              Send a request
             </Button>
           </div>
         </div>
@@ -102,7 +102,7 @@ const Footer: FC = () => {
         {/* Нижняя часть футера */}
         <div className="mt-12 border-t border-gray-700 pt-4 text-center">
           <p className="text-sm text-gray-400">
-            &copy; {new Date().getFullYear()} RekrutAI. Все права защищены.
+            &copy; {new Date().getFullYear()} RekrutAI. All rights reserved.
           </p>
         </div>
       </div>

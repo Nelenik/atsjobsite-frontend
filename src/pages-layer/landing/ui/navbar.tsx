@@ -11,10 +11,10 @@ export default function Navbar() {
   const [activeLink, setActiveLink] = useState<string>("");
 
   const navLinks = [
-    { label: "О нас", href: "#about" },
-    { label: "Технологии", href: "#feature" },
-    { label: "Прайс", href: "#pricing" },
-    { label: "Отзывы", href: "#testimoni" },
+    { label: "About us", href: "#about" },
+    { label: "Technologies", href: "#feature" },
+    { label: "Pricing", href: "#pricing" },
+    { label: "Reviews", href: "#testimoni" },
   ];
 
   const handleClick = (href: string) => {

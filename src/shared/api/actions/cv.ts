@@ -44,8 +44,7 @@ export const getResumeList = async (filters: Record<string, string> = {}) => {
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {
-      error.message =
-        "Не удалось загрузить список резюме. Пожалуйста, попробуйте позже.";
+      error.message = "Failed to load resume list. Please try again later.";
     }
     throw error;
   }
@@ -72,8 +71,7 @@ export const getResumeById = async (id: number | string): Promise<TResume> => {
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {
-      error.message =
-        "Не удалось загрузить резюме. Пожалуйста, попробуйте позже.";
+      error.message = "Failed to load resume. Please try again later.";
     }
     throw error;
   }

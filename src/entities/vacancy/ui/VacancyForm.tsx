@@ -45,7 +45,7 @@ export const VacancyForm = ({
     : storeVacancy
 
   //define toast message
-  const toastMessage = type === 'edit' ? 'Вакансия успешно обновлена' : 'Вакансия успешно сохранена'
+  const toastMessage = type === 'edit' ? 'Vacancy updated successfully' : 'Vacancy saved successfully'
 
   const { formAction, pending, defaultValues, errors, removeError } =
     useMutateForm({
@@ -61,9 +61,9 @@ export const VacancyForm = ({
       <div className="sm:columns-2 sm:gap-6 [&>*:not(:last-child)]:mb-6 mb-6">
         <input type="hidden" name="company_id" defaultValue={companyId} />
 
-        <FormItem labelText="Название вакансии" error={errors.name}>
+        <FormItem labelText="Vacancy title" error={errors.name}>
           <Input
-            placeholder="Название вакансии"
+            placeholder="Vacancy title"
             name="name"
             defaultValue={defaultValues?.name}
             className={errors?.name && 'ring-2 ring-destructive'}
@@ -71,7 +71,7 @@ export const VacancyForm = ({
           />
         </FormItem>
 
-        <FormItem labelText="Позиция" error={errors.position}>
+        <FormItem labelText="Position" error={errors.position}>
           <PositionSelect
             name="position"
             defaultValue={defaultValues?.position}
@@ -79,7 +79,7 @@ export const VacancyForm = ({
           />
         </FormItem>
 
-        <FormItem labelText="Статус" error={errors.status_id}>
+        <FormItem labelText="Status" error={errors.status_id}>
           <StatusSelect
             name="status_id"
             defaultValue={String(defaultValues?.status_id)}
@@ -87,9 +87,9 @@ export const VacancyForm = ({
           />
         </FormItem>
 
-        <FormItem labelText="Обязанности" error={errors.responsibilities}>
+        <FormItem labelText="Responsibilities" error={errors.responsibilities}>
           <Textarea
-            placeholder="Обязанности"
+            placeholder="Responsibilities"
             name="responsibilities"
             className={cn(
               'resize-none',
@@ -101,9 +101,9 @@ export const VacancyForm = ({
           />
         </FormItem>
 
-        <FormItem labelText="Условия" error={errors.conditions}>
+        <FormItem labelText="Conditions" error={errors.conditions}>
           <Textarea
-            placeholder="Условия"
+            placeholder="Conditions"
             name="conditions"
             className={cn(
               'resize-none',
@@ -115,29 +115,29 @@ export const VacancyForm = ({
           />
         </FormItem>
 
-        <FormItem labelText="Занятость" error={errors.employment}>
+        <FormItem labelText="Employment" error={errors.employment}>
           <Select name="employment" defaultValue={defaultValues?.employment}>
             <SelectTrigger
               className={cn(errors.employment && 'ring-2 ring-destructive')}
             >
-              <SelectValue placeholder="Занятость" />
+              <SelectValue placeholder="Employment" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value={EVacancyEmployment.FULL}>Полная</SelectItem>
+              <SelectItem value={EVacancyEmployment.FULL}>Full-time</SelectItem>
               <SelectItem value={EVacancyEmployment.PARTIAL}>
-                Частичная
+                Part-time
               </SelectItem>
-              <SelectItem value={EVacancyEmployment.PROJECT}>Проект</SelectItem>
+              <SelectItem value={EVacancyEmployment.PROJECT}>Project</SelectItem>
             </SelectContent>
           </Select>
         </FormItem>
 
         <div >
-          <p className="mb-[10px] font-medium">Оплата</p>
+          <p className="mb-[10px] font-medium">Salary</p>
           <div className="flex gap-4">
             <FormItem error={errors.salary_from}>
               <Input
-                placeholder="от"
+                placeholder="from"
                 name="salary_from"
                 defaultValue={defaultValues?.salary_from}
                 onChange={(e) => removeError(e.target.name)}
@@ -145,7 +145,7 @@ export const VacancyForm = ({
             </FormItem>
             <FormItem error={errors.salary_to}>
               <Input
-                placeholder="до"
+                placeholder="to"
                 name="salary_to"
                 defaultValue={defaultValues?.salary_to}
                 onChange={(e) => removeError(e.target.name)}
@@ -155,12 +155,12 @@ export const VacancyForm = ({
         </div>
 
         <FormItem
-          labelText="Требования "
+          labelText="Requirements "
           error={errors.skills}
           className="break-before-column"
         >
           <Textarea
-            placeholder="Требования к кандидату"
+            placeholder="Candidate requirements"
             name="skills"
             className={cn(
               'resize-none',
@@ -172,9 +172,9 @@ export const VacancyForm = ({
           />
         </FormItem>
 
-        <FormItem labelText="Описание" error={errors.description}>
+        <FormItem labelText="Description" error={errors.description}>
           <Textarea
-            placeholder="Описание "
+            placeholder="Description "
             name="description"
             className={cn(
               'resize-none',
@@ -187,13 +187,13 @@ export const VacancyForm = ({
         </FormItem>
 
         <div>
-          <p className="mb-[10px] font-medium">Формат работы</p>
+          <p className="mb-[10px] font-medium">Work format</p>
           <div className="flex gap-3 items-center justify-between relative">
             {errors.work_format && (
               <ErrorMessage message={errors.work_format} />
             )}
             <FormItem
-              labelText="Офис"
+              labelText="Office"
               className="flex flex-row-reverse items-center [&>span]:font-normal"
             >
               <Input
@@ -207,7 +207,7 @@ export const VacancyForm = ({
               />
             </FormItem>
             <FormItem
-              labelText="Удаленно"
+              labelText="Remote"
               className="flex flex-row-reverse items-center [&>span]:font-normal"
             >
               <Input
@@ -221,7 +221,7 @@ export const VacancyForm = ({
               />
             </FormItem>
             <FormItem
-              labelText="Гибрид"
+              labelText="Hybrid"
               className="flex flex-row-reverse items-center [&>span]:font-normal"
             >
               <Input
@@ -237,51 +237,51 @@ export const VacancyForm = ({
           </div>
         </div>
 
-        <FormItem labelText="Опыт" error={errors.experience}>
+        <FormItem labelText="Experience" error={errors.experience}>
           <Select name="experience" defaultValue={defaultValues?.experience}>
             <SelectTrigger
               className={cn(errors.experience && 'ring-2 ring-destructive')}
             >
-              <SelectValue placeholder="Опыт" />
+              <SelectValue placeholder="Experience" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value={EVacancyExperience.LESS_THAN_1}>
-                0-1 год
+                0-1 year
               </SelectItem>
               <SelectItem value={EVacancyExperience.FROM_1_TO_3}>
-                1-3 года
+                1-3 years
               </SelectItem>
               <SelectItem value={EVacancyExperience.FROM_3_TO_5}>
-                3-5 лет
+                3-5 years
               </SelectItem>
               <SelectItem value={EVacancyExperience.MORE_THAN_5}>
-                более 5 лет
+                more than 5 years
               </SelectItem>
             </SelectContent>
           </Select>
         </FormItem>
 
-        <FormItem labelText="География" error={errors.location}>
+        <FormItem labelText="Location" error={errors.location}>
           <Select name="location" defaultValue={defaultValues?.location}>
             <SelectTrigger
               className={cn(errors.location && 'ring-2 ring-destructive')}
             >
-              <SelectValue placeholder="Выберите город" />
+              <SelectValue placeholder="Select city" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="Москва">Москва</SelectItem>
-              <SelectItem value="Санкт-Петербург">Санкт-Петербург</SelectItem>
-              <SelectItem value="Краснодар">Краснодар</SelectItem>
-              <SelectItem value="Новосибирск">Новосибирск</SelectItem>
-              <SelectItem value="Казань">Казань</SelectItem>
-              <SelectItem value="Нижний Новгород">Нижний Новгород</SelectItem>
-              <SelectItem value="Екатеринбург">Екатеринбург</SelectItem>
-              <SelectItem value="Воронеж">Воронеж</SelectItem>
+              <SelectItem value="Moscow">Moscow</SelectItem>
+              <SelectItem value="Saint Petersburg">Saint Petersburg</SelectItem>
+              <SelectItem value="Krasnodar">Krasnodar</SelectItem>
+              <SelectItem value="Novosibirsk">Novosibirsk</SelectItem>
+              <SelectItem value="Kazan">Kazan</SelectItem>
+              <SelectItem value="Nizhny Novgorod">Nizhny Novgorod</SelectItem>
+              <SelectItem value="Yekaterinburg">Yekaterinburg</SelectItem>
+              <SelectItem value="Voronezh">Voronezh</SelectItem>
             </SelectContent>
           </Select>
         </FormItem>
 
-        <FormItem labelText="ID внешней системы" error={errors.external_id}>
+        <FormItem labelText="External system ID" error={errors.external_id}>
           <Input
             placeholder="ID"
             name="external_id"
@@ -294,9 +294,9 @@ export const VacancyForm = ({
 
       <div className="self-end">
         <Button type="button" variant="ghost" className="mr-2" onClick={onCancel}>
-          Отмена
+          Cancel
         </Button>
-        <Button type="submit">{pending ? 'Сохранение...' : 'Сохранить'}</Button>
+        <Button type="submit">{pending ? 'Saving...' : 'Save'}</Button>
       </div>
     </form>
   );

@@ -60,7 +60,7 @@ export const CompanyShortInfo = ({
             className="text-base font-medium -tracking-[1px] hover:text-primary transition-colors"
             target="_blank"
           >
-            Вакансии компании {count && `(${count})`}
+            Company vacancies {count && `(${count})`}
           </Link>
         </>}
     </Card>

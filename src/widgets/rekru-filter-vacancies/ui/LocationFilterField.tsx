@@ -37,7 +37,7 @@ export const LocationSearch = ({
         onSelect={setLocationText}
         shouldFilter={false}
         isFetching={isFetching}
-        placeholder="Введите город, область или страну"
+        placeholder="Enter city, region, or country"
         className='pl-10'
       />
     </div>
@@ -69,7 +69,7 @@ export const LocationFilterField = ({
 
   return (
     <FilterBase
-      triggerText="Город"
+      triggerText="City"
       onSave={() => updateCb({ location: searchText })}
       onCancel={() => updateCb({ location: '' })}
       className={cn(defaultValue && 'ring-2 ring-primary ring-offset-1')}

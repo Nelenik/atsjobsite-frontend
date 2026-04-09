@@ -40,15 +40,14 @@ export const getVacanciesList = async ({
       qs.append("company", String(companyId));
     }
     const response = await apiGet<TApiListResponse<TVacancyShort>>(
-      "/api/v1/vacancy?" + qs.toString()
+      "/api/v1/vacancy?" + qs.toString(),
     );
     return response.data;
     // return SVacancyList.parse(response.data);
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {
-      error.message =
-        "Не удалось загрузить список вакансий. Пожалуйста, попробуйте позже.";
+      error.message = "Failed to load vacancy list. Please try again later.";
     }
     throw error;
   }
@@ -66,15 +65,14 @@ export const getVacanciesList = async ({
 export const getVacancy = async (id: number | string): Promise<TVacancy> => {
   try {
     const response = await apiGet<TApiSuccessResponse<TVacancy>>(
-      `/api/v1/vacancy/${id}`
+      `/api/v1/vacancy/${id}`,
     );
     return response.data;
     // return SVacancy.parse(response.data);
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {
-      error.message =
-        "Не удалось загрузить вакансию. Пожалуйста, попробуйте позже.";
+      error.message = "Failed to load vacancy. Please try again later.";
     }
     throw error;
   }
@@ -91,14 +89,14 @@ export const getVacancy = async (id: number | string): Promise<TVacancy> => {
 export const getVacancyPositions = async (): Promise<TVacancyPosition[]> => {
   try {
     const response = await apiGet<TApiListResponse<TVacancyPosition>>(
-      "/api/v1/vacancy/positions"
+      "/api/v1/vacancy/positions",
     );
     return response.data || [];
   } catch (error) {
     console.log(error);
     if (error instanceof Error) {
       error.message =
-        "Не удалось загрузить позиции вакансий. Пожалуйста, попробуйте позже.";
+        "Failed to load vacancy positions. Please try again later.";
     }
     throw error;
   }
@@ -126,7 +124,7 @@ export const storeVacancy = async (_: TMutationState, data: FormData) => {
   if (!matchStatuses) {
     return {
       sent: true,
-      error: getSyntheticError("Ошибка при создании статусов для вакансии"),
+      error: getSyntheticError("Error creating statuses for vacancy"),
       payload: parsedData,
     };
   }
@@ -160,7 +158,7 @@ export const storeVacancy = async (_: TMutationState, data: FormData) => {
 export const updateVacancy = async (
   vacancyId: number | string,
   _: TMutationState | null,
-  data: FormData | TVacancyMutation
+  data: FormData | TVacancyMutation,
 ): Promise<TMutationState> => {
   const result = await apiMutate(`/api/v1/vacancy/${vacancyId}`, {
     body: data instanceof FormData ? parseFormData(data) : data,

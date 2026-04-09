@@ -55,14 +55,14 @@ export const FileLoadingForm = ({
   }, [removeError])
 
   // If there are rejected files (e.g., unsupported formats), show a warning toast
-  const handleFilesReject = useCallback((rejectedFiles: File[]) => toast({ variant: 'warn', title: `Отклонено файлов: ${rejectedFiles?.length}. Допустимые форматы: pdf` }), [])
+  const handleFilesReject = useCallback((rejectedFiles: File[]) => toast({ variant: 'warn', title: `Rejected files: ${rejectedFiles?.length}. Allowed formats: pdf` }), [])
 
   return (
     <form
       className="flex flex-col sm:grid sm:grid-cols-2 gap-y-2.5 ring-1 p-4 ring-input rounded-md"
       onSubmit={handleSumbmit}
     >
-      <h3 className="font-medium sm:col-span-2">Заполнить из файла</h3>
+      <h3 className="font-medium sm:col-span-2">Fill from file</h3>
       <FileUploadField
         ref={fileUploadRef}
         rootStyles=""
@@ -100,7 +100,7 @@ export const FileLoadingForm = ({
         ))}
       </ul>
       <Button type="submit" className="sm:col-span-2 justify-self-start">
-        {isPending ? 'Обработка...' : 'Заполнить'}
+        {isPending ? 'Processing...' : 'Fill'}
       </Button>
     </form>
   );

@@ -19,16 +19,16 @@ export const CompaniesTable: FC<TProps> = ({
         <TableHeader className="bg-background">
           <TableRow>
             <TableHead className="w-[30%]">
-              Название
+              Name
             </TableHead>
             <TableHead>
-              ИНН
+              Tax ID
             </TableHead>
             <TableHead>
-              Тариф
+              Plan
             </TableHead>
             <TableHead>
-              Дата подключения
+              Connection date
             </TableHead>
             <TableHead>
             </TableHead>
@@ -47,7 +47,7 @@ export const CompaniesTable: FC<TProps> = ({
                 {company.rate}
               </TableCell>
               <TableCell className="font-medium text-left text-sm">
-                {company.rate_at ? format(new Date(company.rate_at), "dd.MM.yyyy") : 'Дата оплаты не указана'}
+                {company.rate_at ? format(new Date(company.rate_at), "dd.MM.yyyy") : 'Payment date not specified'}
               </TableCell>
               <TableCell>
                 <EditEntity

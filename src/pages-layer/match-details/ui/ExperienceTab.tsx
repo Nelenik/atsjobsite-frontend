@@ -15,6 +15,6 @@ export const ExperienceTab = ({
     return <WorkExperienceList experience={workExperiences} />
   }
   return (
-    <TextFormatter text={experience_raw || 'Данные об опыте отсутствуют'} />
+    <TextFormatter text={experience_raw || 'No experience data'} />
   )
 }

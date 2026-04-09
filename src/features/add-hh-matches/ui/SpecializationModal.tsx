@@ -43,7 +43,7 @@ export const SpecializationModal = ({
           variant="link"
           className={cn(className)}
         >
-          Выбрать другую специализацию
+          Select a different specialization
         </Button>
       </DialogTrigger>
       <DialogContent
@@ -52,7 +52,7 @@ export const SpecializationModal = ({
         className="h-[80vh] rounded-4xl bg-card pb-16"
       >
         <DialogTitle className="text-2xl">
-          Специализации
+          Specializations
         </DialogTitle>
 
         <ScrollArea className="h-full " type="always">
@@ -72,13 +72,13 @@ export const SpecializationModal = ({
             className="mr-2"
             onClick={() => setSelectedIds([])}
           >
-            Сбросить
+            Reset
           </Button>
           <Button
             type="button"
             onClick={handleSave}
           >
-            Сохранить
+            Save
           </Button>
         </div>
       </DialogContent>

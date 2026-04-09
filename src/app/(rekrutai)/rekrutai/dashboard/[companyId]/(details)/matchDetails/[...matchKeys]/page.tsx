@@ -19,7 +19,7 @@ const MatchDetailsPage = async ({ params }: { params: Promise<{ matchKeys: strin
   return (
     <div>
       <GoBackLink
-        text="Назад к мэтчам"
+        text="Back to matches"
       />
       <MatchDetails candidate={candidate} />
     </div>

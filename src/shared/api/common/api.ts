@@ -190,7 +190,7 @@ export const apiMutate = async <T = unknown>(
       typeof parsedResponse !== "object" ||
       Array.isArray(parsedResponse)
     ) {
-      throw new Error("Неожиданный формат ответа");
+      throw new Error("Unexpected response format");
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -223,7 +223,7 @@ export const apiMutate = async <T = unknown>(
     console.error(error);
     return {
       sent: true,
-      error: getSyntheticError("Ошибка сохранения", 500),
+      error: getSyntheticError("Save error", 500),
       payload: body,
     };
   }

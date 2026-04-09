@@ -8,16 +8,16 @@ export async function POST(req: NextRequest) {
   await req.formData();
   return NextResponse.json({
     data: {
-      name: "Frontend Разработчик",
-      candy_name: "Иван Иванов",
+      name: "Frontend Developer",
+      candy_name: "Ivan Ivanov",
       candy_email: "ivan@example.com",
       candy_phone: "+7 900 000 0000",
       candy_tg: "",
-      candy_location: "Москва",
+      candy_location: "Moscow",
       salary: 120000,
       experience_months: 36,
       experience_raw: "Senior Frontend Developer в МойСклад (2021–2024)",
-      bio: "Опытный разработчик React с фокусом на производительность",
+      bio: "Experienced React developer focused on performance",
       skills: ["React", "TypeScript", "Node.js"],
       schedule: "full",
       level: "middle",

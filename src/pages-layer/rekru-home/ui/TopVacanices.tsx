@@ -17,7 +17,7 @@ export const TopVacancies = ({
         'mb-5 md:mb-10 text-3xl font-semibold tracking-tighter text-center',
         'lg:text-5xl'
       )}>
-        Топ-вакансии компаний от Rekru.ru
+        Top vacancies from Rekru.ru
       </h2>
 
       <div className="flex flex-col gap-5">
@@ -39,7 +39,7 @@ export const TopVacancies = ({
               "[&:hover_svg]:translate-x-3"
             )}
           >
-            Смотреть все вакансии
+            View all vacancies
             <ChevronRight className="transition-transform" />
           </Link>
         </Button>

@@ -7,8 +7,8 @@ const CvDetailsModal = async ({ params }: { params: Promise<{ cvKeys: string[] }
   const cv = await getResumeById(cvKeys[0]);
   return (
     <InterceptingModal
-      dialogTitle="Резюме"
-      dialogDescription="Подробная информация о резюме"
+      dialogTitle="Resume"
+      dialogDescription="Detailed resume information"
     >
       <CvDetails cv={cv} />
     </InterceptingModal>

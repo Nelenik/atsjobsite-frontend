@@ -21,7 +21,7 @@ export type TError = {
 export const getSyntheticError = (
   message: string,
   code?: number,
-  details?: TValidationMappedErrors
+  details?: TValidationMappedErrors,
 ): TError => ({ code: code ?? 0, message, details });
 
 export const extractSyntheticErrorFromApi = (e: TBadRequest | null) => {
@@ -33,17 +33,17 @@ export const extractSyntheticErrorFromApi = (e: TBadRequest | null) => {
         acc[err.property] = Object.values(err.constraints)[0];
 
         return acc;
-      }, {})
+      }, {}),
     );
   }
 
   if (e && e.errorType === "UNAUTHORIZED_EXCEPTION") {
     return getSyntheticError(
-      "Неверный логин или пароль. Пожалуйста попробуйте еще раз",
-      401
+      "Invalid login or password. Please try again",
+      401,
     );
   }
 
   // return null;
-  return getSyntheticError("Ошибка сохранения");
+  return getSyntheticError("Save error");
 };

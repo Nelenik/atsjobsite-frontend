@@ -22,13 +22,13 @@ export const CandidateCardAbstraction = ({
       <GripVertical className="absolute left-1 top-2 z-[100] stroke-muted-foreground" />
       <Card className="w-full min-w-[240px] py-4 px-6 hover:shadow-md transform hover:-translate-y-1 transition-all duration-200">
         <h3 className="text-base font-regular">
-          {name ?? 'Имя не указано'}
+          {name ?? 'Name not specified'}
         </h3>
 
         <p className="text-muted-foreground text-base mb-1">{city}</p>
 
         <p className="text-base text-muted-foreground mb-1">
-          {formatPrice(salary, 'ru-Ru', 'RUB')}
+          {formatPrice(salary, 'en-US', 'USD')}
         </p>
 
         <div className="flex flex-wrap gap-1.5 items-center">

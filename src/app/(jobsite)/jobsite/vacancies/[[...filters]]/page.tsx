@@ -21,40 +21,40 @@ export async function generateMetadata({ params }: TProps): Promise<Metadata> {
   const positionName = vacancyPositionsDict[position] || position;
   const companyName = company ? capitalizeSentences(company) : '';
 
-  // --- 1. Все вакансии ---
+  // --- 1. All vacancies ---
   if (!filters.length) {
-    metadata.title = "Все вакансии на Rekru.ru";
-    metadata.description = "Найдите работу мечты среди актуальных вакансий";
+    metadata.title = "All vacancies on Rekru.ru";
+    metadata.description = "Find your dream job among current vacancies";
     metadata.alternates = {
       canonical: baseUrl,
     };
     return metadata;
   }
 
-  // --- 2. Все вакансии в компании (vacancies/company) ---
+  // --- 2. All vacancies at a company (vacancies/company) ---
   if (!position && company) {
-    metadata.title = `Все вакансии в компании ${companyName}`;
-    metadata.description = `Откройте актуальные вакансии компании ${companyName} на Rekru.ru`;
+    metadata.title = `All vacancies at ${companyName}`;
+    metadata.description = `View current vacancies at ${companyName} on Rekru.ru`;
     metadata.alternates = {
       canonical: `${baseUrl}/${company}`,
     };
     return metadata;
   }
 
-  // --- 3. Вакансии по позиции и компании ---
+  // --- 3. Vacancies by position and company ---
   if (position && company) {
-    metadata.title = `${positionName} в ${companyName}`;
-    metadata.description = `Вакансии ${positionName} в компании ${companyName}. Подробные условия работы.`;
+    metadata.title = `${positionName} at ${companyName}`;
+    metadata.description = `${positionName} vacancies at ${companyName}. Detailed work conditions.`;
     metadata.alternates = {
       canonical: `${baseUrl}/${position}/${company}`,
     };
     return metadata;
   }
 
-  // --- 4. Только по позиции ---
+  // --- 4. By position only ---
   if (position && !company) {
-    metadata.title = `Все вакансии по позиции ${positionName} на Rekru.ru`;
-    metadata.description = `Найдите работу мечты среди актуальных вакансий по позиции ${positionName}`;
+    metadata.title = `All ${positionName} vacancies on Rekru.ru`;
+    metadata.description = `Find your dream job among current ${positionName} vacancies`;
     metadata.alternates = {
       canonical: `${baseUrl}/${position}`,
     };

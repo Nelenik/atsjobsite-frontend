@@ -30,51 +30,51 @@ import { TNavConfig } from "./types";
 
 export const createRekrutaiNavConfig = (companyId: string): TNavConfig[] => [
   {
-    routeName: "Главная",
+    routeName: "Home",
     href: `/dashboard/${companyId}`,
     icon: <HomeIcon className="[&>*]:stroke-sidebar-foreground" />,
   },
 
   {
-    routeName: "Вакансии",
+    routeName: "Vacancies",
     href: `/dashboard/${companyId}/vacancies`,
     icon: <Building2 className="[&>*]:stroke-sidebar-foreground" />,
   },
 
   {
-    routeName: 'Резюме',
+    routeName: 'Resumes',
     href: "",
     icon: <FileUser className="[&>*]:stroke-sidebar-foreground" />,
     subMenu: [
       {
-        routeName: "Поиск",
+        routeName: "Search",
         href: `/dashboard/${companyId}/search`,
         icon: <Search className="[&>*]:stroke-sidebar-foreground" />,
       },
       {
-        routeName: "Резерв",
+        routeName: "Reserve",
         href: `/dashboard/${companyId}/reserve`,
         icon: <Star className="[&>*]:stroke-sidebar-foreground" />,
       },
     ]
   },
   {
-    routeName: "Отчеты",
+    routeName: "Reports",
     href: `/dashboard/${companyId}/reports`,
     icon: <FileText className="[&>*]:stroke-sidebar-foreground" />,
   },
   {
-    routeName: 'Настройки',
+    routeName: 'Settings',
     href: '',
     icon: <Settings className="[&>*]:stroke-sidebar-foreground" />,
     subMenu: [
       {
-        routeName: "Компании",
+        routeName: "Companies",
         href: `/dashboard/${companyId}/companies`,
         icon: <BriefcaseBusiness className="[&>*]:stroke-sidebar-foreground" />,
       },
       {
-        routeName: "Пользователи",
+        routeName: "Users",
         href: `/dashboard/${companyId}/users`,
         icon: <Users className="[&>*]:stroke-sidebar-foreground" />,
       },

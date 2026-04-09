@@ -27,7 +27,7 @@ export const CollapsibleDescription = ({
     >
       <CollapsibleContent
         className="data-[state=open]:animate-slide-fade-down data-[state=closed]:animate-slide-fade-up ">
-        <h4 className="text-base font-medium">О проекте</h4>
+        <h4 className="text-base font-medium">About the project</h4>
         <TextFormatter
           text={description || ''}
           className="text-base text-foreground"
@@ -40,8 +40,8 @@ export const CollapsibleDescription = ({
           className="shrink-0 py-3 flex items-center gap-2 text-base text-secondary-foreground"
         >
           {isOpen
-            ? <>Скрыть описание <ChevronUp /></>
-            : <>Читать описание <ChevronDown /></>}
+            ? <>Hide description <ChevronUp /></>
+            : <>Read description <ChevronDown /></>}
 
         </CollapsibleTrigger>
         <RekruCTA view="dark" asChild className="min-w-[234px] text-lg font-semibold leading-relaxed tracking-tighter">
@@ -49,7 +49,7 @@ export const CollapsibleDescription = ({
             scroll={false}
             href={`/vacancy/${vacancyId}/${encodeSegment(vacancyName)}`}
           >
-            Подробнее
+            More details
           </Link>
         </RekruCTA>
       </div>

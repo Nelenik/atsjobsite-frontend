@@ -15,7 +15,7 @@ export const PubVacanciesWrapper = async ({
     <>
       <div className="flex items-center flex-wrap justify-between gap-2 px-6">
         <p className="font-medium shrink-0 mr-6">
-          Найдено вакансий: {total ?? 0}
+          Vacancies found: {total ?? 0}
         </p>
         <SortingVacancies className="shrink-0" />
       </div>

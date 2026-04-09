@@ -20,11 +20,7 @@ export const VacancyCard: FC<TProps> = ({
   className,
 }) => {
   const daysInProcessing = getDaysSinceCreated(createdAt)
-  const daysString = `${daysInProcessing} ${formatWordEndings(daysInProcessing, [
-    'день',
-    'дня',
-    'дней',
-  ])}`;
+  const daysString = `${daysInProcessing} ${daysInProcessing === 1 ? 'day' : 'days'}`;
 
   return (
     <Card
@@ -34,7 +30,7 @@ export const VacancyCard: FC<TProps> = ({
       )}
     >
       <CardHeader className="p-0 mb-2">
-        <CardTitle className="text-base hyphens-auto [overflow-wrap:anywhere]">{vacancyName ?? 'Имя неизвестно'}</CardTitle>
+        <CardTitle className="text-base hyphens-auto [overflow-wrap:anywhere]">{vacancyName ?? 'Unknown name'}</CardTitle>
       </CardHeader>
 
       <CardFooter className="flex justify-between p-0 text-sm text-muted-foreground">

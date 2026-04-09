@@ -67,7 +67,7 @@ export const RekruVacancyMobFilter = ({
         <div className="flex flex-col items-center gap-6 pb-5">
 
           {/* SPECIALIZATION */}
-          <FormItem labelText="Специализация" className="w-[96%]">
+          <FormItem labelText="Specialization" className="w-[96%]">
             <CancelButton
               onClick={() => setPathParams(prev => ({ ...prev, position: '' }))}
               className="absolute right-0 top-0 z-10"
@@ -80,7 +80,7 @@ export const RekruVacancyMobFilter = ({
               <SelectTrigger
                 className={'bg-white text-left h-max'}
               >
-                <SelectValue placeholder="Выберите позицию" />
+                <SelectValue placeholder="Select position" />
               </SelectTrigger>
               <SelectContent>
                 {positionsList.map((item) => (
@@ -103,7 +103,7 @@ export const RekruVacancyMobFilter = ({
           </FormItem>
 
           {/* COMPANY */}
-          <FormItem labelText="Компания" className="w-[96%]">
+          <FormItem labelText="Company" className="w-[96%]">
             <CancelButton
               onClick={() => setPathParams(prev => ({ ...prev, company: '' }))}
               className="absolute right-0 top-0 z-10"
@@ -130,14 +130,14 @@ export const RekruVacancyMobFilter = ({
                   companiesList.map(item => item.name + ` (${item.count})`)
                 }
                 shouldFilter
-                placeholder="Введите название компании"
+                placeholder="Enter company name"
                 className='pl-10'
               />
             </div>
           </FormItem>
 
           {/* SALARY */}
-          <FormItem labelText="Зарплата" className="w-[96%]">
+          <FormItem labelText="Salary" className="w-[96%]">
             <CancelButton
               onClick={
                 () => setQueryParams(prev => ({
@@ -153,7 +153,7 @@ export const RekruVacancyMobFilter = ({
               onChange={(e) => {
                 setQueryParams(prev => ({ ...prev, salary_from: e.target.value }))
               }}
-              placeholder="От"
+              placeholder="From"
             />
 
             <Input
@@ -161,12 +161,12 @@ export const RekruVacancyMobFilter = ({
               onChange={(e) => {
                 setQueryParams(prev => ({ ...prev, salary_to: e.target.value }))
               }}
-              placeholder="До"
+              placeholder="To"
             />
           </FormItem>
 
           {/* LOCATION */}
-          <FormItem labelText="География" className="w-[96%]">
+          <FormItem labelText="Location" className="w-[96%]">
             <CancelButton
               onClick={() => setQueryParams(prev => ({ ...prev, location: '' }))}
               className="absolute right-0 top-0 z-10"
@@ -178,7 +178,7 @@ export const RekruVacancyMobFilter = ({
           </FormItem>
 
           {/* LEVEL */}
-          <FormItem labelText="Грейд" className="w-[96%]">
+          <FormItem labelText="Grade" className="w-[96%]">
             <CancelButton
               onClick={() => setQueryParams(prev => ({ ...prev, level: [] }))}
               className="absolute right-0 top-0 z-10"
@@ -209,7 +209,7 @@ export const RekruVacancyMobFilter = ({
           </FormItem>
 
           {/* WORK_FORMAT */}
-          <FormItem labelText="Формат" className="w-[96%]">
+          <FormItem labelText="Format" className="w-[96%]">
             <CancelButton
               onClick={() => setQueryParams(prev => ({ ...prev, work_format: [] }))}
               className="absolute right-0 top-0 z-10"
@@ -250,13 +250,13 @@ export const RekruVacancyMobFilter = ({
             setQueryParams(initState)
           }}
         >
-          Очистить
+          Clear
         </RekruCTA>
         <RekruCTA
           view="dark"
           onClick={handleSave}
         >
-          Сохранить
+          Save
         </RekruCTA>
       </div>
     </div>

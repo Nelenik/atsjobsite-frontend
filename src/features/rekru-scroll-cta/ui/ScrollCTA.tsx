@@ -85,7 +85,7 @@ export const ScrollCTA = ({ ctaLink = '#!' }: TProps) => {
             rel="noopener noreferrer"
           >
             <Check />
-            Откликнуться
+            Apply
           </a>
 
 

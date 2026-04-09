@@ -42,7 +42,7 @@ export const CompaniesFilterField = ({
 
   return (
     <FilterBase
-      triggerText="Компания"
+      triggerText="Company"
       onSave={handleSave}
       onCancel={handleCancel}
       className={cn(activeFilters.company && 'ring-2 ring-primary ring-offset-1')}
@@ -58,7 +58,7 @@ export const CompaniesFilterField = ({
             defaultChecked={itAccreditation}
             onChange={(e: ChangeEvent<HTMLInputElement>) => setItAccreditation(e.target.checked)}
           />
-          <span>Аккредитованные ИТ-компании</span>
+          <span>IT-accredited companies</span>
         </label>
 
         <div className="relative">
@@ -71,7 +71,7 @@ export const CompaniesFilterField = ({
             onSelect={(value: string) => setCompany(value.replace(/\s*\(\d+\)\s*$/, '').trim())}
             suggestionList={companiesSuggests}
             shouldFilter
-            placeholder="Введите название компании"
+            placeholder="Enter company name"
             className='pl-10'
           />
         </div>

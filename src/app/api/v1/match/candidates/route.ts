@@ -16,7 +16,7 @@ export async function GET(req: NextRequest) {
     const cv = db.cvs.find((c) => c.id === m.cv_id);
     return {
       id: m.id,
-      name: cv?.candy_name || "Кандидат",
+      name: cv?.candy_name || "Candidate",
       cv_name: cv?.name || "",
       city: cv?.candy_location || "",
       salary: cv?.salary || 0,

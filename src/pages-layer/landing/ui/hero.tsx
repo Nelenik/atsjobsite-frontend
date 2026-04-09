@@ -62,17 +62,17 @@ import { Button } from "@/shared/ui/shadcn/button";
 const Hero = () => {
   const listUser = [
     {
-      name: "Обработано вакансий",
+      name: "Vacancies processed",
       number: "19000+",
       icon: <User className="h-6 w-6 text-red-500" />,
     },
     {
-      name: "Найдено релевантных кандидатов",
+      name: "Relevant candidates found",
       number: "280+",
       icon: <MapPin className="h-6 w-6 text-red-500" />,
     },
     {
-      name: "Процент отбора",
+      name: "Selection rate",
       number: "97.38%",
       icon: <Server className="h-6 w-6 text-red-500" />,
     },
@@ -85,17 +85,17 @@ const Hero = () => {
         {/* Text Section */}
         <div className="flex flex-col justify-center items-start text-left space-y-4 sm:space-y-6 max-w-xl">
           <h1 className="text-3xl lg:text-4xl xl:text-5xl font-medium text-black leading-normal">
-            Новый подход к подбору персонала <strong>RekrutAI</strong>.
+            A new approach to recruitment with <strong>RekrutAI</strong>.
           </h1>
           <p className="text-black/70 text-base sm:text-lg">
-            Используя передовые технологии AI, мы автоматизируем процесс поиска
-            и отбора кандидатов.
+            Using advanced AI technologies, we automate the process of finding
+            and selecting candidates.
           </p>
           <Button
             variant="destructive"
             className="px-6 py-3 mt-4 sm:mt-6 font-medium tracking-wide sm:px-8 border border-red-500 text-white bg-red-500 outline-none rounded-l-full rounded-r-full capitalize hover:bg-red-500 hover:text-white transition-all hover:shadow-lg hover:shadow-red-500/50"
           >
-            Оставить заявку
+            Contact us
           </Button>
         </div>
 

@@ -18,46 +18,46 @@ export const rekrutaiPathMapping: IBreadcrumbPattern[] = [
   },
   {
     pattern: "/dashboard/:companyId/vacancies",
-    handler: () => "Вакансии",
+    handler: () => "Vacancies",
     isLink: true
   },
   {
     pattern: "/dashboard/:companyId/reports",
-    handler: () => "Отчеты",
+    handler: () => "Reports",
     isLink: true
   },
   {
     pattern: "/dashboard/:companyId/vacancies/:vacancyId/:vacancyName",
     handler: (params) => {
-      const name = params?.vacancyName || "Вакансия";
+      const name = params?.vacancyName || "Vacancy";
       return decodeURIComponent(Array.isArray(name) ? name[0] : name);
     },
     isLink: true
   },
   {
     pattern: "/dashboard/:companyId/companies",
-    handler: () => "Настройки: Компании",
+    handler: () => "Settings: Companies",
     isLink: true
   },
   {
     pattern: "/dashboard/:companyId/users",
-    handler: () => "Настройки: Пользователи",
+    handler: () => "Settings: Users",
     isLink: true
   },
   {
     pattern: "/dashboard/:companyId/reserve",
-    handler: () => "Резюме: Резерв",
+    handler: () => "Resumes: Reserve",
     isLink: true
   },
   {
     pattern: "/dashboard/:companyId/search",
-    handler: () => "Резюме: Поиск",
+    handler: () => "Resumes: Search",
     isLink: true
   },
   {
     pattern: "/dashboard/:companyId/matchDetails/:matchId/:matchName",
     handler: (params) => {
-      const name = params?.matchName || "Мэтч";
+      const name = params?.matchName || "Match";
       return decodeURIComponent(Array.isArray(name) ? name[0] : name);
     },
     isLink: true
@@ -65,7 +65,7 @@ export const rekrutaiPathMapping: IBreadcrumbPattern[] = [
   {
     pattern: "/dashboard/:companyId/vacancyDetails/:vacancyId/:vacancyName",
     handler: (params) => {
-      const name = params?.vacancyName || "Название вакансии";
+      const name = params?.vacancyName || "Vacancy title";
       return decodeURIComponent(Array.isArray(name) ? name[0] : name);
     },
     isLink: true
@@ -73,7 +73,7 @@ export const rekrutaiPathMapping: IBreadcrumbPattern[] = [
   {
     pattern: "/dashboard/:companyId/cvDetails/:cvId/:cvName",
     handler: (params) => {
-      const name = params?.cvName || "Резюме";
+      const name = params?.cvName || "Resume";
       return decodeURIComponent(Array.isArray(name) ? name[0] : name);
     },
     isLink: true

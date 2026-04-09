@@ -6,51 +6,51 @@ import { useState } from "react";
 const testimonials = [
   {
     id: 1,
-    name: "Анна Иванова",
-    position: "Менеджер по продажам",
+    name: "Anna Ivanova",
+    position: "Sales Manager",
     avatar: "https://i.pravatar.cc/150?img=3",
     feedback:
-      "Отличная работа! Команда превзошла все ожидания. Сервис был быстрым, а поддержка — на высшем уровне.",
+      "Excellent work! The team exceeded all expectations. The service was fast and the support was top-notch.",
   },
   {
     id: 2,
-    name: "Игорь Петров",
-    position: "Директор по маркетингу",
+    name: "Igor Petrov",
+    position: "Marketing Director",
     avatar: "https://i.pravatar.cc/150?img=8",
     feedback:
-      "Потрясающий результат. Очень приятно работать с такими профессионалами. Рекомендую всем!",
+      "Outstanding result. It's a pleasure to work with such professionals. I recommend them to everyone!",
   },
   {
     id: 3,
-    name: "Екатерина Сидорова",
-    position: "HR-специалист",
+    name: "Ekaterina Sidorova",
+    position: "HR Specialist",
     avatar: "https://i.pravatar.cc/150?img=12",
     feedback:
-      "Сервис действительно экономит время. Команда понимает задачи клиента и предлагает лучшие решения.",
+      "The service really saves time. The team understands the client's needs and offers the best solutions.",
   },
   {
     id: 4,
-    name: "Олег Кузнецов",
-    position: "Старший разработчик",
+    name: "Oleg Kuznetsov",
+    position: "Senior Developer",
     avatar: "https://i.pravatar.cc/150?img=15",
     feedback:
-      "Очень впечатлен качеством работы и вниманием к деталям. Буду работать с вами снова!",
+      "Very impressed by the quality of work and attention to detail. I'll work with you again!",
   },
   {
     id: 5,
-    name: "Марина Смирнова",
-    position: "Аналитик данных",
+    name: "Marina Smirnova",
+    position: "Data Analyst",
     avatar: "https://i.pravatar.cc/150?img=21",
     feedback:
-      "Быстро, эффективно и профессионально. Приятно, когда понимают твои потребности с первого раза.",
+      "Fast, efficient and professional. It's great when they understand your needs the first time.",
   },
   {
     id: 6,
-    name: "Дмитрий Волков",
-    position: "Владелец бизнеса",
+    name: "Dmitry Volkov",
+    position: "Business Owner",
     avatar: "https://i.pravatar.cc/150?img=5",
     feedback:
-      "Сервис действительно на высоте. Помогли реализовать сложный проект в короткие сроки.",
+      "The service is truly top-notch. They helped deliver a complex project in a short time.",
   },
 ];
 
@@ -70,7 +70,7 @@ export default function Testimonials() {
   return (
     <section id="testimoni" className="max-w-7xl mx-auto px-4 py-16 mb-10">
       <h2 className="text-center text-3xl font-bold mb-10 text-gray-800">
-        Отзывы наших клиентов
+        Reviews from our customers
       </h2>
 
       <div className="relative">

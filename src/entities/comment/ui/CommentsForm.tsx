@@ -48,7 +48,7 @@ export const CommentsForm: FC<TProps> = ({
       )}
     >
       <Textarea
-        placeholder="Комментировать"
+        placeholder="Add a comment"
         name="content"
         defaultValue={defaultValues?.content}
         className={cn(

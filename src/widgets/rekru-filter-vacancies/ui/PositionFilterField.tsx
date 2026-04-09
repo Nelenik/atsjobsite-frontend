@@ -14,7 +14,7 @@ export const PositionFilterField = ({ className }: TProps) => {
   const { positionsList, activeFilters, updatePathParams } = usePathFilters()
 
   return (
-    <FormItem labelText="Специализация" className={cn(className)}>
+    <FormItem labelText="Specialization" className={cn(className)}>
       <CancelButton
         onClick={() => updatePathParams([activeFilters.company, ''])}
         className="absolute right-0 top-0 z-10"
@@ -27,7 +27,7 @@ export const PositionFilterField = ({ className }: TProps) => {
         <SelectTrigger
           className={'bg-white text-left h-max'}
         >
-          <SelectValue placeholder="Выберите позицию" />
+          <SelectValue placeholder="Select position" />
         </SelectTrigger>
         <SelectContent>
           {positionsList.map((item) => (

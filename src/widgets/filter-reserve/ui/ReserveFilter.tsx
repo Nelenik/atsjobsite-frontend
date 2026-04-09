@@ -29,7 +29,7 @@ export const ReserveFilter = ({
         return (
           <div className={cn(className, "flex flex-col gap-6")}>
             <div className="flex flex-wrap @3xl:flex-col gap-6">
-              <FormItem labelText="Специализация" className="grow min-w-[250px]">
+              <FormItem labelText="Specialization" className="grow min-w-[250px]">
                 <CancelButton
                   onClick={() => updateFilter({ position: '' })}
                   className="absolute right-0 top-0 z-10"
@@ -41,7 +41,7 @@ export const ReserveFilter = ({
                 />
               </FormItem>
 
-              <FormItem labelText="Зарплата от" className="grow min-w-[250px]">
+              <FormItem labelText="Salary from" className="grow min-w-[250px]">
                 <CancelButton
                   onClick={() => updateFilter({ salary_from: '' })}
                   className="absolute right-0 top-0 z-10"
@@ -51,11 +51,11 @@ export const ReserveFilter = ({
                   onChange={(e) => {
                     updateFilter({ salary_from: e.target.value })
                   }}
-                  placeholder="Зарплата от"
+                  placeholder="Salary from"
                 />
               </FormItem>
 
-              <FormItem labelText="Зарплата до" className="grow min-w-[250px]">
+              <FormItem labelText="Salary to" className="grow min-w-[250px]">
                 <CancelButton
                   onClick={() => updateFilter({ salary_to: '' })}
                   className="absolute right-0 top-0 z-10"
@@ -63,11 +63,11 @@ export const ReserveFilter = ({
                 <Input
                   value={filters.salary_to || ''}
                   onChange={(e) => updateFilter({ salary_to: e.target.value })}
-                  placeholder="Зарплата до"
+                  placeholder="Salary to"
                 />
               </FormItem>
 
-              <FormItem labelText="География" className="grow min-w-[250px]">
+              <FormItem labelText="Location" className="grow min-w-[250px]">
                 <CancelButton
                   onClick={() => updateFilter({ location: '' })}
                   className="absolute right-0 top-0 z-10"
@@ -75,7 +75,7 @@ export const ReserveFilter = ({
                 <Input
                   value={filters.location || ''}
                   onChange={(e) => updateFilter({ location: e.target.value })}
-                  placeholder="География"
+                  placeholder="Location"
 
                   className=""
                 />
@@ -92,7 +92,7 @@ export const ReserveFilter = ({
                 "hover:bg-input @3xl:self-stretch"
               )}
             >
-              <FilterX /> Сбросить
+              <FilterX /> Reset
             </Button>
           </div>
 

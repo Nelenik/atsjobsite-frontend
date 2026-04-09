@@ -18,11 +18,7 @@ export const VacancyBoardCard: FC<TProps> = ({ id, name, location, salary_from, 
 
   const daysInProcessing = getDaysSinceCreated(created_at)
   const isNew = daysInProcessing < 1
-  const daysString = isNew ? 'Новая' : `${daysInProcessing} ${formatWordEndings(daysInProcessing, [
-    'день',
-    'дня',
-    'дней',
-  ])}`;
+  const daysString = isNew ? 'New' : `${daysInProcessing} ${daysInProcessing === 1 ? 'day' : 'days'}`;
   const color = isNew ? '#34d399' : '#3b82f6'
 
   return (
@@ -39,10 +35,10 @@ export const VacancyBoardCard: FC<TProps> = ({ id, name, location, salary_from, 
           {daysString}
         </StatusBadge>
         <CardHeader className="p-0">
-          <CardTitle className="text-base hyphens-auto [overflow-wrap:anywhere]">{name ?? 'Имя неизвестно'}</CardTitle>
+          <CardTitle className="text-base hyphens-auto [overflow-wrap:anywhere]">{name ?? 'Unknown name'}</CardTitle>
         </CardHeader>
         <p className="leading-7 text-muted-foreground">
-          {location || 'Город неизвестен'}
+          {location || 'City unknown'}
         </p>
         <p className="leading-7 text-muted-foreground">
           {formatSalaryRange(salary_from, salary_to)}

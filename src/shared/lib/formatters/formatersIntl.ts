@@ -29,9 +29,9 @@ export const formatPrice = (
   price: number | null,
   locale: Intl.LocalesArgument,
   currency?: CurrencyCode,
-  minFractionDigits?: number
+  minFractionDigits?: number,
 ): string => {
-  if (price === null) return "не указано ₽";
+  if (price === null) return "not specified";
 
   const formatter = new Intl.NumberFormat(locale, {
     style: currency ? "currency" : "decimal",
@@ -57,7 +57,7 @@ export const formatPrice = (
 export const formatNumber = (
   number: number,
   locale: Intl.LocalesArgument,
-  minFractionDigits: number
+  minFractionDigits: number,
 ): string => {
   return new Intl.NumberFormat(locale, {
     minimumFractionDigits: minFractionDigits,

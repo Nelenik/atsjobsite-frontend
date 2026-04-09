@@ -26,7 +26,7 @@ export const SalaryFilterField = ({
 
   return (
     <FilterBase
-      triggerText="Доход"
+      triggerText="Salary"
       onSave={() => updateCb({ salary_from, salary_to })}
       onCancel={() => updateCb(initValues)}
       className={cn(Object.values(defaultValues).filter(Boolean).length && 'ring-2 ring-primary ring-offset-1')}
@@ -36,7 +36,7 @@ export const SalaryFilterField = ({
         onChange={(e) => {
           setSalaryFields(prev => ({ ...prev, salary_from: e.target.value }))
         }}
-        placeholder="От"
+        placeholder="From"
       />
 
       <Input
@@ -44,7 +44,7 @@ export const SalaryFilterField = ({
         onChange={(e) => {
           setSalaryFields(prev => ({ ...prev, salary_to: e.target.value }))
         }}
-        placeholder="До"
+        placeholder="To"
       />
 
     </FilterBase>

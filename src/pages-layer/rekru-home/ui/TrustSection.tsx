@@ -12,7 +12,7 @@ export const TrustSection = () => {
         'mb-5 md:mb-10 text-3xl font-semibold tracking-tighter text-center',
         'lg:text-5xl'
       )}>
-        Почему нам доверяют
+        Why they trust us
       </h2>
       <ul className="flex flex-col gap-5">
         <li className="flex">
@@ -20,8 +20,8 @@ export const TrustSection = () => {
             <span className="w-12 h-12 p-3 rounded-md bg-accent2">
               <ReviewSvg />
             </span>
-            <h3 className="text-xl lg:text-[28px] leading-[110%] font-medium lg:tracking-tighter text-end">Анна, маркетолог</h3>
-            <p className="max-w-[425px] text-base text-accent2/80 text-end ">“Сайт оказался очень удобным и понятным. Нашла здесь подходящую вакансию и смогла выйти на работу, которая действительно мне нравится”</p>
+            <h3 className="text-xl lg:text-[28px] leading-[110%] font-medium lg:tracking-tighter text-end">Anna, marketing specialist</h3>
+            <p className="max-w-[425px] text-base text-accent2/80 text-end ">"The site was very convenient and easy to use. I found a suitable vacancy here and got a job that I really enjoy"</p>
           </div>
           <div className="hidden xs:block basis-1/2 ">
             <Image
@@ -50,8 +50,8 @@ export const TrustSection = () => {
             <span className="w-12 h-12 p-3 rounded-md bg-[#BFDFF6]">
               <SecureSvg />
             </span>
-            <h3 className="text-xl lg:text-[28px] leading-[110%] font-medium lg:tracking-tighter text-start">Безопасность данных</h3>
-            <p className="max-w-[425px] text-base text-accent2/80 text-start ">Мы заботимся о вашей безопасности: применяем SSL-шифрование, проверяем работодателей и защищаем ваши персональные данные на каждом этапе поиска вакансий</p>
+            <h3 className="text-xl lg:text-[28px] leading-[110%] font-medium lg:tracking-tighter text-start">Data security</h3>
+            <p className="max-w-[425px] text-base text-accent2/80 text-start ">We care about your security: we use SSL encryption, verify employers and protect your personal data at every step of the job search</p>
           </div>
         </li>
         <li className="flex">
@@ -59,8 +59,8 @@ export const TrustSection = () => {
             <span className="w-12 h-12 p-3 rounded-md bg-accent2">
               <AwardSvg className="fill-white" />
             </span>
-            <h3 className="text-xl lg:text-[28px] leading-[110%] font-medium lg:tracking-tighter text-end">Премия HR-Tech 2024</h3>
-            <p className="max-w-[425px] text-base text-accent2/80 text-end ">RekrutAI признан лучшим цифровым сервисом для поиска работы по версии DigitalHR</p>
+            <h3 className="text-xl lg:text-[28px] leading-[110%] font-medium lg:tracking-tighter text-end">HR-Tech Award 2024</h3>
+            <p className="max-w-[425px] text-base text-accent2/80 text-end ">RekrutAI was recognized as the best digital job search service by DigitalHR</p>
           </div>
           <div className="hidden xs:block basis-1/2">
 
@@ -90,8 +90,8 @@ export const TrustSection = () => {
             <span className="w-12 h-12 p-3 rounded-md bg-[#BFDFF6]">
               <PeopleSvg />
             </span>
-            <h3 className="text-xl lg:text-[28px] leading-[110%] font-medium lg:tracking-tighter text-start">Надежные партнеры</h3>
-            <p className="max-w-[425px] text-base text-accent2/80 text-start">Мы заботимся о вашей безопасности: размещаем вакансии только от проверенных компаний и агентств</p>
+            <h3 className="text-xl lg:text-[28px] leading-[110%] font-medium lg:tracking-tighter text-start">Reliable partners</h3>
+            <p className="max-w-[425px] text-base text-accent2/80 text-start">We care about your security: we only post vacancies from verified companies and agencies</p>
           </div>
         </li>
       </ul>

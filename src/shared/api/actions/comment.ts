@@ -25,11 +25,11 @@ import { TComment } from "../types";
  */
 export const getMatchCommentList = async (
   matchId: number | string,
-  page: number
+  page: number,
 ) => {
   try {
     const response = await apiGet<TApiListResponse<TComment>>(
-      `/api/v1/match/${matchId}/comment?page=${page}`
+      `/api/v1/match/${matchId}/comment?page=${page}`,
     );
     return {
       data: response.data,
@@ -39,8 +39,7 @@ export const getMatchCommentList = async (
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {
-      error.message =
-        "Не удалось загрузить комментарии к мэтчу. Пожалуйста, попробуйте позже.";
+      error.message = "Failed to load match comments. Please try again later.";
     }
     throw error;
   }
@@ -61,7 +60,7 @@ export const getMatchCommentList = async (
 export const storeMatchComment = async (
   matchId: string | number,
   _: TMutationState | null,
-  data: FormData
+  data: FormData,
 ): Promise<TMutationState> => {
   const result = await apiMutate(`/api/v1/match/${matchId}/comment`, {
     body: parseFormData(data),

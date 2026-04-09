@@ -34,7 +34,7 @@ export const WorkFormatFilterField = ({
   }
   return (
     <FilterBase
-      triggerText="Формат"
+      triggerText="Format"
       onSave={() => updateCb({ work_format: Array.from(workFormat) })}
       onCancel={() => updateCb({ work_format: [] })}
       className={cn(defaultValues?.length && 'ring-2 ring-primary ring-offset-1')}

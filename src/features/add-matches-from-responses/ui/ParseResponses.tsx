@@ -15,7 +15,7 @@ export const ParseResponses = ({
   vacancyId,
   externalId
 }: TProps) => {
-  const { formAction, pending } = useMutateForm({ mutationAction: parseVacancyResponses, toastMessage: 'Обработка откликов запущена' })
+  const { formAction, pending } = useMutateForm({ mutationAction: parseVacancyResponses, toastMessage: 'Response processing started' })
   return (
     <form
       action={formAction}
@@ -26,7 +26,7 @@ export const ParseResponses = ({
       <Button
       >
         <MessageCircleReply className={cn(pending && "animate-spin")} />
-        {pending ? 'Обработка...' : 'Обработка откликов'}
+        {pending ? 'Processing...' : 'Process responses'}
       </Button>
     </form>
   );

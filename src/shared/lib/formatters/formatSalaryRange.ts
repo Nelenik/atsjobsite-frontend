@@ -16,18 +16,18 @@ import { formatStrByTemplate } from "./formatStrByTemplate";
 export const formatSalaryRange = (
   salaryFrom: number | null,
   salaryTo: number | null,
-  isShort: boolean = true
+  isShort: boolean = true,
 ): string => {
   if (!salaryFrom && !salaryTo) {
-    return "Доход не указан";
+    return "Salary not specified";
   }
 
   const templates = {
     exact: "{to}",
-    onlyTo: "до {to}",
-    onlyFrom: "от {from}",
+    onlyTo: "up to {to}",
+    onlyFrom: "from {from}",
     rangeShort: "{from} - {to}",
-    rangeFull: "от {from} до {to}",
+    rangeFull: "from {from} to {to}",
   };
 
   let templateKey: keyof typeof templates = "exact";
@@ -45,8 +45,8 @@ export const formatSalaryRange = (
   }
 
   const template = templates[templateKey];
-  const salaryFromPrice = formatPrice(salaryFrom, "ru-Ru");
-  const salaryToPrice = formatPrice(salaryTo, "ru-Ru");
+  const salaryFromPrice = formatPrice(salaryFrom, "en-US");
+  const salaryToPrice = formatPrice(salaryTo, "en-US");
 
   return formatStrByTemplate(template, {
     from: salaryFromPrice,

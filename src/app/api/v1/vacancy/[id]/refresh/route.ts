@@ -4,5 +4,5 @@ import { getAuthUserId } from "@/app/api/v1/_lib/auth";
 
 export async function GET(req: NextRequest) {
   if (!getAuthUserId(req)) return unauthorized();
-  return ok({ message: "Обновление мэтчей запущено" });
+  return ok({ message: "Match update started" });
 }

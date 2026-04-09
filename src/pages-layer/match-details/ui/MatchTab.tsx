@@ -40,13 +40,13 @@ export const MatchTab = ({
           match_point={point}
         />
         <Summary
-          title="Саммори по мэтчу"
+          title="Match summary"
           className="min-h-40"
           summary={summary}
         />
 
         <Summary
-          title="Саммори по резюме"
+          title="Resume summary"
           className="min-h-40"
           summary={cv.summary}
         />

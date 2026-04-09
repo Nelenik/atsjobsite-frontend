@@ -6,103 +6,103 @@ export default function Pricing() {
     <section id="pricing" className="py-16 bg-gray-50 dark:bg-gray-900 max-w-screen-xl mx-auto">
       <div className="container mx-auto px-6">
         <h2 className="text-4xl font-bold text-center text-gray-800 dark:text-white mb-4">
-          Выберите подходящий тариф
+          Choose a plan that works for you
         </h2>
         <p className="text-center text-gray-600 dark:text-gray-400 mb-12">
-          Подберите идеальных кандидатов, используя наш сервис.
+          Find the perfect candidates using our service.
         </p>
 
         <div className="flex flex-col md:flex-row items-center justify-center gap-8">
           {/* Basic Plan */}
           <div className="w-full max-w-sm p-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-xl hover:border-red-500 border border-transparent hover:bg-gray-100 dark:hover:bg-gray-700">
             <h3 className="text-2xl font-semibold text-gray-800 dark:text-white">
-              Базовый
+              Basic
             </h3>
             <p className="mt-4 text-gray-600 dark:text-gray-400">
-              Идеально для небольших компаний.
+              Perfect for small companies.
             </p>
             <div className="mt-6 text-gray-800 dark:text-white">
-              <span className="text-4xl font-bold">₽990</span>
-              <span className="text-lg">/месяц</span>
+              <span className="text-4xl font-bold">$9.99</span>
+              <span className="text-lg">/month</span>
             </div>
             <ul className="mt-6 space-y-3">
               <li className="flex items-center gap-2">
                 <Check className="w-5 h-5 text-green-500" />
-                1 вакансия
+                1 vacancy
               </li>
               <li className="flex items-center gap-2">
                 <Check className="w-5 h-5 text-green-500" />
-                Основной поиск кандидатов
+                Basic candidate search
               </li>
               <li className="flex items-center gap-2">
                 <Check className="w-5 h-5 text-green-500" />
-                Поддержка по email
+                Email support
               </li>
             </ul>
             <Button variant="destructive" className="w-full mt-6">
-              Выбрать Базовый
+              Get Basic
             </Button>
           </div>
 
           {/* Pro Plan */}
           <div className="w-full max-w-sm p-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg border-2 border-blue-500 transition-transform transform hover:scale-105 hover:shadow-xl hover:border-red-500 hover:bg-gray-100 dark:hover:bg-gray-700">
             <h3 className="text-2xl font-semibold text-gray-800 dark:text-white">
-              Профессиональный
+              Professional
             </h3>
             <p className="mt-4 text-gray-600 dark:text-gray-400">
-              Для компаний, активно ищущих специалистов.
+              For companies actively searching for specialists.
             </p>
             <div className="mt-6 text-gray-800 dark:text-white">
-              <span className="text-4xl font-bold">₽2,990</span>
-              <span className="text-lg">/месяц</span>
+              <span className="text-4xl font-bold">$29.99</span>
+              <span className="text-lg">/month</span>
             </div>
             <ul className="mt-6 space-y-3">
               <li className="flex items-center gap-2">
                 <Check className="w-5 h-5 text-green-500" />
-                10 вакансий
+                10 vacancies
               </li>
               <li className="flex items-center gap-2">
                 <Check className="w-5 h-5 text-green-500" />
-                Расширенный поиск кандидатов
+                Advanced candidate search
               </li>
               <li className="flex items-center gap-2">
                 <Check className="w-5 h-5 text-green-500" />
-                Приоритетная поддержка
+                Priority support
               </li>
             </ul>
             <Button variant="destructive" className="w-full mt-6">
-              Выбрать Профессиональный
+              Get Professional
             </Button>
           </div>
 
           {/* Enterprise Plan */}
           <div className="w-full max-w-sm p-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-xl hover:border-red-500 border border-transparent hover:bg-gray-100 dark:hover:bg-gray-700">
             <h3 className="text-2xl font-semibold text-gray-800 dark:text-white">
-              Корпоративный
+              Enterprise
             </h3>
             <p className="mt-4 text-gray-600 dark:text-gray-400">
-              Для крупных компаний и агентств.
+              For large companies and agencies.
             </p>
             <div className="mt-6 text-gray-800 dark:text-white">
-              <span className="text-4xl font-bold">₽9,990</span>
-              <span className="text-lg">/месяц</span>
+              <span className="text-4xl font-bold">$99.99</span>
+              <span className="text-lg">/month</span>
             </div>
             <ul className="mt-6 space-y-3">
               <li className="flex items-center gap-2">
                 <Check className="w-5 h-5 text-green-500" />
-                Неограниченное количество вакансий
+                Unlimited vacancies
               </li>
               <li className="flex items-center gap-2">
                 <Check className="w-5 h-5 text-green-500" />
-                Расширенный поиск кандидатов
+                Advanced candidate search
               </li>
               <li className="flex items-center gap-2">
                 <Check className="w-5 h-5 text-green-500" />
-                Выделенный менеджер
+                Dedicated account manager
               </li>
             </ul>
             <Button variant="destructive" className="w-full mt-6">
-              Выбрать Корпоративный
+              Get Enterprise
             </Button>
           </div>
         </div>

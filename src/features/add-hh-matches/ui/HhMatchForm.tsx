@@ -33,7 +33,7 @@ export const HhMatchForm = ({
 
   const { formAction, pending, defaultValues, errors, removeError } = useMutateForm<THhMatchRequest>({
     mutationAction: launchMatchFromHh,
-    toastMessage: 'Создание мэтчей с hh.ru запущено',
+    toastMessage: 'Match creation from hh.ru started',
     onSuccess
 
   })
@@ -57,7 +57,7 @@ export const HhMatchForm = ({
 
           {/* Cv name */}
           <FormItem
-            labelText="Название резюме"
+            labelText="Resume title"
             error={errors.text}
           >
             <Input
@@ -69,7 +69,7 @@ export const HhMatchForm = ({
 
           {/* Area */}
           <FormItem
-            labelText="Местоположение"
+            labelText="Location"
             className="gap-1"
             error={errors.area}
           >
@@ -81,7 +81,7 @@ export const HhMatchForm = ({
           </FormItem>
 
           {/* Professional_role */}
-          <FormItem labelText="Специализация" className="gap-1">
+          <FormItem labelText="Specialization" className="gap-1">
             <SpecializationField
               defaultValues={defaultValues?.professional_role?.map(String)}
               name='professional_role[]'
@@ -91,7 +91,7 @@ export const HhMatchForm = ({
 
           {/* Experience */}
           <FormItem
-            labelText="Опыт работы"
+            labelText="Work experience"
             className="gap-1"
             error={errors.experience}
           >
@@ -119,7 +119,7 @@ export const HhMatchForm = ({
 
           {/* Age */}
           <div >
-            <p className="mb-[10px] font-medium">Возраст</p>
+            <p className="mb-[10px] font-medium">Age</p>
             <div className="flex gap-4">
               <FormItem
                 error={errors.age_from}
@@ -127,7 +127,7 @@ export const HhMatchForm = ({
               >
                 <Input
                   type="number"
-                  placeholder="от"
+                  placeholder="from"
                   name="age_from"
                   min={14}
                   max={99}
@@ -141,7 +141,7 @@ export const HhMatchForm = ({
               >
                 <Input
                   type="number"
-                  placeholder="до"
+                  placeholder="to"
                   name="age_to"
                   defaultValue={defaultValues?.age_to}
                   min={14}
@@ -154,7 +154,7 @@ export const HhMatchForm = ({
 
           {/* Gender */}
           <FormItem
-            labelText="Пол"
+            labelText="Gender"
             className="gap-1"
             error={errors.gender}
           >
@@ -181,7 +181,7 @@ export const HhMatchForm = ({
 
           {/* Status */}
           <FormItem
-            labelText="Статус поиска"
+            labelText="Job search status"
             className="gap-1"
             error={errors.status}
           >
@@ -208,23 +208,22 @@ export const HhMatchForm = ({
 
           {/* Salary */}
           <FormItem
-            labelText="Зарплата"
+            labelText="Salary"
             className=""
             error={errors.salary}
           >
             <Input
-              placeholder="Зарплата"
+              placeholder="Salary"
               name="salary"
               pattern="[0-9]+"
-              title="Введите только цифры"
-              onChange={(e) => removeError(e.target.name)}
+              title="Enter numbers only"
               defaultValue={defaultValues?.salary}
             />
           </FormItem>
           {/* Employment */}
 
           <FormItem
-            labelText="Тип занятости"
+            labelText="Employment type"
             className="gap-1"
             error={errors.employment}
           >
@@ -252,12 +251,12 @@ export const HhMatchForm = ({
 
           {/* Search period in days */}
           <FormItem
-            labelText="Учитывать резюме за последние {X} дней"
+            labelText="Consider resumes from the last {X} days"
             className=""
             error={errors.search_period}
           >
             <Input
-              placeholder="Количество дней"
+              placeholder="Number of days"
               title="Введите только цифры"
               pattern="[0-9]+"
               name="search_period"
@@ -273,10 +272,10 @@ export const HhMatchForm = ({
 
       <div className={cn("absolute left-0 right-0 bottom-0 ", "px-12 py-2.5 bg-white shadow-[0px_-2px_3px_-2px_rgba(0,_0,_0,_0.35)] flex justify-end gap-4")}>
         <Button type="button" variant="ghost" className="mr-2" onClick={() => formRef?.current?.reset()}>
-          Сбросить
+          Reset
         </Button>
         <Button type="submit">
-          {pending ? 'Обработка...' : 'Запросить'}
+          {pending ? 'Processing...' : 'Search'}}
 
         </Button>
       </div>

@@ -25,18 +25,17 @@ import { TCandidateFull, TCandidateShort, TMatchUpdate } from "../types";
  */
 export const getBasicCandidatesByStatus = async (
   vacId: number | string,
-  statusId: number | string
+  statusId: number | string,
 ): Promise<TCandidateShort[]> => {
   try {
     const response = await apiGet<TApiListResponse<TCandidateShort>>(
-      `/api/v1/match/candidates?vacancy_id=${vacId}&status_id=${statusId}`
+      `/api/v1/match/candidates?vacancy_id=${vacId}&status_id=${statusId}`,
     );
     return response.data.toSorted((a, b) => b.match_point - a.match_point);
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {
-      error.message =
-        "Не удалось загрузить кандидатов. Пожалуйста, попробуйте позже.";
+      error.message = "Failed to load candidates. Please try again later.";
     }
     throw error;
   }
@@ -56,15 +55,14 @@ export const getBasicCandidatesByStatus = async (
 export const getCandidateFull = async (matchId: number) => {
   try {
     const response = await apiGet<TApiSuccessResponse<TCandidateFull>>(
-      `/api/v1/match/${matchId}`
+      `/api/v1/match/${matchId}`,
     );
 
     return response.data;
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {
-      error.message =
-        "Не удалось загрузить информацию о кандидате. Пожалуйста, попробуйте позже.";
+      error.message = "Failed to load candidate info. Please try again later.";
     }
     throw error;
   }
@@ -86,7 +84,7 @@ export const getCandidateFull = async (matchId: number) => {
 export const updateMatch = async (
   matchId: number | string,
   _: TMutationState | null,
-  data: FormData | TMatchUpdate
+  data: FormData | TMatchUpdate,
 ) => {
   const result = await apiMutate(`/api/v1/match/${matchId}`, {
     body: data instanceof FormData ? parseFormData(data) : data,
@@ -95,7 +93,7 @@ export const updateMatch = async (
   if (!result.error) {
     revalidatePath(
       "/dashboard/[companyId]/candidate-info/[candidateId]",
-      "page"
+      "page",
     );
   }
   return result;
@@ -124,9 +122,12 @@ export const launchMatchFromHh = async (_: TMutationState, data: FormData) => {
  */
 export const parseVacancyResponses = async (
   _: TMutationState,
-  data: FormData
+  data: FormData,
 ) => {
-  const parsedData = parseFormData<{ vacancy_id: string; external_id: string }>(data, false);
+  const parsedData = parseFormData<{ vacancy_id: string; external_id: string }>(
+    data,
+    false,
+  );
   const result = await apiMutate("/api/v1/match/parse-vacancy-responses", {
     body: {
       vacancy_id: Number(parsedData.vacancy_id),

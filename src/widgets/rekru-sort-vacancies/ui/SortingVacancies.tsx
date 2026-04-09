@@ -11,23 +11,23 @@ import { useState, useEffect } from "react";
 const sortOptions = [
   {
     value: 'default',
-    label: 'По умолчанию'
+    label: 'Default'
   },
   {
     value: "publication_at",
-    label: 'По дате (сначала новые)'
+    label: 'By date (newest first)'
   },
   {
     value: "-publication_at",
-    label: 'По дате (сначала старые)'
+    label: 'By date (oldest first)'
   },
   {
     value: "name",
-    label: 'По имени (А → Я)'
+    label: 'By name (A → Z)'
   },
   {
     value: "-name",
-    label: 'По имени (Я → А)'
+    label: 'By name (Z → A)'
   }
 ]
 
@@ -44,11 +44,11 @@ const SortingVacanciesField = ({
 }: TSortingFieldProps) => {
   const [open, setOpen] = useState(false)
 
-  const [selectValue, setSelectValue] = useState('Сортировка')
+  const [selectValue, setSelectValue] = useState('Sort')
 
   useEffect(() => {
     const label = sortOptions.find((option) => option.value === value)?.label
-    const selectedLabel = label === 'По умолчанию' || !label ? 'Сортировка' : label
+    const selectedLabel = label === 'Default' || !label ? 'Sort' : label
     setSelectValue(selectedLabel)
   }, [value])
 

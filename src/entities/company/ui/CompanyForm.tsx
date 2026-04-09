@@ -40,7 +40,7 @@ export const CompanyForm: FC<TProps> = ({
     : storeCompany
 
   //define toast message
-  const toastMessage = type === 'edit' ? 'Данные о компании успешно обновлены' : 'Новая компания успешно сохранена'
+  const toastMessage = type === 'edit' ? 'Company data updated successfully' : 'New company saved successfully'
 
   const { formAction, pending, defaultValues, errors, removeError } =
     useMutateForm({
@@ -55,9 +55,9 @@ export const CompanyForm: FC<TProps> = ({
   return (
     <form action={formAction} className="flex flex-col justify-between grow">
       <div className="sm:columns-2 sm:gap-6 [&>*:not(:last-child)]:mb-6 mb-6">
-        <FormItem labelText="Название" error={errors?.name}>
+        <FormItem labelText="Name" error={errors?.name}>
           <Input
-            placeholder="Название"
+            placeholder="Name"
             name="name"
             defaultValue={defaultValues?.name}
             className={errors?.name && 'ring-2 ring-destructive'}
@@ -65,9 +65,9 @@ export const CompanyForm: FC<TProps> = ({
           />
         </FormItem>
 
-        <FormItem labelText="Полное наименование" error={errors?.full_name}>
+        <FormItem labelText="Full name" error={errors?.full_name}>
           <Textarea
-            placeholder="Полное наименование"
+            placeholder="Full legal name"
             name="full_name"
             className={cn("resize-none", errors?.full_name && 'ring-2 ring-destructive')}
             rows={9}
@@ -76,9 +76,9 @@ export const CompanyForm: FC<TProps> = ({
           />
         </FormItem>
 
-        <FormItem labelText="Описание" error={errors?.description}>
+        <FormItem labelText="Description" error={errors?.description}>
           <Textarea
-            placeholder="Описание организации"
+            placeholder="Organization description"
             name="description"
             className={cn("resize-none", errors?.description && 'ring-2 ring-destructive')}
             rows={17}
@@ -87,9 +87,9 @@ export const CompanyForm: FC<TProps> = ({
           />
         </FormItem>
 
-        <FormItem labelText="ИНН" className="break-before-column" error={errors?.inn}>
+        <FormItem labelText="Tax ID" className="break-before-column" error={errors?.inn}>
           <Input
-            placeholder="ИНН"
+            placeholder="Tax ID"
             name="inn"
             defaultValue={defaultValues?.inn}
             className={cn(errors?.inn && 'ring-2 ring-destructive')}
@@ -97,7 +97,7 @@ export const CompanyForm: FC<TProps> = ({
           />
         </FormItem>
 
-        <FormItem labelText="Тариф" error={errors?.tariff}>
+        <FormItem labelText="Plan" error={errors?.tariff}>
           <Select
             name="rate"
             defaultValue={defaultValues?.rate}
@@ -106,7 +106,7 @@ export const CompanyForm: FC<TProps> = ({
               className={cn(errors?.rate && 'ring-2 ring-destructive')}
             >
               <SelectValue
-                placeholder="Выбранный тарифный план"
+                placeholder="Select pricing plan"
               />
             </SelectTrigger>
 
@@ -121,7 +121,7 @@ export const CompanyForm: FC<TProps> = ({
         </FormItem>
 
         <FormItem
-          labelText="Дата оплаты"
+          labelText="Payment date"
           error={errors?.rate_at}
         >
           <DatePicker
@@ -138,11 +138,11 @@ export const CompanyForm: FC<TProps> = ({
           className="mr-2"
           onClick={onCancel}
         >
-          Отмена
+          Cancel
         </Button>
 
         <Button type="submit">
-          {pending ? 'Сохранение...' : 'Сохранить'}
+          {pending ? 'Saving...' : 'Save'}
         </Button>
       </div>
     </form>

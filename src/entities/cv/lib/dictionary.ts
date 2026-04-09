@@ -3,10 +3,10 @@ import { ECvStatus } from "@/shared/api/types";
 import HunterIcon from "@/assets/sources/hunter.svg?rc";
 
 export const workStatusDict = {
-  [ECvStatus.LOOKING]: "в поиске",
-  [ECvStatus.CONSIDERING]: "рассматривает предложения",
-  [ECvStatus.SILENT]: "не в поиске",
-  [ECvStatus.OFFER]: "есть оффер",
+  [ECvStatus.LOOKING]: "actively looking",
+  [ECvStatus.CONSIDERING]: "open to offers",
+  [ECvStatus.SILENT]: "not looking",
+  [ECvStatus.OFFER]: "has an offer",
 };
 
 export const cvSource = {

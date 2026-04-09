@@ -42,7 +42,7 @@ export const CandidateCard = ({
           color='#34d399'
           className={cn("absolute top-1 right-1 px-1 text-[10px] border-none ", isNew && 'animate-pulse text-[12px]')}
         >
-          Новая
+          New
         </StatusBadge>}
         <h3 className="text-base font-regular hyphens-auto [overflow-wrap:anywhere]">
           {name || cv_name}
@@ -51,7 +51,7 @@ export const CandidateCard = ({
         <p className="text-muted-foreground text-base mb-1">{city}</p>
 
         <p className="text-base text-muted-foreground mb-1">
-          {formatPrice(salary, 'ru-Ru', 'RUB')}
+          {formatPrice(salary, 'en-US', 'USD')}
         </p>
 
         <div className="flex flex-wrap gap-1.5 items-center">

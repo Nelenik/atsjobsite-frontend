@@ -8,10 +8,10 @@ import { TextFormatter } from "@/shared/ui/TextFormatter";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/shadcn/tabs";
 
 const tabsDict = [
-  { value: 'description', text: 'Описание' },
-  { value: 'matches', text: 'Мэтчи' },
-  { value: 'comments', text: 'Комментарии' },
-  { value: 'history', text: 'История' },
+  { value: 'description', text: 'Description' },
+  { value: 'matches', text: 'Matches' },
+  { value: 'comments', text: 'Comments' },
+  { value: 'history', text: 'History' },
 
 ]
 
@@ -24,10 +24,10 @@ export const CvDetails = async ({ cv }: TProps) => {
   return (
     <div>
       <h2 className="typography-h2 first:mt-0 mb-2 hyphens-auto [overflow-wrap:anywhere]">
-        {cv.candy_name || 'Имя не указано'}
+        {cv.candy_name || 'Name not specified'}
       </h2>
       <h3 className="scroll-m-20 text-lg font-semibold  tracking-tight mb-6 w-[min(500px,_100%)] hyphens-auto [overflow-wrap:anywhere]">
-        {cv.name || 'Роль не известна'}
+        {cv.name || 'Role unknown'}
       </h3>
       <Tabs defaultValue="description" className="w-full ">
         <TabsList className="w-full justify-start gap-3.5 bg-transparent p-0 mb-6 flex-wrap min-h-10 h-[unset]">
@@ -45,7 +45,7 @@ export const CvDetails = async ({ cv }: TProps) => {
               "md:grid md:grid-cols-[35%_1fr] md:gap-x-6 md:gap-y-6",)}
           >
             <CollapsibleSummary
-              title="Саммори по резюме"
+              title="Resume summary"
               summary={cv.summary}
               defaultOpen={true}
               className="md:col-span-2 italic  ring-1 rounded-md  p-4"
@@ -65,20 +65,20 @@ export const CvDetails = async ({ cv }: TProps) => {
             />
             <div className="grow @container">
               <h2 className="scroll-m-20 text-lg font-semibold tracking-tight mb-6">
-                Опыт работы
+                Work experience
               </h2>
               {
                 cv.workExperiences && cv.workExperiences.length
                   ? <WorkExperienceList experience={cv.workExperiences} />
-                  : <TextFormatter text={cv.experience_raw || 'Данные об опыте отсутствуют'} />
+                  : <TextFormatter text={cv.experience_raw || 'No experience data'} />
               }
             </div>
           </div>
         </TabsContent>
 
-        <TabsContent value="matches">Мэтчи, coming soon...</TabsContent>
-        <TabsContent value="comments">Комментарии, coming soon...</TabsContent>
-        <TabsContent value="history">История, coming soon...</TabsContent>
+        <TabsContent value="matches">Matches, coming soon...</TabsContent>
+        <TabsContent value="comments">Comments, coming soon...</TabsContent>
+        <TabsContent value="history">History, coming soon...</TabsContent>
       </Tabs>
     </div>
   );

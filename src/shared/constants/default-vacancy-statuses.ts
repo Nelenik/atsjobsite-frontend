@@ -4,25 +4,25 @@ import { TStatus } from "../api/types";
 export const vacanciesDefaultStatuses: TStatus[] = [
   {
     id: 191,
-    name: "Черновик",
+    name: "Draft",
     color: "#A9A9A9",
     rank: 1,
   },
   {
     id: 192,
-    name: "В работе",
+    name: "In Progress",
     color: "#FFA500",
     rank: 2,
   },
   {
     id: 193,
-    name: "Ожидание",
+    name: "On Hold",
     color: "#ADD8E6",
     rank: 3,
   },
   {
     id: 194,
-    name: "На паузе",
+    name: "Paused",
     color: "#4682B4",
     rank: 4,
   },

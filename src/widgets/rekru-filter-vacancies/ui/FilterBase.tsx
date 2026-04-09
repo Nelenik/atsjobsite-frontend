@@ -67,7 +67,7 @@ export const FilterBase = ({
               setOpen(false)
             }}
           >
-            Сохранить
+            Save
           </RekruCTA>
         </PopoverContent>
       </Popover>

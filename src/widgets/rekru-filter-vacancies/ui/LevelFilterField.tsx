@@ -34,7 +34,7 @@ export const LevelFilterField = ({
 
   return (
     <FilterBase
-      triggerText="Грейд"
+      triggerText="Grade"
       onSave={() => updateCb({ level: Array.from(levels) })}
       onCancel={() => updateCb({ level: [] })}
       className={cn(defaultValues?.length && 'ring-2 ring-primary ring-offset-1')}

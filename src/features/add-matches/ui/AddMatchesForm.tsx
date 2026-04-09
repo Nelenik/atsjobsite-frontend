@@ -20,7 +20,7 @@ export const AddMatchesForm = ({
   const { className: btnClassName, ...restProps } = buttonProps || {}
 
   const action = addMatches.bind(null, vacancyId)
-  const { formAction, pending } = useMutateForm({ mutationAction: action, toastMessage: 'Создание новых мэтчей запущено' })
+  const { formAction, pending } = useMutateForm({ mutationAction: action, toastMessage: 'New match creation started' })
 
   return (
     <form
@@ -32,7 +32,7 @@ export const AddMatchesForm = ({
         {...restProps}
       >
         <RefreshCw className={cn(pending && "animate-spin")} />
-        {pending ? 'Обработка...' : 'Добавить мэтчи'}
+        {pending ? 'Processing...' : 'Add matches'}
       </Button>
     </form>
   );

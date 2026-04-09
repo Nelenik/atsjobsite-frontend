@@ -4,29 +4,29 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/shadcn/car
 const timelineData = [
   {
     id: 0,
-    title: "Размещаем вакансии",
-    description: "Создаем понятное описание и разбираем отзывы",
+    title: "Post vacancies",
+    description: "We create clear descriptions and analyze responses",
   },
   {
     id: 1,
-    title: "Отбираем резюме",
-    description: "AI выбирает самых подходящих кандидатов из базы 75 миллионов резюме",
+    title: "Screen resumes",
+    description: "AI selects the best-fit candidates from a database of 75 million resumes",
   },
   {
     id: 2,
-    title: "Контактируем",
-    description: "Устанавливаем контакт по телефону или в мессенджерах с кандидатами и выполняем скрининг",
+    title: "Make contact",
+    description: "We reach out to candidates by phone or messenger and conduct screening",
   },
   {
     id: 3,
-    title: "Проведение интервью или тестирование",
-    description: "Запишем и проанализируем результаты",
+    title: "Interview or testing",
+    description: "We record and analyze the results",
   },
   {
     id: 4,
-    title: "Формирование отчета",
+    title: "Report generation",
     description:
-      "Вы получаете контакты подходящих кандидатов и наш отчет по каждому. В отчете результаты скрининга и тестирования или интервью",
+      "You receive contact details of suitable candidates along with our report on each one, including screening and testing or interview results",
   },
 ];
 
@@ -34,7 +34,7 @@ export default function Timeline() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       <h2 className="text-4xl font-bold text-center text-gray-800 dark:text-white mb-12">
-        Как это работает
+        How it works
       </h2>
       <div className="relative">
         {/* Вертикальная линия таймлайна (скрыта на мобильных устройствах) */}

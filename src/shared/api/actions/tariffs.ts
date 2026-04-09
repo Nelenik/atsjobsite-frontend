@@ -21,8 +21,7 @@ export const getTariffs = async (): Promise<TTariff[]> => {
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {
-      error.message =
-        "Не удалось загрузить тарифы. Пожалуйста, попробуйте позже.";
+      error.message = "Failed to load tariffs. Please try again later.";
     }
     throw error;
   }

@@ -15,7 +15,7 @@ export const MatchComments: FC<TProps> = ({
     <div className="flex flex-col gap-6">
       <h2 className="scroll-m-20 text-lg font-semibold tracking-tight flex items-center gap-2">
         <MessageCircleMore className="stroke-muted-foreground" />
-        Комментарии
+        Comments
       </h2>
       <CommentsForm matchId={matchId} />
       <InfiniteMatchComments matchId={matchId} />

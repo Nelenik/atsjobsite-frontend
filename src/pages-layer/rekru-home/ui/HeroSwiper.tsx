@@ -31,11 +31,11 @@ export const HeroSwiper = ({ }) => {
               'max-w-[550px] md:max-w-none mb-5 text-3xl sm:text-5xl text-center md:text-start font-medium hyphens-auto [overflow-wrap:anywhere]',
               "lg:text-7xl lg:-tracking-[3px] md:w-full"
             )}>
-              Премиум вакансии
-              для профессионалов
+              Premium vacancies
+              for professionals
             </h1>
             <p className='mb-10 -tracking-[1px] max-w-[550px] text-base text-center md:text-start'>
-              Ваш карьерный рост начинается здесь: только лучшие предложения от ведущих работодателей. Доверяйте экспертам, выбирайте будущее
+              Your career growth starts here: only the best offers from top employers. Trust the experts, choose your future
             </p>
             <RekruCTA
               view="dark"
@@ -44,7 +44,7 @@ export const HeroSwiper = ({ }) => {
 
               )}
             >
-              ЗАРЕГИСТРИРОВАТЬСЯ
+              SIGN UP
             </RekruCTA>
           </div>
           <picture className={cn(
@@ -52,7 +52,7 @@ export const HeroSwiper = ({ }) => {
             "md:h-full"
           )}>
             <source srcSet="/assets/hero-part.webp" media="(min-width: 768px)"></source>
-            <img src="/assets/hero-big.webp" alt="иллюстративное изображение" aria-hidden className='object-cover w-full h-auto' />
+            <img src="/assets/hero-big.webp" alt="illustration" aria-hidden className='object-cover w-full h-auto' />
           </picture>
         </div>
       </SwiperSlide>

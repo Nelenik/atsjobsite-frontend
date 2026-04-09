@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { ru } from "date-fns/locale";
+import { enUS } from "date-fns/locale";
 
 /**
  * Форматирует дату в строку в формате "месяц год" (например, "январь 2023").
@@ -13,7 +13,7 @@ import { ru } from "date-fns/locale";
  * // 'январь 2023'
  */
 export const formatToMonthYearString = (
-  date: string | number | Date | null
+  date: string | number | Date | null,
 ) => {
   if (!date) {
     return "";
@@ -22,5 +22,5 @@ export const formatToMonthYearString = (
   if (isNaN(parsedDate.getTime())) {
     return "";
   }
-  return format(parsedDate, "LLLL yyyy", { locale: ru });
+  return format(parsedDate, "LLLL yyyy", { locale: enUS });
 };

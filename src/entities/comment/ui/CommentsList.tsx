@@ -39,7 +39,7 @@ export const CommentsList = ({
                 "hover:bg-input @3xl:self-stretch"
               )}
             >
-              Загрузить еще
+              Load more
               {isFetchingNextPage && <SpinnerOne className="text-white" />}
             </Button>
           </li>}

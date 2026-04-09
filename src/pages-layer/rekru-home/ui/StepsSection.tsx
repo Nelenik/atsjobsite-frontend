@@ -9,7 +9,7 @@ export const StepsSection = () => {
         'mb-5 md:mb-10 text-3xl font-semibold tracking-tighter text-center',
         'lg:text-5xl'
       )}>
-        Как это работает
+        How it works
       </h2>
       <div className="flex flex-col gap-4 md:gap-8 md:flex-row">
         <Card className="md:w-1/3 p-6 border-none shadow-none flex gap-5 md:gap-10 flex-col xs:flex-row md:flex-col ">
@@ -23,10 +23,10 @@ export const StepsSection = () => {
           />
           <div className="flex flex-col items-center gap-2.5">
 
-            <h3 className="text-xl lg:text-[28px] font-medium text-center lg:tracking-tighter leading-[110%] md:mb-auto hyphens-auto [overflow-wrap:anywhere]">Найдите подходящуюю вакансию </h3>
+            <h3 className="text-xl lg:text-[28px] font-medium text-center lg:tracking-tighter leading-[110%] md:mb-auto hyphens-auto [overflow-wrap:anywhere]">Find the right vacancy</h3>
             <p className="w-full max-w-[320px] text-base -tracking-[1px] leading-[130%] text-center hyphens-auto [overflow-wrap:anywhere]">
-              Фильтруйте по сфере, зарплате, формату работы и локации.
-              Только проверенные предложения
+              Filter by field, salary, work format and location.
+              Verified offers only
             </p>
           </div>
         </Card>
@@ -41,10 +41,10 @@ export const StepsSection = () => {
           />
           <div className="flex flex-col items-center gap-2.5">
 
-            <h3 className="text-xl lg:text-[28px] font-medium text-center lg:tracking-tighter leading-[110%] md:mb-auto hyphens-auto [overflow-wrap:anywhere]">Посмотрите детали и сделайте выбор</h3>
+            <h3 className="text-xl lg:text-[28px] font-medium text-center lg:tracking-tighter leading-[110%] md:mb-auto hyphens-auto [overflow-wrap:anywhere]">View details and make your choice</h3>
             <p className="w-full max-w-[320px] text-base -tracking-[1px] leading-[130%] text-center hyphens-auto [overflow-wrap:anywhere]">
-              Сравните условия, узнайте о работодателе и требования.
-              Быстрый предпросмотр вакансий
+              Compare terms, learn about the employer and requirements.
+              Quick vacancy preview
             </p>
           </div>
         </Card>
@@ -59,9 +59,9 @@ export const StepsSection = () => {
           />
           <div className="flex flex-col items-center gap-2.5">
 
-            <h3 className="text-xl lg:text-[28px] font-medium text-center lg:tracking-tighter leading-[110%] md:mb-auto hyphens-auto [overflow-wrap:anywhere]">Откликайтесь в один клик</h3>
+            <h3 className="text-xl lg:text-[28px] font-medium text-center lg:tracking-tighter leading-[110%] md:mb-auto hyphens-auto [overflow-wrap:anywhere]">Apply in one click</h3>
             <p className="w-full max-w-[320px] text-base -tracking-[1px] leading-[130%] text-center hyphens-auto [overflow-wrap:anywhere]">
-              Отправьте отклик без лишних формальностей. Получайте обратную связь напрямую от работодателей
+              Send your application without unnecessary formalities. Get feedback directly from employers
             </p>
           </div>
         </Card>

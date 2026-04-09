@@ -8,17 +8,17 @@ export const AuthTabs = () => {
     <Tabs defaultValue="signin" className="w-[min(100%,_400px)] ">
       <TabsList className="grid w-full grid-cols-2 bg-white h-auto p-2">
         <StyledTabsTrigger value="signin">
-          Авторизоваться
+          Sign in
         </StyledTabsTrigger>
         <StyledTabsTrigger value="signup">
-          Зарегистрироваться
+          Sign up
         </StyledTabsTrigger>
       </TabsList>
       <TabsContent value="signin" className="min-h-[350px] shadow-2xl">
         <Card className="min-h-[350px]">
           <CardHeader>
             <CardTitle>
-              Авторизоваться
+              Sign in
             </CardTitle>
           </CardHeader>
           <CardContent >

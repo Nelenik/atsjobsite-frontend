@@ -14,18 +14,18 @@ export const UnauthorizedFallback = () => {
       <Card
         className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(90%,500px)] p-12 flex flex-col items-center text-xl"
       >
-        <h1 className="mb-8 text-xl font-semibold">Ваша сессия истекла</h1>
+        <h1 className="mb-8 text-xl font-semibold">Your session has expired</h1>
         <p className="text-center mb-3 text-base max-w-[85%]">
-          Пожалуйста, авторизуйтесь, чтобы продолжить работу с приложением.
+          Please log in to continue using the application.
         </p>
         <p className="text-center mb-8 text-base max-w-[80%]">
-          Если у вас нет учетной записи, пожалуйста, свяжитесь с администратором.
+          If you don't have an account, please contact the administrator.
         </p>
 
         <SignOutForm
           redirectTo={redirectTo.toString()}
         >
-          Перейти к авторизации
+          Go to login
         </SignOutForm>
       </Card>
     </div>

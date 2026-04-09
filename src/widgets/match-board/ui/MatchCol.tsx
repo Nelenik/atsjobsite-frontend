@@ -29,8 +29,8 @@ export const MatchCol: FC<TProps> = ({ color, status_id, title, className, isEdi
     queryFn: () => getBasicCandidatesByStatus(vacancyId as string, status_id),
     refetchInterval: (data) => {
       const hasData = data.state.data && data.state.data.length > 0
-      if (!hasData) return 5000; // часто, пока колонка пустая
-      return 8000; // реже, если там "всё спокойно"
+      if (!hasData) return 5000; // frequent while column is empty
+      return 8000; // less frequent when there's data
     },
     refetchIntervalInBackground: false,
     staleTime: 1000,

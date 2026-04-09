@@ -18,7 +18,7 @@ import { MobileMenu } from "./MobileMenu";
 
 const userSample = {
   id: 1,
-  name: 'Феодосия Абрассимова',
+  name: 'Theodosia Abrassimova',
   email: 'feodosia.abra@yandex.ru',
   profile_image: profileSampleImg.src
 }
@@ -88,7 +88,7 @@ export const Header = ({
         )}>
           <RekruCTA view="dark">
             <Plus />
-            Добавить вакансию
+            Post a vacancy
           </RekruCTA>
 
           <Link

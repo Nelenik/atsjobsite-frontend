@@ -80,7 +80,7 @@ export const CompaniesSwiper = ({
               target="_blank"
             >
 
-              Вакансии компании ({company.count})
+              Company vacancies ({company.count})
 
             </Link>
           </Card> */}

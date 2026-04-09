@@ -20,7 +20,7 @@ export const FiltersSheet = ({
             "h-auto w-[40px] [&_svg]:size-5  text-primary-foreground bg-accent2",
             className
           )}
-          aria-label="Открыть фильтры"
+          aria-label="Open filters"
         >
           <FunnelPlus
           />
@@ -34,11 +34,11 @@ export const FiltersSheet = ({
           <PanelRightClose size={20} />
         </SheetClose>
         <SheetTitle className="text-3xl visually-hidden">
-          Фильтры вакансий
+          Vacancy filters
         </SheetTitle>
 
         <SheetDescription className="visually-hidden">
-          Здесь вы можете настроить фильтры для поиска вакансий.
+          Here you can configure filters to search for vacancies.
         </SheetDescription>
 
         {children}

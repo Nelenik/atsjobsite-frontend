@@ -17,7 +17,7 @@ const CvDetailsPage = async ({ params }: { params: Promise<{ cvKeys: string[], c
   return (
     <div>
       <GoBackLink
-        text="Перейти к списку резюме"
+        text="Go to resume list"
       />
       <CvDetails cv={cv} />
     </div>

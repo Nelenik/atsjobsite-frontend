@@ -13,8 +13,8 @@ const roboto = Roboto({
 })
 
 export const metadata: Metadata = {
-  title: "RekrutAI - AI рекрутинг",
-  description: "Новый подход к подбору персонала. Используя передовые технологии AI, мы автоматизируем процесс поиска и отбора кандидатов. Теперь вы можете найти идеального сотрудника всего за несколько часов.",
+  title: "RekrutAI - AI recruiting",
+  description: "A new approach to recruitment. Using advanced AI technologies, we automate the process of finding and selecting candidates. Now you can find the perfect employee in just a few hours.",
   robots: {
     index: false,
     follow: false,

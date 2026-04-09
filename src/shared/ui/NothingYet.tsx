@@ -11,10 +11,10 @@ export const NothingYet = ({ className }: { className?: string }) => {
       />
       <div>
         <h2 className='text-2xl font-semibold text-center mb-6'>
-          Здесь пока ничего нет
+          Nothing here yet
         </h2>
         <p className='text-muted-foreground text-center'>
-          Но мы скоро что-то придумаем!
+          But we&apos;ll figure something out soon!
         </p>
       </div>
     </div>

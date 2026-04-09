@@ -15,7 +15,7 @@ export const CompaniesFilter = () => {
             onChange={(e) => {
               updateFilter({ 'name': e.target.value })
             }}
-            placeholder="Поиск по компании"
+            placeholder="Search by company"
             className="w-[clamp(200px,35%,400px)]" />
         </div>
       )}

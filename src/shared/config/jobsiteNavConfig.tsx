@@ -12,15 +12,15 @@ import { TNavConfig } from "./types";
  */
 export const createJobsitePublicNavConfig = (): TNavConfig[] => [
   {
-    routeName: 'Главная',
+    routeName: 'Home',
     href: '/'
   },
   {
-    routeName: 'Вакансии',
+    routeName: 'Vacancies',
     href: '/vacancies'
   },
   {
-    routeName: 'О проекте',
+    routeName: 'About',
     href: '/pages/about'
   },
 ]
@@ -35,22 +35,22 @@ export const createJobsitePublicNavConfig = (): TNavConfig[] => [
  */
 export const createJobsiteProfileNavConfig = (): TNavConfig[] => [
   {
-    routeName: "Мои вакансии",
+    routeName: "My vacancies",
     href: '/profile/vacancies',
     icon: <Circle className="h-[2cap] w-[2cap] inline mr-3 group-hover/icon:stroke-primary transition-colors" />
   },
   {
-    routeName: 'Статистика и аналитика',
+    routeName: 'Statistics and analytics',
     href: '/profile/analytics',
     icon: <Circle className="h-[2cap] w-[2cap] inline mr-3 group-hover/icon:stroke-primary transition-colors" />
   },
   {
-    routeName: 'Настройки',
+    routeName: 'Settings',
     href: '/profile/settings',
     icon: <Circle className="h-[2cap] w-[2cap] inline mr-3 group-hover/icon:stroke-primary transition-colors" />
   },
   {
-    routeName: 'Тех.поддержка',
+    routeName: 'Support',
     href: '/profile/support',
     icon: <Circle className="h-[2cap] w-[2cap] inline mr-3 group-hover/icon:stroke-primary transition-colors" />
   }

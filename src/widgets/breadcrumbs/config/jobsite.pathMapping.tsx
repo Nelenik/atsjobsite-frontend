@@ -19,7 +19,7 @@ export const jobsitePathMapping: IBreadcrumbPattern[] = [
     handler: (params) => {
       const { position, company } = params as { position: string, company: string }
       if (!params || !Object.keys(params).length) {
-        return 'Все вакансии'
+        return 'All vacancies'
       }
 
       if (company) {
@@ -36,19 +36,19 @@ export const jobsitePathMapping: IBreadcrumbPattern[] = [
   {
     pattern: "/vacancy/:vacancyId/:vacancyName",
     handler: (params) => {
-      const name = params?.vacancyName || "Название вакансии";
+      const name = params?.vacancyName || "Vacancy title";
       return decodeURIComponent(Array.isArray(name) ? name[0] : name);
     },
     isLink: true
   },
   {
     pattern: "/companies",
-    handler: () => "Компании",
+    handler: () => "Companies",
     isLink: true
   },
   {
     pattern: "/profile",
-    handler: () => "Кабинет",
+    handler: () => "Profile",
     isLink: true
   }
 ]

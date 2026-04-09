@@ -38,7 +38,7 @@ export const VacancyDetails = ({ vacancy }: { vacancy: TVacancy }) => {
     return (
       <>
         <h2 className="scroll-m-20 text-3xl font-bold tracking-tight first:mt-0 mb-6">
-          Редактировать вакансию
+          Edit vacancy
         </h2>
         <VacancyForm
           type="edit"
@@ -55,7 +55,7 @@ export const VacancyDetails = ({ vacancy }: { vacancy: TVacancy }) => {
     <div className="@container">
       <h1 className="scroll-m-20 text-3xl font-bold tracking-tight first:mt-0 mb-6 flex items-start gap-4">
         <span className="inline-block w-[min(500px,_75%)] hyphens-auto [overflow-wrap:anywhere]">
-          {name || 'Имя не указано'}
+          {name || 'Name not specified'}
 
         </span>
         <StatusBadge color={status.color} className={cn(
@@ -66,7 +66,7 @@ export const VacancyDetails = ({ vacancy }: { vacancy: TVacancy }) => {
         <EditButton onClick={showForm} isIconView={true} />
       </h1>
       <CollapsibleSummary
-        title="Саммори по вакансии"
+        title="Vacancy summary"
         summary={summary}
         // defaultOpen={true}
         className=" p-4 mb-6 italic  ring-1 rounded-md "
@@ -80,22 +80,22 @@ export const VacancyDetails = ({ vacancy }: { vacancy: TVacancy }) => {
           '@2xl:w-1/2'
         )}>
           <h2 className="scroll-m-20 text-xl font-semibold text-foreground tracking-tight mb-2">
-            {`от ${formatPrice(salary_from, "ru-Ru", "RUB")} до ${formatPrice(salary_to, 'ru-Ru', 'RUB')}`}
+            {`from ${formatPrice(salary_from, "en-US", "USD")} to ${formatPrice(salary_to, 'en-US', 'USD')}`}
           </h2>
           <p>
-            Локация: {location}
+            Location: {location}
           </p>
           <p>
-            Опыт: {experience ? vacancyExperienceDict[experience] : '-'}
+            Experience: {experience ? vacancyExperienceDict[experience] : '-'}
           </p>
           <p>
-            Формат работы: {work_format ? vacancyWorkFormatDict[work_format] : '-'}
+            Work format: {work_format ? vacancyWorkFormatDict[work_format] : '-'}
           </p>
           <p>
-            Позиция: {position ? vacancyPositionsDict[position] : '-'}
+            Position: {position ? vacancyPositionsDict[position] : '-'}
           </p>
           <p>
-            Занятость: {employment ? vacancyEpmpoymentDict[employment] : '-'}
+            Employment: {employment ? vacancyEpmpoymentDict[employment] : '-'}
           </p>
         </div>
         <CompanyOverview className="@2xl:w-1/2" />
@@ -106,27 +106,25 @@ export const VacancyDetails = ({ vacancy }: { vacancy: TVacancy }) => {
       )}>
         <section>
           <h3 className="text-lg text-foreground font-semibold mb-4">
-            Требования
+            Requirements
           </h3>
-          <TextFormatter text={skills || 'Нет информации'} />
+          <TextFormatter text={skills || 'No info'} />
+          <h3 className="text-lg text-foreground font-semibold mb-4">
+            Responsibilities
+          </h3>
+          <TextFormatter text={responsibilities || 'No info'} />
         </section>
         <section>
           <h3 className="text-lg text-foreground font-semibold mb-4">
-            Обязанности
+            Conditions
           </h3>
-          <TextFormatter text={responsibilities || 'Нет информации'} />
+          <TextFormatter text={conditions || 'No info'} />
         </section>
         <section>
           <h3 className="text-lg text-foreground font-semibold mb-4">
-            Условия
+            Additional
           </h3>
-          <TextFormatter text={conditions || 'Нет информации'} />
-        </section>
-        <section>
-          <h3 className="text-lg text-foreground font-semibold mb-4">
-            Дополнительно
-          </h3>
-          <TextFormatter text={description || 'Нет информации'} />
+          <TextFormatter text={description || 'No info'} />
         </section>
       </div>
 

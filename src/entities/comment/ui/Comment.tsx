@@ -11,7 +11,7 @@ export const Comment = ({
     <>
       <h3 className='font-semibold text-sm'>
         <span className="mr-3">
-          {'Автор'}
+          {'Author'}
         </span>
         <span className="italic text-xs">
           {format(new Date(comment.created_at), 'dd.MM.yyyy')}

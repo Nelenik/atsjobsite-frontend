@@ -23,7 +23,7 @@ import { buildQueryString } from "@/shared/lib/updateQueryString";
  */
 
 export const getPubVacanciesList = async (
-  filters: Record<string, string> = {}
+  filters: Record<string, string> = {},
 ) => {
   try {
     const filterString = buildQueryString(removeEmptyValues(filters));
@@ -37,7 +37,7 @@ export const getPubVacanciesList = async (
         next: {
           revalidate: 30,
         },
-      }
+      },
     );
     return {
       data: response.data,
@@ -48,8 +48,7 @@ export const getPubVacanciesList = async (
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {
-      error.message =
-        "Не удалось загрузить список вакансий. Пожалуйста, попробуйте позже.";
+      error.message = "Failed to load vacancy list. Please try again later.";
     }
     throw error;
   }
@@ -67,19 +66,18 @@ export const getPubVacanciesList = async (
  * @throws Will throw an error if the request fails.
  */
 export const getPubVacancy = async (
-  id: number | string
+  id: number | string,
 ): Promise<TPublicVacancy> => {
   try {
     const response = await apiGet<TApiSuccessResponse<TPublicVacancy>>(
       `/api/v1/vacancy/crawled/${id}`,
-      { withAuth: false }
+      { withAuth: false },
     );
     return response.data;
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {
-      error.message =
-        "Не удалось загрузить вакансию. Пожалуйста, попробуйте позже.";
+      error.message = "Failed to load vacancy. Please try again later.";
     }
     throw error;
   }
@@ -96,14 +94,14 @@ export const getPubVacancy = async (
 export const getPubVacancyPositions = async (): Promise<TVacancyPosition[]> => {
   try {
     const response = await apiGet<TApiListResponse<TVacancyPosition>>(
-      "/api/v1/vacancy/positions/crawled"
+      "/api/v1/vacancy/positions/crawled",
     );
     return response.data || [];
   } catch (error) {
     console.log(error);
     if (error instanceof Error) {
       error.message =
-        "Не удалось загрузить позиции вакансий. Пожалуйста, попробуйте позже.";
+        "Failed to load vacancy positions. Please try again later.";
     }
     throw error;
   }

@@ -37,7 +37,7 @@ export const GoBackLink = ({ className, text }: TProps) => {
         className)}
     >
       <ArrowLeft className="h-[1cap]" />
-      {isPossibleBack ? text : 'На главную'}
+      {isPossibleBack ? text : 'Home'}
     </Button>
   );
 }
