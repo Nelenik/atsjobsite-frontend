@@ -4,7 +4,6 @@ import CaseIcon from '@/assets/icons/case.svg?rc';
 import { formatPrice } from '@/shared/lib/formatters/formatersIntl';
 import { getDaysSinceCreated } from '@/shared/lib/date_time/getDaysSinceCreated';
 import { formatSalaryRange } from '@/shared/lib/formatters/formatSalaryRange';
-import { formatWordEndings } from '@/shared/lib/formatters/formatWordEndings';
 import { useSingleVacancy } from '@/entities/vacancy';
 import { cn } from '@/shared/lib/utils';
 import { StatusBadge } from '@/shared/ui/StatusBadge';

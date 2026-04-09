@@ -37,7 +37,7 @@ export const CandidateCardAbstraction = ({
           </p>
 
           <div className="flex gap-px">
-            {splitRatingToArr(rating * 10).map(
+            {splitRatingToArr(rating / 10).map(
               (star: { id: string; fullness: number }, i) => (
                 <Star
                   className="text-yellow-500"

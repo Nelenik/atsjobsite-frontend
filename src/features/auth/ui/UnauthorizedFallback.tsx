@@ -19,7 +19,7 @@ export const UnauthorizedFallback = () => {
           Please log in to continue using the application.
         </p>
         <p className="text-center mb-8 text-base max-w-[80%]">
-          If you don't have an account, please contact the administrator.
+          If you don&apos;t have an account, please contact the administrator.
         </p>
 
         <SignOutForm

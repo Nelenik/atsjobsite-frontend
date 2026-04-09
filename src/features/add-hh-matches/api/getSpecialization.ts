@@ -8,21 +8,21 @@ import { mapHhRolesToCheckboxItems } from "../lib/utils";
 export const getSpecialization = async () => {
   try {
     const specializationPromise = await fetch(
-      "https://api.hh.ru/professional_roles",
+      "https://api.hh.ru/professional_roles?locale=EN",
       {
         next: {
           revalidate: 3600,
         },
-      }
+      },
     );
     const specialization = await specializationPromise.json();
     const normalizedGroups = mapHhRolesToCheckboxItems(
-      specialization.categories
+      specialization.categories,
     );
     return normalizedGroups;
   } catch (error) {
     console.error(
-      `Fetching <<professional_roles>> from hh.ru api failed: ${error}`
+      `Fetching <<professional_roles>> from hh.ru api failed: ${error}`,
     );
     return [];
   }

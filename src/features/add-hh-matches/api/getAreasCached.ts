@@ -11,7 +11,7 @@ export type Area = {
 
 // Cache the areas data and traverse to create a map for quick lookup
 export const getAreasCached = cache(async (): Promise<Map<string, Area>> => {
-  const res = await fetch("https://api.hh.ru/areas", {
+  const res = await fetch("https://api.hh.ru/areas?locale=EN", {
     // next: {
     //   revalidate: 86400,
     // },

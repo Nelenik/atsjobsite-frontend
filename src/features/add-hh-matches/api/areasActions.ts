@@ -11,7 +11,7 @@ export const getAreas = async (parentId: string | null): Promise<Area[]> => {
       : [];
   } else {
     return Array.from(areasMap.values()).filter(
-      (area) => area.parent_id === null
+      (area) => area.parent_id === null,
     );
   }
 };
@@ -25,14 +25,14 @@ export const getAreasByIdsList = async (ids: string[]): Promise<Area[]> => {
 };
 
 export const searchAreasByName = async (
-  searchText: string
+  searchText: string,
 ): Promise<Area[]> => {
   const areasMap = await getAreasCached();
   try {
     const params = new URLSearchParams({ text: searchText });
     console.log(params.toString());
     const res = await fetch(
-      `https://api.hh.ru/suggests/areas?${params.toString()}`
+      `https://api.hh.ru/suggests/areas?locale=EN&${params.toString()}`,
     );
     if (!res.ok) throw new Error("Failed to fetch areas from hh.ru api");
     const data = await res.json();

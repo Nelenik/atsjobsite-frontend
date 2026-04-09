@@ -16,31 +16,31 @@ import { getSpecialization } from "../api/getSpecialization"
 const initCheckboxes = [
   {
     id: "160",
-    label: "DevOps-инженер",
+    label: "DevOps engineer",
   },
   {
     id: "10",
-    label: "Аналитик",
+    label: "Analyst",
   },
   {
     id: "25",
-    label: "Гейм-дизайнер",
+    label: "Game designer",
   },
   {
     id: "165",
-    label: "Дата-сайентист",
+    label: "Data scientist",
   },
   {
     id: "73",
-    label: "Менеджер продукта",
+    label: "Product manager",
   },
   {
     id: "96",
-    label: "Программист, разработчик",
+    label: "Software developer",
   },
   {
     id: "124",
-    label: "Тестировщик",
+    label: "Tester",
   },
 ]
 /**

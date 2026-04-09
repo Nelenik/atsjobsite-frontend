@@ -8,7 +8,6 @@ import { Card, CardHeader, CardTitle } from "@/shared/ui/shadcn/card";
 import { TVacancyShort } from "@/shared/api/types";
 import { StatusBadge } from "@/shared/ui/StatusBadge";
 import { getDaysSinceCreated } from "@/shared/lib/date_time/getDaysSinceCreated";
-import { formatWordEndings } from "@/shared/lib/formatters/formatWordEndings";
 import { encodeSegment } from "@/shared/lib/encodeSegments";
 
 type TProps = Omit<TVacancyShort, 'status_id' | 'status'>
