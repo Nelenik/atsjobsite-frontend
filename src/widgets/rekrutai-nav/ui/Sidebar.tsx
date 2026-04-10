@@ -1,7 +1,7 @@
 'use client'
 
 import Link from "next/link";
-import LogoImg from '@/assets/logo-short.png';
+import LogoImg from '@/assets/logo.svg';
 import { LogOut, PanelLeftOpen, PanelRightOpen } from 'lucide-react'
 import { createRekrutaiNavConfig } from "@/shared/config/rekrutaiNavConfig";
 import { useParams } from "next/navigation";
@@ -40,7 +40,7 @@ export const Sidebar = ({ className }: ISidebarProps) => {
           <Link
             href={'/'}
             className={cn(
-              "mb-3 self-start inline-block h-[62px]",
+              "mb-3 self-start inline-block h-[62px] w-[62px]",
             )}
           >
             <Image

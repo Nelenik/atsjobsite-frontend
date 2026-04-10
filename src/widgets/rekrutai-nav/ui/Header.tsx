@@ -8,7 +8,7 @@ import { ScrollArea } from '@/shared/ui/shadcn/scroll-area';
 import { UserAvatar } from '@/entities/profile';
 import { Separator } from '@/shared/ui/shadcn/separator';
 import { Logo } from '@/shared/ui/navigation/Logo';
-import LogoImg from '@/assets/logo-short.png';
+import LogoImg from '@/assets/logo.svg';
 import NavPanelBtn from "@/shared/ui/buttons/NavPanelBtn";
 import { PanelLeftOpen, PanelRightOpen } from "lucide-react";
 import { BurgerBase } from "@/shared/ui/navigation/BurgerBase";

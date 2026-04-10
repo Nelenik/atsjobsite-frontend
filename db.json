@@ -255,10 +255,9 @@
       "external_id": "vac-001",
       "matchStatuses": [
         "3",
-        "195",
         "4",
-        "5",
         "6",
+        "5",
         "7"
       ]
     },
@@ -1115,7 +1114,7 @@
       "id": 1,
       "vacancy_id": 1,
       "cv_id": 1,
-      "status_id": 5,
+      "status_id": 4,
       "status_rank": 3,
       "type": "sourcing",
       "point": 92,
@@ -1137,7 +1136,7 @@
       "id": 3,
       "vacancy_id": 1,
       "cv_id": 5,
-      "status_id": 6,
+      "status_id": 5,
       "status_rank": 4,
       "type": "sourcing",
       "point": 38,
@@ -1192,7 +1191,7 @@
       "id": 8,
       "vacancy_id": 1,
       "cv_id": 1,
-      "status_id": 7,
+      "status_id": 4,
       "status_rank": 5,
       "type": "sourcing",
       "point": 91,

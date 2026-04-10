@@ -1,5 +1,3 @@
-import Image from "next/image";
-import logoImg from '@/assets/logo.webp';
 import Link from "next/link";
 import { StartPageButton } from "@/shared/ui/buttons/StartPageButtons";
 import { cn } from "@/shared/lib/utils";
@@ -17,14 +15,14 @@ export default async function RekrutaiHome() {
       <header className="absolute top-0 left-0 w-full">
         <div className="max-w-[1200px] px-6 mx-auto flex items-center justify-between py-3 sm:py-6 gap-12">
 
-          <Image
+          {/* <Image
             src={logoImg}
             alt="RekrutAi logo"
-            className="w-40"
-          />
+            className="w-20"
+          /> */}
           {
             isAuthorized
-            && <div className="flex gap-6 items-center">
+            && <div className="flex ml-auto gap-6 items-center">
               <StartPageButton asChild>
                 <Link href={'/dashboard'} >
                   Dashboard

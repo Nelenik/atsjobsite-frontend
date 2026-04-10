@@ -16,7 +16,7 @@ export function GET(req: NextRequest) {
   }
   return ok({
     id: user.id,
-    name: user.username,
+    name: user.name,
     email: user.email,
   });
 }

@@ -11,8 +11,8 @@ const features = [
 export const Features = () => {
   return (
     <div className="w-[min(100%,_500px)]">
-      <h3 className="text-2xl lg:text-4xl font-semibold leading-relaxed mb-16">
-        REKRUTAI — your AI hiring assistant
+      <h3 className="text-2xl lg:text-4xl font-semibold leading-relaxed mb-16 text-balance">
+        Hire faster with an AI-powered hiring assistant
       </h3>
       <ul className=" self-start list-inside ml-2 space-y-4">
         {features.map((feature, index) => (

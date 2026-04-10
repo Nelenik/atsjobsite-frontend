@@ -7,7 +7,7 @@ import { NavList } from "@/shared/ui/navigation/NavList";
 import { Logo } from "@/shared/ui/navigation/Logo";
 import { RekruCTA } from "@/shared/ui/buttons/RekruCTA";
 
-import LogoImg from '@/assets/rekru-logo.webp';
+import LogoImg from '@/assets/logo.svg';
 import profileSampleImg from '@/assets/profile-sample.png'
 import { useMemo } from "react";
 import { createJobsitePublicNavConfig } from "@/shared/config/jobsiteNavConfig";
@@ -56,14 +56,14 @@ export const Header = ({
         {/* Logo */}
         {/* Logo is always shown */}
         <Logo
-          width={352}
+          width={123}
           height={123}
           alt="Rekru.ru - jobsite logo"
           href="/"
           image={LogoImg}
           className={cn(
-            'shrink-0 w-[160px] h-[56px]',
-            'md:w-[182px] md:h-[64px]'
+            'shrink-0 w-[56px] h-[56px]',
+            'md:w-[64px] md:h-[64px]'
           )}
         />
 
