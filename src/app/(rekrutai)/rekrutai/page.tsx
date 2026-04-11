@@ -6,6 +6,7 @@ import { SignOutForm } from "@/features/auth";
 import { getSession } from "@/features/auth";
 import { Greeting } from "@/pages-layer/start-page/ui/Greeting";
 
+export const dynamic = "force-dynamic";
 
 
 export default async function RekrutaiHome() {
