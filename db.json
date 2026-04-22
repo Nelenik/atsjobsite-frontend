@@ -3,9 +3,9 @@
     {
       "id": "dev-user-id",
       "username": "dev",
-      "email": "dev@ats.ru",
+      "email": "guest@ats.ru",
       "password": "dev",
-      "name": "Developer",
+      "name": "Guest",
       "profile_image": ""
     },
     {

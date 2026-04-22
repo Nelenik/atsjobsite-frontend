@@ -5,6 +5,7 @@ import { AuthTabs, Features } from "@/pages-layer/start-page";
 import { SignOutForm } from "@/features/auth";
 import { getSession } from "@/features/auth";
 import { Greeting } from "@/pages-layer/start-page/ui/Greeting";
+import { Alert } from "@/pages-layer/start-page/ui/Allert";
 
 export const dynamic = "force-dynamic";
 
@@ -16,11 +17,6 @@ export default async function RekrutaiHome() {
       <header className="absolute top-0 left-0 w-full">
         <div className="max-w-[1200px] px-6 mx-auto flex items-center justify-between py-3 sm:py-6 gap-12">
 
-          {/* <Image
-            src={logoImg}
-            alt="RekrutAi logo"
-            className="w-20"
-          /> */}
           {
             isAuthorized
             && <div className="flex ml-auto gap-6 items-center">
@@ -54,7 +50,7 @@ export default async function RekrutaiHome() {
               <Greeting
                 userName={user?.name || ''} />
 
-              : <AuthTabs />}
+              : <><Alert /><AuthTabs /></>}
 
           </div>
         </div>

@@ -27,7 +27,7 @@ const setCookie = async (token: string) => {
 
 export const signin = async (
   redirectTo: string | null,
-  _: TMutationState,
+  _: TMutationState | null,
   body: FormData,
 ) => {
   const response = await apiMutate<TAuthData>("/api/v1/auth/sign-in", {
@@ -39,6 +39,7 @@ export const signin = async (
     const { payload } = response;
     const token = payload?.token;
     if (token) {
+      console.log("Setting cookie with token:", token);
       await setCookie(token);
       return redirect(redirectTo ?? "/dashboard");
     }
